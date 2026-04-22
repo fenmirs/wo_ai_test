@@ -70,7 +70,10 @@
 }
 
 .api-method {
-  font-size: 11px;
+  text-align: center;
+  width: 34px;
+  display: inline-block;
+  font-size: 10px;
   font-weight: 700;
   padding: 2px 6px;
   background: rgba(255, 255, 255, 0.1);
@@ -80,7 +83,7 @@
 
 .api-name {
   flex: 1;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   color: var(--text-secondary);
   overflow: hidden;
