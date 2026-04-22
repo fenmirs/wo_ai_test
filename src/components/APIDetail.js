@@ -27,6 +27,11 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     assertions: [{ expression: '', enabled: true }]
   });
 
+  const [urlSegments, setUrlSegments] = useState([{ type: 'text', value: '' }]);
+  const [activeSegmentIdx, setActiveSegmentIdx] = useState(null);
+  const [editingSegmentIdx, setEditingSegmentIdx] = useState(null);
+  const [editingValue, setEditingValue] = useState('');
+
   const apiHistory = history.filter(h => h.apiName === formData.name);
 
   useEffect(() => {
@@ -46,6 +51,56 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     updateResolvedPath();
   }, [formData.api_path, profile]);
 
+  useEffect(() => {
+    const path = urlSegments.map(seg => 
+      seg.type === 'variable' ? `{${seg.value}}` : seg.value
+    ).join('');
+    setFormData(prev => ({ ...prev, api_path: path }));
+  }, [urlSegments]);
+
+  const generateResolvedPath = () => {
+    if (!profile) return '';
+    let fullUrl = '';
+    
+    const path = urlSegments.map(seg => {
+      if (seg.type === 'variable') {
+        return profile[seg.value] || `{${seg.value}}`;
+      }
+      return seg.value;
+    }).join('');
+    
+    if (path.startsWith('http://') || path.startsWith('https://')) {
+      fullUrl = path;
+    } else if (path) {
+      fullUrl = 'http://' + path;
+    }
+    
+    return fullUrl;
+  };
+
+  const parseApiPathToSegments = (apiPath) => {
+    if (!apiPath) return [{ type: 'text', value: '' }];
+    
+    const regex = /\{([^}]+)\}/g;
+    const segments = [];
+    let lastIndex = 0;
+    let match;
+    
+    while ((match = regex.exec(apiPath)) !== null) {
+      if (match.index > lastIndex) {
+        segments.push({ type: 'text', value: apiPath.slice(lastIndex, match.index) });
+      }
+      segments.push({ type: 'variable', value: match[1] });
+      lastIndex = regex.lastIndex;
+    }
+    
+    if (lastIndex < apiPath.length) {
+      segments.push({ type: 'text', value: apiPath.slice(lastIndex) });
+    }
+    
+    return segments.length > 0 ? segments : [{ type: 'text', value: '' }];
+  };
+
   const initializeFromApi = (apiData) => {
     const defaultHeader = {};
     if (!apiData.header?.['Content-Type']) {
@@ -57,6 +112,9 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       return assertStr.split(/[;\n]/).map(a => a.trim()).filter(a => a)
         .map(a => ({ expression: a, enabled: true }));
     };
+
+    const apiPath = apiData.api_path || '';
+    const isFullUrl = apiPath.startsWith('http://') || apiPath.startsWith('https://');
     
     setFormData({
       name: apiData.name || '',
@@ -69,6 +127,12 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       chain: apiData.chain || [],
       assertions: parseAssertions(apiData.successAssert)
     });
+
+    if (isFullUrl) {
+      setUrlSegments([{ type: 'text', value: apiPath }]);
+    } else {
+      setUrlSegments(parseApiPathToSegments(apiPath));
+    }
   };
 
   const restoreFromHistory = (historyEntry) => {
@@ -97,6 +161,14 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       chain: cfg.chain || [],
       assertions: parseAssertions(cfg.successAssert)
     });
+
+    const apiPath = cfg.api_path || '';
+    const isFullUrl = apiPath.startsWith('http://') || apiPath.startsWith('https://');
+    if (isFullUrl) {
+      setUrlSegments([{ type: 'text', value: apiPath }]);
+    } else {
+      setUrlSegments(parseApiPathToSegments(apiPath));
+    }
   };
 
   const parseToArray = (data) => {
@@ -482,16 +554,110 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
             {methods.map(m => <option key={m} value={m}>{m}</option>)}
           </select>
         </div>
-        <input
-          type="text"
-          className="url-input"
-          value={formData.api_path}
-          onChange={(e) => setFormData({ ...formData, api_path: e.target.value })}
-          placeholder="API 路径，如 {domain}{api-prj}/path"
-        />
-        <button className="btn-copy" onClick={() => navigator.clipboard.writeText(resolvedPath)} title="复制URL">
+        
+        <div className="url-builder">
+          <div className="url-segments">
+            {/* 所有片段统一样式 */}
+            {urlSegments.map((seg, idx) => (
+              <div 
+                key={idx} 
+                className={`url-segment ${idx === 0 ? 'first' : ''} ${activeSegmentIdx === idx ? 'active' : ''}`}
+              >
+                {editingSegmentIdx === idx ? (
+                  <input
+                    type="text"
+                    className="segment-edit-input"
+                    value={editingValue}
+                    onChange={(e) => setEditingValue(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        const newSegments = [...urlSegments];
+                        newSegments[idx] = { ...seg, value: editingValue, type: 'text' };
+                        setUrlSegments(newSegments);
+                        setEditingSegmentIdx(null);
+                      } else if (e.key === 'Escape') {
+                        setEditingSegmentIdx(null);
+                      }
+                    }}
+                    onBlur={() => {
+                      const newSegments = [...urlSegments];
+                      newSegments[idx] = { ...seg, value: editingValue, type: 'text' };
+                      setUrlSegments(newSegments);
+                      setEditingSegmentIdx(null);
+                    }}
+                    autoFocus
+                  />
+                ) : (
+                  <div 
+                    className="segment-content"
+                    onClick={() => setActiveSegmentIdx(idx)}
+                  >
+                    <span className="segment-text">
+                      {seg.value || (idx === 0 ? '输入或选择' : '输入路径')}
+                    </span>
+                  </div>
+                )}
+                {urlSegments.length > 1 && activeSegmentIdx === idx && (
+                  <button 
+                    className="segment-delete"
+                    onClick={() => setUrlSegments(urlSegments.filter((_, i) => i !== idx))}
+                  >
+                    <X size={10} />
+                  </button>
+                )}
+                {/* 变量下拉面板 */}
+                {activeSegmentIdx === idx && editingSegmentIdx !== idx && (
+                  <div className="segment-var-dropdown">
+                    <div 
+                      className="segment-var-option input-option"
+                      onClick={() => {
+                        setEditingSegmentIdx(idx);
+                        setEditingValue(seg.value);
+                      }}
+                    >
+                      输入内容...
+                    </div>
+                    {profile && Object.keys(profile)
+                      .filter(k => k !== 'name' && k !== 'activate')
+                      .filter(k => idx === 0 || k !== 'domain')
+                      .map(k => (
+                        <div 
+                          key={k} 
+                          className="segment-var-option"
+                          onClick={() => {
+                            const newSegments = [...urlSegments];
+                            newSegments[idx] = { type: 'variable', value: k };
+                            setUrlSegments(newSegments);
+                            setActiveSegmentIdx(null);
+                          }}
+                        >
+                          {k}
+                        </div>
+                      ))}
+                  </div>
+                )}
+              </div>
+            ))}
+            
+            {/* 添加片段按钮 */}
+            <button 
+              className="segment-add-btn"
+              onClick={() => setUrlSegments([...urlSegments, { type: 'text', value: '' }])}
+              title="添加片段"
+            >
+              <Plus size={12} />
+            </button>
+          </div>
+        </div>
+        
+        <button className="btn-copy" onClick={() => navigator.clipboard.writeText(generateResolvedPath())} title="复制URL">
           <Copy size={14} />
         </button>
+      </div>
+      
+      <div className="url-preview">
+        <span className="preview-label">完整路径:</span>
+        <code className="preview-path">{generateResolvedPath()}</code>
       </div>
 
       <div className="chain-section">
