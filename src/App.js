@@ -524,9 +524,18 @@ function App() {
                     selectedAPI={selectedAPI}
                     onSelect={handleAPISelect}
                     onAdd={() => {
+                      const apis = projectData?.apis || [];
+                      let baseName = '未命名的API';
+                      let newName = baseName;
+                      let counter = 1;
+                      while (apis.some(api => api.name === newName)) {
+                        newName = `${baseName} ${counter}`;
+                        counter++;
+                      }
+                      const currentGroup = selectedAPI?.group || '默认';
                       const newApi = {
-                        name: '',
-                        group: '默认',
+                        name: newName,
+                        group: currentGroup,
                         api_path: '',
                         method: 'GET',
                         header: {},
@@ -535,6 +544,7 @@ function App() {
                         chain: [],
                         successAssert: ''
                       };
+                      projectManager.addAPI(newApi);
                       setEditingAPI(newApi);
                       setIsAddingAPI(true);
                       setSelectedAPI(newApi);

@@ -113,13 +113,13 @@ function APIMain({ apis, groupsData, selectedAPI, onSelect, onAdd, onEdit, onDel
                 {onAdd && (
                   <div className="dropdown-item" onClick={() => { onAdd(); setShowAddMenu(false); }}>
                     <Plus size={14} />
-                    <span>新增 API</span>
+                    <span>API</span>
                   </div>
                 )}
                 {onAddGroup && (
                   <div className="dropdown-item" onClick={() => { onAddGroup(); setShowAddMenu(false); }}>
                     <FolderPlus size={14} />
-                    <span>新增分组</span>
+                    <span>分组</span>
                   </div>
                 )}
               </div>
