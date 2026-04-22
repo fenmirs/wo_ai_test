@@ -1,0 +1,51 @@
+{
+  "profile": [
+    {
+      "activate": true,
+      "name": "dev",
+      "domain": "192.168.17.128",
+      "lcgl-prj": ":25708/lcgl-prj",
+      "api-prj": ":25710/api-prj"
+    },
+    {
+      "activate": false,
+      "name": "pre",
+      "domain": "10.17.2.1",
+      "lcgl-prj": ":23110/lcgl-prj",
+      "api-prj": ":24110/api-prj"
+    }
+  ],
+  "apis": [
+    {
+      "chain": [],
+      "name": "获取token",
+      "api_path": "{domain}{api-prj}/openapi/security/token",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": {
+        "appId": "NC6bNAttXRh4",
+        "appSecret": "67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS"
+      },
+      "successAssert": "$.code == 200"
+    },
+    {
+      "chain": [
+        "获取token"
+      ],
+      "name": "接收NC订单(XML)格式",
+      "api_path": "{domain}{api-prj}/openapi/order/nc/receive",
+      "method": "POST",
+      "header": {
+        "Content-Type": "text/xml",
+        "appId": "{{ref:获取token.data.obj.appId}}",
+        "token": "{{ref:获取token.data.obj.token}}"
+      },
+      "param": {},
+      "body": "{{readFile:NC2Lims.xml}}",
+      "successAssert": "$.success == true"
+    }
+  ]
+}

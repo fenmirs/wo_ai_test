@@ -1,0 +1,247 @@
+{
+  "last_update": "2026-03-17 10:32:39",
+  "last_project": "晨光新工厂",
+  "last_profile": "dev",
+  "execution_history": [
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "接收NC订单(XML)格式",
+      "time": "2026-03-17 10:32:39",
+      "elapsed_time": "0.25s",
+      "success": false
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "获取token",
+      "time": "2026-03-17 10:32:39",
+      "elapsed_time": "0.27s",
+      "success": true
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "接收NC订单(XML)格式",
+      "time": "2026-03-17 10:21:04",
+      "elapsed_time": "0.08s",
+      "success": false
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "获取token",
+      "time": "2026-03-17 10:21:04",
+      "elapsed_time": "0.34s",
+      "success": true
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "接收NC订单(XML)格式",
+      "time": "2026-03-17 10:19:11",
+      "elapsed_time": "0.16s",
+      "success": false
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "获取token",
+      "time": "2026-03-17 10:19:11",
+      "elapsed_time": "0.30s",
+      "success": true
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "获取token",
+      "time": "2026-03-17 10:18:44",
+      "elapsed_time": "0.00s",
+      "success": false
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "接收NC订单(XML)格式",
+      "time": "2026-03-17 10:16:33",
+      "elapsed_time": "0.16s",
+      "success": false
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "获取token",
+      "time": "2026-03-17 10:16:33",
+      "elapsed_time": "0.27s",
+      "success": true
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "接收NC订单(XML)格式",
+      "time": "2026-03-17 10:13:53",
+      "elapsed_time": "0.16s",
+      "success": false
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "获取token",
+      "time": "2026-03-17 10:13:53",
+      "elapsed_time": "0.32s",
+      "success": true
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "接收NC订单(XML)格式",
+      "time": "2026-03-17 10:05:54",
+      "elapsed_time": "0.42s",
+      "success": false
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "获取token",
+      "time": "2026-03-17 10:05:53",
+      "elapsed_time": "0.29s",
+      "success": true
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "接收NC订单(XML)格式",
+      "time": "2026-03-17 09:46:10",
+      "elapsed_time": "0.05s",
+      "success": false
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "获取token",
+      "time": "2026-03-17 09:46:10",
+      "elapsed_time": "0.30s",
+      "success": true
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "接收NC订单(XML)格式",
+      "time": "2026-03-17 09:40:51",
+      "elapsed_time": "0.04s",
+      "success": false
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "获取token",
+      "time": "2026-03-17 09:40:51",
+      "elapsed_time": "0.26s",
+      "success": true
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "接收NC订单(XML)格式",
+      "time": "2026-03-17 09:38:15",
+      "elapsed_time": "0.04s",
+      "success": false
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "获取token",
+      "time": "2026-03-17 09:38:15",
+      "elapsed_time": "0.32s",
+      "success": true
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "接收NC订单(XML)格式",
+      "time": "2026-03-17 09:32:11",
+      "elapsed_time": "0.09s",
+      "success": false
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "获取token",
+      "time": "2026-03-17 09:32:11",
+      "elapsed_time": "0.53s",
+      "success": true
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "接收NC订单(XML)格式",
+      "time": "2026-03-17 08:40:24",
+      "elapsed_time": "0.05s",
+      "success": false
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "获取token",
+      "time": "2026-03-17 08:40:24",
+      "elapsed_time": "0.31s",
+      "success": true
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "获取token",
+      "time": "2026-03-17 08:36:36",
+      "elapsed_time": "0.01s",
+      "success": true
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "接收NC订单(XML)格式",
+      "time": "2026-03-17 08:36:27",
+      "elapsed_time": "0.03s",
+      "success": false
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "获取token",
+      "time": "2026-03-17 08:36:27",
+      "elapsed_time": "0.03s",
+      "success": true
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "接收NC订单(XML)格式",
+      "time": "2026-03-17 08:35:34",
+      "elapsed_time": "0.04s",
+      "success": false
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "获取token",
+      "time": "2026-03-17 08:35:34",
+      "elapsed_time": "0.02s",
+      "success": true
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "接收NC订单(XML)格式",
+      "time": "2026-03-17 08:35:18",
+      "elapsed_time": "0.02s",
+      "success": false
+    },
+    {
+      "project": "晨光新工厂",
+      "profile": "dev",
+      "api": "获取token",
+      "time": "2026-03-17 08:35:18",
+      "elapsed_time": "0.03s",
+      "success": true
+    }
+  ]
+}
