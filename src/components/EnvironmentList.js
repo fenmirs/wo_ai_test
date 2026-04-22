@@ -23,6 +23,7 @@ function EnvironmentList({ profiles, onBack }) {
       domain: ''
     };
     projectManager.addProfile(newProfile);
+    setLocalProfiles([...localProfiles, newProfile]);
   };
 
   const handleDelete = (profile) => {
@@ -36,13 +37,19 @@ function EnvironmentList({ profiles, onBack }) {
 
   const confirmDelete = () => {
     projectManager.deleteProfile(deleteTarget.name);
+    setLocalProfiles(localProfiles.filter(p => p.name !== deleteTarget.name));
     setShowDeleteConfirm(false);
     setDeleteTarget(null);
   };
 
   const handleSetDefault = (profile) => {
-    localProfiles.forEach(p => {
-      projectManager.updateProfile(p.name, { activate: p.name === profile.name });
+    const updatedProfiles = localProfiles.map(p => ({
+      ...p,
+      activate: p.name === profile.name
+    }));
+    setLocalProfiles(updatedProfiles);
+    updatedProfiles.forEach(p => {
+      projectManager.updateProfile(p.name, { activate: p.activate });
     });
   };
 
@@ -53,7 +60,6 @@ function EnvironmentList({ profiles, onBack }) {
       
       // 如果修改的是环境名称，需要特殊处理
       if (field === 'name' && value !== profile.name) {
-        // 检查名称是否已存在
         const exists = localProfiles.find(p => p.name === value);
         if (exists) {
           alert('环境名称已存在');
@@ -63,6 +69,9 @@ function EnvironmentList({ profiles, onBack }) {
       } else {
         projectManager.updateProfile(profile.name, updates);
       }
+      setLocalProfiles(localProfiles.map(p => 
+        p.name === profile.name ? { ...p, ...updates } : p
+      ));
     }
   };
 

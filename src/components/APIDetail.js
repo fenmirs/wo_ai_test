@@ -366,7 +366,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                     </td>
                   )}
                   <td>
-                    {showFileSelect && (item.type === 'file' || isReadonly) ? (
+                    {item.type === 'file' || (showFileSelect && isReadonly) ? (
                       <div className="file-input">
                         <span className="file-name">{item.default || '选择文件...'}</span>
                         {!isReadonly && (
@@ -385,6 +385,36 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                           </>
                         )}
                       </div>
+                    ) : item.type === 'boolean' ? (
+                      <select 
+                        value={item.default === true || item.default === 'true' ? 'true' : (item.default === false || item.default === 'false' ? 'false' : '')}
+                        onChange={(e) => {
+                          if (isReadonly) return;
+                          const newItems = [...items];
+                          newItems[index] = { ...item, default: e.target.value === 'true' };
+                          setItems(newItems);
+                        }}
+                        disabled={isReadonly}
+                        className={isReadonly ? 'readonly' : ''}
+                      >
+                        <option value="">选择</option>
+                        <option value="true">true</option>
+                        <option value="false">false</option>
+                      </select>
+                    ) : item.type === 'number' ? (
+                      <input 
+                        type="number" 
+                        value={item.default ?? ''}
+                        onChange={(e) => {
+                          if (isReadonly) return;
+                          const newItems = [...items];
+                          newItems[index] = { ...item, default: e.target.value === '' ? '' : Number(e.target.value) };
+                          setItems(newItems);
+                        }}
+                        placeholder="数字" 
+                        readOnly={isReadonly} 
+                        className={isReadonly ? 'readonly' : ''} 
+                      />
                     ) : (
                       <input type="text" value={item.default || ''}
                         onChange={(e) => {
@@ -444,7 +474,11 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
       <div className="url-bar">
         <div className="method-select">
-          <select value={formData.method} onChange={(e) => setFormData({ ...formData, method: e.target.value })}>
+          <select 
+            value={formData.method} 
+            onChange={(e) => setFormData({ ...formData, method: e.target.value })}
+            style={{ backgroundColor: getMethodColor(formData.method) }}
+          >
             {methods.map(m => <option key={m} value={m}>{m}</option>)}
           </select>
         </div>
