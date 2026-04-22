@@ -134,6 +134,11 @@
   background: var(--bg-hover);
 }
 
+.group-header.active {
+  background: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+}
+
 .group-header .icon-btn {
   opacity: 0;
   transition: opacity 0.2s;
@@ -229,7 +234,7 @@
 }
 
 .api-name {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   color: var(--text-secondary);
   overflow: hidden;

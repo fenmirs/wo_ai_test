@@ -21,6 +21,7 @@ function App() {
   const [saveMessage, setSaveMessage] = useState('');
   const [currentProfile, setCurrentProfile] = useState(null);
   const [selectedAPI, setSelectedAPI] = useState(null);
+  const [activeGroup, setActiveGroup] = useState('默认');
   const [showHistory, setShowHistory] = useState(false);
   const [executionHistory, setExecutionHistory] = useState([]);
   const [restoringHistoryEntry, setRestoringHistoryEntry] = useState(null);
@@ -230,10 +231,26 @@ function App() {
   // 选择 API
   const handleAPISelect = (api) => {
     setSelectedAPI(api);
+    setActiveGroup(api.group || '默认');
     setEditingAPI(null);
     setIsAddingAPI(false);
     setRestoringHistoryEntry(null);
     setViewMode('api_detail');
+  };
+
+  // 选择分组
+  const handleGroupSelect = (groupName) => {
+    setActiveGroup(groupName);
+    const apisInGroup = projectData.apis?.filter(api => api.group === groupName) || [];
+    if (apisInGroup.length > 0) {
+      if (!selectedAPI || selectedAPI.group !== groupName) {
+        setSelectedAPI(apisInGroup[0]);
+        setViewMode('api_detail');
+      }
+    } else {
+      setSelectedAPI(null);
+      setViewMode('api');
+    }
   };
 
   // 从历史记录恢复请求
@@ -522,7 +539,9 @@ function App() {
                     apis={projectData?.apis || []}
                     groupsData={projectData?.groups || []}
                     selectedAPI={selectedAPI}
+                    activeGroup={activeGroup}
                     onSelect={handleAPISelect}
+                    onGroupSelect={handleGroupSelect}
                     onAdd={() => {
                       const apis = projectData?.apis || [];
                       let baseName = '未命名的API';
@@ -532,10 +551,9 @@ function App() {
                         newName = `${baseName} ${counter}`;
                         counter++;
                       }
-                      const currentGroup = selectedAPI?.group || '默认';
                       const newApi = {
                         name: newName,
-                        group: currentGroup,
+                        group: activeGroup || '默认',
                         api_path: '',
                         method: 'GET',
                         header: {},
@@ -593,16 +611,25 @@ function App() {
                       setViewMode('api_detail');
                     }}
                     onDelete={(api) => {
-                      const confirmed = window.confirm(`确定要删除 API "${api.name}" 吗？`);
-                      if (confirmed) {
-                        projectManager.deleteAPI(api.name);
-                        if (selectedAPI?.name === api.name) {
-                          setSelectedAPI(null);
-                          setEditingAPI(null);
-                          setIsAddingAPI(false);
-                          setViewMode('api');
+                      setConfirmDialogConfig({
+                        title: '删除 API',
+                        message: `确定要删除 API "${api.name}" 吗？`,
+                        options: [],
+                        onConfirm: () => {
+                          projectManager.deleteAPI(api.name);
+                          if (selectedAPI?.name === api.name) {
+                            setSelectedAPI(null);
+                            setEditingAPI(null);
+                            setIsAddingAPI(false);
+                            setViewMode('api');
+                          }
+                          setShowConfirmDialog(false);
+                        },
+                        onCancel: () => {
+                          setShowConfirmDialog(false);
                         }
-                      }
+                      });
+                      setShowConfirmDialog(true);
                     }}
                   />
                 </div>
@@ -652,11 +679,13 @@ function App() {
                         添加环境
                       </button>
                     </>
+                  ) : selectedAPI ? (
+                    <></>
                   ) : (
                     <>
                       <Plus size={48} className="empty-icon" />
-                      <h2>选择 API</h2>
-                      <p>从左侧选择 API 开始</p>
+                      <h2>当前分组还没有 API</h2>
+                      <p>点击左上角 + 按钮新增 API</p>
                     </>
                   )}
                 </div>

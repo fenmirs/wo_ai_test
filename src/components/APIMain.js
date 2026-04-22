@@ -2,11 +2,12 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Search, Folder, FolderOpen, Plus, Trash2, Edit2, FolderPlus } from 'lucide-react';
 import './APIMain.css';
 
-function APIMain({ apis, groupsData, selectedAPI, onSelect, onAdd, onEdit, onDelete, onAddGroup, onDeleteGroup }) {
+function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, onEdit, onDelete, onAddGroup, onDeleteGroup, onGroupSelect }) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [expandedGroups, setExpandedGroups] = useState(new Set(['默认']));
   const [showAddMenu, setShowAddMenu] = useState(false);
   const addMenuRef = useRef(null);
+
+  const currentActiveGroup = activeGroup || '默认';
 
   // 点击外部关闭菜单
   useEffect(() => {
@@ -49,15 +50,9 @@ function APIMain({ apis, groupsData, selectedAPI, onSelect, onAdd, onEdit, onDel
 
   // 切换分组展开/折叠
   const toggleGroup = (groupName) => {
-    setExpandedGroups(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(groupName)) {
-        newSet.delete(groupName);
-      } else {
-        newSet.add(groupName);
-      }
-      return newSet;
-    });
+    if (onGroupSelect) {
+      onGroupSelect(groupName);
+    }
   };
 
   // 搜索过滤
@@ -138,10 +133,10 @@ function APIMain({ apis, groupsData, selectedAPI, onSelect, onAdd, onEdit, onDel
             <div key={groupName} className="api-group">
               {/* 分组标题 */}
               <div 
-                className="group-header"
+                className={`group-header ${currentActiveGroup === groupName ? 'active' : ''}`}
                 onClick={() => toggleGroup(groupName)}
               >
-                {expandedGroups.has(groupName) ? (
+                {currentActiveGroup === groupName ? (
                   <FolderOpen size={16} className="group-icon" />
                 ) : (
                   <Folder size={16} className="group-icon" />
@@ -163,7 +158,7 @@ function APIMain({ apis, groupsData, selectedAPI, onSelect, onAdd, onEdit, onDel
               </div>
 
               {/* API 列表 */}
-              {expandedGroups.has(groupName) && (
+              {currentActiveGroup === groupName && (
                 <div className="group-content">
                   {filteredAPIs.map(api => (
                     <div 
