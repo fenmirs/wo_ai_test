@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Plus, Trash2, AlertTriangle, Check, Globe, Variable, Edit2 } from 'lucide-react';
+import { X, Plus, Trash2, AlertTriangle, Check, Globe, Variable } from 'lucide-react';
 import { projectManager } from '../utils/ProjectManager';
 import './EnvVarManager.css';
 
@@ -46,23 +46,13 @@ function EnvVarManager({ onBack }) {
     return profile ? (profile[varName] || '') : '';
   };
 
-  const getDomain = (profileName) => {
-    const profile = profiles.find(p => p.name === profileName);
-    return profile ? profile.domain : '';
-  };
-
-  const isDefault = (profileName) => {
-    const profile = profiles.find(p => p.name === profileName);
-    return profile ? profile.activate : false;
-  };
-
   const handleCellClick = (type, varName, profileName) => {
     if (type === 'value') {
       const value = getValue(varName, profileName);
       setEditingCell({ type, varName, profileName });
       setEditValue(value);
     } else if (type === 'domain') {
-      const value = getDomain(profileName);
+      const value = profiles.find(p => p.name === profileName)?.domain || '';
       setEditingCell({ type, varName: profileName, profileName });
       setEditValue(value);
     }
@@ -278,76 +268,109 @@ function EnvVarManager({ onBack }) {
           </div>
         )}
 
-        <div className="evm-table-wrapper">
-          <table className="evm-table">
-            <thead>
-              <tr>
-                <th className="corner-cell">
-                  <Variable size={14} />
-                  <span>变量 / 环境</span>
-                </th>
-                {profiles.map(p => (
-                  <th key={p.name} className="env-header">
-                    <div className="env-header-content">
-                      {editingEnvName === p.name ? (
-                        <input
-                          type="text"
-                          className="env-name-input"
-                          value={editEnvNameValue}
-                          onChange={(e) => setEditEnvNameValue(e.target.value)}
-                          onBlur={handleEnvNameBlur}
-                          onKeyDown={handleEnvNameKeyDown}
-                          autoFocus
-                        />
-                      ) : (
-                        <span 
-                          className="env-name-text"
-                          onDoubleClick={() => handleEnvNameDblClick(p.name)}
-                          title="双击编辑"
-                        >
-                          {p.name}
-                        </span>
-                      )}
-                      {p.activate && <span className="default-tag">默认</span>}
-                    </div>
-                    <div className="env-actions">
-                      {!p.activate && (
-                        <button 
-                          className="action-btn" 
-                          onClick={() => handleSetDefault(p.name)}
-                          title="设为默认"
-                        >
-                          <Check size={12} />
-                        </button>
-                      )}
-                      <button 
-                        className="action-btn danger" 
-                        onClick={() => handleDeleteEnv(p.name)}
-                        title="删除环境"
-                      >
-                        <Trash2 size={12} />
-                      </button>
-                    </div>
-                  </th>
-                ))}
-                {profiles.length === 0 && (
-                  <th className="empty-header">暂无环境</th>
-                )}
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="domain-row">
-                <td className="var-name-cell">
-                  <Globe size={14} />
-                  <span>域名</span>
-                </td>
-                {profiles.map(p => (
-                  <td 
-                    key={p.name} 
-                    className="domain-cell"
-                    onDoubleClick={() => handleCellClick('domain', null, p.name)}
+        <div className="evm-grid" style={{ '--env-count': profiles.length }}>
+          <div className="grid-header" style={{ '--env-count': profiles.length }}>
+            <div className="grid-corner">
+              <Variable size={14} />
+              <span>变量 / 环境</span>
+            </div>
+            {profiles.map(p => (
+              <div key={p.name} className="grid-header-cell">
+                <div className="env-name-wrapper">
+                  {editingEnvName === p.name ? (
+                    <input
+                      type="text"
+                      className="env-name-input"
+                      value={editEnvNameValue}
+                      onChange={(e) => setEditEnvNameValue(e.target.value)}
+                      onBlur={handleEnvNameBlur}
+                      onKeyDown={handleEnvNameKeyDown}
+                      autoFocus
+                    />
+                  ) : (
+                    <span 
+                      className="env-name-text"
+                      onDoubleClick={() => handleEnvNameDblClick(p.name)}
+                    >
+                      {p.name}
+                    </span>
+                  )}
+                  {p.activate && <span className="default-tag">默认</span>}
+                </div>
+                <div className="env-actions">
+                  {!p.activate && (
+                    <button 
+                      className="action-btn" 
+                      onClick={() => handleSetDefault(p.name)}
+                      title="设为默认"
+                    >
+                      <Check size={12} />
+                    </button>
+                  )}
+                  <button 
+                    className="action-btn danger" 
+                    onClick={() => handleDeleteEnv(p.name)}
+                    title="删除环境"
                   >
-                    {editingCell?.type === 'domain' && editingCell?.profileName === p.name ? (
+                    <Trash2 size={12} />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="grid-body" style={{ '--env-count': profiles.length }}>
+            <div className="grid-row domain-row">
+              <div className="grid-cell var-name-cell">
+                <Globe size={14} />
+                <span>域名</span>
+              </div>
+              {profiles.map(p => (
+                <div 
+                  key={p.name} 
+                  className="grid-cell domain-cell"
+                  onDoubleClick={() => handleCellClick('domain', null, p.name)}
+                >
+                  {editingCell?.type === 'domain' && editingCell?.profileName === p.name ? (
+                    <input
+                      type="text"
+                      className="cell-input"
+                      value={editValue}
+                      onChange={(e) => setEditValue(e.target.value)}
+                      onBlur={handleCellBlur}
+                      onKeyDown={handleCellKeyDown}
+                      autoFocus
+                    />
+                  ) : (
+                    <span className="cell-text">
+                      {p.domain || <span className="empty">未设置</span>}
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {variables.map(varName => (
+              <div key={varName} className="grid-row">
+                <div className="grid-cell var-name-cell">
+                  <code>{`{${varName}}`}</code>
+                  <button 
+                    className="delete-var-btn" 
+                    onClick={() => handleDeleteVar(varName)}
+                    title="删除变量"
+                  >
+                    <Trash2 size={12} />
+                  </button>
+                </div>
+                {profiles.map(p => (
+                  <div 
+                    key={p.name} 
+                    className="grid-cell value-cell"
+                    onDoubleClick={() => handleCellClick('value', varName, p.name)}
+                  >
+                    {editingCell?.type === 'value' && 
+                     editingCell?.varName === varName && 
+                     editingCell?.profileName === p.name ? (
                       <input
                         type="text"
                         className="cell-input"
@@ -359,66 +382,22 @@ function EnvVarManager({ onBack }) {
                       />
                     ) : (
                       <span className="cell-text">
-                        {p.domain || <span className="empty">未设置</span>}
+                        {getValue(varName, p.name) || <span className="empty">-</span>}
                       </span>
                     )}
-                  </td>
+                  </div>
                 ))}
-                {profiles.length === 0 && (
-                  <td className="empty-cell"></td>
-                )}
-              </tr>
-              {variables.map(varName => (
-                <tr key={varName}>
-                  <td className="var-name-cell">
-                    <code>{`{${varName}}`}</code>
-                    <button 
-                      className="delete-var-btn" 
-                      onClick={() => handleDeleteVar(varName)}
-                      title="删除变量"
-                    >
-                      <Trash2 size={12} />
-                    </button>
-                  </td>
-                  {profiles.map(p => (
-                    <td 
-                      key={p.name} 
-                      className="value-cell"
-                      onDoubleClick={() => handleCellClick('value', varName, p.name)}
-                    >
-                      {editingCell?.type === 'value' && 
-                       editingCell?.varName === varName && 
-                       editingCell?.profileName === p.name ? (
-                        <input
-                          type="text"
-                          className="cell-input"
-                          value={editValue}
-                          onChange={(e) => setEditValue(e.target.value)}
-                          onBlur={handleCellBlur}
-                          onKeyDown={handleCellKeyDown}
-                          autoFocus
-                        />
-                      ) : (
-                        <span className="cell-text">
-                          {getValue(varName, p.name) || <span className="empty">-</span>}
-                        </span>
-                      )}
-                    </td>
-                  ))}
-                  {profiles.length === 0 && (
-                    <td className="empty-cell"></td>
-                  )}
-                </tr>
-              ))}
-              {variables.length === 0 && profiles.length > 0 && (
-                <tr>
-                  <td className="empty-row" colSpan={profiles.length + 1}>
-                    暂无变量，点击"新增变量"添加
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+              </div>
+            ))}
+
+            {variables.length === 0 && profiles.length > 0 && (
+              <div className="grid-row empty-row">
+                <div className="grid-cell" style={{ gridColumn: `span ${profiles.length + 1}` }}>
+                  暂无变量，点击"新增变量"添加
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="evm-tip">
