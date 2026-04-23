@@ -1,37 +1,114 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Variable, Plus, Trash2, X, AlertTriangle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Variable, Plus, Trash2, X, AlertTriangle, Edit2 } from 'lucide-react';
 import { projectManager } from '../utils/ProjectManager';
 import './VariableList.css';
 
 function VariableList({ profiles, onBack }) {
+  const [variables, setVariables] = useState([]);
+  const [editingCell, setEditingCell] = useState(null);
+  const [editValue, setEditValue] = useState('');
   const [isAdding, setIsAdding] = useState(false);
   const [newVarName, setNewVarName] = useState('');
-  const [newVarValue, setNewVarValue] = useState('');
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState(null);
 
-  // 获取所有环境共有的变量名
-  const getAllVariableNames = () => {
-    if (!profiles || profiles.length === 0) return [];
-    const variables = new Set();
-    Object.keys(profiles[0]).forEach(key => {
-      if (!['name', 'activate', 'domain'].includes(key)) {
-        variables.add(key);
-      }
+  useEffect(() => {
+    loadVariables();
+  }, [profiles]);
+
+  const loadVariables = () => {
+    if (!profiles || profiles.length === 0) {
+      setVariables([]);
+      return;
+    }
+    
+    const varNames = new Set();
+    profiles.forEach(p => {
+      Object.keys(p).forEach(key => {
+        if (!['name', 'activate', 'domain'].includes(key)) {
+          varNames.add(key);
+        }
+      });
     });
-    return Array.from(variables);
+    
+    setVariables(Array.from(varNames).sort());
   };
 
-  // 获取变量在所有环境中的值
-  const getVariableValues = (varName) => {
-    const values = {};
-    profiles?.forEach(profile => {
-      values[profile.name] = profile[varName] || '';
-    });
-    return values;
+  const getVariableValue = (varName, profileName) => {
+    const profile = profiles?.find(p => p.name === profileName);
+    return profile ? (profile[varName] || '') : '';
   };
 
-  // 获取使用该变量的 API
+  const handleCellClick = (varName, profileName) => {
+    const value = getVariableValue(varName, profileName);
+    setEditingCell({ varName, profileName });
+    setEditValue(value);
+  };
+
+  const handleCellBlur = () => {
+    if (!editingCell) return;
+    
+    const { varName, profileName } = editingCell;
+    const profile = profiles.find(p => p.name === profileName);
+    if (profile) {
+      projectManager.updateProfile(profileName, { [varName]: editValue });
+    }
+    
+    setEditingCell(null);
+    setEditValue('');
+  };
+
+  const handleCellKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleCellBlur();
+    } else if (e.key === 'Escape') {
+      setEditingCell(null);
+      setEditValue('');
+    }
+  };
+
+  const handleAddVariable = () => {
+    if (!newVarName.trim()) {
+      alert('请输入变量名称');
+      return;
+    }
+    
+    const exists = variables.includes(newVarName.trim());
+    if (exists) {
+      alert(`变量 "${newVarName}" 已存在`);
+      return;
+    }
+    
+    profiles.forEach(profile => {
+      projectManager.updateProfile(profile.name, { [newVarName.trim()]: '' });
+    });
+    
+    setNewVarName('');
+    setIsAdding(false);
+    loadVariables();
+  };
+
+  const handleDeleteVariable = (varName) => {
+    const usages = getAPIUsages(varName);
+    setDeleteTarget({ name: varName, usages });
+    setShowDeleteConfirm(true);
+  };
+
+  const confirmDelete = () => {
+    if (!deleteTarget) return;
+    
+    const varName = deleteTarget.name;
+    profiles.forEach(profile => {
+      const newData = { ...profile };
+      delete newData[varName];
+      projectManager.updateProfile(profile.name, newData);
+    });
+    
+    setShowDeleteConfirm(false);
+    setDeleteTarget(null);
+    loadVariables();
+  };
+
   const getAPIUsages = (varName) => {
     const apis = projectManager.getData()?.apis || [];
     const usages = new Set();
@@ -59,48 +136,6 @@ function VariableList({ profiles, onBack }) {
     return Array.from(usages);
   };
 
-  // 新增变量
-  const handleAdd = () => {
-    if (!newVarName.trim()) {
-      alert('请输入变量名称');
-      return;
-    }
-
-    profiles.forEach(profile => {
-      projectManager.updateProfile(profile.name, {
-        [newVarName.trim()]: newVarValue
-      });
-    });
-
-    setNewVarName('');
-    setNewVarValue('');
-    setIsAdding(false);
-  };
-
-  // 更新单个环境的变量值
-  const handleValueChange = (profileName, varName, newValue) => {
-    projectManager.updateProfile(profileName, {
-      [varName]: newValue
-    });
-  };
-
-  // 删除变量
-  const handleDelete = (varName) => {
-    const usages = getAPIUsages(varName);
-    setDeleteTarget({ name: varName, usages });
-    setShowDeleteConfirm(true);
-  };
-
-  const confirmDelete = () => {
-    profiles.forEach(profile => {
-      const newData = { ...profile };
-      delete newData[deleteTarget.name];
-      projectManager.updateProfile(profile.name, newData);
-    });
-    setShowDeleteConfirm(false);
-    setDeleteTarget(null);
-  };
-
   return (
     <div className="variable-list">
       <div className="list-header">
@@ -117,14 +152,15 @@ function VariableList({ profiles, onBack }) {
 
       <div className="list-content">
         <div className="list-header-row">
-          <h3>变量列表（所有环境共用）</h3>
-          <button className="add-btn" onClick={() => setIsAdding(true)}>
-            <Plus size={16} />
-            新增变量
-          </button>
+          <h3>变量表格（行: 变量名, 列: 环境）</h3>
+          {!isAdding && (
+            <button className="add-btn" onClick={() => setIsAdding(true)}>
+              <Plus size={16} />
+              新增变量
+            </button>
+          )}
         </div>
 
-        {/* 新增变量表单 */}
         {isAdding && (
           <div className="add-variable-form">
             <div className="form-row">
@@ -135,34 +171,26 @@ function VariableList({ profiles, onBack }) {
                   value={newVarName}
                   onChange={(e) => setNewVarName(e.target.value)}
                   placeholder="如：api-prj"
-                />
-              </div>
-              <div className="form-group flex-1">
-                <label>默认值 *</label>
-                <input
-                  type="text"
-                  value={newVarValue}
-                  onChange={(e) => setNewVarValue(e.target.value)}
-                  placeholder="应用到所有环境"
+                  autoFocus
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') handleAddVariable();
+                    if (e.key === 'Escape') { setIsAdding(false); setNewVarName(''); }
+                  }}
                 />
               </div>
             </div>
             <div className="form-actions">
-              <button className="btn-secondary" onClick={() => {
-                setIsAdding(false);
-                setNewVarName('');
-                setNewVarValue('');
-              }}>
+              <button className="btn-secondary" onClick={() => { setIsAdding(false); setNewVarName(''); }}>
                 取消
               </button>
-              <button className="btn-primary" onClick={handleAdd}>
+              <button className="btn-primary" onClick={handleAddVariable}>
                 确认添加
               </button>
             </div>
           </div>
         )}
 
-        {getAllVariableNames().length === 0 && !isAdding ? (
+        {variables.length === 0 && !isAdding ? (
           <div className="empty-state">
             <Variable size={48} />
             <p>暂无变量</p>
@@ -172,40 +200,72 @@ function VariableList({ profiles, onBack }) {
             </button>
           </div>
         ) : (
-          <div className="variable-items">
-            {getAllVariableNames().map(varName => (
-              <div key={varName} className="variable-item">
-                <div className="variable-header">
-                  <span className="variable-name">{varName}</span>
-                  <button
-                    className="icon-button small danger"
-                    onClick={() => handleDelete(varName)}
-                    title="删除变量"
-                  >
-                    <Trash2 size={14} />
-                  </button>
-                </div>
-                <div className="variable-values">
+          <div className="variable-table-container">
+            <table className="variable-table">
+              <thead>
+                <tr>
+                  <th className="var-name-header">变量名</th>
                   {profiles?.map(profile => (
-                    <div key={profile.name} className="value-row">
-                      <span className="env-name">{profile.name}:</span>
-                      <input
-                        type="text"
-                        className="env-value-input"
-                        value={profile[varName] || ''}
-                        onChange={(e) => handleValueChange(profile.name, varName, e.target.value)}
-                        placeholder="输入值"
-                      />
-                    </div>
+                    <th key={profile.name} className="env-header">
+                      <div className="env-header-content">
+                        <span className="env-name">{profile.name}</span>
+                        {profile.activate && <span className="default-tag">默认</span>}
+                      </div>
+                    </th>
                   ))}
-                </div>
-              </div>
-            ))}
+                  <th className="action-header">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                {variables.map(varName => (
+                  <tr key={varName}>
+                    <td className="var-name-cell">
+                      <code>{`{${varName}}`}</code>
+                    </td>
+                    {profiles?.map(profile => (
+                      <td 
+                        key={profile.name} 
+                        className="value-cell"
+                        onClick={() => handleCellClick(varName, profile.name)}
+                      >
+                        {editingCell?.varName === varName && editingCell?.profileName === profile.name ? (
+                          <input
+                            type="text"
+                            className="cell-input"
+                            value={editValue}
+                            onChange={(e) => setEditValue(e.target.value)}
+                            onBlur={handleCellBlur}
+                            onKeyDown={handleCellKeyDown}
+                            autoFocus
+                          />
+                        ) : (
+                          <span className="cell-value">
+                            {getVariableValue(varName, profile.name) || <span className="empty-placeholder">-</span>}
+                          </span>
+                        )}
+                      </td>
+                    ))}
+                    <td className="action-cell">
+                      <button
+                        className="icon-button small danger"
+                        onClick={() => handleDeleteVariable(varName)}
+                        title="删除变量"
+                      >
+                        <Trash2 size={14} />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
+        
+        <div className="table-tip">
+          <p>💡 点击单元格可直接编辑变量值</p>
+        </div>
       </div>
 
-      {/* 删除确认 */}
       {showDeleteConfirm && (
         <div className="modal-overlay">
           <div className="modal">
@@ -215,6 +275,7 @@ function VariableList({ profiles, onBack }) {
             </div>
             <div className="modal-body">
               <p>确定要删除变量 "{deleteTarget?.name}" 吗？</p>
+              <p className="warning-text">该变量在所有环境中的值都将被删除！</p>
               {deleteTarget?.usages?.length > 0 && (
                 <>
                   <p className="warning-text">该变量正在被以下 API 使用：</p>
@@ -225,7 +286,6 @@ function VariableList({ profiles, onBack }) {
                   </ul>
                 </>
               )}
-              <p className="warning-text">此操作不可撤销</p>
             </div>
             <div className="modal-footer">
               <button className="btn-secondary" onClick={() => setShowDeleteConfirm(false)}>

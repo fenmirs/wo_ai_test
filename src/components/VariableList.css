@@ -102,19 +102,6 @@
   background: var(--accent-hover);
 }
 
-/* 编辑表单 */
-.edit-form {
-  max-width: 600px;
-}
-
-.edit-form h3 {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  margin: 0 0 20px 0;
-}
-
-/* 新增变量表单 */
 .add-variable-form {
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
@@ -213,7 +200,6 @@
   background: #dc2626;
 }
 
-/* 空状态 */
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -233,92 +219,138 @@
   margin-bottom: 16px;
 }
 
-/* 变量列表 */
-.variable-items {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.variable-item {
-  background: var(--bg-secondary);
+.variable-table-container {
+  overflow-x: auto;
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  overflow: hidden;
 }
 
-.variable-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.variable-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.variable-table th,
+.variable-table td {
   padding: 12px 16px;
-  background: var(--bg-primary);
+  text-align: left;
   border-bottom: 1px solid var(--border-color);
 }
 
-.variable-name {
-  font-size: 14px;
+.variable-table th {
+  background: var(--bg-secondary);
   font-weight: 600;
   color: var(--text-secondary);
-  font-family: 'Courier New', monospace;
+  white-space: nowrap;
 }
 
-.variable-actions {
-  display: flex;
-  gap: 4px;
-  opacity: 0;
-  transition: opacity 0.2s;
+.var-name-header {
+  min-width: 120px;
+  background: var(--bg-tertiary) !important;
 }
 
-.variable-item:hover .variable-actions {
-  opacity: 1;
+.env-header {
+  min-width: 150px;
 }
 
-.variable-values {
-  padding: 12px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.value-row {
+.env-header-content {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
-  padding: 8px 0;
 }
 
-.env-name {
+.env-header .env-name {
+  font-weight: 600;
+}
+
+.default-tag {
+  font-size: 10px;
+  padding: 2px 6px;
+  background: var(--accent-primary);
+  color: #ffffff;
+  border-radius: 4px;
   font-weight: 500;
-  color: var(--text-tertiary);
-  min-width: 80px;
-  flex-shrink: 0;
 }
 
-.env-value-input {
-  flex: 1;
-  padding: 8px 12px;
-  background: var(--bg-primary);
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
+.action-header {
+  width: 60px;
+  text-align: center !important;
+  background: var(--bg-tertiary) !important;
+}
+
+.variable-table tbody tr:hover {
+  background: var(--bg-hover);
+}
+
+.variable-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.var-name-cell {
+  font-family: 'Courier New', monospace;
+  color: var(--accent-primary);
+  font-weight: 500;
+  background: var(--bg-tertiary) !important;
+}
+
+.var-name-cell code {
+  background: transparent;
+  color: inherit;
+  font-size: 13px;
+}
+
+.value-cell {
+  cursor: pointer;
+  min-width: 150px;
+  max-width: 300px;
+}
+
+.value-cell:hover {
+  background: var(--bg-secondary) !important;
+}
+
+.cell-value {
+  display: block;
+  word-break: break-all;
   color: var(--text-secondary);
+}
+
+.empty-placeholder {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.cell-input {
+  width: 100%;
+  padding: 6px 10px;
+  background: var(--bg-primary);
+  border: 2px solid var(--accent-primary);
+  border-radius: 4px;
+  color: var(--text-primary);
   font-size: 13px;
   font-family: 'Courier New', monospace;
   outline: none;
-  transition: all 0.2s;
-  word-break: break-all;
 }
 
-.env-value-input:focus {
-  border-color: var(--accent-primary);
+.action-cell {
+  text-align: center !important;
+  width: 60px;
 }
 
-.env-value-input:hover {
-  border-color: var(--accent-primary);
+.table-tip {
+  margin-top: 16px;
+  padding: 12px;
+  background: var(--bg-secondary);
+  border-radius: 6px;
 }
 
-/* Modal */
+.table-tip p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;

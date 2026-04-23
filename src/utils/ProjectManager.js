@@ -168,6 +168,21 @@ class ProjectManager {
     }
   }
 
+  removeProfileField(profileName, fieldName) {
+    if (!this.projectData) return;
+    
+    const index = this.projectData.profile.findIndex(p => p.name === profileName);
+    if (index !== -1) {
+      delete this.projectData.profile[index][fieldName];
+      this.markDirty();
+    }
+  }
+  resetProfile(newProfile) {
+    if (!this.projectData) return;
+    this.projectData.profile = newProfile;
+    this.markDirty();
+  }
+
   /**
    * 添加环境配置
    */

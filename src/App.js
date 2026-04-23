@@ -5,6 +5,7 @@ import APIDetail from './components/APIDetail';
 import BottomBar from './components/BottomBar';
 import EnvironmentList from './components/EnvironmentList';
 import VariableList from './components/VariableList';
+import EnvVarManager from './components/EnvVarManager';
 import ExecutionHistory from './components/ExecutionHistory';
 import EmptyState from './components/EmptyState';
 import InputDialog from './components/InputDialog';
@@ -637,14 +638,16 @@ function App() {
 
               {/* 右侧面板 */}
               <div className="right-panel">
-                {viewMode === 'environment_list' ? (
-                  /* 环境列表视图 */
+                {viewMode === 'env_var_manager' ? (
+                  <EnvVarManager 
+                    onBack={() => setViewMode('api')}
+                  />
+                ) : viewMode === 'environment_list' ? (
                   <EnvironmentList 
                     profiles={projectData?.profile || []}
                     onBack={() => setViewMode('api')}
                   />
                 ) : viewMode === 'variable_list' ? (
-                  /* 变量列表视图 */
                   <VariableList 
                     profiles={projectData?.profile || []}
                     onBack={() => setViewMode('api')}
@@ -674,7 +677,7 @@ function App() {
                       <p>请先添加环境配置才能开始测试</p>
                       <button 
                         className="btn-primary"
-                        onClick={() => setViewMode('environment_list')}
+                        onClick={() => setViewMode('env_var_manager')}
                       >
                         添加环境
                       </button>
@@ -698,13 +701,9 @@ function App() {
               currentProfile={currentProfile}
               allProfiles={projectData?.profile || []}
               onProfileSelect={handleProfileSelect}
-              onEditEnvironments={() => {
-                setSelectedAPI(null);
-                setViewMode('environment_list');
-              }}
               onEditVariables={() => {
                 setSelectedAPI(null);
-                setViewMode('variable_list');
+                setViewMode('env_var_manager');
               }}
             />
           </>

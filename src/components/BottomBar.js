@@ -1,12 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Globe, Variable, Edit2, ChevronUp, Settings } from 'lucide-react';
+import { Globe, Variable, ChevronUp, Settings } from 'lucide-react';
 import './BottomBar.css';
 
 function BottomBar({ 
   currentProfile, 
   allProfiles, 
   onProfileSelect, 
-  onEditEnvironments,
   onEditVariables 
 }) {
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
@@ -14,7 +13,6 @@ function BottomBar({
   const profileDropdownRef = useRef(null);
   const variableDropdownRef = useRef(null);
 
-  // 获取当前环境的变量
   const getCurrentVariables = () => {
     if (!currentProfile) return {};
     const variables = {};
@@ -26,7 +24,6 @@ function BottomBar({
     return variables;
   };
 
-  // 点击外部关闭下拉框
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (profileDropdownRef.current && !profileDropdownRef.current.contains(event.target)) {
@@ -45,7 +42,6 @@ function BottomBar({
 
   return (
     <div className="bottom-bar">
-      {/* 环境区域 */}
       <div className="bar-section" ref={profileDropdownRef}>
         <div 
           className="bar-item"
@@ -55,31 +51,13 @@ function BottomBar({
           <span className="bar-label">{currentProfile?.name || '未选择环境'}</span>
           <ChevronUp size={14} className={`chevron ${showProfileDropdown ? 'up' : ''}`} />
         </div>
-        <button 
-          className="icon-btn"
-          onClick={onEditEnvironments}
-          title="编辑环境"
-        >
-          <Edit2 size={14} />
-        </button>
 
-        {/* 环境下拉框 */}
         {showProfileDropdown && (
           <div className="dropdown-menu">
             <div className="dropdown-header">选择环境</div>
             {!allProfiles || allProfiles.length === 0 ? (
               <div className="dropdown-empty">
                 <p>暂无环境配置</p>
-                <button 
-                  className="add-env-btn"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShowProfileDropdown(false);
-                    onEditEnvironments();
-                  }}
-                >
-                  新增环境
-                </button>
               </div>
             ) : (
               allProfiles.map(profile => (
@@ -103,7 +81,6 @@ function BottomBar({
         )}
       </div>
 
-      {/* 变量区域 */}
       <div className="bar-section" ref={variableDropdownRef}>
         <div 
           className="bar-item"
@@ -116,12 +93,11 @@ function BottomBar({
         <button 
           className="icon-btn"
           onClick={onEditVariables}
-          title="编辑变量"
+          title="管理环境和变量"
         >
-          <Edit2 size={14} />
+          <Settings size={14} />
         </button>
 
-        {/* 变量下拉框 */}
         {showVariableDropdown && (
           <div className="dropdown-menu variable-menu">
             <div className="dropdown-header">当前环境变量</div>
@@ -139,7 +115,6 @@ function BottomBar({
         )}
       </div>
 
-      {/* 开发模式提示 */}
       {!window.electron && (
         <div className="proxy-status">
           <span className="proxy-indicator" title="开发模式下使用代理服务器转发请求"></span>
