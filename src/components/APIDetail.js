@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, ChevronRight, ChevronDown, Trash2, Plus, Upload, X, AlertCircle, FileText } from 'lucide-react';
+import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, ChevronRight, ChevronDown, Trash2, Plus, Upload, X, AlertCircle, FileText, Save } from 'lucide-react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import axios from 'axios';
@@ -8,7 +8,7 @@ import APIExecutor from '../utils/APIExecutor';
 import { projectManager } from '../utils/ProjectManager';
 import CodeEditor from './CodeEditor';
 
-function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, groups = [], isAdding = false, onViewDetail }) {
+function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, groups = [], isAdding = false, onViewDetail, theme = 'dark' }) {
   const [resolvedPath, setResolvedPath] = useState('');
   const [executionResult, setExecutionResult] = useState(null);
   const [isExecuting, setIsExecuting] = useState(false);
@@ -280,6 +280,23 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     } finally {
       setIsExecuting(false);
       executorRef.current = null;
+    }
+  };
+
+  const handleSave = async () => {
+    if (!formData.name) {
+      alert('请输入 API 名称');
+      return;
+    }
+    if (!formData.api_path) {
+      alert('请输入 API 路径');
+      return;
+    }
+    
+    const execAPI = prepareForExecute();
+    if (onSaveAPI) {
+      await onSaveAPI(execAPI, isAdding);
+      alert('保存成功');
     }
   };
 
@@ -568,9 +585,6 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     <div className="api-detail">
       <div className="api-detail-header">
         <div className="api-title">
-          {/* <span className="api-method-badge" style={{ backgroundColor: getMethodColor(formData.method) }}>
-            {formData.method}
-          </span> */}
           <input
             type="text"
             className="api-name-input"
@@ -580,6 +594,10 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
           />
         </div>
         <div className="header-actions">
+          <button className="btn-save" onClick={handleSave} title="保存 API">
+            <Save size={16} />
+            保存
+          </button>
           <button className="btn-send" onClick={handleSend}>
             {isExecuting ? <X size={16} /> : <Play size={16} />}
             {isExecuting ? '发送中' : '发送'}
@@ -812,6 +830,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                   onChange={(content) => updateFormBody({ content })}
                   contentType={formData.body.contentType || 'text'}
                   onTypeChange={(contentType) => updateFormBody({ contentType })}
+                  theme={theme}
                 />
               </div>
             )}

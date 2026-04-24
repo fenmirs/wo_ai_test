@@ -659,6 +659,7 @@ function App() {
                   groups={projectManager.getGroups()}
                   isAdding={isAddingAPI}
                   onViewDetail={(entry) => setViewingHistoryEntry(entry)}
+                  theme={theme}
                 />
               ) : (
                 /* 默认空状态 */
