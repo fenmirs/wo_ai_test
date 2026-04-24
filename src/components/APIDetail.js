@@ -15,6 +15,8 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const [activeTab, setActiveTab] = useState('params');
   const [responseTab, setResponseTab] = useState('request');
   const [showHistoryPanel, setShowHistoryPanel] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveError, setSaveError] = useState(null);
   const fileInputRef = useRef(null);
   const executorRef = useRef(null);
   
@@ -285,18 +287,26 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
   const handleSave = async () => {
     if (!formData.name) {
-      alert('请输入 API 名称');
+      setSaveError('请输入 API 名称');
       return;
     }
     if (!formData.api_path) {
-      alert('请输入 API 路径');
+      setSaveError('请输入 API 路径');
       return;
     }
     
-    const execAPI = prepareForExecute();
-    if (onSaveAPI) {
-      await onSaveAPI(execAPI, isAdding);
-      alert('保存成功');
+    setIsSaving(true);
+    setSaveError(null);
+    
+    try {
+      const execAPI = prepareForExecute();
+      if (onSaveAPI) {
+        await onSaveAPI(execAPI, isAdding);
+      }
+    } catch (error) {
+      setSaveError(error.message || '保存失败');
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -594,9 +604,19 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
           />
         </div>
         <div className="header-actions">
-          <button className="btn-save" onClick={handleSave} title="保存 API">
-            <Save size={16} />
-            保存
+          <button 
+            className={`btn-save ${saveError ? 'error' : ''}`} 
+            onClick={handleSave}
+            title={saveError || '保存 API'}
+          >
+            {isSaving ? (
+              <RefreshCw size={16} className="spin" />
+            ) : saveError ? (
+              <AlertCircle size={16} />
+            ) : (
+              <Save size={16} />
+            )}
+            {isSaving ? '保存中' : '保存'}
           </button>
           <button className="btn-send" onClick={handleSend}>
             {isExecuting ? <X size={16} /> : <Play size={16} />}

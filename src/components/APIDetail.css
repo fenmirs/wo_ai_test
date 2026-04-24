@@ -472,6 +472,18 @@
   background: #4b5563;
 }
 
+.btn-save.error {
+  background: #ef4444;
+}
+
+.btn-save.error:hover {
+  background: #dc2626;
+}
+
+.btn-save .spin {
+  animation: spin 1s linear infinite;
+}
+
 .btn-send:hover:not(:disabled) {
   background: var(--accent-hover);
 }
