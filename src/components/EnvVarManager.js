@@ -202,7 +202,7 @@ function EnvVarManager({ onBack }) {
 
   return (
     <div className="env-var-manager">
-      <div className="evm-header">
+      {/* <div className="evm-header">
         <div className="evm-title">
           <Globe size={20} />
           <h1>环境与变量管理</h1>
@@ -210,7 +210,7 @@ function EnvVarManager({ onBack }) {
         <button className="close-btn" onClick={onBack}>
           <X size={20} />
         </button>
-      </div>
+      </div> */}
 
       <div className="evm-content">
         <div className="evm-toolbar">

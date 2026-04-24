@@ -1,12 +1,22 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Globe, Variable, ChevronUp, Settings } from 'lucide-react';
+import { Globe, Variable, ChevronUp, Settings, FileText, Save, XCircle, Sun, Moon, History } from 'lucide-react';
 import './BottomBar.css';
 
 function BottomBar({ 
   currentProfile, 
   allProfiles, 
   onProfileSelect, 
-  onEditVariables 
+  onEditVariables,
+  projectName,
+  isDirty,
+  showHistory,
+  onToggleHistory,
+  onSave,
+  onCloseProject,
+  toggleTheme,
+  theme,
+  isSaving,
+  onBackToApi
 }) {
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const [showVariableDropdown, setShowVariableDropdown] = useState(false);
@@ -113,6 +123,48 @@ function BottomBar({
             )}
           </div>
         )}
+      </div>
+
+      <div className="bar-section">
+        <div className="bar-item project-name">
+          <FileText size={16} />
+          <span className="bar-label">{projectName || '未加载项目'}</span>
+          {isDirty && <span className="dirty-dot" title="未保存" />}
+        </div>
+        
+        <button 
+          className={`bar-button ${showHistory ? 'active' : ''}`}
+          onClick={() => onToggleHistory && onToggleHistory(!showHistory)}
+          title="历史"
+        >
+          <History size={14} />
+          <span>历史</span>
+        </button>
+      </div>
+
+      <div className="bar-section" style={{ marginLeft: 'auto' }}>
+        <button 
+          className="icon-btn"
+          onClick={onSave}
+          disabled={!isDirty || isSaving}
+          title="保存配置"
+        >
+          <Save size={14} />
+        </button>
+        <button 
+          className="icon-btn"
+          onClick={onCloseProject}
+          title="关闭项目"
+        >
+          <XCircle size={14} />
+        </button>
+        <button 
+          className="icon-btn"
+          onClick={toggleTheme}
+          title={theme === 'dark' ? '切换到白昼模式' : '切换到暗黑模式'}
+        >
+          {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
+        </button>
       </div>
 
       {!window.electron && (

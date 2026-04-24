@@ -1,7 +1,7 @@
 .bottom-bar {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
   padding: 4px 8px;
   background: var(--bg-secondary);
   border-top: 1px solid var(--border-color);
@@ -16,6 +16,10 @@
   padding: 4px;
   border-radius: 8px;
   border: 1px solid var(--border-color);
+}
+
+.bar-section + .bar-section {
+  margin-left: 4px;
 }
 
 .bar-item {
@@ -238,4 +242,56 @@
   50% {
     opacity: 0.5;
   }
+}
+
+.project-name {
+  max-width: 150px;
+}
+
+.project-name .bar-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dirty-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f59e0b;
+  margin-left: 4px;
+}
+
+.bar-button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.bar-button:hover {
+  background: var(--bg-hover);
+  border-color: var(--accent-primary);
+}
+
+.bar-button.active {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: #ffffff;
+}
+
+.bar-button svg {
+  color: inherit;
+}
+
+.icon-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

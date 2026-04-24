@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { FileText, Play, History, Save, Edit, X, Plus, FolderPlus, ArrowLeft, Sun, Moon, XCircle, Globe } from 'lucide-react';
+import { FileText, History, Save, Edit, X, Plus, FolderPlus, ArrowLeft, Sun, Moon, XCircle, Globe } from 'lucide-react';
 import APIMain from './components/APIMain';
 import APIDetail from './components/APIDetail';
 import BottomBar from './components/BottomBar';
@@ -216,11 +216,13 @@ function App() {
       if (!confirmed) return;
     }
     projectManager.clear();
+    setHasProject(false);
     setCurrentProfile(null);
     setSelectedAPI(null);
     setEditingAPI(null);
     setIsAddingAPI(false);
     setViewMode('api');
+    setShowHistory(false);
   }, [isDirty]);
 
   // 选择环境
@@ -236,11 +238,13 @@ function App() {
     setIsAddingAPI(false);
     setRestoringHistoryEntry(null);
     setViewMode('api_detail');
+    setShowHistory(false);
   };
 
   // 选择分组
   const handleGroupSelect = (groupName) => {
     setActiveGroup(groupName);
+    setShowHistory(false);
     const apisInGroup = projectData.apis?.filter(api => api.group === groupName) || [];
     if (apisInGroup.length > 0) {
       if (!selectedAPI || selectedAPI.group !== groupName) {
@@ -404,21 +408,6 @@ function App() {
   if (!hasProject) {
     return (
       <div className="app">
-        <header className="app-header">
-          <div className="header-left">
-            <FileText size={24} className="logo-icon" />
-            <h1>API Test UI</h1>
-          </div>
-          <div className="header-center">
-            <button 
-              className="icon-button"
-              onClick={toggleTheme}
-              title={theme === 'dark' ? '切换到白昼模式' : '切换到暗黑模式'}
-            >
-              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
-          </div>
-        </header>
         <main className="app-main">
           <EmptyState 
             onImportProject={handleImportProject}
@@ -457,251 +446,194 @@ function App() {
 
   return (
     <div className="app">
-      {/* 顶部导航栏 */}
-      <header className="app-header">
-        <div className="header-left">
-          <FileText size={24} className="logo-icon" />
-          <div className="project-info">
-            <h1>{getProjectName()}</h1>
-            {isDirty && <span className="dirty-indicator">未保存</span>}
-          </div>
-        </div>
-        
-        <div className="header-center">
-          <button 
-            className={`nav-button ${!showHistory ? 'active' : ''}`}
-            onClick={() => {
-              setShowHistory(false);
-              setViewMode('api');
-            }}
-          >
-            <Play size={18} />
-            <span>测试</span>
-          </button>
-          <button 
-            className={`nav-button ${showHistory ? 'active' : ''}`}
-            onClick={() => setShowHistory(true)}
-          >
-            <History size={18} />
-            <span>历史</span>
-          </button>
-        </div>
-
-        <div className="header-right">
-          {saveMessage && (
-            <span className={`save-message ${saveMessage.includes('失败') ? 'error' : 'success'}`}>
-              {saveMessage}
-            </span>
-          )}
-          <button 
-            className="icon-button"
-            onClick={handleSaveProject}
-            disabled={!isDirty || isSaving}
-            title="保存配置"
-          >
-            <Save size={20} />
-          </button>
-          <button 
-            className="icon-button"
-            onClick={handleCloseProject}
-            title="关闭项目"
-          >
-            <XCircle size={20} />
-          </button>
-          <button 
-            className="icon-button"
-            onClick={toggleTheme}
-            title={theme === 'dark' ? '切换到白昼模式' : '切换到暗黑模式'}
-          >
-            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
-        </div>
-      </header>
-
       {/* 主内容区 */}
       <main className="app-main">
-        {showHistory ? (
-          /* 历史记录视图 */
-          <ExecutionHistory 
-            history={executionHistory}
-            onSelect={handleRestoreFromHistory}
-            onClear={() => setExecutionHistory([])}
-            onViewDetail={(entry) => setViewingHistoryEntry(entry)}
-          />
-        ) : (
-          /* 测试视图 */
-          <>
-            <div className="content-area">
-              {/* 左侧面板 - API 列表 */}
-              <div className="left-panel">
-                <div className="panel-section flex-1">
-                  {/* <div className="panel-header">
-                    <h3>API 列表</h3>
-                  </div> */}
-                  <APIMain 
-                    apis={projectData?.apis || []}
-                    groupsData={projectData?.groups || []}
-                    selectedAPI={selectedAPI}
-                    activeGroup={activeGroup}
-                    onSelect={handleAPISelect}
-                    onGroupSelect={handleGroupSelect}
-                    onAdd={() => {
-                      const apis = projectData?.apis || [];
-                      let baseName = '未命名的API';
-                      let newName = baseName;
-                      let counter = 1;
-                      while (apis.some(api => api.name === newName)) {
-                        newName = `${baseName} ${counter}`;
-                        counter++;
-                      }
-                      const newApi = {
-                        name: newName,
-                        group: activeGroup || '默认',
-                        api_path: '',
-                        method: 'GET',
-                        header: {},
-                        param: {},
-                        body: {},
-                        chain: [],
-                        successAssert: ''
-                      };
-                      projectManager.addAPI(newApi);
-                      setEditingAPI(newApi);
-                      setIsAddingAPI(true);
-                      setSelectedAPI(newApi);
-                      setViewMode('api_detail');
-                    }}
-                    onAddGroup={handleAddGroup}
-                    onDeleteGroup={(groupName) => {
-                      const apisInGroup = projectData.apis?.filter(api => api.group === groupName) || [];
-                      
-                      if (apisInGroup.length === 0) {
-                        // 没有 API，直接删除分组
-                        projectManager.deleteGroup(groupName);
-                      } else {
-                        // 有 API，显示确认对话框
-                        setConfirmDialogConfig({
-                          title: '删除分组',
-                          message: `确定要删除分组 "${groupName}" 吗？该分组下有 ${apisInGroup.length} 个 API。`,
-                          options: [
-                            { value: 'move', label: '将 API 移至默认分组' },
-                            { value: 'delete', label: '同时删除该分组下的所有 API' }
-                          ],
-                          onConfirm: (option) => {
-                            if (option === 'delete') {
-                              // 删除分组和该分组下的所有 API
-                              apisInGroup.forEach(api => {
-                                projectManager.deleteAPI(api.name);
-                              });
-                              projectManager.deleteGroup(groupName);
-                            } else {
-                              // 只删除分组，API 移至默认分组
-                              projectManager.deleteGroup(groupName);
-                            }
-                            setShowConfirmDialog(false);
-                          },
-                          onCancel: () => {
-                            setShowConfirmDialog(false);
-                          }
-                        });
-                        setShowConfirmDialog(true);
-                      }
-                    }}
-                    onEdit={(api) => {
-                      setEditingAPI({ ...api });
-                      setIsAddingAPI(false);
-                      setSelectedAPI(api);
-                      setViewMode('api_detail');
-                    }}
-                    onDelete={(api) => {
-                      setConfirmDialogConfig({
-                        title: '删除 API',
-                        message: `确定要删除 API "${api.name}" 吗？`,
-                        options: [],
-                        onConfirm: () => {
-                          projectManager.deleteAPI(api.name);
-                          if (selectedAPI?.name === api.name) {
-                            setSelectedAPI(null);
-                            setEditingAPI(null);
-                            setIsAddingAPI(false);
-                            setViewMode('api');
-                          }
-                          setShowConfirmDialog(false);
-                        },
-                        onCancel: () => {
-                          setShowConfirmDialog(false);
+        <div className="content-area">
+          {/* 左侧面板 - API 列表 */}
+          <div className="left-panel">
+            <div className="panel-section flex-1">
+              <APIMain 
+                apis={projectData?.apis || []}
+                groupsData={projectData?.groups || []}
+                selectedAPI={selectedAPI}
+                activeGroup={activeGroup}
+                onSelect={handleAPISelect}
+                onGroupSelect={handleGroupSelect}
+                onAdd={() => {
+                  const apis = projectData?.apis || [];
+                  let baseName = '未命名的API';
+                  let newName = baseName;
+                  let counter = 1;
+                  while (apis.some(api => api.name === newName)) {
+                    newName = `${baseName} ${counter}`;
+                    counter++;
+                  }
+                  const newApi = {
+                    name: newName,
+                    group: activeGroup || '默认',
+                    api_path: '',
+                    method: 'GET',
+                    header: {},
+                    param: {},
+                    body: {},
+                    chain: [],
+                    successAssert: ''
+                  };
+                  projectManager.addAPI(newApi);
+                  setEditingAPI(newApi);
+                  setIsAddingAPI(true);
+                  setSelectedAPI(newApi);
+                  setViewMode('api_detail');
+                  setShowHistory(false);
+                }}
+                onAddGroup={handleAddGroup}
+                onDeleteGroup={(groupName) => {
+                  const apisInGroup = projectData.apis?.filter(api => api.group === groupName) || [];
+                  
+                  if (apisInGroup.length === 0) {
+                    projectManager.deleteGroup(groupName);
+                  } else {
+                    setConfirmDialogConfig({
+                      title: '删除分组',
+                      message: `确定要删除分组 "${groupName}" 吗？该分组下有 ${apisInGroup.length} 个 API。`,
+                      options: [
+                        { value: 'move', label: '将 API 移至默认分组' },
+                        { value: 'delete', label: '同时删除该分组下的所有 API' }
+                      ],
+                      onConfirm: (option) => {
+                        if (option === 'delete') {
+                          apisInGroup.forEach(api => {
+                            projectManager.deleteAPI(api.name);
+                          });
+                          projectManager.deleteGroup(groupName);
+                        } else {
+                          projectManager.deleteGroup(groupName);
                         }
-                      });
-                      setShowConfirmDialog(true);
-                    }}
-                  />
-                </div>
+                        setShowConfirmDialog(false);
+                      },
+                      onCancel: () => {
+                        setShowConfirmDialog(false);
+                      }
+                    });
+                    setShowConfirmDialog(true);
+                  }
+                }}
+                onEdit={(api) => {
+                  setEditingAPI({ ...api });
+                  setIsAddingAPI(false);
+                  setSelectedAPI(api);
+                  setViewMode('api_detail');
+                  setShowHistory(false);
+                }}
+                onDelete={(api) => {
+                  setConfirmDialogConfig({
+                    title: '删除 API',
+                    message: `确定要删除 API "${api.name}" 吗？`,
+                    options: [],
+                    onConfirm: () => {
+                      projectManager.deleteAPI(api.name);
+                      if (selectedAPI?.name === api.name) {
+                        setSelectedAPI(null);
+                        setEditingAPI(null);
+                        setIsAddingAPI(false);
+                        setViewMode('api');
+                      }
+                      setShowConfirmDialog(false);
+                    },
+                    onCancel: () => {
+                      setShowConfirmDialog(false);
+                    }
+                  });
+                  setShowConfirmDialog(true);
+                }}
+              />
+            </div>
+          </div>
+
+          {/* 右侧面板 */}
+          <div className="right-panel">
+            {showHistory ? (
+              <ExecutionHistory 
+                history={executionHistory}
+                onSelect={handleRestoreFromHistory}
+                onClear={() => setExecutionHistory([])}
+                onViewDetail={(entry) => setViewingHistoryEntry(entry)}
+              />
+            ) : viewMode === 'env_var_manager' ? (
+              <EnvVarManager 
+                onBack={() => {
+                  if (selectedAPI) {
+                    setViewMode('api_detail');
+                  } else {
+                    setViewMode('api');
+                  }
+                }}
+              />
+            ) : viewMode === 'api_detail' && selectedAPI ? (
+              <APIDetail 
+                api={selectedAPI}
+                profile={currentProfile}
+                config={projectData}
+                projectPath={projectManager.projectPath}
+                onExecute={handleExecute}
+                history={executionHistory}
+                restoringHistoryEntry={restoringHistoryEntry}
+                onRestored={() => setRestoringHistoryEntry(null)}
+                onSaveAPI={handleSaveAPI}
+                groups={projectManager.getGroups()}
+                isAdding={isAddingAPI}
+                onViewDetail={(entry) => setViewingHistoryEntry(entry)}
+                theme={theme}
+              />
+            ) : (
+              <div className="empty-state">
+                {!projectData?.profile || projectData.profile.length === 0 ? (
+                  <>
+                    <Globe size={48} className="empty-icon" />
+                    <h2>暂无环境配置</h2>
+                    <p>请先添加环境配置才能开始测试</p>
+                    <button 
+                      className="btn-primary"
+                      onClick={() => setViewMode('env_var_manager')}
+                    >
+                      添加环境
+                    </button>
+                  </>
+                ) : selectedAPI ? (
+                  <></>
+                ) : (
+                  <>
+                    <Plus size={48} className="empty-icon" />
+                    <h2>当前分组还没有 API</h2>
+                    <p>点击左上角 + 按钮新增 API</p>
+                  </>
+                )}
               </div>
-
-              {/* 右侧面板 */}
-              <div className="right-panel">
-                {viewMode === 'env_var_manager' ? (
-                  <EnvVarManager 
-                    onBack={() => setViewMode('api')}
-                  />
-                ): viewMode === 'api_detail' && selectedAPI ? (
-                /* API 详情/编辑/测试 */
-                <APIDetail 
-                  api={selectedAPI}
-                  profile={currentProfile}
-                  config={projectData}
-                  projectPath={projectManager.projectPath}
-                  onExecute={handleExecute}
-                  history={executionHistory}
-                  restoringHistoryEntry={restoringHistoryEntry}
-                  onRestored={() => setRestoringHistoryEntry(null)}
-                  onSaveAPI={handleSaveAPI}
-                  groups={projectManager.getGroups()}
-                  isAdding={isAddingAPI}
-                  onViewDetail={(entry) => setViewingHistoryEntry(entry)}
-                  theme={theme}
-                />
-              ) : (
-                /* 默认空状态 */
-                <div className="empty-state">
-                  {!projectData?.profile || projectData.profile.length === 0 ? (
-                    <>
-                      <Globe size={48} className="empty-icon" />
-                      <h2>暂无环境配置</h2>
-                      <p>请先添加环境配置才能开始测试</p>
-                      <button 
-                        className="btn-primary"
-                        onClick={() => setViewMode('env_var_manager')}
-                      >
-                        添加环境
-                      </button>
-                    </>
-                  ) : selectedAPI ? (
-                    <></>
-                  ) : (
-                    <>
-                      <Plus size={48} className="empty-icon" />
-                      <h2>当前分组还没有 API</h2>
-                      <p>点击左上角 + 按钮新增 API</p>
-                    </>
-                  )}
-                </div>
-              )}
+)}
             </div>
-            </div>
+        </div>
 
-            {/* 底部栏 */}
-            <BottomBar 
-              currentProfile={currentProfile}
-              allProfiles={projectData?.profile || []}
-              onProfileSelect={handleProfileSelect}
-              onEditVariables={() => {
-                setSelectedAPI(null);
-                setViewMode('env_var_manager');
-              }}
-            />
-          </>
-        )}
+        {/* 底部栏 */}
+        <BottomBar 
+          currentProfile={currentProfile}
+          allProfiles={projectData?.profile || []}
+          onProfileSelect={handleProfileSelect}
+          onEditVariables={() => {
+            setSelectedAPI(null);
+            setViewMode('env_var_manager');
+            setShowHistory(false);
+          }}
+          projectName={getProjectName()}
+          isDirty={isDirty}
+          showHistory={showHistory}
+          onToggleHistory={(show) => setShowHistory(show)}
+          onSave={handleSaveProject}
+          onCloseProject={handleCloseProject}
+          toggleTheme={toggleTheme}
+          theme={theme}
+          isSaving={isSaving}
+          onBackToApi={() => setViewMode('api')}
+        />
       </main>
       
       {/* 输入对话框 */}
