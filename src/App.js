@@ -3,8 +3,6 @@ import { FileText, Play, History, Save, Edit, X, Plus, FolderPlus, ArrowLeft, Su
 import APIMain from './components/APIMain';
 import APIDetail from './components/APIDetail';
 import BottomBar from './components/BottomBar';
-import EnvironmentList from './components/EnvironmentList';
-import VariableList from './components/VariableList';
 import EnvVarManager from './components/EnvVarManager';
 import ExecutionHistory from './components/ExecutionHistory';
 import EmptyState from './components/EmptyState';
@@ -642,17 +640,7 @@ function App() {
                   <EnvVarManager 
                     onBack={() => setViewMode('api')}
                   />
-                ) : viewMode === 'environment_list' ? (
-                  <EnvironmentList 
-                    profiles={projectData?.profile || []}
-                    onBack={() => setViewMode('api')}
-                  />
-                ) : viewMode === 'variable_list' ? (
-                  <VariableList 
-                    profiles={projectData?.profile || []}
-                    onBack={() => setViewMode('api')}
-                  />
-                ) : viewMode === 'api_detail' && selectedAPI ? (
+                ): viewMode === 'api_detail' && selectedAPI ? (
                 /* API 详情/编辑/测试 */
                 <APIDetail 
                   api={selectedAPI}

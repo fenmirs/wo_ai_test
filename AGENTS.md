@@ -51,8 +51,7 @@ api_test_ui/
 │   │   ├── APIDetail.js          # API 详情展示
 │   │   ├── APIEditor.js          # API 编辑器
 │   │   ├── BottomBar.js          # 底部栏（环境+变量）
-│   │   ├── EnvironmentList.js     # 环境列表管理
-│   │   ├── VariableList.js        # 变量列表管理
+│   │   ├── EnvVarManager.js      # 环境列表管理
 │   │   ├── ChainSelector.js       # 调用链选择器
 │   │   ├── InputDialog.js         # 输入对话框
 │   │   └── ConfirmDialog.js       # 确认对话框

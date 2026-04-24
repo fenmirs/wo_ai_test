@@ -10,8 +10,7 @@ function BottomBar({
 }) {
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const [showVariableDropdown, setShowVariableDropdown] = useState(false);
-  const profileDropdownRef = useRef(null);
-  const variableDropdownRef = useRef(null);
+  const dropdownRef = useRef(null);
 
   const getCurrentVariables = () => {
     if (!currentProfile) return {};
@@ -26,10 +25,8 @@ function BottomBar({
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (profileDropdownRef.current && !profileDropdownRef.current.contains(event.target)) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setShowProfileDropdown(false);
-      }
-      if (variableDropdownRef.current && !variableDropdownRef.current.contains(event.target)) {
         setShowVariableDropdown(false);
       }
     };
@@ -40,12 +37,17 @@ function BottomBar({
     };
   }, []);
 
+  const closeDropdowns = () => {
+    setShowProfileDropdown(false);
+    setShowVariableDropdown(false);
+  };
+
   return (
     <div className="bottom-bar">
-      <div className="bar-section" ref={profileDropdownRef}>
+      <div className="bar-section" ref={dropdownRef}>
         <div 
           className="bar-item"
-          onClick={() => setShowProfileDropdown(!showProfileDropdown)}
+          onClick={() => { setShowProfileDropdown(!showProfileDropdown); setShowVariableDropdown(false); }}
         >
           <Globe size={16} />
           <span className="bar-label">{currentProfile?.name || '未选择环境'}</span>
@@ -66,7 +68,7 @@ function BottomBar({
                   className={`dropdown-item ${currentProfile?.name === profile.name ? 'active' : ''}`}
                   onClick={() => {
                     onProfileSelect(profile);
-                    setShowProfileDropdown(false);
+                    closeDropdowns();
                   }}
                 >
                   <div className="dropdown-item-main">
@@ -79,12 +81,10 @@ function BottomBar({
             )}
           </div>
         )}
-      </div>
 
-      <div className="bar-section" ref={variableDropdownRef}>
         <div 
           className="bar-item"
-          onClick={() => setShowVariableDropdown(!showVariableDropdown)}
+          onClick={() => { setShowVariableDropdown(!showVariableDropdown); setShowProfileDropdown(false); }}
         >
           <Variable size={16} />
           <span className="bar-label">变量</span>
