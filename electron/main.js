@@ -5,6 +5,9 @@ const { exec } = require('child_process');
 const { promisify } = require('util');
 const execAsync = promisify(exec);
 
+// 存储活跃的 HTTP 请求，用于取消
+const activeRequests = new Map();
+
 // 检查是否在开发模式
 const isDev = process.argv.includes('--dev') || process.env.ELECTRON_DEV === 'true';
 
@@ -378,3 +381,146 @@ function formatSize(bytes) {
   if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
   return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
 }
+
+// IPC 通信 - 可取消的 HTTP 请求
+ipcMain.handle('http-request-with-cancel', async (event, { id, requestConfig }) => {
+  const { method, url, headers, data, timeout } = requestConfig;
+  
+  return new Promise((resolve) => {
+    const startTime = Date.now();
+    
+    try {
+      const request = net.request({
+        method: method || 'GET',
+        url: url,
+        redirect: 'follow'
+      });
+
+      activeRequests.set(id, request);
+
+      const timeoutId = setTimeout(() => {
+        request.abort();
+        activeRequests.delete(id);
+        resolve({
+          success: false,
+          error: '请求超时',
+          errorType: 'timeout',
+          elapsedTime: ((Date.now() - startTime) / 1000).toFixed(2) + 's'
+        });
+      }, timeout || 30000);
+
+      if (headers) {
+        Object.keys(headers).forEach(key => {
+          if (key.toLowerCase() !== 'host') {
+            request.setHeader(key, headers[key]);
+          }
+        });
+      }
+
+      let responseData = '';
+      let responseHeaders = {};
+      let statusCode = null;
+      let statusMessage = '';
+
+      request.on('response', (response) => {
+        statusCode = response.statusCode;
+        statusMessage = response.statusMessage || '';
+        responseHeaders = response.headers || {};
+
+        response.on('data', (chunk) => {
+          responseData += chunk.toString();
+        });
+
+        response.on('end', () => {
+          clearTimeout(timeoutId);
+          activeRequests.delete(id);
+          const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(2) + 's';
+          
+          let parsedData = responseData;
+          try {
+            parsedData = JSON.parse(responseData);
+          } catch {
+            parsedData = responseData;
+          }
+
+          resolve({
+            success: statusCode < 400,
+            status_code: statusCode,
+            status_text: statusMessage,
+            headers: responseHeaders,
+            data: parsedData,
+            elapsedTime,
+            responseSize: formatSize(responseData.length)
+          });
+        });
+
+        response.on('error', (error) => {
+          clearTimeout(timeoutId);
+          activeRequests.delete(id);
+          resolve({
+            success: false,
+            error: error.message,
+            errorType: 'network',
+            elapsedTime: ((Date.now() - startTime) / 1000).toFixed(2) + 's'
+          });
+        });
+      });
+
+      request.on('error', (error) => {
+        clearTimeout(timeoutId);
+        activeRequests.delete(id);
+        
+        let errorType = 'network';
+        let errorMessage = error.message;
+        
+        if (error.code === 'ECONNREFUSED') {
+          errorType = 'connection_refused';
+          errorMessage = '连接被拒绝，请检查服务器是否启动';
+        } else if (error.code === 'ENOTFOUND' || error.code === 'EAI_NONAME') {
+          errorType = 'dns_error';
+          errorMessage = '无法解析域名，请检查地址是否正确';
+        } else if (error.code === 'ETIMEDOUT' || error.code === 'ESOCKETTIMEDOUT') {
+          errorType = 'timeout';
+          errorMessage = '连接超时，请检查网络或服务器状态';
+        }
+        
+        resolve({
+          success: false,
+          error: errorMessage,
+          errorType: errorType,
+          elapsedTime: ((Date.now() - startTime) / 1000).toFixed(2) + 's'
+        });
+      });
+
+      if (data) {
+        if (typeof data === 'object') {
+          request.write(JSON.stringify(data));
+        } else {
+          request.write(data);
+        }
+      }
+      
+      request.end();
+
+    } catch (error) {
+      activeRequests.delete(id);
+      resolve({
+        success: false,
+        error: error.message,
+        errorType: 'unknown',
+        elapsedTime: ((Date.now() - startTime) / 1000).toFixed(2) + 's'
+      });
+    }
+  });
+});
+
+// IPC 通信 - 取消 HTTP 请求
+ipcMain.handle('cancel-http-request', async (event, id) => {
+  const request = activeRequests.get(id);
+  if (request) {
+    request.abort();
+    activeRequests.delete(id);
+    return { success: true };
+  }
+  return { success: false, error: '请求不存在' };
+});

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, ChevronRight, ChevronDown, Trash2, Plus, Upload, X } from 'lucide-react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import axios from 'axios';
 import './APIDetail.css';
 import APIExecutor from '../utils/APIExecutor';
 import { projectManager } from '../utils/ProjectManager';
@@ -14,6 +15,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const [responseTab, setResponseTab] = useState('body');
   const [showHistoryPanel, setShowHistoryPanel] = useState(false);
   const fileInputRef = useRef(null);
+  const executorRef = useRef(null);
   
   const [formData, setFormData] = useState({
     name: '',
@@ -218,6 +220,12 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
   const handleSend = async () => {
     if (!formData.api_path) return;
+    
+    if (isExecuting) {
+      executorRef.current?.cancel();
+      return;
+    }
+    
     setIsExecuting(true);
     setExecutionResult(null);
 
@@ -229,7 +237,16 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       }
       
       const executor = new APIExecutor(projectPath, config, profile);
-      const result = await executor.executeChain(execAPI, {});
+      executorRef.current = executor;
+      
+      const cancelPromise = new Promise((resolve) => {
+        executor._cancelResolver = resolve;
+      });
+      
+      const result = await Promise.race([
+        executor.executeChain(execAPI, {}),
+        cancelPromise
+      ]);
       setExecutionResult(result);
       
       if (onExecute) onExecute(execAPI, result);
@@ -237,6 +254,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       setExecutionResult({ success: false, error: error.message, allResults: {} });
     } finally {
       setIsExecuting(false);
+      executorRef.current = null;
     }
   };
 
@@ -537,9 +555,9 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
           />
         </div>
         <div className="header-actions">
-          <button className="btn-send" onClick={handleSend} disabled={isExecuting}>
-            {isExecuting ? <RefreshCw size={16} className="spin" /> : <Play size={16} />}
-            {isExecuting ? '发送中...' : '发送'}
+          <button className="btn-send" onClick={handleSend}>
+            {isExecuting ? <X size={16} /> : <Play size={16} />}
+            {isExecuting ? '发送中' : '发送'}
           </button>
         </div>
       </div>

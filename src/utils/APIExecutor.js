@@ -5,7 +5,32 @@ class APIExecutor {
     this.projectPath = projectPath;
     this.config = config;
     this.profile = profile;
-    this.apiResults = {}; // 存储每个 API 的执行结果
+    this.apiResults = {};
+    this.cancelSource = null;
+    this.requestId = null;
+  }
+
+  generateRequestId() {
+    return `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  }
+
+  cancel() {
+    if (this.requestId && window.electron && window.electron.cancelHttpRequest) {
+      window.electron.cancelHttpRequest(this.requestId);
+    }
+    
+    this.requestId = null;
+    
+    if (this.cancelSource) {
+      this.cancelSource.cancel('用户取消请求');
+      this.cancelSource = null;
+    }
+    
+    if (this._cancelResolver) {
+      const resolver = this._cancelResolver;
+      this._cancelResolver = null;
+      resolver({ success: false, error: '请求已取消', allResults: {}, cancelled: true });
+    }
   }
 
   // 解析特殊标记
@@ -262,7 +287,7 @@ class APIExecutor {
       throw new Error('Electron 环境不可用');
     }
     
-    const result = await window.electron.httpRequest(requestConfig);
+    const result = await window.electron.httpRequestWithCancel({ id: this.requestId, requestConfig });
     return result;
   }
 
@@ -360,6 +385,7 @@ class APIExecutor {
       
       if (hasElectron) {
         console.log('[API Executor] 使用 Electron HTTP 请求（无 CORS 限制）');
+        this.requestId = this.generateRequestId();
         response = await this.httpRequestViaElectron(requestConfig);
       } else {
         // 开发模式使用 axios
@@ -373,6 +399,10 @@ class APIExecutor {
           requestConfig.url = apiPath + separator + searchParams.toString();
         }
         delete requestConfig.params;
+        
+        // 创建取消源
+        this.cancelSource = axios.CancelToken.source();
+        requestConfig.cancelToken = this.cancelSource.token;
         
         response = await axios(requestConfig);
       }
