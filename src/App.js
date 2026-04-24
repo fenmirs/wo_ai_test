@@ -76,13 +76,12 @@ function App() {
       setHasProject(!!projectData);
       setIsDirty(isDirty);
       
-      // 自动选择默认环境
-      if (projectData && projectData.profile && projectData.profile.length > 0) {
+      // 仅在首次加载或没有当前环境时才自动选择默认环境
+      if (projectData && projectData.profile && projectData.profile.length > 0 && !currentProfile) {
         const defaultProfile = projectData.profile.find(p => p.activate);
         if (defaultProfile) {
           setCurrentProfile(defaultProfile);
         } else if (projectData.profile.length > 0) {
-          // 如果没有标记为默认的环境，选择第一个
           setCurrentProfile(projectData.profile[0]);
         }
       }
