@@ -12,7 +12,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const [executionResult, setExecutionResult] = useState(null);
   const [isExecuting, setIsExecuting] = useState(false);
   const [activeTab, setActiveTab] = useState('params');
-  const [responseTab, setResponseTab] = useState('body');
+  const [responseTab, setResponseTab] = useState('request');
   const [showHistoryPanel, setShowHistoryPanel] = useState(false);
   const fileInputRef = useRef(null);
   const executorRef = useRef(null);
@@ -879,6 +879,8 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                 <span className={`http-status ${executionResult.targetResult.httpSuccess ? 'success' : 'error'}`}>
                   {executionResult.targetResult.status_code}
                 </span>
+              ) : executionResult.targetResult?.error ? (
+                <span className="http-status error">错误</span>
               ) : (
                 <span className="http-status error">请求失败</span>
               )}
@@ -897,51 +899,167 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
             
             <div className="summary-divider"></div>
             
-            <div className="summary-right">
-              <span className="meta-item"><Clock size={14} /> {executionResult.targetResult?.elapsedTime || '-'}</span>
+            <div className="summary-left">
+              <span className="summary-label">耗时</span>
+              <span className="meta-value">{executionResult.targetResult?.elapsedTime || '-'}</span>
             </div>
             
-            <span className={`final-status ${executionResult.targetResult?.success ? 'success' : 'error'}`}>
-              {executionResult.targetResult?.success ? <><CheckCircle size={16} /> 通过</> : <><XCircle size={16} /> 失败</>}
-            </span>
-          </div>
-          
-          {executionResult.targetResult?.error && (
-            <div className={`response-error error-${executionResult.targetResult.errorType || 'network'}`}>
-              <div className="error-header">
-                <XCircle size={14} />
-                <span>{getErrorTitle(executionResult.targetResult.errorType)}</span>
-              </div>
-              <pre className="error-message">{executionResult.targetResult.error}</pre>
+            {executionResult.targetResult?.error && (
+              <>
+                <div className="summary-divider"></div>
+                <div className="summary-left error-info">
+                  <XCircle size={14} className="error-icon" />
+                  <span className="error-text">{executionResult.targetResult.error}</span>
+                </div>
+              </>
+            )}
+            
+            <div className="summary-right">
+              <span className={`final-status ${executionResult.targetResult?.success ? 'success' : 'error'}`}>
+                {executionResult.targetResult?.success ? <><CheckCircle size={16} /> 通过</> : <><XCircle size={16} /> 失败</>}
+              </span>
             </div>
-          )}
+          </div>
           
           <div className="response-tabs">
-            <button className={`response-tab ${responseTab === 'body' ? 'active' : ''}`} onClick={() => setResponseTab('body')}>Body</button>
-            <button className={`response-tab ${responseTab === 'headers' ? 'active' : ''}`} onClick={() => setResponseTab('headers')}>Headers</button>
+            <button className={`response-tab ${responseTab === 'request' ? 'active' : ''}`} onClick={() => setResponseTab('request')}>请求</button>
+            <button className={`response-tab ${responseTab === 'response' ? 'active' : ''}`} onClick={() => setResponseTab('response')}>响应</button>
           </div>
           
-          {responseTab === 'headers' && executionResult.targetResult?.headers && (
-            <div className="response-headers">
-              {Object.entries(executionResult.targetResult.headers).map(([key, value]) => (
-                <div key={key} className="response-header-item">
-                  <span className="header-key">{key}</span>
-                  <span className="header-value">{value}</span>
+          {responseTab === 'request' && (
+            <div className="request-info">
+              <div className="request-section">
+                <div className="request-section-title">基本信息</div>
+                <div className="request-info-row">
+                  <span className="info-label">URL</span>
+                  <code className="info-value">{generateResolvedPath()}</code>
                 </div>
-              ))}
+                <div className="request-info-row">
+                  <span className="info-label">Method</span>
+                  <span className="info-value method">{formData.method}</span>
+                </div>
+              </div>
+              
+              {formData.header.some(h => h.enabled && h.key) && (
+                <div className="request-section">
+                  <div className="request-section-title">请求 Headers</div>
+                  <div className="kv-list">
+                    {formData.header.filter(h => h.enabled && h.key).map((h, idx) => (
+                      <div key={idx} className="kv-item">
+                        <span className="kv-key">{h.key}</span>
+                        <span className="kv-value">{h.default || ''}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              {formData.param.some(p => p.enabled && p.key) && (
+                <div className="request-section">
+                  <div className="request-section-title">Query Parameters</div>
+                  <div className="kv-list">
+                    {formData.param.filter(p => p.enabled && p.key).map((p, idx) => (
+                      <div key={idx} className="kv-item">
+                        <span className="kv-key">{p.key}</span>
+                        <span className="kv-value">{p.default || ''}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              {formData.body.type !== 'none' && (
+                <div className="request-section">
+                  <div className="request-section-title">请求 Body ({formData.body.type})</div>
+                  <div className="request-body-content">
+                    {formData.body.type === 'json' && (
+                      <SyntaxHighlighter language="json" style={vscDarkPlus} customStyle={{ margin: 0, fontSize: '11px', maxHeight: '150px' }}>
+                        {formData.body.json}
+                      </SyntaxHighlighter>
+                    )}
+                    {formData.body.type === 'raw' && (
+                      <pre className="body-text">{formData.body.raw}</pre>
+                    )}
+                    {(formData.body.type === 'form-data' || formData.body.type === 'x-www-form-urlencoded') && (
+                      <div className="kv-list">
+                        {(formData.body.type === 'form-data' ? formData.body.formData : formData.body.xwwwFormUrlencoded)
+                          .filter(p => p.enabled && p.key)
+                          .map((p, idx) => (
+                            <div key={idx} className="kv-item">
+                              <span className="kv-key">{p.key}</span>
+                              <span className="kv-value">{p.default || ''}</span>
+                            </div>
+                          ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
           )}
           
-          {responseTab === 'body' && executionResult.targetResult?.data !== undefined && (
-            <div className="response-body">
-              <SyntaxHighlighter language="json" style={vscDarkPlus} customStyle={{ margin: 0, fontSize: '12px', maxHeight: '300px' }}>
-                {JSON.stringify(executionResult.targetResult.data, null, 2)}
-              </SyntaxHighlighter>
+          {responseTab === 'response' && (
+            <div className="response-info">
+              <div className="request-section">
+                <div className="request-section-title">基本信息</div>
+                <div className="request-info-row">
+                  <span className="info-label">状态码</span>
+                  <span className={`info-value status ${executionResult.targetResult?.httpSuccess ? 'success' : 'error'}`}>
+                    {executionResult.targetResult?.status_code || '-'}
+                  </span>
+                </div>
+                <div className="request-info-row">
+                  <span className="info-label">耗时</span>
+                  <span className="info-value">{executionResult.targetResult?.elapsedTime || '-'}</span>
+                </div>
+                <div className="request-info-row">
+                  <span className="info-label">大小</span>
+                  <span className="info-value">{executionResult.targetResult?.responseSize || '-'}</span>
+                </div>
+              </div>
+              
+              {executionResult.targetResult?.headers && Object.keys(executionResult.targetResult.headers).length > 0 && (
+                <div className="request-section">
+                  <div className="request-section-title">响应 Headers</div>
+                  <div className="kv-list">
+                    {Object.entries(executionResult.targetResult.headers).map(([key, value]) => (
+                      <div key={key} className="kv-item">
+                        <span className="kv-key">{key}</span>
+                        <span className="kv-value">{Array.isArray(value) ? value.join(', ') : value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              <div className="request-section">
+                <div className="request-section-title">响应 Body</div>
+                <div className="request-body-content">
+                  {executionResult.targetResult?.data !== undefined ? (
+                    <SyntaxHighlighter language="json" style={vscDarkPlus} customStyle={{ margin: 0, fontSize: '11px', maxHeight: '250px' }}>
+                      {JSON.stringify(executionResult.targetResult.data, null, 2)}
+                    </SyntaxHighlighter>
+                  ) : (
+                    <div className="response-empty">无响应体</div>
+                  )}
+                </div>
+              </div>
+              
+              {executionResult.targetResult?.assertionResult && (
+                <div className="request-section">
+                  <div className="request-section-title">断言结果</div>
+                  <div className="assert-results">
+                    {executionResult.targetResult.assertionResult.results.map((r, idx) => (
+                      <div key={idx} className={`assert-item ${r.passed ? 'passed' : 'failed'}`}>
+                        <span className="assert-icon">{r.passed ? <CheckCircle size={14} /> : <XCircle size={14} />}</span>
+                        <span className="assert-expr">{r.expression}</span>
+                        <span className="assert-actual">实际值: {r.actual}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
-          )}
-          
-          {responseTab === 'body' && executionResult.targetResult?.data === undefined && (
-            <div className="response-empty">无响应体</div>
           )}
         </div>
       )}

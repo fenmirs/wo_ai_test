@@ -375,11 +375,62 @@ ipcMain.handle('http-request', async (event, requestConfig) => {
   });
 });
 
-// 格式化文件大小
-function formatSize(bytes) {
-  if (bytes < 1024) return bytes + ' B';
-  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
-  return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+// 解析浏览器错误格式
+function parseBrowserError(message) {
+  const errorMap = {
+    'ERR_CONNECTION_REFUSED': { type: 'connection_refused', msg: '连接被拒绝，请检查服务器是否启动' },
+    'ERR_NAME_NOT_RESOLVED': { type: 'dns_error', msg: '域名无法解析，请检查地址是否正确' },
+    'ERR_ADDRESS_UNREACHABLE': { type: 'unreachable', msg: '地址不可达，请检查网络和地址' },
+    'ERR_TIMED_OUT': { type: 'timeout', msg: '连接超时，请检查网络或服务器状态' },
+    'ERR_CONNECTION_RESET': { type: 'connection_reset', msg: '连接被重置，请检查服务器是否正常运行' },
+    'ERR_CONNECTION_TIMED_OUT': { type: 'timeout', msg: '连接超时，请检查网络或服务器状态' },
+    'ERR_NETWORK_CHANGED': { type: 'network', msg: '网络连接已更改，请重试' },
+    'ERR_INTERNET_DISCONNECTED': { type: 'disconnected', msg: '网络已断开，请检查网络连接' },
+    'ERR_PROXY_CONNECTION_FAILED': { type: 'proxy', msg: '代理连接失败，请检查代理设置' },
+    'ERR_SSL_PROTOCOL_ERROR': { type: 'ssl', msg: 'SSL 协议错误，请检查 HTTPS 配置' },
+    'ERR_TLS_VERSION_UNSUPPORTED': { type: 'ssl', msg: 'TLS 版本不支持，请检查服务器 SSL 配置' },
+    'ERR_CERT_COMMON_NAME_INVALID': { type: 'ssl', msg: '证书域名无效，请检查域名配置' },
+    'ERR_CERT_AUTHORITY_INVALID': { type: 'ssl', msg: '证书颁发机构无效，请检查证书配置' },
+    'ERR_CERT_DATE_INVALID': { type: 'ssl', msg: '证书日期无效，请检查系统时间' },
+    'ERR_UNDETERMINED': { type: 'unknown', msg: '网络错误，请检查网络连接' },
+  };
+  
+  for (const [key, value] of Object.entries(errorMap)) {
+    if (message.includes(key)) {
+      return value;
+    }
+  }
+  return null;
+}
+
+// 格式化错误消息
+function formatErrorMessage(error) {
+  // 优先使用错误代码
+  if (error.code) {
+    const codeMap = {
+      'ECONNREFUSED': '连接被拒绝，请检查服务器是否启动',
+      'ENOTFOUND': '域名无法解析，请检查地址是否正确',
+      'EAI_NONAME': '域名无法解析，请检查地址是否正确',
+      'ETIMEDOUT': '连接超时，请检查网络或服务器状态',
+      'ESOCKETTIMEDOUT': '连接超时，请检查网络或服务器状态',
+      'ECONNRESET': '连接被重置，请检查服务器是否正常运行',
+      'EHOSTUNREACH': '主机不可达，请检查网络连接',
+      'ENETUNREACH': '网络不可达，请检查网络连接',
+      'EADDRNOTAVAIL': '地址不可用，请检查网络配置',
+    };
+    if (codeMap[error.code]) {
+      return { type: 'network', message: codeMap[error.code] };
+    }
+  }
+  
+  // 解析浏览器错误格式
+  const browserError = parseBrowserError(error.message);
+  if (browserError) {
+    return { type: browserError.type, message: browserError.msg };
+  }
+  
+  // 返回原始消息
+  return { type: 'unknown', message: error.message };
 }
 
 // IPC 通信 - 可取消的 HTTP 请求
@@ -470,24 +521,12 @@ ipcMain.handle('http-request-with-cancel', async (event, { id, requestConfig }) 
         clearTimeout(timeoutId);
         activeRequests.delete(id);
         
-        let errorType = 'network';
-        let errorMessage = error.message;
-        
-        if (error.code === 'ECONNREFUSED') {
-          errorType = 'connection_refused';
-          errorMessage = '连接被拒绝，请检查服务器是否启动';
-        } else if (error.code === 'ENOTFOUND' || error.code === 'EAI_NONAME') {
-          errorType = 'dns_error';
-          errorMessage = '无法解析域名，请检查地址是否正确';
-        } else if (error.code === 'ETIMEDOUT' || error.code === 'ESOCKETTIMEDOUT') {
-          errorType = 'timeout';
-          errorMessage = '连接超时，请检查网络或服务器状态';
-        }
+        const { type, message } = formatErrorMessage(error);
         
         resolve({
           success: false,
-          error: errorMessage,
-          errorType: errorType,
+          error: message,
+          errorType: type,
           elapsedTime: ((Date.now() - startTime) / 1000).toFixed(2) + 's'
         });
       });
@@ -524,3 +563,10 @@ ipcMain.handle('cancel-http-request', async (event, id) => {
   }
   return { success: false, error: '请求不存在' };
 });
+
+// 格式化文件大小
+function formatSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+}

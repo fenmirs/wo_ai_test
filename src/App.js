@@ -76,8 +76,8 @@ function App() {
       setHasProject(!!projectData);
       setIsDirty(isDirty);
       
-      // 仅在首次加载或没有当前环境时才自动选择默认环境
-      if (projectData && projectData.profile && projectData.profile.length > 0 && !currentProfile) {
+      // 首次加载项目时自动选择默认环境
+      if (projectData && projectData.profile && projectData.profile.length > 0 && !hasProject) {
         const defaultProfile = projectData.profile.find(p => p.activate);
         if (defaultProfile) {
           setCurrentProfile(defaultProfile);
@@ -92,7 +92,7 @@ function App() {
     return () => {
       projectManager.removeListener(handleProjectChange);
     };
-  }, []);
+  }, [hasProject]);
 
   // 自动保存
   useEffect(() => {
