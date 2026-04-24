@@ -895,8 +895,31 @@
   color: var(--accent-primary);
 }
 
+/* Raw 内容编辑 */
+.raw-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.raw-type-select {
+  padding: 6px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 12px;
+  cursor: pointer;
+  outline: none;
+}
+
+.raw-type-select:focus {
+  border-color: var(--accent-primary);
+}
+
 .body-raw textarea,
-.body-json textarea {
+.raw-textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid var(--border-color);
@@ -910,10 +933,11 @@
 }
 
 .body-raw textarea:focus,
-.body-json textarea:focus {
+.raw-textarea:focus {
   border-color: var(--accent-primary);
 }
 
+/* JSON 编辑器 */
 .json-toolbar {
   display: flex;
   align-items: center;

@@ -214,21 +214,40 @@
   flex-shrink: 0;
 }
 
-.history-action {
+.history-actions {
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.history-btn {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 28px;
   height: 28px;
   background: var(--bg-primary);
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   color: var(--text-muted);
-  opacity: 0;
+  cursor: pointer;
   transition: all 0.2s;
 }
 
-.history-item:hover .history-action {
-  opacity: 1;
+.history-btn:hover {
+  border-color: var(--accent-primary);
   color: var(--accent-primary);
+}
+
+.history-btn.restore:hover {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: white;
+}
+
+.history-btn.detail:hover {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: white;
 }

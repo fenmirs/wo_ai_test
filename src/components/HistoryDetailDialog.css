@@ -1,0 +1,257 @@
+.history-detail-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.history-detail-dialog {
+  width: 90%;
+  max-width: 800px;
+  max-height: 85vh;
+  background: var(--bg-primary);
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.history-detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.history-detail-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.history-detail-header .close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.history-detail-header .close-btn:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.history-detail-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+}
+
+.detail-section {
+  margin-bottom: 20px;
+}
+
+.detail-section:last-child {
+  margin-bottom: 0;
+}
+
+.detail-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.detail-info-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
+  font-size: 13px;
+}
+
+.info-label {
+  flex: 0 0 80px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.info-value {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-primary);
+  font-family: monospace;
+}
+
+.info-value.method {
+  font-weight: 600;
+  color: var(--accent-primary);
+}
+
+.info-value.success {
+  color: var(--success-color);
+}
+
+.info-value.error {
+  color: var(--error-color);
+}
+
+.detail-url {
+  display: block;
+  padding: 10px 12px;
+  background: var(--bg-secondary);
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 12px;
+  color: var(--success-color);
+  word-break: break-all;
+}
+
+.kv-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--bg-secondary);
+  border-radius: 4px;
+  padding: 8px;
+}
+
+.kv-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 6px 8px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+.kv-key {
+  flex: 0 0 160px;
+  font-family: monospace;
+  color: var(--accent-primary);
+  word-break: break-all;
+}
+
+.kv-value {
+  flex: 1;
+  font-family: monospace;
+  color: var(--text-secondary);
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.body-text {
+  margin: 0;
+  padding: 12px;
+  background: var(--bg-secondary);
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 12px;
+  color: var(--text-secondary);
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.response-body {
+  background: var(--bg-secondary);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.no-data {
+  padding: 16px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 12px;
+  background: var(--bg-secondary);
+  border-radius: 4px;
+}
+
+.error-section {
+  background: var(--error-bg);
+  padding: 12px;
+  border-radius: 4px;
+}
+
+.error-message {
+  margin: 0;
+  padding: 8px;
+  background: var(--bg-primary);
+  border-radius: 3px;
+  font-family: monospace;
+  font-size: 12px;
+  color: var(--error-color);
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.assert-results {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--bg-secondary);
+  border-radius: 4px;
+  padding: 8px;
+}
+
+.assert-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.assert-item.passed {
+  background: var(--success-bg);
+}
+
+.assert-item.failed {
+  background: var(--error-bg);
+}
+
+.assert-icon {
+  flex-shrink: 0;
+}
+
+.assert-item.passed .assert-icon {
+  color: var(--success-color);
+}
+
+.assert-item.failed .assert-icon {
+  color: var(--error-color);
+}
+
+.assert-expr {
+  flex: 1;
+  font-family: monospace;
+  color: var(--text-primary);
+}
+
+.assert-actual {
+  font-size: 11px;
+  color: var(--text-muted);
+}

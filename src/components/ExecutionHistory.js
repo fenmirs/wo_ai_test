@@ -1,8 +1,8 @@
 import React from 'react';
-import { CheckCircle, XCircle, Clock, Play, AlertCircle, Trash2 } from 'lucide-react';
+import { CheckCircle, XCircle, Clock, Play, AlertCircle, Trash2, FileText } from 'lucide-react';
 import './ExecutionHistory.css';
 
-function ExecutionHistory({ history, onSelect, onClear }) {
+function ExecutionHistory({ history, onSelect, onClear, onViewDetail }) {
   if (!history || history.length === 0) {
     return (
       <div className="execution-history">
@@ -86,6 +86,15 @@ function ExecutionHistory({ history, onSelect, onClear }) {
             </div>
 
             <div className="history-actions">
+              {onViewDetail && (
+                <button 
+                  className="history-btn detail"
+                  onClick={() => onViewDetail && onViewDetail(entry)}
+                  title="查看详情"
+                >
+                  <FileText size={14} />
+                </button>
+              )}
               <button 
                 className="history-btn restore"
                 onClick={() => onSelect && onSelect(entry)}

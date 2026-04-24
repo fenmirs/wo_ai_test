@@ -8,6 +8,7 @@ import ExecutionHistory from './components/ExecutionHistory';
 import EmptyState from './components/EmptyState';
 import InputDialog from './components/InputDialog';
 import ConfirmDialog from './components/ConfirmDialog';
+import HistoryDetailDialog from './components/HistoryDetailDialog';
 import { projectManager } from './utils/ProjectManager';
 import './App.css';
 
@@ -24,6 +25,7 @@ function App() {
   const [showHistory, setShowHistory] = useState(false);
   const [executionHistory, setExecutionHistory] = useState([]);
   const [restoringHistoryEntry, setRestoringHistoryEntry] = useState(null);
+  const [viewingHistoryEntry, setViewingHistoryEntry] = useState(null);
   
   // 视图模式：'api' | 'api_detail' | 'environment_list' | 'variable_list'
   const [viewMode, setViewMode] = useState('api');
@@ -373,6 +375,8 @@ function App() {
         chain: api.chain,
         successAssert: api.successAssert
       },
+      // 请求信息（实际发送的内容）
+      requestInfo: result.requestInfo || null,
       // 执行结果
       targetResult: result.targetResult,
       success: result.targetResult?.success,
@@ -522,6 +526,7 @@ function App() {
             history={executionHistory}
             onSelect={handleRestoreFromHistory}
             onClear={() => setExecutionHistory([])}
+            onViewDetail={(entry) => setViewingHistoryEntry(entry)}
           />
         ) : (
           /* 测试视图 */
@@ -722,6 +727,13 @@ function App() {
           setShowConfirmDialog(false);
         }}
       />
+
+      {viewingHistoryEntry && (
+        <HistoryDetailDialog 
+          entry={viewingHistoryEntry} 
+          onClose={() => setViewingHistoryEntry(null)} 
+        />
+      )}
     </div>
   );
 }

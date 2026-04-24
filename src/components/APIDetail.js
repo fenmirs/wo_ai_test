@@ -24,7 +24,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     method: 'GET',
     header: [],
     param: [],
-    body: { type: 'none', formData: [], xwwwFormUrlencoded: [], raw: '', json: '{}' },
+    body: { type: 'none', formData: [], xwwwFormUrlencoded: [], contentType: 'text', content: '' },
     chain: [],
     assertions: [{ expression: '', enabled: true }]
   });
@@ -188,20 +188,34 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   };
 
   const parseBodyData = (body, header) => {
-    if (!body) return { type: 'json', formData: [], xwwwFormUrlencoded: [], raw: '', json: '{}' };
+    if (!body) return { type: 'none', formData: [], xwwwFormUrlencoded: [], contentType: 'text', content: '' };
     const contentType = header?.['Content-Type'] || '';
     
     if (typeof body === 'object' && !Array.isArray(body)) {
       if (contentType.includes('application/json')) {
-        return { type: 'json', formData: [], xwwwFormUrlencoded: [], raw: JSON.stringify(body, null, 2), json: JSON.stringify(body, null, 2) };
+        return { type: 'raw', formData: [], xwwwFormUrlencoded: [], contentType: 'json', content: JSON.stringify(body, null, 2) };
       } else if (contentType.includes('application/x-www-form-urlencoded')) {
-        return { type: 'x-www-form-urlencoded', formData: [], xwwwFormUrlencoded: parseToArray(body), raw: '', json: '{}' };
+        return { type: 'x-www-form-urlencoded', formData: [], xwwwFormUrlencoded: parseToArray(body), contentType: 'text', content: '' };
       } else if (contentType.includes('multipart/form-data')) {
-        return { type: 'form-data', formData: parseToArray(body), xwwwFormUrlencoded: [], raw: '', json: '{}' };
+        return { type: 'form-data', formData: parseToArray(body), xwwwFormUrlencoded: [], contentType: 'text', content: '' };
       }
-      return { type: 'raw', formData: [], xwwwFormUrlencoded: [], raw: typeof body === 'string' ? body : JSON.stringify(body, null, 2), json: '{}' };
     }
-    return { type: 'json', formData: [], xwwwFormUrlencoded: [], raw: '', json: '{}' };
+    
+    if (typeof body === 'string') {
+      let detectedContentType = 'text';
+      if (contentType.includes('application/json') || contentType.includes('json')) {
+        detectedContentType = 'json';
+      } else if (contentType.includes('xml')) {
+        detectedContentType = 'xml';
+      } else if (contentType.includes('html')) {
+        detectedContentType = 'html';
+      } else if (contentType.includes('text/plain')) {
+        detectedContentType = 'text';
+      }
+      return { type: 'raw', formData: [], xwwwFormUrlencoded: [], contentType: detectedContentType, content: body };
+    }
+    
+    return { type: 'raw', formData: [], xwwwFormUrlencoded: [], contentType: 'text', content: typeof body === 'string' ? body : JSON.stringify(body, null, 2) };
   };
 
   const updateResolvedPath = () => {
@@ -231,6 +245,15 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
     try {
       const execAPI = prepareForExecute();
+      const requestInfo = {
+        url: generateResolvedPath(),
+        method: formData.method,
+        header: formData.header.filter(h => h.enabled && h.key),
+        param: formData.param.filter(p => p.enabled && p.key),
+        body: { ...formData.body },
+        bodyType: formData.body.type,
+        rawContentType: formData.body.contentType
+      };
       
       if (onSaveAPI) {
         await onSaveAPI(execAPI, isAdding);
@@ -247,6 +270,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         executor.executeChain(execAPI, {}),
         cancelPromise
       ]);
+      result.requestInfo = requestInfo;
       setExecutionResult(result);
       
       if (onExecute) onExecute(execAPI, result);
@@ -285,34 +309,26 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     });
 
     let body = null;
-    formData.header.forEach(item => {
-      if (item.key.toLowerCase() === 'content-type') {
-        const ct = item.default || '';
-        if (ct.includes('application/json') && formData.body.type === 'json') {
-          try {
-            body = JSON.parse(formData.body.json);
-          } catch { body = {}; }
-        } else if (ct.includes('application/x-www-form-urlencoded')) {
-          body = {};
-          formData.body.xwwwFormUrlencoded.forEach(item => {
-            if (item.enabled && item.key) {
-              body[item.key] = item.value || item.default || '';
-            }
-          });
-        } else if (ct.includes('multipart/form-data')) {
-          body = {};
-          formData.body.formData.forEach(item => {
-            if (item.enabled && item.key) {
-              body[item.key] = { default: item.value || item.default || '', type: item.type };
-            }
-          });
-        } else if (formData.body.type === 'raw') {
-          body = formData.body.raw;
+    
+    if (formData.body.type === 'none') {
+      body = {};
+    } else if (formData.body.type === 'form-data') {
+      body = {};
+      formData.body.formData.forEach(item => {
+        if (item.enabled && item.key) {
+          body[item.key] = { default: item.value || item.default || '', type: item.type };
         }
-      }
-    });
-
-    if (formData.body.type === 'none') body = {};
+      });
+    } else if (formData.body.type === 'x-www-form-urlencoded') {
+      body = {};
+      formData.body.xwwwFormUrlencoded.forEach(item => {
+        if (item.enabled && item.key) {
+          body[item.key] = item.value || item.default || '';
+        }
+      });
+    } else if (formData.body.type === 'raw') {
+      body = formData.body.content || '';
+    }
 
     const successAssert = formData.assertions
       .filter(a => a.enabled && a.expression.trim())
@@ -353,9 +369,17 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     
     const getContentType = (type) => {
       switch (type) {
-        case 'json': return 'application/json';
-        case 'x-www-form-urlencoded': return 'application/x-www-form-urlencoded';
+        case 'none': return null;
         case 'form-data': return 'multipart/form-data';
+        case 'x-www-form-urlencoded': return 'application/x-www-form-urlencoded';
+        case 'raw':
+          const rawContentTypes = {
+            'json': 'application/json',
+            'xml': 'application/xml',
+            'html': 'text/html',
+            'text': 'text/plain'
+          };
+          return rawContentTypes[newBody.contentType] || 'text/plain';
         default: return null;
       }
     };
@@ -740,12 +764,12 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         {activeTab === 'body' && (
           <div className="tab-content">
             <div className="body-types">
-              {['none', 'form-data', 'x-www-form-urlencoded', 'raw', 'json'].map(type => (
+              {['none', 'form-data', 'x-www-form-urlencoded', 'raw'].map(type => (
                 <label key={type} className={`body-type ${formData.body.type === type ? 'active' : ''}`}>
                   <input type="radio" name="bodyType" value={type}
                     checked={formData.body.type === type}
                     onChange={() => updateFormBody({ type })} />
-                  <span>{type === 'none' ? 'none' : type === 'form-data' ? 'form-data' : type === 'x-www-form-urlencoded' ? 'x-www-form-urlencoded' : type === 'raw' ? 'raw' : 'JSON'}</span>
+                  <span>{type === 'none' ? 'none' : type === 'form-data' ? 'form-data' : type === 'x-www-form-urlencoded' ? 'x-www-form-urlencoded' : 'raw'}</span>
                 </label>
               ))}
             </div>
@@ -769,25 +793,21 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
             {formData.body.type === 'raw' && (
               <div className="body-raw">
-                <textarea value={formData.body.raw}
-                  onChange={(e) => updateFormBody({ raw: e.target.value })}
-                  placeholder="输入 raw 内容..." rows={6} />
-              </div>
-            )}
-
-            {formData.body.type === 'json' && (
-              <div className="body-json">
-                <div className="json-toolbar">
-                  <button className="btn-format" onClick={() => {
-                    try {
-                      const parsed = JSON.parse(formData.body.json);
-                      updateFormBody({ json: JSON.stringify(parsed, null, 2) });
-                    } catch {}
-                  }}>格式化</button>
+                <div className="raw-toolbar">
+                  <select 
+                    value={formData.body.contentType || 'text'}
+                    onChange={(e) => updateFormBody({ contentType: e.target.value })}
+                    className="raw-type-select"
+                  >
+                    <option value="text">Text (text/plain)</option>
+                    <option value="json">JSON (application/json)</option>
+                    <option value="xml">XML (application/xml)</option>
+                    <option value="html">HTML (text/html)</option>
+                  </select>
                 </div>
-                <textarea value={formData.body.json}
-                  onChange={(e) => updateFormBody({ json: e.target.value })}
-                  placeholder='{"key": "value"}' rows={8} className="json-textarea" />
+                <textarea value={formData.body.content || ''}
+                  onChange={(e) => updateFormBody({ content: e.target.value })}
+                  placeholder="输入 raw 内容..." rows={8} className="raw-textarea" />
               </div>
             )}
           </div>
@@ -926,25 +946,25 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
             <button className={`response-tab ${responseTab === 'response' ? 'active' : ''}`} onClick={() => setResponseTab('response')}>响应</button>
           </div>
           
-          {responseTab === 'request' && (
+          {responseTab === 'request' && executionResult.requestInfo && (
             <div className="request-info">
               <div className="request-section">
                 <div className="request-section-title">基本信息</div>
                 <div className="request-info-row">
                   <span className="info-label">URL</span>
-                  <code className="info-value">{generateResolvedPath()}</code>
+                  <code className="info-value">{executionResult.requestInfo.url}</code>
                 </div>
                 <div className="request-info-row">
                   <span className="info-label">Method</span>
-                  <span className="info-value method">{formData.method}</span>
+                  <span className="info-value method">{executionResult.requestInfo.method}</span>
                 </div>
               </div>
               
-              {formData.header.some(h => h.enabled && h.key) && (
+              {executionResult.requestInfo.header.length > 0 && (
                 <div className="request-section">
                   <div className="request-section-title">请求 Headers</div>
                   <div className="kv-list">
-                    {formData.header.filter(h => h.enabled && h.key).map((h, idx) => (
+                    {executionResult.requestInfo.header.map((h, idx) => (
                       <div key={idx} className="kv-item">
                         <span className="kv-key">{h.key}</span>
                         <span className="kv-value">{h.default || ''}</span>
@@ -954,11 +974,11 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                 </div>
               )}
               
-              {formData.param.some(p => p.enabled && p.key) && (
+              {executionResult.requestInfo.param.length > 0 && (
                 <div className="request-section">
                   <div className="request-section-title">Query Parameters</div>
                   <div className="kv-list">
-                    {formData.param.filter(p => p.enabled && p.key).map((p, idx) => (
+                    {executionResult.requestInfo.param.map((p, idx) => (
                       <div key={idx} className="kv-item">
                         <span className="kv-key">{p.key}</span>
                         <span className="kv-value">{p.default || ''}</span>
@@ -968,21 +988,16 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                 </div>
               )}
               
-              {formData.body.type !== 'none' && (
+              {executionResult.requestInfo.bodyType !== 'none' && (
                 <div className="request-section">
-                  <div className="request-section-title">请求 Body ({formData.body.type})</div>
+                  <div className="request-section-title">请求 Body ({executionResult.requestInfo.bodyType})</div>
                   <div className="request-body-content">
-                    {formData.body.type === 'json' && (
-                      <SyntaxHighlighter language="json" style={vscDarkPlus} customStyle={{ margin: 0, fontSize: '11px', maxHeight: '150px' }}>
-                        {formData.body.json}
-                      </SyntaxHighlighter>
+                    {executionResult.requestInfo.bodyType === 'raw' && (
+                      <pre className="body-text">{executionResult.requestInfo.body.content || ''}</pre>
                     )}
-                    {formData.body.type === 'raw' && (
-                      <pre className="body-text">{formData.body.raw}</pre>
-                    )}
-                    {(formData.body.type === 'form-data' || formData.body.type === 'x-www-form-urlencoded') && (
+                    {(executionResult.requestInfo.bodyType === 'form-data' || executionResult.requestInfo.bodyType === 'x-www-form-urlencoded') && (
                       <div className="kv-list">
-                        {(formData.body.type === 'form-data' ? formData.body.formData : formData.body.xwwwFormUrlencoded)
+                        {(executionResult.requestInfo.bodyType === 'form-data' ? executionResult.requestInfo.body.formData : executionResult.requestInfo.body.xwwwFormUrlencoded)
                           .filter(p => p.enabled && p.key)
                           .map((p, idx) => (
                             <div key={idx} className="kv-item">
