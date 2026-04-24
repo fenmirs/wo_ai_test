@@ -658,6 +658,7 @@ function App() {
                   onSaveAPI={handleSaveAPI}
                   groups={projectManager.getGroups()}
                   isAdding={isAddingAPI}
+                  onViewDetail={(entry) => setViewingHistoryEntry(entry)}
                 />
               ) : (
                 /* 默认空状态 */

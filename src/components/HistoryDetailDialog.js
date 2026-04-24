@@ -11,7 +11,8 @@ function HistoryDetailDialog({ entry, onClose }) {
 
   const getBodyContent = () => {
     if (!requestInfo) return null;
-    const { bodyType, body, content } = requestInfo;
+    const { bodyType, body } = requestInfo;
+    const content = body?.content;
     if (bodyType === 'none') return null;
     
     if (bodyType === 'raw') {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, ChevronRight, ChevronDown, Trash2, Plus, Upload, X } from 'lucide-react';
+import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, ChevronRight, ChevronDown, Trash2, Plus, Upload, X, AlertCircle, FileText } from 'lucide-react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import axios from 'axios';
@@ -7,7 +7,7 @@ import './APIDetail.css';
 import APIExecutor from '../utils/APIExecutor';
 import { projectManager } from '../utils/ProjectManager';
 
-function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, groups = [], isAdding = false }) {
+function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, groups = [], isAdding = false, onViewDetail }) {
   const [resolvedPath, setResolvedPath] = useState('');
   const [executionResult, setExecutionResult] = useState(null);
   const [isExecuting, setIsExecuting] = useState(false);
@@ -770,6 +770,19 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                     checked={formData.body.type === type}
                     onChange={() => updateFormBody({ type })} />
                   <span>{type === 'none' ? 'none' : type === 'form-data' ? 'form-data' : type === 'x-www-form-urlencoded' ? 'x-www-form-urlencoded' : 'raw'}</span>
+                  {type === 'raw' && formData.body.type === 'raw' && (
+                    <select 
+                      value={formData.body.contentType || 'text'}
+                      onChange={(e) => updateFormBody({ contentType: e.target.value })}
+                      className="raw-type-select"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <option value="text">Text</option>
+                      <option value="json">JSON</option>
+                      <option value="xml">XML</option>
+                      <option value="html">HTML</option>
+                    </select>
+                  )}
                 </label>
               ))}
             </div>
@@ -793,18 +806,6 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
             {formData.body.type === 'raw' && (
               <div className="body-raw">
-                <div className="raw-toolbar">
-                  <select 
-                    value={formData.body.contentType || 'text'}
-                    onChange={(e) => updateFormBody({ contentType: e.target.value })}
-                    className="raw-type-select"
-                  >
-                    <option value="text">Text (text/plain)</option>
-                    <option value="json">JSON (application/json)</option>
-                    <option value="xml">XML (application/xml)</option>
-                    <option value="html">HTML (text/html)</option>
-                  </select>
-                </div>
                 <textarea value={formData.body.content || ''}
                   onChange={(e) => updateFormBody({ content: e.target.value })}
                   placeholder="输入 raw 内容..." rows={8} className="raw-textarea" />
@@ -855,28 +856,57 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
           </div>
         )}
 
-        {activeTab === 'history' && apiHistory.length > 0 && (
+{activeTab === 'history' && apiHistory.length > 0 && (
           <div className="tab-content">
-            {apiHistory.map((entry) => (
-              <div key={entry.id} className="history-entry-item">
-                <div className="history-entry-status">
-                  {entry.success ? <CheckCircle size={14} className="success-icon" /> : <XCircle size={14} className="error-icon" />}
-                </div>
-                <div className="history-entry-info">
-                  <div className="history-entry-main">
-                    <span className="history-entry-status-text">
-                      {entry.success ? '通过' : entry.error ? '请求失败' : '断言失败'}
-                    </span>
-                    {entry.status_code && <span className="history-entry-code">HTTP {entry.status_code}</span>}
-                    {entry.assertionResult && <span className="history-entry-assert">{entry.assertionResult.summary}</span>}
+            <div className="history-list" style={{ maxHeight: '280px', overflowY: 'auto' }}>
+              {apiHistory.map((entry) => (
+                <div key={entry.id} className="history-item">
+                  <div className="history-status">
+                    {entry.error ? (
+                      <AlertCircle size={14} className="error-icon" />
+                    ) : entry.success ? (
+                      <CheckCircle size={14} className="success-icon" />
+                    ) : (
+                      <XCircle size={14} className="error-icon" />
+                    )}
                   </div>
-                  <div className="history-entry-meta">
-                    <span><Clock size={10} /> {entry.elapsedTime}</span>
-                    <span>{entry.timestamp}</span>
+                  
+                  <div className="history-info">
+                    <div className="history-meta">
+                      <span className={`status-badge ${entry.success ? 'success' : 'error'}`}>
+                        {entry.error ? '请求失败' : entry.success ? '通过' : '失败'}
+                      </span>
+                      {entry.status_code && (
+                        <span className="http-code">HTTP {entry.status_code}</span>
+                      )}
+                      {entry.assertionResult && (
+                        <span className="assert-summary">断言: {entry.assertionResult.summary}</span>
+                      )}
+                      <span className="history-time">
+                        <Clock size={10} />
+                        {entry.elapsedTime}
+                      </span>
+                    </div>
+                    <div className="history-path">{entry.requestInfo?.url || entry.apiPath}</div>
+                  </div>
+                  
+                  <div className="history-actions">
+                    <button 
+                      className="history-btn detail"
+                      onClick={() => {
+                        console.log('[History] 查看详情 clicked:', entry);
+                        if (onViewDetail) {
+                          onViewDetail(entry);
+                        }
+                      }}
+                      title="查看详情"
+                    >
+                      <FileText size={12} />
+                    </button>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         )}
       </div>
