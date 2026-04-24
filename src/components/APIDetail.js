@@ -6,6 +6,7 @@ import axios from 'axios';
 import './APIDetail.css';
 import APIExecutor from '../utils/APIExecutor';
 import { projectManager } from '../utils/ProjectManager';
+import CodeEditor from './CodeEditor';
 
 function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, groups = [], isAdding = false, onViewDetail }) {
   const [resolvedPath, setResolvedPath] = useState('');
@@ -806,9 +807,12 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
             {formData.body.type === 'raw' && (
               <div className="body-raw">
-                <textarea value={formData.body.content || ''}
-                  onChange={(e) => updateFormBody({ content: e.target.value })}
-                  placeholder="输入 raw 内容..." rows={8} className="raw-textarea" />
+                <CodeEditor 
+                  value={formData.body.content || ''}
+                  onChange={(content) => updateFormBody({ content })}
+                  contentType={formData.body.contentType || 'text'}
+                  onTypeChange={(contentType) => updateFormBody({ contentType })}
+                />
               </div>
             )}
           </div>

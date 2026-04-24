@@ -919,23 +919,8 @@
   border-color: var(--accent-primary);
 }
 
-.body-raw textarea,
-.raw-textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  background: var(--bg-secondary);
-  color: var(--text-primary);
-  font-family: monospace;
-  font-size: 12px;
-  resize: vertical;
-  outline: none;
-}
-
-.body-raw textarea:focus,
-.raw-textarea:focus {
-  border-color: var(--accent-primary);
+.body-raw {
+  min-height: 180px;
 }
 
 /* JSON 编辑器 */
