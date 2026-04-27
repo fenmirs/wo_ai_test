@@ -26,6 +26,8 @@ function App() {
   const [executionHistory, setExecutionHistory] = useState([]);
   const [restoringHistoryEntry, setRestoringHistoryEntry] = useState(null);
   const [viewingHistoryEntry, setViewingHistoryEntry] = useState(null);
+  const [projectList, setProjectList] = useState([]);
+  const [currentProjectDir, setCurrentProjectDir] = useState(null);
   
   // 视图模式：'api' | 'api_detail' | 'env_var_manager' | 'history'
   const [viewMode, setViewMode] = useState('api');
@@ -109,22 +111,49 @@ function App() {
     };
   }, [hasProject]);
 
-  // 导入项目
+  // 导入项目（扫描目录下所有项目）
   const handleImportProject = useCallback(async () => {
+    console.log('handleImportProject called');
+    console.log('window.electron:', window.electron);
     if (!window.electron) {
       alert('此功能仅在 Electron 应用中可用');
       return;
     }
 
+    console.log('Calling selectDirectory...');
     const result = await window.electron.selectDirectory();
+    console.log('selectDirectory result:', result);
     if (result.success) {
-      const loadResult = await projectManager.loadProject(result.path);
-      if (loadResult.success) {
-        setSaveMessage('项目加载成功');
+      console.log('Scanning directory:', result.path);
+      const projects = await projectManager.scanDirectory(result.path);
+      console.log('Scan results:', projects);
+      setProjectList(projects);
+      
+      if (projects.length > 0) {
+        setSaveMessage('项目扫描成功');
         setTimeout(() => setSaveMessage(''), 2000);
       } else {
-        alert(`加载项目失败: ${loadResult.error}`);
+        alert('该目录下没有找到项目，请先创建新项目');
       }
+    }
+  }, []);
+
+  // 选择项目（从目录项目列表中选择）
+  const handleProjectSelect = useCallback(async (project) => {
+    console.info(project);
+    const dirPath = project.dirPath || project.path;
+    const loadResult = await projectManager.loadProject(dirPath, project.id);
+    if (loadResult.success) {
+      setCurrentProjectDir(dirPath);
+      if (window.electron) {
+        const listResult = await window.electron.readDirectoryProjectList(dirPath);
+        setProjectList(listResult.data || []);
+      }
+      setExecutionHistory(projectManager.getHistory());
+      setSaveMessage('项目切换成功');
+      setTimeout(() => setSaveMessage(''), 2000);
+    } else {
+      alert(`加载项目失败: ${loadResult.error}`);
     }
   }, []);
 
@@ -151,41 +180,26 @@ function App() {
           return;
         }
 
-        const projectPath = `${dirResult.path}/${projectName}`;
-        
-        // 创建项目目录
-        const createResult = await window.electron.createDirectory(projectPath);
-        console.log('createResult:', createResult);
+        // 创建新项目（使用随机ID的配置文件和历史记录文件）
+        const createResult = await projectManager.createProject(dirResult.path, projectName);
         if (!createResult.success) {
-          alert(`创建项目目录失败: ${createResult.error}`);
+          alert(`创建项目失败: ${createResult.error}`);
           return;
         }
-        
-        // 创建空项目数据
-        const emptyProject = {
-          profile: [
-            {
-              activate: true,
-              name: 'dev',
-              domain: 'localhost',
-              'api-prj': ':8080/api'
-            }
-          ],
-          groups: [],
-          apis: []
-        };
 
-        // 创建 config.json 文件
-        try {
-          await window.electron.saveConfig(projectPath, emptyProject);
-          
-          // 加载项目
-          await projectManager.loadProject(projectPath);
-          setSaveMessage('新项目创建成功');
-          setTimeout(() => setSaveMessage(''), 2000);
-        } catch (error) {
-          alert(`创建项目失败: ${error.message}`);
+        // 加载刚创建的项目
+        const loadResult = await projectManager.loadProject(dirResult.path, createResult.project.projectId);
+        if (!loadResult.success) {
+          alert(`加载项目失败: ${loadResult.error}`);
+          return;
         }
+
+        // 更新项目列表
+        const projects = await projectManager.getDirProjects();
+        setProjectList(projects);
+        
+        setSaveMessage('新项目创建成功');
+        setTimeout(() => setSaveMessage(''), 2000);
       },
       onCancel: () => {}
     });
@@ -353,7 +367,7 @@ function App() {
     setIsAddingAPI(false);
   };
 
-  // 执行 API 完成，保存到历史记录（保存全量数据以便复现）
+  // 执行 API 完成，保存到历史记录
   const handleExecute = (api, result) => {
     if (!result) return;
     
@@ -363,7 +377,6 @@ function App() {
       apiMethod: api.method,
       apiPath: api.api_path,
       timestamp: new Date().toLocaleString('zh-CN'),
-      // 全量 API 配置
       apiConfig: {
         name: api.name,
         group: api.group,
@@ -375,9 +388,7 @@ function App() {
         chain: api.chain,
         successAssert: api.successAssert
       },
-      // 请求信息（实际发送的内容）
       requestInfo: result.requestInfo || null,
-      // 执行结果
       targetResult: result.targetResult,
       success: result.targetResult?.success,
       httpSuccess: result.targetResult?.httpSuccess,
@@ -390,14 +401,9 @@ function App() {
       responseHeaders: result.targetResult?.headers
     };
     
-    setExecutionHistory(prev => [historyEntry, ...prev].slice(0, 100));
-  };
-
-  // 获取项目名称
-  const getProjectName = () => {
-    if (!projectManager.projectPath) return '';
-    const parts = projectManager.projectPath.split('/');
-    return parts[parts.length - 1];
+    // 保存到 ProjectManager
+    projectManager.addHistory(historyEntry);
+    setExecutionHistory(projectManager.getHistory());
   };
 
   // 渲染空状态
@@ -408,6 +414,8 @@ function App() {
           <EmptyState 
             onImportProject={handleImportProject}
             onNewProject={handleNewProject}
+            projectList={projectList}
+            onProjectSelect={handleProjectSelect}
           />
         </main>
         
@@ -616,7 +624,7 @@ function App() {
             setSelectedAPI(null);
             setViewMode('env_var_manager');
           }}
-          projectName={getProjectName()}
+          projectName={projectManager.getProjectName()}
           isDirty={isDirty}
           onSave={handleSaveProject}
           onCloseProject={handleCloseProject}
@@ -626,6 +634,8 @@ function App() {
           onShowHistory={()=>{setViewMode('history')}}
           onBackToApi={() => setViewMode('api')}
           viewModeValue={viewMode}
+          projectList={projectList}
+          onProjectSelect={handleProjectSelect}
         />
       </main>
       

@@ -1,35 +1,53 @@
 import React from 'react';
-import { FolderOpen, Zap, Settings, Plus } from 'lucide-react';
+import { FolderOpen, Zap, Settings, Plus, Check } from 'lucide-react';
 import './EmptyState.css';
 
-function EmptyState({ onImportProject, onNewProject }) {
+function EmptyState({ onImportProject, onNewProject, projectList, onProjectSelect }) {
   return (
     <div className="empty-state-container">
       <div className="empty-state-content">
         <div className="empty-icon">
           <FolderOpen size={64} />
         </div>
-        <h2>欢迎使用 API Test UI</h2>
+        <h2>欢迎使用 APITestUI</h2>
         <p className="empty-description">
           请选择一个项目目录开始使用
         </p>
         
-        <div className="empty-features">
-          <div className="feature-item">
-            <Zap size={24} />
-            <div>
-              <h3>快速测试</h3>
-              <p>一键执行 API 测试，实时查看结果</p>
+        {projectList && projectList.length > 0 ? (
+          <div className="project-list-container">
+            <p className="empty-description">选择要导入的项目：</p>
+            <div className="project-list">
+              {projectList.map((project, index) => (
+                <div
+                  key={project.id || project.path || `project-${index}`}
+                  className="project-list-item"
+                  onClick={() => onProjectSelect && onProjectSelect(project)}
+                >
+                  <span className="project-name">{project.name}</span>
+                  <span className="project-path">{project.dirPath || project.path}</span>
+                </div>
+              ))}
             </div>
           </div>
-          <div className="feature-item">
-            <Settings size={24} />
-            <div>
-              <h3>灵活配置</h3>
-              <p>支持多环境、动态参数和调用链</p>
+        ) : (
+          <div className="empty-features">
+            <div className="feature-item">
+              <Zap size={24} />
+              <div>
+                <h3>快速测试</h3>
+                <p>一键执行 API 测试，实时查看结果</p>
+              </div>
+            </div>
+            <div className="feature-item">
+              <Settings size={24} />
+              <div>
+                <h3>灵活配置</h3>
+                <p>支持多环境、动态参数和调用链</p>
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         <div className="button-group">
           <button className="demo-button" onClick={() => { console.log('新建项目 button clicked'); onNewProject && onNewProject(); }}>

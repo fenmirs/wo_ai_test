@@ -6,27 +6,162 @@
 class ProjectManager {
   constructor() {
     this.projectData = null; // 完整的项目配置数据
-    this.projectPath = null; // 项目路径
+    this.dirPath = null; // 项目目录路径
+    this.projectId = null; // 项目ID
+    this.projectName = null; // 项目名称
+    this.configFile = null; // 配置文件名
+    this.historyFile = null; // 历史记录文件名
+    this.executionHistory = []; // 执行历史记录
     this.isDirty = false; // 是否有未保存的修改
     this.listeners = []; // 状态变化监听器
     this.autoSaveTimer = null; // 自动保存定时器
+    this.dirProjects = []; // 目录下的项目列表
+    this.recentProjects = []; // 最近项目列表
+    this.maxRecentProjects = 10; // 最大最近项目数量
+  }
+
+  /**
+   * 扫描目录下的项目
+   */
+  async scanDirectory(dirPath) {
+    try {
+      if (window.electron) {
+        const { data, error } = await window.electron.scanDirectoryProjects(dirPath);
+        if (error) throw new Error(error);
+        this.dirProjects = data || [];
+      } else {
+        this.dirProjects = [];
+      }
+      return this.dirProjects;
+    } catch (error) {
+      console.error('扫描目录失败:', error);
+      return [];
+    }
+  }
+
+  /**
+   * 获取目录项目列表
+   */
+  getDirProjects() {
+    return this.dirProjects;
+  }
+
+  /**
+   * 加载最近项目列表
+   */
+  async loadRecentProjects() {
+    try {
+      if (window.electron) {
+        const { data } = await window.electron.readProjectList();
+        this.recentProjects = data || [];
+      } else {
+        const saved = localStorage.getItem('recentProjects');
+        this.recentProjects = saved ? JSON.parse(saved) : [];
+      }
+      return this.recentProjects;
+    } catch (error) {
+      console.error('加载最近项目列表失败:', error);
+      return [];
+    }
+  }
+
+  /**
+   * 保存最近项目列表
+   */
+  async saveRecentProjects() {
+    try {
+      if (window.electron) {
+        await window.electron.saveProjectList(this.recentProjects);
+      } else {
+        localStorage.setItem('recentProjects', JSON.stringify(this.recentProjects));
+      }
+    } catch (error) {
+      console.error('保存最近项目列表失败:', error);
+    }
+  }
+
+  /**
+   * 添加项目到最近列表
+   */
+  async addToRecentProjects(dirPath, projectId, projectName) {
+    this.recentProjects = this.recentProjects.filter(p => !(p.dirPath === dirPath && p.projectId === projectId));
+    this.recentProjects.unshift({
+      dirPath: dirPath,
+      projectId: projectId,
+      name: projectName,
+      lastOpened: new Date().toISOString()
+    });
+    if (this.recentProjects.length > this.maxRecentProjects) {
+      this.recentProjects = this.recentProjects.slice(0, this.maxRecentProjects);
+    }
+    await this.saveRecentProjects();
+  }
+
+  /**
+   * 获取最近项目列表
+   */
+  getRecentProjects() {
+    return this.recentProjects;
+  }
+
+  /**
+   * 创建新项目
+   */
+  async createProject(dirPath, projectName) {
+    try {
+      let result;
+      
+      if (window.electron) {
+        result = await window.electron.createNewProject(dirPath, projectName);
+      } else {
+        result = {
+          success: true,
+          projectId: 'dev_' + Date.now(),
+          projectName: projectName,
+          configFile: 'dev_config.json',
+          historyFile: 'dev_history.json'
+        };
+      }
+      
+      if (!result.success) {
+        return { success: false, error: result.error };
+      }
+      
+      // ���载项目列表
+      await this.scanDirectory(dirPath);
+      
+      return { success: true, project: result };
+    } catch (error) {
+      console.error('创建项目失败:', error);
+      return { success: false, error: error.message };
+    }
   }
 
   /**
    * 加载项目配置
    */
-  async loadProject(projectPath) {
+  async loadProject(dirPath, projectId) {
     try {
       let configData;
+      let historyData = [];
       
       if (window.electron) {
-        // Electron 环境：从文件读取
-        const { data } = await window.electron.readConfig(projectPath);
-        configData = data;
+        // 读取配置文件
+        const configResult = await window.electron.readProjectConfig(dirPath, projectId);
+        if (!configResult.success) {
+          return { success: false, error: configResult.error };
+        }
+        configData = configResult.data;
+        
+        // 读取历史记录
+        const historyResult = await window.electron.readProjectHistory(dirPath, projectId);
+        if (historyResult.success) {
+          historyData = historyResult.data || [];
+        }
       } else {
-        // 开发模式：使用模拟配置
         console.log('开发模式：加载模拟配置');
         configData = {
+          projectName: '开发项目',
           profile: [
             {
               activate: true,
@@ -56,14 +191,30 @@ class ProjectManager {
         };
       }
 
-      this.projectData = JSON.parse(JSON.stringify(configData)); // 深拷贝
-      this.projectPath = projectPath;
+      this.projectData = JSON.parse(JSON.stringify(configData));
+      this.dirPath = dirPath;
+      this.projectId = projectId;
+      this.projectName = configData.projectName || projectId;
+      
+      // 获取配置文件名
+      const dirProject = this.dirProjects.find(p => p.id === projectId);
+      if (dirProject) {
+        this.configFile = dirProject.configFile;
+        this.historyFile = dirProject.historyFile;
+      } else {
+        this.configFile = projectId + '_config.json';
+        this.historyFile = projectId + '_history.json';
+      }
+      
+      this.executionHistory = historyData || [];
       this.isDirty = false;
       
-      // 确保 groups 数组存在
       if (!this.projectData.groups) {
         this.projectData.groups = [];
       }
+      
+      // 添加到最近项目列表
+      await this.addToRecentProjects(dirPath, projectId, this.projectName);
       
       this._notifyListeners();
       
@@ -78,28 +229,36 @@ class ProjectManager {
    * 保存项目配置
    */
   async saveProject() {
-    if (!this.projectPath || !this.projectData) {
+    if (!this.dirPath || !this.projectId || !this.projectData) {
       return { success: false, error: '没有项目数据可保存' };
     }
 
     try {
+      this.projectData.projectName = this.projectName;
+      
       if (window.electron) {
-        // 保存到文件
-        const { success, error } = await window.electron.saveConfig(
-          this.projectPath,
+        const { success, error } = await window.electron.saveProjectConfig(
+          this.dirPath,
+          this.projectId,
           this.projectData
         );
         
-        if (success) {
-          this.isDirty = false;
-          this._notifyListeners();
-          return { success: true };
-        } else {
+        if (!success) {
           return { success: false, error };
         }
+        
+        // 保存历史记录
+        await window.electron.saveProjectHistory(
+          this.dirPath,
+          this.projectId,
+          this.executionHistory
+        );
+        
+        this.isDirty = false;
+        this._notifyListeners();
+        return { success: true };
       } else {
-        // 开发模式：只标记为已保存
-        console.log('开发模式：保存配置（模拟）');
+        console.log('开发模式：保存配置（��拟）');
         console.log('保存的配置:', this.projectData);
         this.isDirty = false;
         this._notifyListeners();
@@ -112,11 +271,52 @@ class ProjectManager {
   }
 
   /**
+   * 加载历史记录
+   */
+  async loadHistory() {
+    if (!this.dirPath || !this.projectId) return [];
+    
+    try {
+      if (window.electron) {
+        const { data } = await window.electron.readProjectHistory(this.dirPath, this.projectId);
+        this.executionHistory = data || [];
+      }
+    } catch (error) {
+      console.error('加载历史记录失败:', error);
+    }
+    return this.executionHistory;
+  }
+
+  /**
+   * 添加历史记录
+   */
+  addHistory(historyEntry) {
+    this.executionHistory.unshift(historyEntry);
+    if (this.executionHistory.length > 100) {
+      this.executionHistory = this.executionHistory.slice(0, 100);
+    }
+  }
+
+  /**
+   * 获取历史记录
+   */
+  getHistory() {
+    return this.executionHistory;
+  }
+
+  /**
+   * 清空历史记录
+   */
+  clearHistory() {
+    this.executionHistory = [];
+  }
+
+  /**
    * 启用自动保存
    * @param {number} interval - 保存间隔（毫秒），默认 5000ms
    */
   enableAutoSave(interval = 5000) {
-    this.disableAutoSave(); // 先清除之前的定时器
+    this.disableAutoSave();
     
     this.autoSaveTimer = setInterval(async () => {
       if (this.isDirty) {
@@ -139,6 +339,27 @@ class ProjectManager {
       clearInterval(this.autoSaveTimer);
       this.autoSaveTimer = null;
     }
+  }
+
+  /**
+   * 获取项目名称
+   */
+  getProjectName() {
+    return this.projectName || '';
+  }
+
+  /**
+   * 获取项目路径
+   */
+  getProjectPath() {
+    return this.dirPath || '';
+  }
+
+  /**
+   * 获取项目ID
+   */
+  getProjectId() {
+    return this.projectId || '';
   }
 
   /**
@@ -259,7 +480,6 @@ class ProjectManager {
     if (!this.projectData || !this.projectData.groups) return;
     
     this.projectData.groups = this.projectData.groups.filter(g => g !== groupName);
-    // 同时将该分组下的 API 移回默认分组
     this.projectData.apis.forEach(api => {
       if (api.group === groupName) {
         api.group = '默认';
@@ -301,7 +521,12 @@ class ProjectManager {
    */
   clear() {
     this.projectData = null;
-    this.projectPath = null;
+    this.dirPath = null;
+    this.projectId = null;
+    this.projectName = null;
+    this.configFile = null;
+    this.historyFile = null;
+    this.executionHistory = [];
     this.isDirty = false;
     this.disableAutoSave();
     this._notifyListeners();

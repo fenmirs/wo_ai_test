@@ -9,6 +9,8 @@ function BottomBar({
   onEditVariables,
   viewModeValue,
   projectName,
+  projectList,
+  onProjectSelect,
   isDirty,
   onShowHistory,
   onSave,
@@ -19,8 +21,27 @@ function BottomBar({
   onBackToApi
 }) {
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+  const [showProjectDropdown, setShowProjectDropdown] = useState(false);
   const [showVariableDropdown, setShowVariableDropdown] = useState(false);
-  const dropdownRef = useRef(null);
+  const projectDropdownRef = useRef(null);
+  const profileDropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (projectDropdownRef.current && !projectDropdownRef.current.contains(event.target)) {
+        setShowProjectDropdown(false);
+      }
+      if (profileDropdownRef.current && !profileDropdownRef.current.contains(event.target)) {
+        setShowProfileDropdown(false);
+        setShowVariableDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const getCurrentVariables = () => {
     if (!currentProfile) return {};
@@ -33,34 +54,51 @@ function BottomBar({
     return variables;
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShowProfileDropdown(false);
-        setShowVariableDropdown(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  const closeDropdowns = () => {
-    setShowProfileDropdown(false);
-    setShowVariableDropdown(false);
+  const onProjectItemClick = (project) => {
+    console.info("---------")
+    console.info(project)
+    onProjectSelect(project);
+    setShowProjectDropdown(false);
   };
 
   return (
     <div className="bottom-bar">
-      <div className="bar-item project-name">
-        <FileText size={16} />
-        <span className="bar-label">{projectName || '未加载项目'}</span>
-        {isDirty && <span className="dirty-dot" title="未保存" />}
+      <div className="bar-section" ref={projectDropdownRef}>
+        <div
+          className="bar-item project-name"
+          onClick={() => { setShowProjectDropdown(!showProjectDropdown); setShowProfileDropdown(false); setShowVariableDropdown(false); }}
+        >
+          <FileText size={16} />
+          <span className="bar-label">{projectName || '未加载项目'}</span>
+          <ChevronUp size={14} className={`chevron ${showProjectDropdown ? 'up' : ''}`} />
+          {isDirty && <span className="dirty-dot" title="未保存" />}
+        </div>
+
+        {showProjectDropdown && (
+          <div className="dropdown-menu project-menu">
+            <div className="dropdown-header">选择项目</div>
+            {!projectList || projectList.length === 0 ? (
+              <div className="dropdown-empty">
+                <p>暂无项目</p>
+              </div>
+            ) : (
+              projectList.map((project, index) => (
+                <div
+                  key={project.id || project.path || `project-${index}`}
+                  className={`dropdown-item ${projectName === project.name ? 'active' : ''}`}
+                  onClick={() => onProjectItemClick(project)}>
+                  <div className="dropdown-item-main">
+                    <span className="dropdown-item-name">{project.name}</span>
+                  </div>
+                  <span className="dropdown-item-sub" title={project.dirPath || project.path}>{project.dirPath || project.path}</span>
+                </div>
+              ))
+            )}
+          </div>
+        )}
       </div>
 
-      <div className="bar-section" ref={dropdownRef}>
+      <div className="bar-section" ref={profileDropdownRef}>
         <div
           className="bar-item"
           onClick={() => { setShowProfileDropdown(!showProfileDropdown); setShowVariableDropdown(false); }}
@@ -84,7 +122,9 @@ function BottomBar({
                   className={`dropdown-item ${currentProfile?.name === profile.name ? 'active' : ''}`}
                   onClick={() => {
                     onProfileSelect(profile);
-                    closeDropdowns();
+                    setShowProfileDropdown(false);
+                    setShowVariableDropdown(false);
+                    setShowProjectDropdown(false);
                   }}
                 >
                   <div className="dropdown-item-main">
