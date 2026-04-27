@@ -8,7 +8,7 @@ import APIExecutor from '../utils/APIExecutor';
 import { projectManager } from '../utils/ProjectManager';
 import CodeEditor from './CodeEditor';
 
-function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, groups = [], isAdding = false, onViewDetail, theme = 'dark' }) {
+function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, groups = [], isAdding = false, isTemporary = false, onViewDetail, onCancelTemporary, theme = 'dark' }) {
   const [resolvedPath, setResolvedPath] = useState('');
   const [executionResult, setExecutionResult] = useState(null);
   const [isExecuting, setIsExecuting] = useState(false);
@@ -286,7 +286,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   };
 
   const handleSave = async () => {
-    if (!formData.name) {
+    if (!formData.name && (isAdding || isTemporary)) {
       setSaveError('请输入 API 名称');
       return;
     }
@@ -301,7 +301,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     try {
       const execAPI = prepareForExecute();
       if (onSaveAPI) {
-        await onSaveAPI(execAPI, isAdding);
+        await onSaveAPI(execAPI, isAdding || isTemporary);
       }
     } catch (error) {
       setSaveError(error.message || '保存失败');
@@ -595,15 +595,21 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     <div className="api-detail">
       <div className="api-detail-header">
         <div className="api-title">
+          {isTemporary && <span className="temp-badge">草稿</span>}
           <input
             type="text"
             className="api-name-input"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            placeholder="API 名称"
+            placeholder={isTemporary ? "请输入 API 名称以保存" : "API 名称"}
           />
         </div>
         <div className="header-actions">
+          {isTemporary && onCancelTemporary && (
+            <button className="btn-cancel-temp" onClick={onCancelTemporary}>
+              <XCircle size={16} /> 取消临时
+            </button>
+          )}
           <button 
             className={`btn-save ${saveError ? 'error' : ''}`} 
             onClick={handleSave}

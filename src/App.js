@@ -21,6 +21,7 @@ function App() {
   const [saveMessage, setSaveMessage] = useState('');
   const [currentProfile, setCurrentProfile] = useState(null);
   const [selectedAPI, setSelectedAPI] = useState(null);
+  const [temporaryAPI, setTemporaryAPI] = useState(null);
   const [activeGroup, setActiveGroup] = useState('默认');
   const [showEnvVarConfig, setShowEnvVarConfig] = useState(false);
   const [executionHistory, setExecutionHistory] = useState([]);
@@ -299,30 +300,21 @@ function App() {
     }
   };
 
-  // 从历史记录恢复请求
+  // 从历史记录恢复请求（临时模式）
   const handleRestoreFromHistory = (historyEntry) => {
-    const apis = projectData?.apis || [];
-    const existingApi = apis.find(api => api.name === historyEntry.apiName);
+    const restoredApi = {
+      name: historyEntry.apiName || '临时API',
+      group: historyEntry.apiConfig?.group || '默认',
+      api_path: historyEntry.apiPath || '',
+      method: historyEntry.apiMethod || 'GET',
+      header: historyEntry.apiConfig?.header || {},
+      param: historyEntry.apiConfig?.param || {},
+      body: historyEntry.apiConfig?.body || {},
+      chain: historyEntry.apiConfig?.chain || [],
+      successAssert: historyEntry.apiConfig?.successAssert || ''
+    };
     
-    if (existingApi) {
-      setSelectedAPI(existingApi);
-    } else {
-      const restoredApi = {
-        name: historyEntry.apiName,
-        group: historyEntry.apiConfig?.group || '默认',
-        api_path: historyEntry.apiPath || '',
-        method: historyEntry.apiMethod || 'GET',
-        header: historyEntry.apiConfig?.header || {},
-        param: historyEntry.apiConfig?.param || {},
-        body: historyEntry.apiConfig?.body || {},
-        chain: historyEntry.apiConfig?.chain || [],
-        successAssert: historyEntry.apiConfig?.successAssert || ''
-      };
-      setSelectedAPI(restoredApi);
-    }
-    
-    setEditingAPI(null);
-    setIsAddingAPI(false);
+    setTemporaryAPI(restoredApi);
     setRestoringHistoryEntry(historyEntry);
     setViewMode('api_detail');
   };
@@ -359,7 +351,9 @@ function App() {
   const handleSaveAPI = async (formData, isAdding = false) => {
     if (!formData) return;
     
-    if (isAdding || isAddingAPI) {
+    const isTemporary = temporaryAPI !== null;
+    
+    if (isTemporary || isAdding) {
       // 检查 API 名称是否重复
       const exists = projectData.apis.find(api => api.name === formData.name);
       if (exists) {
@@ -369,6 +363,7 @@ function App() {
       // 添加新 API
       await projectManager.addAPI(formData);
       setSelectedAPI(formData);
+      setTemporaryAPI(null);
     } else {
       // 编辑现有 API
       if (formData.name !== selectedAPI.name) {
@@ -396,6 +391,11 @@ function App() {
   const handleCancelEdit = () => {
     setEditingAPI(null);
     setIsAddingAPI(false);
+    if (temporaryAPI) {
+      setTemporaryAPI(null);
+      setRestoringHistoryEntry(null);
+      setViewMode('api');
+    }
   };
 
   // 执行 API 完成，保存到历史记录
@@ -602,12 +602,12 @@ function App() {
                   }
                 }}
               />
-            ) : viewMode === 'api_detail' && selectedAPI ? (
+            ) : viewMode === 'api_detail' && (selectedAPI || temporaryAPI) ? (
               <APIDetail 
-                api={selectedAPI}
+                api={temporaryAPI || selectedAPI}
                 profile={currentProfile}
                 config={projectData}
-                projectPath={projectManager.projectPath}
+                projectPath={projectManager.getProjectPath()}
                 onExecute={handleExecute}
                 history={executionHistory}
                 restoringHistoryEntry={restoringHistoryEntry}
@@ -615,7 +615,13 @@ function App() {
                 onSaveAPI={handleSaveAPI}
                 groups={projectManager.getGroups()}
                 isAdding={isAddingAPI}
+                isTemporary={temporaryAPI !== null}
                 onViewDetail={(entry) => setViewingHistoryEntry(entry)}
+                onCancelTemporary={() => {
+                  setTemporaryAPI(null);
+                  setRestoringHistoryEntry(null);
+                  setViewMode('api');
+                }}
                 theme={theme}
               />
             ) : (

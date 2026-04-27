@@ -23,6 +23,35 @@
   gap: 10px;
 }
 
+.temp-badge {
+  background: #f59e0b;
+  color: #fff;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.btn-cancel-temp {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-cancel-temp:hover {
+  background: var(--bg-hover);
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
 .api-title h2 {
   margin: 0;
   font-size: 16px;

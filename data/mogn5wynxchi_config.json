@@ -29,7 +29,7 @@
         "Content-Type": "application/json"
       },
       "param": {},
-      "body": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS1\"\n}",
+      "body": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}",
       "chain": [],
       "successAssert": ""
     },
