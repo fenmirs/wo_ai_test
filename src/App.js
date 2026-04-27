@@ -22,12 +22,12 @@ function App() {
   const [currentProfile, setCurrentProfile] = useState(null);
   const [selectedAPI, setSelectedAPI] = useState(null);
   const [activeGroup, setActiveGroup] = useState('默认');
-  const [showHistory, setShowHistory] = useState(false);
+  const [showEnvVarConfig, setShowEnvVarConfig] = useState(false);
   const [executionHistory, setExecutionHistory] = useState([]);
   const [restoringHistoryEntry, setRestoringHistoryEntry] = useState(null);
   const [viewingHistoryEntry, setViewingHistoryEntry] = useState(null);
   
-  // 视图模式：'api' | 'api_detail' | 'environment_list' | 'variable_list'
+  // 视图模式：'api' | 'api_detail' | 'env_var_manager' | 'history'
   const [viewMode, setViewMode] = useState('api');
   
   // 编辑状态
@@ -222,7 +222,6 @@ function App() {
     setEditingAPI(null);
     setIsAddingAPI(false);
     setViewMode('api');
-    setShowHistory(false);
   }, [isDirty]);
 
   // 选择环境
@@ -238,13 +237,11 @@ function App() {
     setIsAddingAPI(false);
     setRestoringHistoryEntry(null);
     setViewMode('api_detail');
-    setShowHistory(false);
   };
 
   // 选择分组
   const handleGroupSelect = (groupName) => {
     setActiveGroup(groupName);
-    setShowHistory(false);
     const apisInGroup = projectData.apis?.filter(api => api.group === groupName) || [];
     if (apisInGroup.length > 0) {
       if (!selectedAPI || selectedAPI.group !== groupName) {
@@ -282,7 +279,6 @@ function App() {
     setEditingAPI(null);
     setIsAddingAPI(false);
     setRestoringHistoryEntry(historyEntry);
-    setShowHistory(false);
     setViewMode('api_detail');
   };
 
@@ -484,7 +480,6 @@ function App() {
                   setIsAddingAPI(true);
                   setSelectedAPI(newApi);
                   setViewMode('api_detail');
-                  setShowHistory(false);
                 }}
                 onAddGroup={handleAddGroup}
                 onDeleteGroup={(groupName) => {
@@ -523,7 +518,6 @@ function App() {
                   setIsAddingAPI(false);
                   setSelectedAPI(api);
                   setViewMode('api_detail');
-                  setShowHistory(false);
                 }}
                 onDelete={(api) => {
                   setConfirmDialogConfig({
@@ -552,7 +546,7 @@ function App() {
 
           {/* 右侧面板 */}
           <div className="right-panel">
-            {showHistory ? (
+            {viewMode === 'history' ? (
               <ExecutionHistory 
                 history={executionHistory}
                 onSelect={handleRestoreFromHistory}
@@ -621,18 +615,17 @@ function App() {
           onEditVariables={() => {
             setSelectedAPI(null);
             setViewMode('env_var_manager');
-            setShowHistory(false);
           }}
           projectName={getProjectName()}
           isDirty={isDirty}
-          showHistory={showHistory}
-          onToggleHistory={(show) => setShowHistory(show)}
           onSave={handleSaveProject}
           onCloseProject={handleCloseProject}
           toggleTheme={toggleTheme}
           theme={theme}
           isSaving={isSaving}
+          onShowHistory={()=>{setViewMode('history')}}
           onBackToApi={() => setViewMode('api')}
+          viewModeValue={viewMode}
         />
       </main>
       

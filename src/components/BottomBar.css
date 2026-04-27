@@ -6,6 +6,8 @@
   background: var(--bg-secondary);
   border-top: 1px solid var(--border-color);
   flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .bar-section {
@@ -13,12 +15,12 @@
   display: flex;
   align-items: center;
   gap: 2px;
-  padding: 4px;
+  /* padding: 4px;
   border-radius: 8px;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-color); */
 }
 
-.bar-section + .bar-section {
+.bar-section+.bar-section {
   margin-left: 4px;
 }
 
@@ -44,8 +46,8 @@
 }
 
 .bar-label {
-  font-size: 14px;
-  font-weight: 500;
+  /* font-size: 14px;
+  font-weight: 500; */
   color: var(--text-secondary);
 }
 
@@ -62,10 +64,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6px;
+  padding: 4px;
   background: var(--bg-primary);
   border: 1px solid var(--border-color);
-  border-radius: 6px;
+  border-radius: 4px;
   color: var(--text-tertiary);
   cursor: pointer;
   transition: all 0.2s;
@@ -97,16 +99,16 @@
 }
 
 .dropdown-header {
-  padding: 12px 16px;
+  padding: 4px 8px;
   background: var(--bg-primary);
   border-bottom: 1px solid var(--border-color);
-  font-size: 13px;
-  font-weight: 600;
+  /* font-size: 13px;
+  font-weight: 600; */
   color: var(--text-tertiary);
 }
 
 .dropdown-item {
-  padding: 12px 16px;
+  padding: 4px 8px;
   cursor: pointer;
   transition: all 0.2s;
   border-bottom: 1px solid var(--border-color);
@@ -132,14 +134,14 @@
 }
 
 .dropdown-item-name {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   color: var(--text-secondary);
 }
 
 .badge {
   font-size: 11px;
-  padding: 2px 6px;
+  padding: 2px 4px;
   border-radius: 4px;
   font-weight: 500;
 }
@@ -150,7 +152,7 @@
 }
 
 .dropdown-item-sub {
-  font-size: 12px;
+  font-size: 10px;
   color: var(--text-muted);
   padding-left: 4px;
 }
@@ -262,7 +264,7 @@
   margin-left: 4px;
 }
 
-.bar-button {
+.bar-btn {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -276,18 +278,18 @@
   transition: all 0.2s;
 }
 
-.bar-button:hover {
+.bar-btn:hover {
   background: var(--bg-hover);
   border-color: var(--accent-primary);
 }
 
-.bar-button.active {
+.bar-btn.active {
   background: var(--accent-primary);
   border-color: var(--accent-primary);
   color: #ffffff;
 }
 
-.bar-button svg {
+.bar-btn svg {
   color: inherit;
 }
 

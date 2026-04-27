@@ -2,15 +2,15 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Globe, Variable, ChevronUp, Settings, FileText, Save, XCircle, Sun, Moon, History } from 'lucide-react';
 import './BottomBar.css';
 
-function BottomBar({ 
-  currentProfile, 
-  allProfiles, 
-  onProfileSelect, 
+function BottomBar({
+  currentProfile,
+  allProfiles,
+  onProfileSelect,
   onEditVariables,
+  viewModeValue,
   projectName,
   isDirty,
-  showHistory,
-  onToggleHistory,
+  onShowHistory,
   onSave,
   onCloseProject,
   toggleTheme,
@@ -54,8 +54,14 @@ function BottomBar({
 
   return (
     <div className="bottom-bar">
+      <div className="bar-item project-name">
+        <FileText size={16} />
+        <span className="bar-label">{projectName || '未加载项目'}</span>
+        {isDirty && <span className="dirty-dot" title="未保存" />}
+      </div>
+
       <div className="bar-section" ref={dropdownRef}>
-        <div 
+        <div
           className="bar-item"
           onClick={() => { setShowProfileDropdown(!showProfileDropdown); setShowVariableDropdown(false); }}
         >
@@ -73,7 +79,7 @@ function BottomBar({
               </div>
             ) : (
               allProfiles.map(profile => (
-                <div 
+                <div
                   key={profile.name}
                   className={`dropdown-item ${currentProfile?.name === profile.name ? 'active' : ''}`}
                   onClick={() => {
@@ -92,7 +98,7 @@ function BottomBar({
           </div>
         )}
 
-        <div 
+        <div
           className="bar-item"
           onClick={() => { setShowVariableDropdown(!showVariableDropdown); setShowProfileDropdown(false); }}
         >
@@ -100,8 +106,8 @@ function BottomBar({
           <span className="bar-label">变量</span>
           <ChevronUp size={14} className={`chevron ${showVariableDropdown ? 'up' : ''}`} />
         </div>
-        <button 
-          className="icon-btn"
+        <button
+          className={`bar-btn ${viewModeValue === 'env_var_manager' ? 'active' : ''}`}
           onClick={onEditVariables}
           title="管理环境和变量"
         >
@@ -125,41 +131,32 @@ function BottomBar({
         )}
       </div>
 
-      <div className="bar-section">
-        <div className="bar-item project-name">
-          <FileText size={16} />
-          <span className="bar-label">{projectName || '未加载项目'}</span>
-          {isDirty && <span className="dirty-dot" title="未保存" />}
-        </div>
-        
-        <button 
-          className={`bar-button ${showHistory ? 'active' : ''}`}
-          onClick={() => onToggleHistory && onToggleHistory(!showHistory)}
-          title="历史"
-        >
-          <History size={14} />
-          <span>历史</span>
-        </button>
-      </div>
-
+      <button
+        className={`bar-btn ${viewModeValue === 'history' ? 'active' : ''}`}
+        onClick={onShowHistory}
+        title="历史"
+      >
+        <History size={14} />
+        {/* <span>历史</span> */}
+      </button>
       <div className="bar-section" style={{ marginLeft: 'auto' }}>
-        <button 
-          className="icon-btn"
+        <button
+          className="bar-btn"
           onClick={onSave}
           disabled={!isDirty || isSaving}
           title="保存配置"
         >
           <Save size={14} />
         </button>
-        <button 
-          className="icon-btn"
+        <button
+          className="bar-btn"
           onClick={onCloseProject}
           title="关闭项目"
         >
           <XCircle size={14} />
         </button>
-        <button 
-          className="icon-btn"
+        <button
+          className="bar-btn"
           onClick={toggleTheme}
           title={theme === 'dark' ? '切换到白昼模式' : '切换到暗黑模式'}
         >
