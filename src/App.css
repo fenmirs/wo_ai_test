@@ -182,11 +182,11 @@
 /* 右侧面板 */
 .right-panel {
   flex: 1;
-  overflow: hidden;
-  background: var(--bg-primary);
-  transition: background 0.3s ease;
   display: flex;
   flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--bg-primary);
 }
 
 /* 空状态 */

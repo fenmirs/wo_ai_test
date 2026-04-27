@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { FileText, History, Save, Edit, X, Plus, FolderPlus, ArrowLeft, Sun, Moon, XCircle, Globe } from 'lucide-react';
+import { FileText, LucideHistory, Save, Edit, X, Plus, FolderPlus, ArrowLeft, Sun, Moon, XCircle, Globe } from 'lucide-react';
 import APIMain from './components/APIMain';
 import APIDetail from './components/APIDetail';
 import BottomBar from './components/BottomBar';
@@ -19,6 +19,7 @@ function App() {
   const [isDirty, setIsDirty] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState('');
+  const [saveError, setSaveError] = useState(null);
   const [currentProfile, setCurrentProfile] = useState(null);
   const [selectedAPI, setSelectedAPI] = useState(null);
   const [temporaryAPI, setTemporaryAPI] = useState(null);
@@ -281,7 +282,9 @@ function App() {
     setActiveGroup(api.group || '默认');
     setEditingAPI(null);
     setIsAddingAPI(false);
+    setTemporaryAPI(null);
     setRestoringHistoryEntry(null);
+    setSaveError(null);
     setViewMode('api_detail');
   };
 
@@ -357,8 +360,7 @@ function App() {
       // 检查 API 名称是否重复
       const exists = projectData.apis.find(api => api.name === formData.name);
       if (exists) {
-        alert('API 名称已存在');
-        return;
+        throw new Error('API 名称已存在');
       }
       // 添加新 API
       await projectManager.addAPI(formData);
@@ -370,8 +372,7 @@ function App() {
         // 名称改变，检查是否重复
         const exists = projectData.apis.find(api => api.name === formData.name);
         if (exists) {
-          alert('API 名称已存在');
-          return;
+          throw new Error('API 名称已存在');
         }
         // 删除旧的 API
         await projectManager.deleteAPI(selectedAPI.name);
@@ -613,15 +614,13 @@ function App() {
                 restoringHistoryEntry={restoringHistoryEntry}
                 onRestored={() => setRestoringHistoryEntry(null)}
                 onSaveAPI={handleSaveAPI}
+                onSaveError={(msg) => setSaveError(msg)}
+                saveError={saveError}
                 groups={projectManager.getGroups()}
                 isAdding={isAddingAPI}
                 isTemporary={temporaryAPI !== null}
                 onViewDetail={(entry) => setViewingHistoryEntry(entry)}
-                onCancelTemporary={() => {
-                  setTemporaryAPI(null);
-                  setRestoringHistoryEntry(null);
-                  setViewMode('api');
-                }}
+                onRestoreHistory={handleRestoreFromHistory}
                 theme={theme}
               />
             ) : (

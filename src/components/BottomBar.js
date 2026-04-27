@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Globe, Variable, ChevronUp, Settings, FileText, Save, XCircle, Sun, Moon, History } from 'lucide-react';
+import { Globe, Variable, ChevronUp, Settings, FileText, Save, XCircle, Sun, Moon, RotateCw } from 'lucide-react';
 import './BottomBar.css';
 
 function BottomBar({
@@ -174,7 +174,7 @@ function BottomBar({
         onClick={onShowHistory}
         title="历史"
       >
-        <History size={14} />
+        <RotateCw size={14} />
         {/* <span>历史</span> */}
       </button>
       <div className="bar-section" style={{ marginLeft: 'auto' }}>

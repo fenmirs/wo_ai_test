@@ -1,5 +1,315 @@
 [
   {
+    "id": 1777281952363,
+    "apiName": "获取token",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/openapi/security/token",
+    "timestamp": "2026/4/27 17:25:52",
+    "apiConfig": {
+      "name": "获取token",
+      "group": "lims",
+      "api_path": "{domain}{api-prj}/openapi/security/token",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}",
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://192.168.17.128:30210/api-prj/openapi/security/token",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "value": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "contentType": "json",
+        "content": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}"
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "CONNECTION_REFUSED",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "2.05s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "连接被拒绝，请检查服务器是否启动",
+      "errorType": "connection_refused"
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "2.05s",
+    "error": "连接被拒绝，请检查服务器是否启动",
+    "errorType": "connection_refused",
+    "assertionResult": null,
+    "responseHeaders": {}
+  },
+  {
+    "id": 1777281876965,
+    "apiName": "获取token",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/openapi/security/token",
+    "timestamp": "2026/4/27 17:24:36",
+    "apiConfig": {
+      "name": "获取token",
+      "group": "lims",
+      "api_path": "{domain}{api-prj}/openapi/security/token",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS1\"\n}",
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://192.168.17.128:30210/api-prj/openapi/security/token",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "value": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "contentType": "json",
+        "content": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS1\"\n}"
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "CONNECTION_REFUSED",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "2.04s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "连接被拒绝，请检查服务器是否启动",
+      "errorType": "connection_refused"
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "2.04s",
+    "error": "连接被拒绝，请检查服务器是否启动",
+    "errorType": "connection_refused",
+    "assertionResult": null,
+    "responseHeaders": {}
+  },
+  {
+    "id": 1777281860758,
+    "apiName": "获取token",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/openapi/security/token",
+    "timestamp": "2026/4/27 17:24:20",
+    "apiConfig": {
+      "name": "获取token",
+      "group": "lims",
+      "api_path": "{domain}{api-prj}/openapi/security/token",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS1\"\n}",
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://192.168.17.128:30210/api-prj/openapi/security/token",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "value": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "contentType": "json",
+        "content": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS1\"\n}"
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "CONNECTION_REFUSED",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "2.05s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "连接被拒绝，请检查服务器是否启动",
+      "errorType": "connection_refused"
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "2.05s",
+    "error": "连接被拒绝，请检查服务器是否启动",
+    "errorType": "connection_refused",
+    "assertionResult": null,
+    "responseHeaders": {}
+  },
+  {
+    "id": 1777281424179,
+    "apiName": "获取token",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/openapi/security/token",
+    "timestamp": "2026/4/27 17:17:04",
+    "apiConfig": {
+      "name": "获取token",
+      "group": "lims",
+      "api_path": "{domain}{api-prj}/openapi/security/token",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS1\"\n}",
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://192.168.17.128:30210/api-prj/openapi/security/token",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "value": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "contentType": "json",
+        "content": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS1\"\n}"
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "CONNECTION_REFUSED",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "2.04s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "连接被拒绝，请检查服务器是否启动",
+      "errorType": "connection_refused"
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "2.04s",
+    "error": "连接被拒绝，请检查服务器是否启动",
+    "errorType": "connection_refused",
+    "assertionResult": null,
+    "responseHeaders": {}
+  },
+  {
+    "id": 1777281418806,
+    "apiName": "获取token",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/openapi/security/token",
+    "timestamp": "2026/4/27 17:16:58",
+    "apiConfig": {
+      "name": "获取token",
+      "group": "lims",
+      "api_path": "{domain}{api-prj}/openapi/security/token",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS1\"\n}",
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://192.168.17.128:30210/api-prj/openapi/security/token",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "value": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "contentType": "json",
+        "content": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS1\"\n}"
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "CONNECTION_REFUSED",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "2.05s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "连接被拒绝，请检查服务器是否启动",
+      "errorType": "connection_refused"
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "2.05s",
+    "error": "连接被拒绝，请检查服务器是否启动",
+    "errorType": "connection_refused",
+    "assertionResult": null,
+    "responseHeaders": {}
+  },
+  {
     "id": 1777275565377,
     "apiName": "获取token",
     "apiMethod": "POST",

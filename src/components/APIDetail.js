@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, ChevronRight, ChevronDown, Trash2, Plus, Upload, X, AlertCircle, FileText, Save } from 'lucide-react';
+import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, ChevronRight, ChevronDown, Trash2, Plus, Upload, X, AlertCircle, FileText, Save, RotateCcw } from 'lucide-react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import axios from 'axios';
@@ -8,7 +8,7 @@ import APIExecutor from '../utils/APIExecutor';
 import { projectManager } from '../utils/ProjectManager';
 import CodeEditor from './CodeEditor';
 
-function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, groups = [], isAdding = false, isTemporary = false, onViewDetail, onCancelTemporary, theme = 'dark' }) {
+function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, onSaveError, saveError, groups = [], isAdding = false, isTemporary = false, onViewDetail, onRestoreHistory, theme = 'dark' }) {
   const [resolvedPath, setResolvedPath] = useState('');
   const [executionResult, setExecutionResult] = useState(null);
   const [isExecuting, setIsExecuting] = useState(false);
@@ -16,7 +16,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const [responseTab, setResponseTab] = useState('request');
   const [showHistoryPanel, setShowHistoryPanel] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [saveError, setSaveError] = useState(null);
+  const [localSaveError, setLocalSaveError] = useState(null);
   const fileInputRef = useRef(null);
   const executorRef = useRef(null);
   
@@ -258,7 +258,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         rawContentType: formData.body.contentType
       };
       
-      if (onSaveAPI) {
+      if (onSaveAPI && !isTemporary) {
         await onSaveAPI(execAPI, isAdding);
       }
       
@@ -287,16 +287,16 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
   const handleSave = async () => {
     if (!formData.name && (isAdding || isTemporary)) {
-      setSaveError('请输入 API 名称');
+      setLocalSaveError('请输入 API 名称');
       return;
     }
     if (!formData.api_path) {
-      setSaveError('请输入 API 路径');
+      setLocalSaveError('请输入 API 路径');
       return;
     }
     
     setIsSaving(true);
-    setSaveError(null);
+    setLocalSaveError(null);
     
     try {
       const execAPI = prepareForExecute();
@@ -304,7 +304,9 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         await onSaveAPI(execAPI, isAdding || isTemporary);
       }
     } catch (error) {
-      setSaveError(error.message || '保存失败');
+      const errMsg = error.message || '保存失败';
+      setLocalSaveError(errMsg);
+      if (onSaveError) onSaveError(errMsg);
     } finally {
       setIsSaving(false);
     }
@@ -433,7 +435,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     { id: 'headers', label: 'Headers', count: formData.header.filter(h => h.enabled && h.key).length },
     { id: 'body', label: 'Body', count: formData.body.type !== 'none' ? 1 : 0 },
     { id: 'assert', label: '断言', count: formData.assertions.filter(a => a.enabled && a.expression.trim()).length },
-    ...(apiHistory.length > 0 ? [{ id: 'history', label: '历史', count: apiHistory.length }] : [])
+    ...(!isTemporary && apiHistory.length > 0 ? [{ id: 'history', label: '历史', count: apiHistory.length }] : [])
   ];
 
   const paramTypes = [
@@ -605,19 +607,14 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
           />
         </div>
         <div className="header-actions">
-          {isTemporary && onCancelTemporary && (
-            <button className="btn-cancel-temp" onClick={onCancelTemporary}>
-              <XCircle size={16} /> 取消临时
-            </button>
-          )}
-          <button 
-            className={`btn-save ${saveError ? 'error' : ''}`} 
+          <button
+            className={`btn-save ${saveError || localSaveError ? 'error' : ''}`}
             onClick={handleSave}
-            title={saveError || '保存 API'}
+            title={saveError || localSaveError || '保存 API'}
           >
             {isSaving ? (
               <RefreshCw size={16} className="spin" />
-            ) : saveError ? (
+            ) : saveError || localSaveError ? (
               <AlertCircle size={16} />
             ) : (
               <Save size={16} />
@@ -940,6 +937,18 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                   </div>
                   
                   <div className="history-actions">
+                    <button
+                      className="history-btn restore"
+                      onClick={() => {
+                        console.log('[History] 恢复请求 clicked:', entry);
+                        if (onRestoreHistory) {
+                          onRestoreHistory(entry);
+                        }
+                      }}
+                      title="恢复请求"
+                    >
+                      <RotateCcw size={12} />
+                    </button>
                     <button 
                       className="history-btn detail"
                       onClick={() => {
