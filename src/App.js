@@ -82,11 +82,42 @@ function App() {
       
       // 首次加载项目时自动选择默认环境
       if (projectData && projectData.profile && projectData.profile.length > 0 && !hasProject) {
-        const defaultProfile = projectData.profile.find(p => p.activate);
-        if (defaultProfile) {
-          setCurrentProfile(defaultProfile);
-        } else if (projectData.profile.length > 0) {
-          setCurrentProfile(projectData.profile[0]);
+        // 优先使用之前保存的环境选择
+        const savedProfileName = projectManager.getSelectedProfileName();
+        let selectedProfile = null;
+        
+        if (savedProfileName) {
+          selectedProfile = projectData.profile.find(p => p.name === savedProfileName);
+        }
+        
+        if (!selectedProfile) {
+          selectedProfile = projectData.profile.find(p => p.activate);
+        }
+        
+        if (!selectedProfile && projectData.profile.length > 0) {
+          selectedProfile = projectData.profile[0];
+        }
+        
+        if (selectedProfile) {
+          setCurrentProfile(selectedProfile);
+        }
+      }
+      
+      // 切换项目时，恢复之前保存的环境
+      if (projectData && projectData.profile && projectData.profile.length > 0 && hasProject) {
+        const savedProfileName = projectManager.getSelectedProfileName();
+        let selectedProfile = null;
+        
+        if (savedProfileName) {
+          selectedProfile = projectData.profile.find(p => p.name === savedProfileName);
+        }
+        
+        if (!selectedProfile && projectData.profile.length > 0) {
+          selectedProfile = projectData.profile.find(p => p.activate) || projectData.profile[0];
+        }
+        
+        if (selectedProfile) {
+          setCurrentProfile(selectedProfile);
         }
       }
     };
@@ -140,7 +171,6 @@ function App() {
 
   // 选择项目（从目录项目列表中选择）
   const handleProjectSelect = useCallback(async (project) => {
-    console.info(project);
     const dirPath = project.dirPath || project.path;
     const loadResult = await projectManager.loadProject(dirPath, project.id);
     if (loadResult.success) {
@@ -241,6 +271,7 @@ function App() {
   // 选择环境
   const handleProfileSelect = (profile) => {
     setCurrentProfile(profile);
+    projectManager.setSelectedProfileName(profile.name);
   };
 
   // 选择 API

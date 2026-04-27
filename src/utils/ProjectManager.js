@@ -342,10 +342,33 @@ class ProjectManager {
   }
 
   /**
-   * 获取项目名称
+   * 获取项目选择的环境
    */
-  getProjectName() {
-    return this.projectName || '';
+  getSelectedProfileName() {
+    if (!this.dirPath || !this.projectId) return null;
+    const key = `profile_${this.dirPath}_${this.projectId}`;
+    try {
+      return localStorage.getItem(key);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /**
+   * 保存项目选择的环境
+   */
+  setSelectedProfileName(profileName) {
+    if (!this.dirPath || !this.projectId) return;
+    const key = `profile_${this.dirPath}_${this.projectId}`;
+    try {
+      if (profileName) {
+        localStorage.setItem(key, profileName);
+      } else {
+        localStorage.removeItem(key);
+      }
+    } catch (e) {
+      console.error('保存环境选择失败:', e);
+    }
   }
 
   /**
@@ -360,6 +383,13 @@ class ProjectManager {
    */
   getProjectId() {
     return this.projectId || '';
+  }
+
+  /**
+   * 获取项目名称
+   */
+  getProjectName() {
+    return this.projectName || '';
   }
 
   /**

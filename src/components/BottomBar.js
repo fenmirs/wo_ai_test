@@ -55,8 +55,6 @@ function BottomBar({
   };
 
   const onProjectItemClick = (project) => {
-    console.info("---------")
-    console.info(project)
     onProjectSelect(project);
     setShowProjectDropdown(false);
   };
