@@ -125,7 +125,7 @@ ipcMain.handle('read-file', async (event, filePath) => {
 
 ipcMain.handle('write-file', async (event, filePath, content) => {
   try {
-    await fs.writeFile(filePath, content, 'utf-8');
+    await fs.promises.writeFile(filePath, content, 'utf-8');
     return { success: true };
   } catch (error) {
     return { success: false, error: error.message };

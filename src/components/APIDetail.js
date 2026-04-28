@@ -329,8 +329,12 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         });
 
         if (result && result.filePath) {
-          await window.electron.writeFile(result.filePath, markdown);
-          alert(`文档已保存到: ${result.filePath}`);
+          const writeResult = await window.electron.writeFile(result.filePath, markdown);
+          if (writeResult && writeResult.success) {
+            alert(`文档已保存到: ${result.filePath}`);
+          } else {
+            alert(`保存文档失败: ${writeResult?.error || '未知错误'}`);
+          }
         }
       } else {
         // 浏览器环境：直接下载
@@ -491,7 +495,8 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
           </thead>
           <tbody>
             {items.map((item, index) => {
-              const isReadonly = item.key.toLowerCase() === 'content-type';
+              // const isReadonly = item.key.toLowerCase() === 'content-type';
+              const isReadonly = false;
               return (
                 <tr key={index}>
                   <td>
