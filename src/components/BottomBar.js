@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Globe, Variable, ChevronUp, Settings, FileText, Save, XCircle, Sun, Moon, RotateCw } from 'lucide-react';
+import { Globe, Variable, ChevronUp, Settings2,FolderKanban, Save, XCircle, Sun, Moon, History,LogOut } from 'lucide-react';
 import './BottomBar.css';
 
 function BottomBar({
@@ -66,7 +66,7 @@ function BottomBar({
           className="bar-item project-name"
           onClick={() => { setShowProjectDropdown(!showProjectDropdown); setShowProfileDropdown(false); setShowVariableDropdown(false); }}
         >
-          <FileText size={16} />
+          <FolderKanban size={16} />
           <span className="bar-label">{projectName || '未加载项目'}</span>
           <ChevronUp size={14} className={`chevron ${showProjectDropdown ? 'up' : ''}`} />
           {isDirty && <span className="dirty-dot" title="未保存" />}
@@ -74,7 +74,16 @@ function BottomBar({
 
         {showProjectDropdown && (
           <div className="dropdown-menu project-menu">
-            <div className="dropdown-header">选择项目</div>
+            <div className="dropdown-header project-exit-header">
+              <span>选择项目</span>
+              <button
+                className="bar-btn"
+                onClick={onCloseProject}
+                title="退出"
+              >
+                <LogOut size={14} />
+              </button>
+            </div>
             {!projectList || projectList.length === 0 ? (
               <div className="dropdown-empty">
                 <p>暂无项目</p>
@@ -149,7 +158,7 @@ function BottomBar({
           onClick={onEditVariables}
           title="管理环境和变量"
         >
-          <Settings size={14} />
+          <Settings2 size={14} />
         </button>
 
         {showVariableDropdown && (
@@ -172,27 +181,27 @@ function BottomBar({
       <button
         className={`bar-btn ${viewModeValue === 'history' ? 'active' : ''}`}
         onClick={onShowHistory}
-        title="历史"
+        title="执行历史"
       >
-        <RotateCw size={14} />
-        {/* <span>历史</span> */}
+        <History size={14} />
+        {/* <span>执行历史</span> */}
       </button>
       <div className="bar-section" style={{ marginLeft: 'auto' }}>
-        <button
+        {/* <button
           className="bar-btn"
           onClick={onSave}
           disabled={!isDirty || isSaving}
           title="保存配置"
         >
           <Save size={14} />
-        </button>
-        <button
+        </button> */}
+        {/* <button
           className="bar-btn"
           onClick={onCloseProject}
           title="关闭项目"
         >
           <XCircle size={14} />
-        </button>
+        </button> */}
         <button
           className="bar-btn"
           onClick={toggleTheme}

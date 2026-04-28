@@ -215,12 +215,12 @@ function EnvVarManager({ onBack }) {
       <div className="evm-content">
         <div className="evm-toolbar">
           <button className="toolbar-btn" onClick={() => setIsAddingEnv(true)}>
-            <Plus size={16} />
             新增环境
+            <Globe size={16} />
           </button>
           <button className="toolbar-btn" onClick={() => setIsAddingVar(true)}>
-            <Plus size={16} />
             新增变量
+            <Variable size={16} />
           </button>
         </div>
 
@@ -322,7 +322,6 @@ function EnvVarManager({ onBack }) {
           <div className="grid-body" style={{ '--env-count': profiles.length }}>
             <div className="grid-row domain-row">
               <div className="grid-cell var-name-cell">
-                <Globe size={14} />
                 <span>域名</span>
               </div>
               {profiles.map(p => (

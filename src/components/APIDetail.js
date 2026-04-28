@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, ChevronRight, ChevronDown, Trash2, Plus, Upload, X, AlertCircle, FileText, Save, RotateCcw } from 'lucide-react';
+import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, ChevronRight, ChevronDown, Trash2, Plus, Upload, X, AlertCircle, FileText, Save } from 'lucide-react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import axios from 'axios';
@@ -937,18 +937,6 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                   </div>
                   
                   <div className="history-actions">
-                    <button
-                      className="history-btn restore"
-                      onClick={() => {
-                        console.log('[History] 恢复请求 clicked:', entry);
-                        if (onRestoreHistory) {
-                          onRestoreHistory(entry);
-                        }
-                      }}
-                      title="恢复请求"
-                    >
-                      <RotateCcw size={12} />
-                    </button>
                     <button 
                       className="history-btn detail"
                       onClick={() => {
@@ -960,6 +948,18 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                       title="查看详情"
                     >
                       <FileText size={12} />
+                    </button>
+                    <button
+                      className="history-btn restore"
+                      onClick={() => {
+                        console.log('[History] 恢复请求 clicked:', entry);
+                        if (onRestoreHistory) {
+                          onRestoreHistory(entry);
+                        }
+                      }}
+                      title="恢复请求"
+                    >
+                      <Play size={12} />
                     </button>
                   </div>
                 </div>
