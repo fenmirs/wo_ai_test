@@ -10,6 +10,7 @@ import InputDialog from './components/InputDialog';
 import ConfirmDialog from './components/ConfirmDialog';
 import HistoryDetailDialog from './components/HistoryDetailDialog';
 import { projectManager } from './utils/ProjectManager';
+import { notificationManager } from './utils/NotificationManager';
 import './App.css';
 
 function App() {
@@ -81,6 +82,11 @@ function App() {
     const handleProjectChange = ({ projectData, isDirty }) => {
       setHasProject(!!projectData);
       setIsDirty(isDirty);
+      
+      // 设置通知管理器的当前项目
+      if (projectData && projectManager.getProjectId()) {
+        notificationManager.setCurrentProject(projectManager.getProjectId());
+      }
       
       // 首次加载项目时自动选择默认环境
       if (projectData && projectData.profile && projectData.profile.length > 0 && !hasProject) {
@@ -177,6 +183,9 @@ function App() {
     const loadResult = await projectManager.loadProject(dirPath, project.id);
     if (loadResult.success) {
       setCurrentProjectDir(dirPath);
+      // 设置通知管理器的当前项目
+      notificationManager.setCurrentProject(project.id);
+      
       if (window.electron) {
         const listResult = await window.electron.readDirectoryProjectList(dirPath);
         setProjectList(listResult.data || []);
@@ -373,15 +382,15 @@ function App() {
   };
 
   // 保存 API 编辑
-  const handleSaveAPI = async (formData, isAdding = false) => {
+  const handleSaveAPI = async (formData) => {
     if (!formData) return;
     
     const isTemporary = temporaryAPI !== null;
     
-    if (isTemporary || isAdding) {
+    if (isTemporary || isAddingAPI) {
       // 检查 API 名称是否重复
       const exists = projectData.apis.find(api => api.name === formData.name);
-      if (exists) {
+      if (exists && !isTemporary) {
         throw new Error('API 名称已存在');
       }
       // 添加新 API
@@ -389,7 +398,6 @@ function App() {
       setSelectedAPI(formData);
       setTemporaryAPI(null);
     } else {
-      // 编辑现有 API
       if (formData.name !== selectedAPI.name) {
         // 名称改变，检查是否重复
         const exists = projectData.apis.find(api => api.name === formData.name);
@@ -538,7 +546,7 @@ function App() {
                     chain: [],
                     successAssert: ''
                   };
-                  projectManager.addAPI(newApi);
+                  // 不在这里添加 API，而是在保存时添加
                   setEditingAPI(newApi);
                   setIsAddingAPI(true);
                   setSelectedAPI(newApi);
@@ -589,6 +597,7 @@ function App() {
                     options: [],
                     onConfirm: () => {
                       projectManager.deleteAPI(api.name);
+                      
                       if (selectedAPI?.name === api.name) {
                         setSelectedAPI(null);
                         setEditingAPI(null);

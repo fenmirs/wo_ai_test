@@ -466,3 +466,19 @@
   background: var(--error-bg);
   color: var(--error-color);
 }
+
+.notification-restore-btn {
+  margin-top: 6px;
+  padding: 4px 8px;
+  background: var(--accent-primary, #3b82f6);
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.notification-restore-btn:hover {
+  background: var(--accent-hover, #2563eb);
+}

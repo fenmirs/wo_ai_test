@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Globe, Variable, ChevronUp, Settings2, FolderKanban, Save, XCircle, Sun, Moon, History, LogOut, Bell, CheckCheck, Trash2 } from 'lucide-react';
+import { Globe, Variable, ChevronUp, Settings2,FolderKanban, Save, XCircle, Sun, Moon, History,LogOut, Bell, CheckCheck, Trash2 } from 'lucide-react';
+import { notificationManager } from '../utils/NotificationManager';
+import { projectManager } from '../utils/ProjectManager';
 import './BottomBar.css';
 
 function BottomBar({
@@ -24,11 +26,8 @@ function BottomBar({
   const [showProjectDropdown, setShowProjectDropdown] = useState(false);
   const [showVariableDropdown, setShowVariableDropdown] = useState(false);
   const [showNotificationPanel, setShowNotificationPanel] = useState(false);
-  const [notifications, setNotifications] = useState([
-    { id: 1, type: 'system', title: '欢迎使用', message: 'API 测试工具已准备就绪', timestamp: new Date().toLocaleString('zh-CN'), read: false },
-    { id: 2, type: 'system', title: '项目加载成功', message: '项目数据已成功加载', timestamp: new Date(Date.now() - 3600000).toLocaleString('zh-CN'), read: true },
-    { id: 3, type: 'system', title: '自动保存', message: '项目配置已自动保存', timestamp: new Date(Date.now() - 7200000).toLocaleString('zh-CN'), read: false }
-  ]);
+  const [notifications, setNotifications] = useState([]);
+  const [unreadCount, setUnreadCount] = useState(0);
   const projectDropdownRef = useRef(null);
   const profileDropdownRef = useRef(null);
   const notificationRef = useRef(null);
@@ -53,30 +52,38 @@ function BottomBar({
     };
   }, []);
 
-  const unreadCount = notifications.filter(n => !n.read).length;
+  // 监听通知管理器变化
+  useEffect(() => {
+    const handleNotificationChange = ({ notifications: notifs, unreadCount: count }) => {
+      setNotifications(notifs || []);
+      setUnreadCount(count || 0);
+    };
+
+    notificationManager.addListener(handleNotificationChange);
+    // 初始化
+    setNotifications(notificationManager.getNotifications());
+    setUnreadCount(notificationManager.getUnreadCount());
+
+    return () => {
+      notificationManager.removeListener(handleNotificationChange);
+    };
+  }, []);
 
   const markAsRead = (id) => {
-    setNotifications(prev => prev.map(n => n.id === id ? { ...n, read: true } : n));
+    notificationManager.markAsRead(id);
   };
 
   const markAllAsRead = () => {
-    setNotifications(prev => prev.map(n => ({ ...n, read: true })));
+    notificationManager.markAllAsRead();
   };
 
   const deleteNotification = (id) => {
-    setNotifications(prev => prev.filter(n => n.id !== id));
+    notificationManager.deleteNotification(id);
   };
 
-  const addNotification = (type, title, message) => {
-    const newNotification = {
-      id: Date.now(),
-      type,
-      title,
-      message,
-      timestamp: new Date().toLocaleString('zh-CN'),
-      read: false
-    };
-    setNotifications(prev => [newNotification, ...prev]);
+  // 恢复被删除的 API（预留，当前未使用）
+  const restoreAPI = (notification) => {
+    console.log('恢复功能预留，通知数据:', notification);
   };
 
   const getCurrentVariables = () => {
