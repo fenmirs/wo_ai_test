@@ -365,11 +365,14 @@ class APIExecutor {
 
       // Electron 响应格式
       if (response.success !== undefined) {
-        // 无论成功失败，都尝试读取响应数据（HTTP 错误也可能有响应体）
+        // 无论成功失败，都读取响应数据（HTTP 错误也可能有响应体）
         if (response.data !== undefined) {
           responseData = response.data;
         }
-        
+
+        // 无论成功失败，都读取响应头
+        responseHeaders = response.headers || {};
+
         if (response.success === false) {
           // Electron 返回错误
           errorMessage = response.error || '请求失败';
@@ -378,7 +381,6 @@ class APIExecutor {
           statusText = response.status_text || errorType.toUpperCase();
         } else {
           // 成功响应
-          responseHeaders = response.headers || {};
           statusCode = response.status_code;
           statusText = response.status_text || '';
         }
