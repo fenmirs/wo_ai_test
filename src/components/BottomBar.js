@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Globe, Variable, ChevronUp, Settings2,FolderKanban, Save, XCircle, Sun, Moon, History,LogOut, Bell, CheckCheck, Trash2 } from 'lucide-react';
+import { Globe, Variable, ChevronUp, Settings2, FolderKanban, Save, XCircle, Sun, Moon, History, LogOut, Bell, CheckCheck, Trash2 } from 'lucide-react';
 import './BottomBar.css';
 
 function BottomBar({
@@ -223,7 +223,22 @@ function BottomBar({
         {/* <span>执行历史</span> */}
       </button>
 
-      <div className="bar-section" ref={notificationRef}>
+      <div className="bar-section" ref={notificationRef} style={{ marginLeft: 'auto' }}>
+        {/* <button
+          className="bar-btn"
+          onClick={onSave}
+          disabled={!isDirty || isSaving}
+          title="保存配置"
+        >
+          <Save size={14} />
+        </button> */}
+        <button
+          className="bar-btn"
+          onClick={toggleTheme}
+          title={theme === 'dark' ? '切换到白昼模式' : '切换到暗黑模式'}
+        >
+          {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
+        </button>
         <button
           className="bar-btn"
           onClick={() => setShowNotificationPanel(!showNotificationPanel)}
@@ -232,7 +247,6 @@ function BottomBar({
           <Bell size={14} />
           {unreadCount > 0 && <span className="notification-badge">{unreadCount}</span>}
         </button>
-
         {showNotificationPanel && (
           <div className="notification-panel">
             <div className="notification-header">
@@ -277,30 +291,6 @@ function BottomBar({
             </div>
           </div>
         )}
-      </div>
-      <div className="bar-section" style={{ marginLeft: 'auto' }}>
-        {/* <button
-          className="bar-btn"
-          onClick={onSave}
-          disabled={!isDirty || isSaving}
-          title="保存配置"
-        >
-          <Save size={14} />
-        </button> */}
-        {/* <button
-          className="bar-btn"
-          onClick={onCloseProject}
-          title="关闭项目"
-        >
-          <XCircle size={14} />
-        </button> */}
-        <button
-          className="bar-btn"
-          onClick={toggleTheme}
-          title={theme === 'dark' ? '切换到白昼模式' : '切换到暗黑模式'}
-        >
-          {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
-        </button>
       </div>
 
       {!window.electron && (

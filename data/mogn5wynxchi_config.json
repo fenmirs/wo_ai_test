@@ -35,7 +35,7 @@
     },
     {
       "name": "接收NC检验单",
-      "group": "1212",
+      "group": "默认",
       "api_path": "{domain}{api-prj}/openapi/order/nc/receive",
       "method": "POST",
       "header": {
