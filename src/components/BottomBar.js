@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Globe, Variable, ChevronUp, Settings2,FolderKanban, Save, XCircle, Sun, Moon, History,LogOut } from 'lucide-react';
+import { Globe, Variable, ChevronUp, Settings2,FolderKanban, Save, XCircle, Sun, Moon, History,LogOut, Bell, CheckCheck, Trash2 } from 'lucide-react';
 import './BottomBar.css';
 
 function BottomBar({
@@ -23,8 +23,15 @@ function BottomBar({
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const [showProjectDropdown, setShowProjectDropdown] = useState(false);
   const [showVariableDropdown, setShowVariableDropdown] = useState(false);
+  const [showNotificationPanel, setShowNotificationPanel] = useState(false);
+  const [notifications, setNotifications] = useState([
+    { id: 1, type: 'system', title: '欢迎使用', message: 'API 测试工具已准备就绪', timestamp: new Date().toLocaleString('zh-CN'), read: false },
+    { id: 2, type: 'system', title: '项目加载成功', message: '项目数据已成功加载', timestamp: new Date(Date.now() - 3600000).toLocaleString('zh-CN'), read: true },
+    { id: 3, type: 'system', title: '自动保存', message: '项目配置已自动保存', timestamp: new Date(Date.now() - 7200000).toLocaleString('zh-CN'), read: false }
+  ]);
   const projectDropdownRef = useRef(null);
   const profileDropdownRef = useRef(null);
+  const notificationRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -35,6 +42,9 @@ function BottomBar({
         setShowProfileDropdown(false);
         setShowVariableDropdown(false);
       }
+      if (notificationRef.current && !notificationRef.current.contains(event.target)) {
+        setShowNotificationPanel(false);
+      }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
@@ -42,6 +52,32 @@ function BottomBar({
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  const unreadCount = notifications.filter(n => !n.read).length;
+
+  const markAsRead = (id) => {
+    setNotifications(prev => prev.map(n => n.id === id ? { ...n, read: true } : n));
+  };
+
+  const markAllAsRead = () => {
+    setNotifications(prev => prev.map(n => ({ ...n, read: true })));
+  };
+
+  const deleteNotification = (id) => {
+    setNotifications(prev => prev.filter(n => n.id !== id));
+  };
+
+  const addNotification = (type, title, message) => {
+    const newNotification = {
+      id: Date.now(),
+      type,
+      title,
+      message,
+      timestamp: new Date().toLocaleString('zh-CN'),
+      read: false
+    };
+    setNotifications(prev => [newNotification, ...prev]);
+  };
 
   const getCurrentVariables = () => {
     if (!currentProfile) return {};
@@ -186,6 +222,62 @@ function BottomBar({
         <History size={14} />
         {/* <span>执行历史</span> */}
       </button>
+
+      <div className="bar-section" ref={notificationRef}>
+        <button
+          className="bar-btn"
+          onClick={() => setShowNotificationPanel(!showNotificationPanel)}
+          title="通知"
+        >
+          <Bell size={14} />
+          {unreadCount > 0 && <span className="notification-badge">{unreadCount}</span>}
+        </button>
+
+        {showNotificationPanel && (
+          <div className="notification-panel">
+            <div className="notification-header">
+              <span>通知</span>
+              <button className="notification-action-btn" onClick={markAllAsRead} title="全部标为已读">
+                <CheckCheck size={14} />
+              </button>
+            </div>
+            <div className="notification-list">
+              {notifications.length === 0 ? (
+                <div className="notification-empty">暂无通知</div>
+              ) : (
+                notifications
+                  .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+                  .map(notification => (
+                    <div
+                      key={notification.id}
+                      className={`notification-item ${!notification.read ? 'unread' : ''}`}
+                      onClick={() => markAsRead(notification.id)}
+                    >
+                      <div className="notification-content">
+                        <div className="notification-title">
+                          {notification.title}
+                          {!notification.read && <span className="unread-dot"></span>}
+                        </div>
+                        <div className="notification-message">{notification.message}</div>
+                        <div className="notification-time">{notification.timestamp}</div>
+                      </div>
+                      <button
+                        className="notification-delete-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deleteNotification(notification.id);
+                        }}
+                        title="删除"
+                      >
+                        <Trash2 size={12} />
+                      </button>
+                    </div>
+                  ))
+              )}
+            </div>
+          </div>
+        )}
+      </div>
       <div className="bar-section" style={{ marginLeft: 'auto' }}>
         {/* <button
           className="bar-btn"
