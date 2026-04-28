@@ -329,6 +329,36 @@ function App() {
     setShowInputDialog(true);
   };
 
+  // 重命名分组
+  const handleRenameGroup = async (oldName, newName) => {
+    if (oldName === newName) return;
+
+    // 检查新名称是否已存在
+    const existingGroups = projectData.groups || [];
+    if (existingGroups.includes(newName)) {
+      alert('分组名称已存在');
+      return;
+    }
+
+    // 更新分组列表
+    const updatedGroups = existingGroups.map(g => g === oldName ? newName : g);
+    await projectManager.updateGroups(updatedGroups);
+
+    // 更新所有属于该分组的 API
+    const apisToUpdate = projectData.apis?.filter(api => api.group === oldName) || [];
+    for (const api of apisToUpdate) {
+      await projectManager.updateAPI(api.name, { group: newName });
+    }
+
+    // 如果当前激活的分组是被重命名的分组，更新激活状态
+    if (activeGroup === oldName) {
+      setActiveGroup(newName);
+    }
+
+    setSaveMessage(`分组 "${oldName}" 已重命名为 "${newName}"`);
+    setTimeout(() => setSaveMessage(''), 2000);
+  };
+
   // 移动 API 到新分组
   const handleMoveToGroup = (apiName, newGroup) => {
     if (!apiName || !newGroup) return;
@@ -496,15 +526,16 @@ function App() {
           {/* 左侧面板 - API 列表 */}
           <div className="left-panel">
             <div className="panel-section flex-1">
-              <APIMain 
-                apis={projectData?.apis || []}
-                groupsData={projectData?.groups || []}
-                selectedAPI={selectedAPI}
-                activeGroup={activeGroup}
-                onSelect={handleAPISelect}
-                onGroupSelect={handleGroupSelect}
-                onMoveToGroup={handleMoveToGroup}
-                onAdd={() => {
+              <APIMain
+                 apis={projectData?.apis || []}
+                 groupsData={projectData?.groups || []}
+                 selectedAPI={selectedAPI}
+                 activeGroup={activeGroup}
+                 onSelect={handleAPISelect}
+                 onGroupSelect={handleGroupSelect}
+                 onMoveToGroup={handleMoveToGroup}
+                 onRenameGroup={handleRenameGroup}
+                 onAdd={() => {
                   const apis = projectData?.apis || [];
                   let baseName = '未命名的API';
                   let newName = baseName;

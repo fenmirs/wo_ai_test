@@ -2,12 +2,15 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Search, Folder, FolderOpen, Plus, Trash2, Edit2, FolderPlus } from 'lucide-react';
 import './APIMain.css';
 
-function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, onEdit, onDelete, onAddGroup, onDeleteGroup, onGroupSelect, onMoveToGroup }) {
+function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, onEdit, onDelete, onAddGroup, onDeleteGroup, onGroupSelect, onMoveToGroup, onRenameGroup }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [showAddMenu, setShowAddMenu] = useState(false);
   const [dragAPI, setDragAPI] = useState(null);
   const [dragOverGroup, setDragOverGroup] = useState(null);
+  const [editingGroup, setEditingGroup] = useState(null);
+  const [newGroupName, setNewGroupName] = useState('');
   const addMenuRef = useRef(null);
+  const editInputRef = useRef(null);
 
   const currentActiveGroup = activeGroup || '默认';
 
@@ -24,6 +27,24 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  // 编辑分组时自动聚焦
+  useEffect(() => {
+    if (editingGroup && editInputRef.current) {
+      editInputRef.current.focus();
+      editInputRef.current.select();
+    }
+  }, [editingGroup]);
+
+  // 处理分组名编辑完成
+  const handleGroupRename = (oldName) => {
+    const trimmed = newGroupName.trim();
+    if (trimmed && trimmed !== oldName && onRenameGroup) {
+      onRenameGroup(oldName, trimmed);
+    }
+    setEditingGroup(null);
+    setNewGroupName('');
+  };
 
   // 获取所有分组
   const getGroups = () => {
@@ -198,9 +219,15 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
           return (
             <div key={groupName} className="api-group">
               {/* 分组标题 */}
-              <div 
+              <div
                 className={`group-header ${currentActiveGroup === groupName ? 'active' : ''} ${dragOverGroup === groupName ? 'drag-over' : ''}`}
                 onClick={() => toggleGroup(groupName)}
+                onDoubleClick={() => {
+                  if (groupName !== '默认' && onRenameGroup) {
+                    setEditingGroup(groupName);
+                    setNewGroupName(groupName);
+                  }
+                }}
                 onDragOver={(e) => handleDragOver(e, groupName)}
                 onDragLeave={(e) => handleDragLeave(e)}
                 onDrop={(e) => handleDrop(e, groupName)}
@@ -210,10 +237,30 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
                 ) : (
                   <Folder size={16} className="group-icon" />
                 )}
-                <span className="group-name">{groupName}</span>
+                {editingGroup === groupName ? (
+                  <input
+                    ref={editInputRef}
+                    type="text"
+                    className="group-name-edit"
+                    value={newGroupName}
+                    onChange={(e) => setNewGroupName(e.target.value)}
+                    onClick={(e) => e.stopPropagation()}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        handleGroupRename(groupName);
+                      } else if (e.key === 'Escape') {
+                        setEditingGroup(null);
+                        setNewGroupName('');
+                      }
+                    }}
+                    onBlur={() => handleGroupRename(groupName)}
+                  />
+                ) : (
+                  <span className="group-name">{groupName}</span>
+                )}
                 <span className="group-count">{filteredAPIs.length}</span>
-                {onDeleteGroup && groupName !== '默认' && (
-                  <button 
+                {onDeleteGroup && groupName !== '默认' && !editingGroup && (
+                  <button
                     className="icon-btn danger"
                     onClick={(e) => {
                       e.stopPropagation();

@@ -693,21 +693,24 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                     value={editingValue}
                     onChange={(e) => setEditingValue(e.target.value)}
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        const newSegments = [...urlSegments];
-                        newSegments[idx] = { ...seg, value: editingValue, type: 'text' };
-                        setUrlSegments(newSegments);
-                        setEditingSegmentIdx(null);
-                      } else if (e.key === 'Escape') {
-                        setEditingSegmentIdx(null);
-                      }
-                    }}
-                    onBlur={() => {
-                      const newSegments = [...urlSegments];
-                      newSegments[idx] = { ...seg, value: editingValue, type: 'text' };
-                      setUrlSegments(newSegments);
-                      setEditingSegmentIdx(null);
-                    }}
+                       if (e.key === 'Enter') {
+                         const newSegments = [...urlSegments];
+                         newSegments[idx] = { ...seg, value: editingValue, type: 'text' };
+                         setUrlSegments(newSegments);
+                         setEditingSegmentIdx(null);
+                         setActiveSegmentIdx(null);
+                       } else if (e.key === 'Escape') {
+                         setEditingSegmentIdx(null);
+                         setActiveSegmentIdx(null);
+                       }
+                     }}
+                     onBlur={() => {
+                       const newSegments = [...urlSegments];
+                       newSegments[idx] = { ...seg, value: editingValue, type: 'text' };
+                       setUrlSegments(newSegments);
+                       setEditingSegmentIdx(null);
+                       setActiveSegmentIdx(null);
+                     }}
                     autoFocus
                   />
                 ) : (

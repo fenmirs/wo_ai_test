@@ -449,6 +449,15 @@ class ProjectManager {
   }
 
   /**
+   * 更新分组列表
+   */
+  updateGroups(groups) {
+    if (!this.projectData) return;
+    this.projectData.groups = groups;
+    this.markDirty();
+  }
+
+  /**
    * 获取所有分组
    */
   getGroups() {

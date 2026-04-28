@@ -17,7 +17,7 @@
     }
   ],
   "groups": [
-    "1212",
+    "NC对接",
     "mes对接"
   ],
   "apis": [
@@ -36,7 +36,7 @@
     },
     {
       "name": "接收NC检验单",
-      "group": "1212",
+      "group": "NC对接",
       "api_path": "{domain}{api-prj}/openapi/order/nc/receive",
       "method": "POST",
       "header": {
