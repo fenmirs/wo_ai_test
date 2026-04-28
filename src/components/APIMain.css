@@ -180,6 +180,7 @@
   gap: 4px;
   margin-top: 2px;
   min-height: 0;
+  padding-left: 8px;
 }
 
 .api-item {
@@ -203,6 +204,17 @@
 .api-item.active {
   background: var(--bg-active);
   border-left-color: var(--accent-primary);
+}
+
+.api-item.dragging {
+  opacity: 0.5;
+  /* border: 2px dashed var(--accent-primary); */
+}
+
+.group-header.drag-over {
+  background: rgba(255, 0, 0, 0.815);
+  opacity: 0.7;
+  /* border: 2px dashed #f6483b; */
 }
 
 .api-header {

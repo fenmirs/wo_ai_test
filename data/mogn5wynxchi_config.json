@@ -17,12 +17,12 @@
     }
   ],
   "groups": [
-    "lims"
+    "1212"
   ],
   "apis": [
     {
       "name": "获取token",
-      "group": "lims",
+      "group": "1212",
       "api_path": "{domain}{api-prj}/openapi/security/token",
       "method": "POST",
       "header": {
@@ -35,7 +35,7 @@
     },
     {
       "name": "接收NC检验单",
-      "group": "lims",
+      "group": "1212",
       "api_path": "{domain}{api-prj}/openapi/order/nc/receive",
       "method": "POST",
       "header": {

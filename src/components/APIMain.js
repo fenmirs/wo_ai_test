@@ -2,9 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Search, Folder, FolderOpen, Plus, Trash2, Edit2, FolderPlus } from 'lucide-react';
 import './APIMain.css';
 
-function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, onEdit, onDelete, onAddGroup, onDeleteGroup, onGroupSelect }) {
+function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, onEdit, onDelete, onAddGroup, onDeleteGroup, onGroupSelect, onMoveToGroup }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [showAddMenu, setShowAddMenu] = useState(false);
+  const [dragAPI, setDragAPI] = useState(null);
+  const [dragOverGroup, setDragOverGroup] = useState(null);
   const addMenuRef = useRef(null);
 
   const currentActiveGroup = activeGroup || '默认';
@@ -53,6 +55,70 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
     if (onGroupSelect) {
       onGroupSelect(groupName);
     }
+  };
+
+  // 拖拽处理
+  const handleDragStart = (e, api) => {
+    setDragAPI(api);
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', api.name);
+    
+    // 创建自定义拖拽预览，只显示 API 名称
+    const dragPreview = document.createElement('div');
+    dragPreview.className = 'drag-preview';
+    dragPreview.textContent = api.name;
+    dragPreview.style.cssText = `
+      position: fixed;
+      top: -100px;
+      left: -100px;
+      padding: 6px 12px;
+      background: var(--bg-secondary, #2d2d2d);
+      color: var(--text-primary, #ffffff);
+      border: 1px solid var(--accent-primary, #3b82f6);
+      border-radius: 4px;
+      font-size: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      z-index: 9999;
+      pointer-events: none;
+      white-space: nowrap;
+    `;
+    document.body.appendChild(dragPreview);
+    e.dataTransfer.setDragImage(dragPreview, 0, 0);
+    
+    // 拖拽结束后移除预览元素
+    setTimeout(() => {
+      if (dragPreview.parentNode) {
+        dragPreview.parentNode.removeChild(dragPreview);
+      }
+    }, 0);
+  };
+
+  const handleDragOver = (e, groupName) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    if (dragOverGroup !== groupName) {
+      setDragOverGroup(groupName);
+    }
+  };
+
+  const handleDragLeave = (e) => {
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      setDragOverGroup(null);
+    }
+  };
+
+  const handleDrop = (e, targetGroup) => {
+    e.preventDefault();
+    setDragOverGroup(null);
+    if (dragAPI && dragAPI.group !== targetGroup && onMoveToGroup) {
+      onMoveToGroup(dragAPI.name, targetGroup);
+      setDragAPI(null);
+    }
+  };
+
+  const handleDragEnd = () => {
+    setDragAPI(null);
+    setDragOverGroup(null);
   };
 
   // 搜索过滤
@@ -133,8 +199,11 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
             <div key={groupName} className="api-group">
               {/* 分组标题 */}
               <div 
-                className={`group-header ${currentActiveGroup === groupName ? 'active' : ''}`}
+                className={`group-header ${currentActiveGroup === groupName ? 'active' : ''} ${dragOverGroup === groupName ? 'drag-over' : ''}`}
                 onClick={() => toggleGroup(groupName)}
+                onDragOver={(e) => handleDragOver(e, groupName)}
+                onDragLeave={(e) => handleDragLeave(e)}
+                onDrop={(e) => handleDrop(e, groupName)}
               >
                 {currentActiveGroup === groupName ? (
                   <FolderOpen size={16} className="group-icon" />
@@ -163,7 +232,10 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
                   {filteredAPIs.map(api => (
                     <div 
                       key={api.name}
-                      className={`api-item ${selectedAPI?.name === api.name ? 'active' : ''}`}
+                      className={`api-item ${selectedAPI?.name === api.name ? 'active' : ''} ${dragAPI?.name === api.name ? 'dragging' : ''}`}
+                      draggable
+                      onDragStart={(e) => handleDragStart(e, api)}
+                      onDragEnd={handleDragEnd}
                       onClick={() => onSelect(api)}
                     >
                       <div className="api-header">

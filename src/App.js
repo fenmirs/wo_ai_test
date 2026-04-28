@@ -342,6 +342,28 @@ function App() {
     setShowInputDialog(true);
   };
 
+  // 移动 API 到新分组
+  const handleMoveToGroup = (apiName, newGroup) => {
+    if (!apiName || !newGroup) return;
+    
+    // 检查目标分组是否存在，不存在则先创建
+    const existingGroups = projectData.groups || [];
+    if (!existingGroups.includes(newGroup) && newGroup !== '默认') {
+      projectManager.addGroup(newGroup);
+    }
+    
+    // 更新 API 的分组
+    projectManager.updateAPI(apiName, { group: newGroup });
+    
+    // 如果移动的是当前选中的 API，更新选中状态
+    if (selectedAPI?.name === apiName) {
+      setSelectedAPI({ ...selectedAPI, group: newGroup });
+    }
+    
+    setSaveMessage(`已将 "${apiName}" 移动到 "${newGroup}" 分组`);
+    setTimeout(() => setSaveMessage(''), 2000);
+  };
+
   // 编辑 API
   const handleEditAPI = () => {
     if (selectedAPI) {
@@ -495,6 +517,7 @@ function App() {
                 activeGroup={activeGroup}
                 onSelect={handleAPISelect}
                 onGroupSelect={handleGroupSelect}
+                onMoveToGroup={handleMoveToGroup}
                 onAdd={() => {
                   const apis = projectData?.apis || [];
                   let baseName = '未命名的API';
