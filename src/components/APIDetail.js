@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, ChevronRight, ChevronDown, Trash2, Plus, Upload, X, AlertCircle, FileText, Save } from 'lucide-react';
+import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, ChevronRight, ChevronDown, Trash2, Plus, Upload, X, AlertCircle, FileText, Save, FileDown } from 'lucide-react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import axios from 'axios';
 import './APIDetail.css';
 import APIExecutor from '../utils/APIExecutor';
 import { projectManager } from '../utils/ProjectManager';
+import APIDocGenerator from '../utils/APIDocGenerator';
 import CodeEditor from './CodeEditor';
 
 function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, onSaveError, saveError, groups = [], isAdding = false, isTemporary = false, onViewDetail, onRestoreHistory, theme = 'dark' }) {
@@ -19,7 +20,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const [localSaveError, setLocalSaveError] = useState(null);
   const fileInputRef = useRef(null);
   const executorRef = useRef(null);
-  
+
   const [formData, setFormData] = useState({
     name: '',
     group: '默认',
@@ -57,7 +58,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   }, [formData.api_path, profile]);
 
   useEffect(() => {
-    const path = urlSegments.map(seg => 
+    const path = urlSegments.map(seg =>
       seg.type === 'variable' ? `{${seg.value}}` : seg.value
     ).join('');
     setFormData(prev => ({ ...prev, api_path: path }));
@@ -66,31 +67,31 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const generateResolvedPath = () => {
     if (!profile) return '';
     let fullUrl = '';
-    
+
     const path = urlSegments.map(seg => {
       if (seg.type === 'variable') {
         return profile[seg.value] || `{${seg.value}}`;
       }
       return seg.value;
     }).join('');
-    
+
     if (path.startsWith('http://') || path.startsWith('https://')) {
       fullUrl = path;
     } else if (path) {
       fullUrl = 'http://' + path;
     }
-    
+
     return fullUrl;
   };
 
   const parseApiPathToSegments = (apiPath) => {
     if (!apiPath) return [{ type: 'text', value: '' }];
-    
+
     const regex = /\{([^}]+)\}/g;
     const segments = [];
     let lastIndex = 0;
     let match;
-    
+
     while ((match = regex.exec(apiPath)) !== null) {
       if (match.index > lastIndex) {
         segments.push({ type: 'text', value: apiPath.slice(lastIndex, match.index) });
@@ -98,11 +99,11 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       segments.push({ type: 'variable', value: match[1] });
       lastIndex = regex.lastIndex;
     }
-    
+
     if (lastIndex < apiPath.length) {
       segments.push({ type: 'text', value: apiPath.slice(lastIndex) });
     }
-    
+
     return segments.length > 0 ? segments : [{ type: 'text', value: '' }];
   };
 
@@ -111,7 +112,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     if (!apiData.header?.['Content-Type']) {
       defaultHeader['Content-Type'] = 'application/json';
     }
-    
+
     const parseAssertions = (assertStr) => {
       if (!assertStr) return [{ expression: '', enabled: true }];
       return assertStr.split(/[;\n]/).map(a => a.trim()).filter(a => a)
@@ -120,7 +121,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
     const apiPath = apiData.api_path || '';
     const isFullUrl = apiPath.startsWith('http://') || apiPath.startsWith('https://');
-    
+
     setFormData({
       name: apiData.name || '',
       group: apiData.group || '默认',
@@ -148,13 +149,13 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     if (!cfg.header?.['Content-Type']) {
       defaultHeader['Content-Type'] = 'application/json';
     }
-    
+
     const parseAssertions = (assertStr) => {
       if (!assertStr) return [{ expression: '', enabled: true }];
       return assertStr.split(/[;\n]/).map(a => a.trim()).filter(a => a)
         .map(a => ({ expression: a, enabled: true }));
     };
-    
+
     setFormData({
       name: cfg.name || '',
       group: cfg.group || '默认',
@@ -193,7 +194,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const parseBodyData = (body, header) => {
     if (!body) return { type: 'none', formData: [], xwwwFormUrlencoded: [], contentType: 'text', content: '' };
     const contentType = header?.['Content-Type'] || '';
-    
+
     if (typeof body === 'object' && !Array.isArray(body)) {
       if (contentType.includes('application/json')) {
         return { type: 'raw', formData: [], xwwwFormUrlencoded: [], contentType: 'json', content: JSON.stringify(body, null, 2) };
@@ -203,7 +204,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         return { type: 'form-data', formData: parseToArray(body), xwwwFormUrlencoded: [], contentType: 'text', content: '' };
       }
     }
-    
+
     if (typeof body === 'string') {
       let detectedContentType = 'text';
       if (contentType.includes('application/json') || contentType.includes('json')) {
@@ -217,7 +218,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       }
       return { type: 'raw', formData: [], xwwwFormUrlencoded: [], contentType: detectedContentType, content: body };
     }
-    
+
     return { type: 'raw', formData: [], xwwwFormUrlencoded: [], contentType: 'text', content: typeof body === 'string' ? body : JSON.stringify(body, null, 2) };
   };
 
@@ -237,12 +238,12 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
   const handleSend = async () => {
     if (!formData.api_path) return;
-    
+
     if (isExecuting) {
       executorRef.current?.cancel();
       return;
     }
-    
+
     setIsExecuting(true);
     setExecutionResult(null);
 
@@ -257,25 +258,25 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         bodyType: formData.body.type,
         rawContentType: formData.body.contentType
       };
-      
+
       if (onSaveAPI && !isTemporary) {
         await onSaveAPI(execAPI, isAdding);
       }
-      
+
       const executor = new APIExecutor(projectPath, config, profile);
       executorRef.current = executor;
-      
+
       const cancelPromise = new Promise((resolve) => {
         executor._cancelResolver = resolve;
       });
-      
+
       const result = await Promise.race([
         executor.executeChain(execAPI, {}),
         cancelPromise
       ]);
       result.requestInfo = requestInfo;
       setExecutionResult(result);
-      
+
       if (onExecute) onExecute(execAPI, result);
     } catch (error) {
       setExecutionResult({ success: false, error: error.message, allResults: {} });
@@ -294,10 +295,10 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       setLocalSaveError('请输入 API 路径');
       return;
     }
-    
+
     setIsSaving(true);
     setLocalSaveError(null);
-    
+
     try {
       const execAPI = prepareForExecute();
       if (onSaveAPI) {
@@ -309,6 +310,35 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       if (onSaveError) onSaveError(errMsg);
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const handleGenerateDoc = async () => {
+    const markdown = APIDocGenerator.generate(formData, resolvedPath, executionResult);
+    const fileName = `${formData.name || 'api'}_文档.md`;
+
+    try {
+      if (window.electron) {
+        // Electron 环境：使用文件保存对话框
+        const result = await window.electron.saveFile({
+          defaultPath: fileName,
+          filters: [
+            { name: 'Markdown', extensions: ['md'] },
+            { name: 'All Files', extensions: ['*'] }
+          ]
+        });
+
+        if (result && result.filePath) {
+          await window.electron.writeFile(result.filePath, markdown);
+          alert(`文档已保存到: ${result.filePath}`);
+        }
+      } else {
+        // 浏览器环境：直接下载
+        APIDocGenerator.download(markdown, fileName);
+      }
+    } catch (error) {
+      console.error('保存文档失败:', error);
+      alert('保存文档失败');
     }
   };
 
@@ -339,7 +369,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     });
 
     let body = null;
-    
+
     if (formData.body.type === 'none') {
       body = {};
     } else if (formData.body.type === 'form-data') {
@@ -396,7 +426,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     const newBody = { ...formData.body, ...updates };
     let newHeader = [...formData.header];
     const contentTypeIndex = newHeader.findIndex(h => h.key.toLowerCase() === 'content-type');
-    
+
     const getContentType = (type) => {
       switch (type) {
         case 'none': return null;
@@ -413,7 +443,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         default: return null;
       }
     };
-    
+
     const newContentType = getContentType(newBody.type);
     if (newContentType) {
       if (contentTypeIndex >= 0) {
@@ -426,7 +456,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         newHeader = newHeader.filter((_, i) => i !== contentTypeIndex);
       }
     }
-    
+
     setFormData(prev => ({ ...prev, body: newBody, header: newHeader }));
   };
 
@@ -530,7 +560,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                         )}
                       </div>
                     ) : item.type === 'boolean' ? (
-                      <select 
+                      <select
                         value={item.default === true || item.default === 'true' ? 'true' : (item.default === false || item.default === 'false' ? 'false' : '')}
                         onChange={(e) => {
                           if (isReadonly) return;
@@ -546,8 +576,8 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                         <option value="false">false</option>
                       </select>
                     ) : item.type === 'number' ? (
-                      <input 
-                        type="number" 
+                      <input
+                        type="number"
                         value={item.default ?? ''}
                         onChange={(e) => {
                           if (isReadonly) return;
@@ -555,9 +585,9 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                           newItems[index] = { ...item, default: e.target.value === '' ? '' : Number(e.target.value) };
                           setItems(newItems);
                         }}
-                        placeholder="数字" 
-                        readOnly={isReadonly} 
-                        className={isReadonly ? 'readonly' : ''} 
+                        placeholder="数字"
+                        readOnly={isReadonly}
+                        className={isReadonly ? 'readonly' : ''}
                       />
                     ) : (
                       <input type="text" value={item.default || ''}
@@ -625,26 +655,30 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
             {isExecuting ? <X size={16} /> : <Play size={16} />}
             {isExecuting ? '发送中' : '发送'}
           </button>
+          <button className="btn-doc" onClick={handleGenerateDoc} title="生成API文档">
+            <FileDown size={16} />
+            生成文档
+          </button>
         </div>
       </div>
 
       <div className="url-bar">
         <div className="method-select">
-          <select 
-            value={formData.method} 
+          <select
+            value={formData.method}
             onChange={(e) => setFormData({ ...formData, method: e.target.value })}
             style={{ backgroundColor: getMethodColor(formData.method) }}
           >
             {methods.map(m => <option key={m} value={m}>{m}</option>)}
           </select>
         </div>
-        
+
         <div className="url-builder">
           <div className="url-segments">
             {/* 所有片段统一样式 */}
             {urlSegments.map((seg, idx) => (
-              <div 
-                key={idx} 
+              <div
+                key={idx}
                 className={`url-segment ${idx === 0 ? 'first' : ''} ${activeSegmentIdx === idx ? 'active' : ''}`}
               >
                 {editingSegmentIdx === idx ? (
@@ -672,7 +706,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                     autoFocus
                   />
                 ) : (
-                  <div 
+                  <div
                     className="segment-content"
                     onClick={() => setActiveSegmentIdx(idx)}
                   >
@@ -682,7 +716,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                   </div>
                 )}
                 {urlSegments.length > 1 && activeSegmentIdx === idx && (
-                  <button 
+                  <button
                     className="segment-delete"
                     onClick={() => setUrlSegments(urlSegments.filter((_, i) => i !== idx))}
                   >
@@ -692,7 +726,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                 {/* 变量下拉面板 */}
                 {activeSegmentIdx === idx && editingSegmentIdx !== idx && (
                   <div className="segment-var-dropdown">
-                    <div 
+                    <div
                       className="segment-var-option input-option"
                       onClick={() => {
                         setEditingSegmentIdx(idx);
@@ -705,8 +739,8 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                       .filter(k => k !== 'name' && k !== 'activate')
                       .filter(k => idx === 0 || k !== 'domain')
                       .map(k => (
-                        <div 
-                          key={k} 
+                        <div
+                          key={k}
                           className="segment-var-option"
                           onClick={() => {
                             const newSegments = [...urlSegments];
@@ -722,9 +756,9 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                 )}
               </div>
             ))}
-            
+
             {/* 添加片段按钮 */}
-            <button 
+            <button
               className="segment-add-btn"
               onClick={() => setUrlSegments([...urlSegments, { type: 'text', value: '' }])}
               title="添加片段"
@@ -733,12 +767,12 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
             </button>
           </div>
         </div>
-        
+
         <button className="btn-copy" onClick={() => navigator.clipboard.writeText(generateResolvedPath())} title="复制URL">
           <Copy size={14} />
         </button>
       </div>
-      
+
       <div className="url-preview">
         <span className="preview-label">完整路径:</span>
         <code className="preview-path">{generateResolvedPath()}</code>
@@ -755,7 +789,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
               </button>
             </span>
           ))}
-          <select 
+          <select
             className="chain-add-select"
             value=""
             onChange={(e) => {
@@ -813,7 +847,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                     onChange={() => updateFormBody({ type })} />
                   <span>{type === 'none' ? 'none' : type === 'form-data' ? 'form-data' : type === 'x-www-form-urlencoded' ? 'x-www-form-urlencoded' : 'raw'}</span>
                   {type === 'raw' && formData.body.type === 'raw' && (
-                    <select 
+                    <select
                       value={formData.body.contentType || 'text'}
                       onChange={(e) => updateFormBody({ contentType: e.target.value })}
                       className="raw-type-select"
@@ -848,7 +882,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
             {formData.body.type === 'raw' && (
               <div className="body-raw">
-                <CodeEditor 
+                <CodeEditor
                   value={formData.body.content || ''}
                   onChange={(content) => updateFormBody({ content })}
                   contentType={formData.body.contentType || 'text'}
@@ -865,7 +899,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
             <div className="assert-editor">
               <p className="assert-help-text">
                 JSONPath 格式：<code>$.字段路径</code>，操作符：<code>==</code> <code>!=</code> <code>&gt;</code> <code>&lt;</code> <code>&gt;=</code> <code>&lt;=</code>
-                <br/>示例：<code>$.code == 200</code> <code>$.obj.length &gt; 0</code>
+                <br />示例：<code>$.code == 200</code> <code>$.obj.length &gt; 0</code>
               </p>
               <div className="assert-list">
                 {formData.assertions.map((assertion, index) => (
@@ -902,7 +936,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
           </div>
         )}
 
-{activeTab === 'history' && apiHistory.length > 0 && (
+        {activeTab === 'history' && apiHistory.length > 0 && (
           <div className="tab-content">
             <div className="history-list" style={{ maxHeight: '280px', overflowY: 'auto' }}>
               {apiHistory.map((entry) => (
@@ -916,7 +950,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                       <XCircle size={14} className="error-icon" />
                     )}
                   </div>
-                  
+
                   <div className="history-info">
                     <div className="history-meta">
                       <span className={`status-badge ${entry.success ? 'success' : 'error'}`}>
@@ -935,9 +969,9 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                     </div>
                     <div className="history-path">{entry.requestInfo?.url || entry.apiPath}</div>
                   </div>
-                  
+
                   <div className="history-actions">
-                    <button 
+                    <button
                       className="history-btn detail"
                       onClick={() => {
                         console.log('[History] 查看详情 clicked:', entry);
@@ -993,9 +1027,9 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                 <span className="http-status error">请求失败</span>
               )}
             </div>
-            
+
             <div className="summary-divider"></div>
-            
+
             {executionResult.targetResult?.assertionResult && (
               <div className="summary-left">
                 <span className="summary-label">断言</span>
@@ -1004,14 +1038,14 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                 </span>
               </div>
             )}
-            
+
             <div className="summary-divider"></div>
-            
+
             <div className="summary-left">
               <span className="summary-label">耗时</span>
               <span className="meta-value">{executionResult.targetResult?.elapsedTime || '-'}</span>
             </div>
-            
+
             {executionResult.targetResult?.error && (
               <>
                 <div className="summary-divider"></div>
@@ -1021,19 +1055,19 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                 </div>
               </>
             )}
-            
+
             <div className="summary-right">
               <span className={`final-status ${executionResult.targetResult?.success ? 'success' : 'error'}`}>
                 {executionResult.targetResult?.success ? <><CheckCircle size={16} /> 通过</> : <><XCircle size={16} /> 失败</>}
               </span>
             </div>
           </div>
-          
+
           <div className="response-tabs">
             <button className={`response-tab ${responseTab === 'request' ? 'active' : ''}`} onClick={() => setResponseTab('request')}>请求</button>
             <button className={`response-tab ${responseTab === 'response' ? 'active' : ''}`} onClick={() => setResponseTab('response')}>响应</button>
           </div>
-          
+
           {responseTab === 'request' && executionResult.requestInfo && (
             <div className="request-info">
               <div className="request-section">
@@ -1047,7 +1081,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                   <span className="info-value method">{executionResult.requestInfo.method}</span>
                 </div>
               </div>
-              
+
               {executionResult.requestInfo.header.length > 0 && (
                 <div className="request-section">
                   <div className="request-section-title">请求 Headers</div>
@@ -1061,7 +1095,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                   </div>
                 </div>
               )}
-              
+
               {executionResult.requestInfo.param.length > 0 && (
                 <div className="request-section">
                   <div className="request-section-title">Query Parameters</div>
@@ -1075,7 +1109,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                   </div>
                 </div>
               )}
-              
+
               {executionResult.requestInfo.bodyType !== 'none' && (
                 <div className="request-section">
                   <div className="request-section-title">请求 Body ({executionResult.requestInfo.bodyType})</div>
@@ -1100,7 +1134,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
               )}
             </div>
           )}
-          
+
           {responseTab === 'response' && (
             <div className="response-info">
               <div className="request-section">
@@ -1120,7 +1154,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                   <span className="info-value">{executionResult.targetResult?.responseSize || '-'}</span>
                 </div>
               </div>
-              
+
               {executionResult.targetResult?.headers && Object.keys(executionResult.targetResult.headers).length > 0 && (
                 <div className="request-section">
                   <div className="request-section-title">响应 Headers</div>
@@ -1134,7 +1168,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                   </div>
                 </div>
               )}
-              
+
               <div className="request-section">
                 <div className="request-section-title">响应 Body</div>
                 <div className="request-body-content">
@@ -1147,7 +1181,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                   )}
                 </div>
               </div>
-              
+
               {executionResult.targetResult?.assertionResult && (
                 <div className="request-section">
                   <div className="request-section-title">断言结果</div>

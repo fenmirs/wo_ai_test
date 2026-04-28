@@ -22,7 +22,7 @@
   "apis": [
     {
       "name": "获取token",
-      "group": "1212",
+      "group": "默认",
       "api_path": "{domain}{api-prj}/openapi/security/token",
       "method": "POST",
       "header": {
@@ -39,7 +39,6 @@
       "api_path": "{domain}{api-prj}/openapi/order/nc/receive",
       "method": "POST",
       "header": {
-        "JID": "adadafd",
         "Content-Type": "application/xml"
       },
       "param": {

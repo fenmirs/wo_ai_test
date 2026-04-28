@@ -472,15 +472,39 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 16px;
+  padding: 6px 14px;
   background: var(--accent-primary);
+  color: #ffffff;
   border: none;
   border-radius: 4px;
-  color: white;
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s;
+}
+
+.btn-send:hover {
+  background: var(--accent-hover);
+}
+
+.btn-doc {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-doc:hover {
+  background: var(--bg-hover);
+  border-color: var(--accent-primary);
 }
 
 .btn-save {

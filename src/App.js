@@ -152,20 +152,9 @@ function App() {
 
   // 导入项目（扫描目录下所有项目）
   const handleImportProject = useCallback(async () => {
-    console.log('handleImportProject called');
-    console.log('window.electron:', window.electron);
-    if (!window.electron) {
-      alert('此功能仅在 Electron 应用中可用');
-      return;
-    }
-
-    console.log('Calling selectDirectory...');
     const result = await window.electron.selectDirectory();
-    console.log('selectDirectory result:', result);
     if (result.success) {
-      console.log('Scanning directory:', result.path);
       const projects = await projectManager.scanDirectory(result.path);
-      console.log('Scan results:', projects);
       setProjectList(projects);
       
       if (projects.length > 0) {
@@ -186,10 +175,8 @@ function App() {
       // 设置通知管理器的当前项目
       notificationManager.setCurrentProject(project.id);
       
-      if (window.electron) {
-        const listResult = await window.electron.readDirectoryProjectList(dirPath);
-        setProjectList(listResult.data || []);
-      }
+      const listResult = await window.electron.readDirectoryProjectList(dirPath);
+      setProjectList(listResult.data || []);
       setExecutionHistory(projectManager.getHistory());
       setSaveMessage('项目切换成功');
       setTimeout(() => setSaveMessage(''), 2000);
@@ -200,23 +187,14 @@ function App() {
 
   // 创建新项目
   const handleNewProject = useCallback(async () => {
-    console.log('handleNewProject called');
-    console.log('window.electron:', window.electron);
-    if (!window.electron) {
-      alert('此功能仅在 Electron 应用中可用');
-      return;
-    }
-
     // 先弹出输入框让用户输入项目名称
     setInputDialogConfig({
       title: '新建项目',
       placeholder: '请输入项目名称',
       defaultValue: '',
       onConfirm: async (projectName) => {
-        console.log('onConfirm called with:', projectName);
         // 选择保存位置
         const dirResult = await window.electron.selectDirectory();
-        console.log('dirResult:', dirResult);
         if (!dirResult.success) {
           return;
         }
@@ -231,7 +209,7 @@ function App() {
         // 加载刚创建的项目
         const loadResult = await projectManager.loadProject(dirResult.path, createResult.project.projectId);
         if (!loadResult.success) {
-          alert(`加载项目失败: ${loadResult.error}`);
+          alert(`加载项目失败: ${createResult.error}`);
           return;
         }
 

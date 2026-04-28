@@ -21,17 +21,13 @@ class ProjectManager {
   }
 
   /**
-   * 扫描目录下的项目
-   */
+    * 扫描目录下的项目
+    */
   async scanDirectory(dirPath) {
     try {
-      if (window.electron) {
-        const { data, error } = await window.electron.scanDirectoryProjects(dirPath);
-        if (error) throw new Error(error);
-        this.dirProjects = data || [];
-      } else {
-        this.dirProjects = [];
-      }
+      const { data, error } = await window.electron.scanDirectoryProjects(dirPath);
+      if (error) throw new Error(error);
+      this.dirProjects = data || [];
       return this.dirProjects;
     } catch (error) {
       console.error('扫描目录失败:', error);
@@ -47,17 +43,12 @@ class ProjectManager {
   }
 
   /**
-   * 加载最近项目列表
-   */
+    * 加载最近项目列表
+    */
   async loadRecentProjects() {
     try {
-      if (window.electron) {
-        const { data } = await window.electron.readProjectList();
-        this.recentProjects = data || [];
-      } else {
-        const saved = localStorage.getItem('recentProjects');
-        this.recentProjects = saved ? JSON.parse(saved) : [];
-      }
+      const { data } = await window.electron.readProjectList();
+      this.recentProjects = data || [];
       return this.recentProjects;
     } catch (error) {
       console.error('加载最近项目列表失败:', error);
@@ -66,15 +57,11 @@ class ProjectManager {
   }
 
   /**
-   * 保存最近项目列表
-   */
+    * 保存最近项目列表
+    */
   async saveRecentProjects() {
     try {
-      if (window.electron) {
-        await window.electron.saveProjectList(this.recentProjects);
-      } else {
-        localStorage.setItem('recentProjects', JSON.stringify(this.recentProjects));
-      }
+      await window.electron.saveProjectList(this.recentProjects);
     } catch (error) {
       console.error('保存最近项目列表失败:', error);
     }
@@ -105,29 +92,17 @@ class ProjectManager {
   }
 
   /**
-   * 创建新项目
-   */
+    * 创建新项目
+    */
   async createProject(dirPath, projectName) {
     try {
-      let result;
-      
-      if (window.electron) {
-        result = await window.electron.createNewProject(dirPath, projectName);
-      } else {
-        result = {
-          success: true,
-          projectId: 'dev_' + Date.now(),
-          projectName: projectName,
-          configFile: 'dev_config.json',
-          historyFile: 'dev_history.json'
-        };
-      }
+      const result = await window.electron.createNewProject(dirPath, projectName);
       
       if (!result.success) {
         return { success: false, error: result.error };
       }
       
-      // ���载项目列表
+      // 加载项目列表
       await this.scanDirectory(dirPath);
       
       return { success: true, project: result };
@@ -142,53 +117,18 @@ class ProjectManager {
    */
   async loadProject(dirPath, projectId) {
     try {
-      let configData;
-      let historyData = [];
+      // 读取配置文件
+      const configResult = await window.electron.readProjectConfig(dirPath, projectId);
+      if (!configResult.success) {
+        return { success: false, error: configResult.error };
+      }
+      const configData = configResult.data;
       
-      if (window.electron) {
-        // 读取配置文件
-        const configResult = await window.electron.readProjectConfig(dirPath, projectId);
-        if (!configResult.success) {
-          return { success: false, error: configResult.error };
-        }
-        configData = configResult.data;
-        
-        // 读取历史记录
-        const historyResult = await window.electron.readProjectHistory(dirPath, projectId);
-        if (historyResult.success) {
-          historyData = historyResult.data || [];
-        }
-      } else {
-        console.log('开发模式：加载模拟配置');
-        configData = {
-          projectName: '开发项目',
-          profile: [
-            {
-              activate: true,
-              name: 'dev',
-              domain: '192.168.17.128',
-              'lcgl-prj': ':25708/lcgl-prj',
-              'api-prj': ':25710/api-prj'
-            }
-          ],
-          apis: [
-            {
-              chain: [],
-              name: '获取token',
-              api_path: '{domain}{api-prj}/openapi/security/token',
-              method: 'POST',
-              header: {
-                'Content-Type': 'application/json'
-              },
-              param: {},
-              body: {
-                appId: 'NC6bNAttXRh4',
-                appSecret: '67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS'
-              },
-              successAssert: '$.code == 200'
-            }
-          ]
-        };
+      // 读取历史记录
+      let historyData = [];
+      const historyResult = await window.electron.readProjectHistory(dirPath, projectId);
+      if (historyResult.success) {
+        historyData = historyResult.data || [];
       }
 
       this.projectData = JSON.parse(JSON.stringify(configData));
@@ -226,8 +166,8 @@ class ProjectManager {
   }
 
   /**
-   * 保存项目配置
-   */
+    * 保存项目配置
+    */
   async saveProject() {
     if (!this.dirPath || !this.projectId || !this.projectData) {
       return { success: false, error: '没有项目数据可保存' };
@@ -236,34 +176,26 @@ class ProjectManager {
     try {
       this.projectData.projectName = this.projectName;
       
-      if (window.electron) {
-        const { success, error } = await window.electron.saveProjectConfig(
-          this.dirPath,
-          this.projectId,
-          this.projectData
-        );
-        
-        if (!success) {
-          return { success: false, error };
-        }
-        
-        // 保存历史记录
-        await window.electron.saveProjectHistory(
-          this.dirPath,
-          this.projectId,
-          this.executionHistory
-        );
-        
-        this.isDirty = false;
-        this._notifyListeners();
-        return { success: true };
-      } else {
-        console.log('开发模式：保存配置（��拟）');
-        console.log('保存的配置:', this.projectData);
-        this.isDirty = false;
-        this._notifyListeners();
-        return { success: true };
+      const { success, error } = await window.electron.saveProjectConfig(
+        this.dirPath,
+        this.projectId,
+        this.projectData
+      );
+      
+      if (!success) {
+        return { success: false, error };
       }
+      
+      // 保存历史记录
+      await window.electron.saveProjectHistory(
+        this.dirPath,
+        this.projectId,
+        this.executionHistory
+      );
+      
+      this.isDirty = false;
+      this._notifyListeners();
+      return { success: true };
     } catch (error) {
       console.error('保存项目失败:', error);
       return { success: false, error: error.message };
@@ -277,10 +209,8 @@ class ProjectManager {
     if (!this.dirPath || !this.projectId) return [];
     
     try {
-      if (window.electron) {
-        const { data } = await window.electron.readProjectHistory(this.dirPath, this.projectId);
-        this.executionHistory = data || [];
-      }
+      const { data } = await window.electron.readProjectHistory(this.dirPath, this.projectId);
+      this.executionHistory = data || [];
     } catch (error) {
       console.error('加载历史记录失败:', error);
     }

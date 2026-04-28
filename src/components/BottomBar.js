@@ -300,12 +300,6 @@ function BottomBar({
         )}
       </div>
 
-      {!window.electron && (
-        <div className="proxy-status">
-          <span className="proxy-indicator" title="开发模式下使用代理服务器转发请求"></span>
-          <span>开发模式</span>
-        </div>
-      )}
     </div>
   );
 }

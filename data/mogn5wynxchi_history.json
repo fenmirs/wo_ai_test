@@ -1,5 +1,415 @@
 [
   {
+    "id": 1777363835932,
+    "apiName": "获取token",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/openapi/security/token",
+    "timestamp": "2026/4/28 16:10:35",
+    "apiConfig": {
+      "name": "获取token",
+      "group": "1212",
+      "api_path": "{domain}{api-prj}/openapi/security/token",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}",
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "https://172.16.17.51:30200/api-prj/openapi/security/token",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "value": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "contentType": "json",
+        "content": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}"
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "OK",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "code": 200,
+        "error": "",
+        "msg": "成功",
+        "obj": {
+          "appId": "NC6bNAttXRh4",
+          "token": "MPfAMufne9ltPPVivI2ggtfEQCkLlKgjs2sO243gZMo"
+        },
+        "status": true
+      },
+      "headers": {
+        "server": "nginx/1.27.5",
+        "date": "Tue, 28 Apr 2026 08:10:36 GMT",
+        "content-type": "application/json;charset=UTF-8",
+        "content-length": "137",
+        "connection": "close",
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+        "pragma": "no-cache",
+        "expires": "0",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1 ; mode=block",
+        "referrer-policy": "no-referrer",
+        "access-control-expose-headers": "Content-disposition"
+      },
+      "elapsedTime": "0.19s",
+      "responseSize": "133 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown"
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.19s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "code": 200,
+      "error": "",
+      "msg": "成功",
+      "obj": {
+        "appId": "NC6bNAttXRh4",
+        "token": "MPfAMufne9ltPPVivI2ggtfEQCkLlKgjs2sO243gZMo"
+      },
+      "status": true
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "server": "nginx/1.27.5",
+      "date": "Tue, 28 Apr 2026 08:10:36 GMT",
+      "content-type": "application/json;charset=UTF-8",
+      "content-length": "137",
+      "connection": "close",
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+      "pragma": "no-cache",
+      "expires": "0",
+      "x-content-type-options": "nosniff",
+      "x-xss-protection": "1 ; mode=block",
+      "referrer-policy": "no-referrer",
+      "access-control-expose-headers": "Content-disposition"
+    }
+  },
+  {
+    "id": 1777362722213,
+    "apiName": "获取token",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/openapi/security/token",
+    "timestamp": "2026/4/28 15:52:02",
+    "apiConfig": {
+      "name": "获取token",
+      "group": "1212",
+      "api_path": "{domain}{api-prj}/openapi/security/token",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}",
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "https://172.16.17.51:30200/api-prj/openapi/security/token",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "value": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "contentType": "json",
+        "content": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}"
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "OK",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "code": 200,
+        "error": "",
+        "msg": "成功",
+        "obj": {
+          "appId": "NC6bNAttXRh4",
+          "token": "8-SYNP-9Cu3WP5Zwf2B1ko_V_DHIj0cz2o0fxRxB0Cg"
+        },
+        "status": true
+      },
+      "headers": {
+        "server": "nginx/1.27.5",
+        "date": "Tue, 28 Apr 2026 07:52:03 GMT",
+        "content-type": "application/json;charset=UTF-8",
+        "content-length": "137",
+        "connection": "close",
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+        "pragma": "no-cache",
+        "expires": "0",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1 ; mode=block",
+        "referrer-policy": "no-referrer",
+        "access-control-expose-headers": "Content-disposition"
+      },
+      "elapsedTime": "0.39s",
+      "responseSize": "133 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown"
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.39s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "code": 200,
+      "error": "",
+      "msg": "成功",
+      "obj": {
+        "appId": "NC6bNAttXRh4",
+        "token": "8-SYNP-9Cu3WP5Zwf2B1ko_V_DHIj0cz2o0fxRxB0Cg"
+      },
+      "status": true
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "server": "nginx/1.27.5",
+      "date": "Tue, 28 Apr 2026 07:52:03 GMT",
+      "content-type": "application/json;charset=UTF-8",
+      "content-length": "137",
+      "connection": "close",
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+      "pragma": "no-cache",
+      "expires": "0",
+      "x-content-type-options": "nosniff",
+      "x-xss-protection": "1 ; mode=block",
+      "referrer-policy": "no-referrer",
+      "access-control-expose-headers": "Content-disposition"
+    }
+  },
+  {
+    "id": 1777360833824,
+    "apiName": "获取token",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/openapi/security/token",
+    "timestamp": "2026/4/28 15:20:33",
+    "apiConfig": {
+      "name": "获取token",
+      "group": "1212",
+      "api_path": "{domain}{api-prj}/openapi/security/token",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}",
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "https://172.16.17.51:30200/api-prj/openapi/security/token",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "value": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "contentType": "json",
+        "content": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}"
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "SSL",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "0.10s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "证书颁发机构无效，请检查证书配置",
+      "errorType": "ssl"
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "0.10s",
+    "error": "证书颁发机构无效，请检查证书配置",
+    "errorType": "ssl",
+    "assertionResult": null,
+    "responseHeaders": {}
+  },
+  {
+    "id": 1777360535382,
+    "apiName": "获取token",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/openapi/security/token",
+    "timestamp": "2026/4/28 15:15:35",
+    "apiConfig": {
+      "name": "获取token",
+      "group": "1212",
+      "api_path": "{domain}{api-prj}/openapi/security/token",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}",
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "https://172.16.17.51:30200/api-prj/openapi/security/token",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "value": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "contentType": "json",
+        "content": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}"
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "SSL",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "0.10s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "证书颁发机构无效，请检查证书配置",
+      "errorType": "ssl"
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "0.10s",
+    "error": "证书颁发机构无效，请检查证书配置",
+    "errorType": "ssl",
+    "assertionResult": null,
+    "responseHeaders": {}
+  },
+  {
+    "id": 1777360508732,
+    "apiName": "获取token",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/openapi/security/token",
+    "timestamp": "2026/4/28 15:15:08",
+    "apiConfig": {
+      "name": "获取token",
+      "group": "1212",
+      "api_path": "{domain}{api-prj}/openapi/security/token",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}",
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "https://172.16.17.51:30200/api-prj/openapi/security/token",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "value": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "contentType": "json",
+        "content": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}"
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "SSL",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "0.13s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "证书颁发机构无效，请检查证书配置",
+      "errorType": "ssl"
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "0.13s",
+    "error": "证书颁发机构无效，请检查证书配置",
+    "errorType": "ssl",
+    "assertionResult": null,
+    "responseHeaders": {}
+  },
+  {
     "id": 1777281952363,
     "apiName": "获取token",
     "apiMethod": "POST",

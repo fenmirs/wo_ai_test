@@ -21,11 +21,6 @@ class APIExecutor {
     
     this.requestId = null;
     
-    if (this.cancelSource) {
-      this.cancelSource.cancel('用户取消请求');
-      this.cancelSource = null;
-    }
-    
     if (this._cancelResolver) {
       const resolver = this._cancelResolver;
       this._cancelResolver = null;
@@ -86,25 +81,6 @@ class APIExecutor {
 
   // 读取文件
   async readFile(filename) {
-    // 检查是否在 Electron 环境中
-    if (!window.electron) {
-      console.log(`开发模式：模拟读取文件 ${filename}`);
-      
-      // 返回模拟的文件内容
-      if (filename === 'NC2Lims.xml') {
-        return `<?xml version="1.0" encoding="UTF-8"?>
-<root>
-  <order>
-    <orderId>TEST001</orderId>
-    <product>测试产品</product>
-    <quantity>10</quantity>
-  </order>
-</root>`;
-      }
-      
-      return `模拟文件内容: ${filename}`;
-    }
-
     try {
       const { data } = await window.electron.readProjectFile(this.projectPath, filename);
       return data;
@@ -283,10 +259,6 @@ class APIExecutor {
 
   // 通过 Electron 主进程发送请求（不受 CORS 限制）
   async httpRequestViaElectron(requestConfig) {
-    if (!window.electron) {
-      throw new Error('Electron 环境不可用');
-    }
-    
     const result = await window.electron.httpRequestWithCancel({ id: this.requestId, requestConfig });
     return result;
   }
@@ -379,33 +351,9 @@ class APIExecutor {
 
       let response;
 
-      // 优先使用 Electron 主进程发送请求（不受 CORS 限制）
-      const hasElectron = !!(window.electron && window.electron.httpRequest);
-      console.log('[API Executor] Electron 可用:', hasElectron, '| 请求URL:', apiPath);
-      
-      if (hasElectron) {
-        console.log('[API Executor] 使用 Electron HTTP 请求（无 CORS 限制）');
-        this.requestId = this.generateRequestId();
-        response = await this.httpRequestViaElectron(requestConfig);
-      } else {
-        // 开发模式使用 axios
-        console.log('[API Executor] 使用 axios 请求（浏览器模式，可能受 CORS 限制）');
-        console.warn('[API Executor] 警告: 未检测到 Electron 环境，请确保在 Electron 中运行');
-        
-        // 添加 URL 参数到路径
-        if (params && Object.keys(params).length > 0) {
-          const searchParams = new URLSearchParams(params);
-          const separator = apiPath.includes('?') ? '&' : '?';
-          requestConfig.url = apiPath + separator + searchParams.toString();
-        }
-        delete requestConfig.params;
-        
-        // 创建取消源
-        this.cancelSource = axios.CancelToken.source();
-        requestConfig.cancelToken = this.cancelSource.token;
-        
-        response = await axios(requestConfig);
-      }
+      // 使用 Electron 主进程发送请求（不受 CORS 限制）
+      this.requestId = this.generateRequestId();
+      response = await this.httpRequestViaElectron(requestConfig);
 
       // 解析响应
       let responseData;

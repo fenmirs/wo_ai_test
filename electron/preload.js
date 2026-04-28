@@ -24,6 +24,7 @@ contextBridge.exposeInMainWorld('electron', {
   // 对话框
   selectDirectory: () => ipcRenderer.invoke('select-directory'),
   selectFile: () => ipcRenderer.invoke('select-file'),
+  saveFile: (options) => ipcRenderer.invoke('save-file', options),
   
   // 历史记录
   getHistoryPath: () => ipcRenderer.invoke('get-history-path'),

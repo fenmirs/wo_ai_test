@@ -1,9 +1,11 @@
-const { app, BrowserWindow, ipcMain, dialog, net } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, net, session } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const { exec } = require('child_process');
 const { promisify } = require('util');
 const execAsync = promisify(exec);
+const axios = require('axios');
+const https = require('https');
 
 // 存储活跃的 HTTP 请求，用于取消
 const activeRequests = new Map();
@@ -72,12 +74,30 @@ function createWindow() {
     mainWindow.show();
   });
 
+  // 忽略 SSL 证书错误（支持自签名证书）
+  mainWindow.webContents.on('certificate-error', (event, url, error, certificate, callback) => {
+    event.preventDefault();
+    callback(true);
+  });
+
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
 }
 
 app.whenReady().then(() => {
+  // 忽略所有 SSL 证书错误（支持自签名证书）
+  // 同时处理 webContents 和 net.request 的证书错误
+  app.on('certificate-error', (event, webContents, url, error, certificate, callback) => {
+    event.preventDefault();
+    callback(true);
+  });
+
+  // 全局忽略证书验证（对 net.request 生效）
+  session.defaultSession.setCertificateVerifyProc((request, callback) => {
+    callback(0); // 0 = 证书有效
+  });
+
   createWindow();
 
   app.on('activate', () => {
@@ -394,6 +414,19 @@ ipcMain.handle('select-file', async () => {
   return { success: false };
 });
 
+// 保存文件对话框
+ipcMain.handle('save-file', async (event, options) => {
+  const result = await dialog.showSaveDialog(mainWindow, {
+    defaultPath: options.defaultPath,
+    filters: options.filters
+  });
+  
+  if (!result.canceled && result.filePath) {
+    return { success: true, filePath: result.filePath };
+  }
+  return { success: false };
+});
+
 // IPC 通信 - 创建目录
 ipcMain.handle('create-directory', async (event, dirPath) => {
   try {
@@ -616,96 +649,74 @@ function formatErrorMessage(error) {
   return { type: 'unknown', message: error.message };
 }
 
-// IPC 通信 - 可取消的 HTTP 请求
+// IPC 通信 - 可取消的 HTTP 请求（使用 axios，支持忽略自签名证书）
 ipcMain.handle('http-request-with-cancel', async (event, { id, requestConfig }) => {
   const { method, url, headers, data, timeout } = requestConfig;
-  
+
   return new Promise((resolve) => {
     const startTime = Date.now();
-    
-    try {
-      const request = net.request({
-        method: method || 'GET',
-        url: url,
-        redirect: 'follow'
+    const source = axios.CancelToken.source();
+    activeRequests.set(id, { cancel: () => source.cancel('用户取消请求') });
+
+    const timeoutId = setTimeout(() => {
+      source.cancel('请求超时');
+      activeRequests.delete(id);
+      resolve({
+        success: false,
+        error: '请求超时',
+        errorType: 'timeout',
+        elapsedTime: ((Date.now() - startTime) / 1000).toFixed(2) + 's'
       });
+    }, timeout || 30000);
 
-      activeRequests.set(id, request);
+    // 创建忽略证书验证的 HTTPS agent
+    const httpsAgent = new https.Agent({
+      rejectUnauthorized: false
+    });
 
-      const timeoutId = setTimeout(() => {
-        request.abort();
+    const config = {
+      method: method || 'GET',
+      url: url,
+      headers: headers || {},
+      data: data,
+      timeout: timeout || 30000,
+      cancelToken: source.token,
+      httpsAgent: url.startsWith('https:') ? httpsAgent : undefined,
+      // 不验证 SSL 证书
+      validateStatus: () => true
+    };
+
+    axios(config)
+      .then(response => {
+        clearTimeout(timeoutId);
         activeRequests.delete(id);
+        const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(2) + 's';
+
         resolve({
-          success: false,
-          error: '请求超时',
-          errorType: 'timeout',
-          elapsedTime: ((Date.now() - startTime) / 1000).toFixed(2) + 's'
+          success: response.status < 400,
+          status_code: response.status,
+          status_text: response.statusText || '',
+          headers: response.headers || {},
+          data: response.data,
+          elapsedTime,
+          responseSize: formatSize(typeof response.data === 'string' ? response.data.length : JSON.stringify(response.data).length)
         });
-      }, timeout || 30000);
+      })
+      .catch(error => {
+        clearTimeout(timeoutId);
+        activeRequests.delete(id);
 
-      if (headers) {
-        Object.keys(headers).forEach(key => {
-          if (key.toLowerCase() !== 'host') {
-            request.setHeader(key, headers[key]);
-          }
-        });
-      }
-
-      let responseData = '';
-      let responseHeaders = {};
-      let statusCode = null;
-      let statusMessage = '';
-
-      request.on('response', (response) => {
-        statusCode = response.statusCode;
-        statusMessage = response.statusMessage || '';
-        responseHeaders = response.headers || {};
-
-        response.on('data', (chunk) => {
-          responseData += chunk.toString();
-        });
-
-        response.on('end', () => {
-          clearTimeout(timeoutId);
-          activeRequests.delete(id);
-          const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(2) + 's';
-          
-          let parsedData = responseData;
-          try {
-            parsedData = JSON.parse(responseData);
-          } catch {
-            parsedData = responseData;
-          }
-
-          resolve({
-            success: statusCode < 400,
-            status_code: statusCode,
-            status_text: statusMessage,
-            headers: responseHeaders,
-            data: parsedData,
-            elapsedTime,
-            responseSize: formatSize(responseData.length)
-          });
-        });
-
-        response.on('error', (error) => {
-          clearTimeout(timeoutId);
-          activeRequests.delete(id);
+        if (axios.isCancel(error)) {
           resolve({
             success: false,
             error: error.message,
-            errorType: 'network',
+            errorType: 'cancelled',
             elapsedTime: ((Date.now() - startTime) / 1000).toFixed(2) + 's'
           });
-        });
-      });
+          return;
+        }
 
-      request.on('error', (error) => {
-        clearTimeout(timeoutId);
-        activeRequests.delete(id);
-        
         const { type, message } = formatErrorMessage(error);
-        
         resolve({
           success: false,
           error: message,
@@ -713,26 +724,6 @@ ipcMain.handle('http-request-with-cancel', async (event, { id, requestConfig }) 
           elapsedTime: ((Date.now() - startTime) / 1000).toFixed(2) + 's'
         });
       });
-
-      if (data) {
-        if (typeof data === 'object') {
-          request.write(JSON.stringify(data));
-        } else {
-          request.write(data);
-        }
-      }
-      
-      request.end();
-
-    } catch (error) {
-      activeRequests.delete(id);
-      resolve({
-        success: false,
-        error: error.message,
-        errorType: 'unknown',
-        elapsedTime: ((Date.now() - startTime) / 1000).toFixed(2) + 's'
-      });
-    }
   });
 });
 
