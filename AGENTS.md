@@ -47,28 +47,37 @@ api_test_ui/
 │   └── preload.js        # 预加载脚本
 ├── src/                  # React 前端
 │   ├── components/       # React 组件
-│   │   ├── APIMain.js            # API 列表（分组）
+│   │   ├── APIMain.js            # API 列表（分组），支持拖拽
 │   │   ├── APIDetail.js          # API 详情展示
 │   │   ├── APIEditor.js          # API 编辑器
-│   │   ├── BottomBar.js          # 底部栏（环境+变量）
+│   │   ├── BottomBar.js          # 底部栏（环境+变量+通知）
 │   │   ├── EnvVarManager.js      # 环境列表管理
+│   │   ├── ExecutionHistory.js   # 执行历史记录
+│   │   ├── HistoryDetailDialog.js # 历史详情对话框
 │   │   ├── ChainSelector.js       # 调用链选择器
 │   │   ├── InputDialog.js         # 输入对话框
-│   │   └── ConfirmDialog.js       # 确认对话框
+│   │   ├── ConfirmDialog.js       # 确认对话框
+│   │   └── EmptyState.js         # 空状态页面
 │   ├── utils/           # 工具类
 │   │   ├── ProjectManager.js      # 项目数据管理器（单例）
-│   │   └── APIExecutor.js         # API 执行器
+│   │   ├── APIExecutor.js         # API 执行器
+│   │   └── NotificationManager.js # 通知管理器（按项目隔离）
 │   ├── App.js           # 主应用组件
-│   └── index.js         # 入口文件
+│   ├── App.css          # 应用样式
+│   ├── index.js         # 入口文件
+│   └── index.css        # 全局样式
 ├── public/               # 静态资源
 │   └── demo/             # DEMO 项目数据
-└── package.json
+├── package.json
+├── README.md
+└── AGENTS.md
 ```
 
 ## 核心架构
 
 ### 数据管理
 - **ProjectManager**（单例）：管理项目数据，支持自动保存（5秒间隔）
+- **NotificationManager**（单例）：管理通知数据，按项目隔离，内存存储
 - 数据在内存中管理，通过 IPC 读写 `config.json`
 - 使用 `markDirty()` 标记修改，`saveProject()` 保存到文件
 
@@ -79,6 +88,14 @@ api_test_ui/
   - `{{readFile:文件名}}` - 读取文件内容
   - `{{file:文件名}}` - 文件上传
   - `{变量名}` - 环境变量替换
+
+### 通知管理
+- **NotificationManager**（单例）：管理所有项目的通知
+- 按项目 ID 隔离存储，切换项目不删除缓存
+- 通知存储在内存中，程序关闭后清空
+- 支持添加、标记已读、全部已读、删除通知
+- 监听器模式，通知变化时自动更新 UI
+- 通知类型：系统通知、API 通知等（可扩展）
 
 ### IPC 通信
 - `read-file` / `write-file` - 文件读写
@@ -173,6 +190,8 @@ api_test_ui/
 7. **参数格式**：Params/Body 支持 `default`、`description`、`type`、`enabled` 字段
 8. **Body 类型**：支持 none、form-data（含文件上传）、x-www-form-urlencoded、raw、JSON
 9. **测试页面**：可编辑参数进行临时测试，不影响默认值；Content-Type 不可修改
+10. **通知管理**：通知按项目隔离存储在内存中，切换项目不删除缓存
+11. **API 拖拽**：支持拖动 API 项目到其他分组来改变分组
 
 ## 技术栈
 
@@ -181,3 +200,4 @@ api_test_ui/
 - Axios
 - Tailwind CSS
 - Lucide React
+- React Syntax Highlighter

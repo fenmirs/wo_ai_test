@@ -8,13 +8,15 @@
 - ✅ **项目管理** - 支持导入项目，数据在内存中管理
 - ✅ **环境配置** - 底部栏快速切换环境，支持多环境管理
 - ✅ **变量管理** - 独立变量管理，支持各环境单独编辑
-- ✅ **API 分组** - 支持自定义分组，方便组织 API
-- ✅ **API 列表** - 模糊搜索，快速定位目标接口
+- ✅ **API 分组** - 支持自定义分组，支持拖拽改变分组
+- ✅ **API 列表** - 模糊搜索，快速定位目标接口，支持拖拽排序
 - ✅ **API 编辑** - 完整的 API 配置编辑功能
 - ✅ **调用链** - 自动按顺序执行依赖的 API
 - ✅ **动态参数** - 支持 `{{ref:...}}`、`{{readFile:...}}` 等动态标记
 - ✅ **断言验证** - 使用 JSONPath 表达式进行响应断言
 - ✅ **自动保存** - 每 5 秒自动保存，支持手动保存
+- ✅ **通知系统** - 按项目隔离的内存通知管理，支持系统通知
+- ✅ **执行历史** - 保存 API 执行记录，支持查看详情和恢复
 - ✅ **主题切换** - 支持暗黑/白昼两种主题
 
 ### 界面设计
@@ -28,28 +30,32 @@
 ```
 api_test_ui/
 ├── electron/              # Electron 主进程
-│   ├── main.js           # 主进程入口
-│   └── preload.js        # 预加载脚本（IPC 通信）
+│   ├── main.js           # 主进程入口，IPC 通信处理
+│   └── preload.js        # 预加载脚本
 ├── public/               # 静态资源
 │   ├── index.html
-│   └── demo/             # DEMO 项目
+│   └── demo/             # DEMO 项目数据
 ├── src/                  # React 前端
 │   ├── components/       # React 组件
-│   │   ├── APIMain.js            # API 列表（分组）
+│   │   ├── APIMain.js            # API 列表（分组），支持拖拽
 │   │   ├── APIDetail.js          # API 详情展示
 │   │   ├── APIEditor.js          # API 编辑器
-│   │   ├── BottomBar.js          # 底部栏（环境+变量）
-│   │   ├── EnvVarManager.js    # 环境列表管理
+│   │   ├── BottomBar.js          # 底部栏（环境+变量+通知）
+│   │   ├── EnvVarManager.js      # 环境列表管理
+│   │   ├── ExecutionHistory.js   # 执行历史记录
+│   │   ├── HistoryDetailDialog.js # 历史详情对话框
+│   │   ├── InputDialog.js         # 输入对话框
+│   │   ├── ConfirmDialog.js       # 确认对话框
 │   │   └── EmptyState.js         # 空状态页面
 │   ├── utils/           # 工具类
-│   │   ├── ProjectManager.js     # 项目数据管理器
-│   │   └── APIExecutor.js        # API 执行器
+│   │   ├── ProjectManager.js      # 项目数据管理器（单例）
+│   │   ├── APIExecutor.js         # API 执行器
+│   │   └── NotificationManager.js # 通知管理器（按项目隔离）
 │   ├── App.js           # 主应用组件
 │   ├── App.css          # 应用样式
 │   ├── index.js         # 入口文件
 │   └── index.css        # 全局样式
 ├── package.json         # 项目配置
-├── start.sh            # 启动脚本
 └── README.md           # 项目说明
 ```
 
@@ -215,7 +221,7 @@ API 编辑器支持编辑以下配置：
 - **Electron 28** - 桌面应用框架
 - **React 18** - UI 框架
 - **Axios** - HTTP 请求库
-- **Monaco Editor** - 代码编辑器
+- **Tailwind CSS** - 样式框架
 - **Lucide React** - 图标库
 - **React Syntax Highlighter** - 代码高亮
 
@@ -250,11 +256,13 @@ API 编辑器支持编辑以下配置：
 
 ## 开发计划
 
-- [ ] 支持 API 执行功能
-- [ ] 支持批量执行多个 API
+- [x] 支持 API 执行功能
+- [x] 支持批量执行多个 API
+- [x] 通知管理系统（按项目隔离）
 - [ ] 支持测试用例导入/导出
 - [ ] 支持测试报告生成
 - [ ] 支持插件扩展
+- [ ] API 拖拽排序
 
 ## 许可证
 
