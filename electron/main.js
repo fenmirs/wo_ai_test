@@ -716,6 +716,23 @@ ipcMain.handle('http-request-with-cancel', async (event, { id, requestConfig }) 
           return;
         }
 
+        // 服务器返回错误状态码（如401）时，error.response 包含响应数据
+        if (error.response) {
+          const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(2) + 's';
+          resolve({
+            success: false,
+            status_code: error.response.status,
+            status_text: error.response.statusText || '',
+            headers: error.response.headers || {},
+            data: error.response.data,
+            error: `服务器错误 (${error.response.status})`,
+            errorType: 'server_error',
+            elapsedTime,
+            responseSize: formatSize(typeof error.response.data === 'string' ? error.response.data.length : JSON.stringify(error.response.data).length)
+          });
+          return;
+        }
+
         const { type, message } = formatErrorMessage(error);
         resolve({
           success: false,
@@ -731,7 +748,9 @@ ipcMain.handle('http-request-with-cancel', async (event, { id, requestConfig }) 
 ipcMain.handle('cancel-http-request', async (event, id) => {
   const request = activeRequests.get(id);
   if (request) {
-    request.abort();
+    if (typeof request.cancel === 'function') {
+      request.cancel();
+    }
     activeRequests.delete(id);
     return { success: true };
   }

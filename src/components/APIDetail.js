@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, ChevronRight, ChevronDown, Trash2, Plus, Upload, X, AlertCircle, FileText, Save, FileDown } from 'lucide-react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import axios from 'axios';
 import './APIDetail.css';
 import APIExecutor from '../utils/APIExecutor';
 import { projectManager } from '../utils/ProjectManager';
@@ -495,8 +494,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
           </thead>
           <tbody>
             {items.map((item, index) => {
-              // const isReadonly = item.key.toLowerCase() === 'content-type';
-              const isReadonly = false;
+              const isReadonly = item.key.toLowerCase() === 'content-type';
               return (
                 <tr key={index}>
                   <td>
@@ -602,7 +600,9 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                           newItems[index] = { ...item, default: e.target.value };
                           setItems(newItems);
                         }}
-                        placeholder="默认值" readOnly={isReadonly} className={isReadonly ? 'readonly' : ''} />
+                        placeholder="默认值" 
+                        // readOnly={isReadonly} className={isReadonly ? 'readonly' : ''}
+                        />
                     )}
                   </td>
                   <td>
