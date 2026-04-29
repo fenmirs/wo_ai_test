@@ -91,6 +91,20 @@
       "chain": [],
       "successAssert": "",
       "id": "api_1777454307702_2y5g39pg0"
+    },
+    {
+      "id": "api_1777454457966_40ek0rru4",
+      "name": "未命名的API",
+      "group": "default",
+      "api_path": "{domain}",
+      "method": "GET",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": "{}",
+      "chain": [],
+      "successAssert": ""
     }
   ]
 }

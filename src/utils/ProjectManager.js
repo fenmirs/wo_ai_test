@@ -663,10 +663,10 @@ class ProjectManager {
     // 从分组列表中移除
     this.projectData.groups = this.projectData.groups.filter(g => !groupsToDelete.includes(g.id));
     
-    // 将属于这些分组的 API 移到默认分组
+    // 将属于这些分组的 API 移到默认分组（默认分组 id 为 'default'）
     this.projectData.apis?.forEach(api => {
       if (groupsToDelete.includes(api.group)) {
-        api.group = null; // null 表示默认分组
+        api.group = 'default'; // 移到默认分组
       }
     });
     
