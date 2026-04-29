@@ -1,10 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Search, Folder, FolderOpen, Plus, Trash2, FolderPlus, ChevronRight, ChevronDown, MoreHorizontal } from 'lucide-react';
+import { Search, Folder, FolderOpen, Plus, Trash2, FolderPlus, ChevronRight, ChevronDown, MoreHorizontal, Copy, Edit } from 'lucide-react';
 import './APIMain.css';
 
 function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, onEdit, onDelete, onAddGroup, onDeleteGroup, onGroupSelect, onMoveToGroup, onRenameGroup, onMoveGroup, onCopyAPI, onCopyGroup }) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [showAddMenu, setShowAddMenu] = useState(false);
   const [dragAPI, setDragAPI] = useState(null);
   const [dragGroup, setDragGroup] = useState(null);
   const [dragOverGroup, setDragOverGroup] = useState(null);
@@ -12,7 +11,6 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
   const [newGroupName, setNewGroupName] = useState('');
   const [expandedGroups, setExpandedGroups] = useState(new Set());
   const [operationMenu, setOperationMenu] = useState({ visible: false, type: null, data: null, buttonRef: null });
-  const addMenuRef = useRef(null);
   const editInputRef = useRef(null);
   const operationMenuRef = useRef(null);
 
@@ -21,9 +19,6 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
   // 点击外部关闭菜单
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (addMenuRef.current && !addMenuRef.current.contains(event.target)) {
-        setShowAddMenu(false);
-      }
       if (operationMenuRef.current && !operationMenuRef.current.contains(event.target) &&
           !event.target.closest('.operation-trigger')) {
         setOperationMenu({ visible: false, type: null, data: null, buttonRef: null });
@@ -60,6 +55,17 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
     if (type === 'group') {
       const group = data;
       switch (action) {
+        case 'addAPI':
+          if (onAdd) onAdd(group.id);
+          break;
+        case 'addSubGroup':
+          // 添加子分组，父分组为当前分组
+          if (onAddGroup) onAddGroup(group.id);
+          break;
+        case 'addSiblingGroup':
+          // 添加同级分组，父分组和当前分组相同
+          if (onAddGroup) onAddGroup(group.parentId || null);
+          break;
         case 'rename':
           setEditingGroup(group.id);
           setNewGroupName(group.name);
@@ -503,7 +509,7 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
 
   return (
     <div className="api-main">
-      {/* 搜索框和新增按钮 */}
+      {/* 搜索框 */}
       <div className="search-bar">
         <div className="search-box">
           <Search size={14} className="search-icon" />
@@ -515,33 +521,6 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
             className="search-input"
           />
         </div>
-        {(onAdd || onAddGroup) && (
-          <div className="add-menu-container" ref={addMenuRef}>
-            <button 
-              className="add-api-btn" 
-              onClick={() => setShowAddMenu(!showAddMenu)}
-              title="新增"
-            >
-              <Plus size={14} />
-            </button>
-            {showAddMenu && (
-              <div className="add-dropdown">
-                {onAdd && (
-                  <div className="dropdown-item" onClick={() => { onAdd(); setShowAddMenu(false); }}>
-                    <Plus size={14} />
-                    <span>API</span>
-                  </div>
-                )}
-                {onAddGroup && (
-                  <div className="dropdown-item" onClick={() => { onAddGroup(); setShowAddMenu(false); }}>
-                    <FolderPlus size={14} />
-                    <span>分组</span>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        )}
       </div>
 
       {/* API 列表 */}
@@ -558,15 +537,30 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
         >
           {operationMenu.type === 'group' && (
             <>
-              <div className="operation-menu-item" onClick={() => handleOperationMenuAction('copy')}>
-                <span>复制</span>
+              <div className="operation-menu-item" onClick={() => { handleOperationMenuAction('addAPI'); }}>
+                <Plus size={14} />
+                <span>添加 API</span>
+              </div>
+              <div className="operation-menu-item" onClick={() => { handleOperationMenuAction('addSubGroup'); }}>
+                <FolderPlus size={14} />
+                <span>添加子分组</span>
+              </div>
+              <div className="operation-menu-item" onClick={() => { handleOperationMenuAction('addSiblingGroup'); }}>
+                <FolderPlus size={14} />
+                <span>添加同级分组</span>
               </div>
               {operationMenu.data?.id !== 'default' && (
                 <>
+                  <div className="operation-menu-item" onClick={() => handleOperationMenuAction('copy')}>
+                    <Copy size={14} />
+                    <span>复制</span>
+                  </div>
                   <div className="operation-menu-item" onClick={() => handleOperationMenuAction('rename')}>
+                    <Edit size={14} />
                     <span>重命名</span>
                   </div>
                   <div className="operation-menu-item danger" onClick={() => handleOperationMenuAction('delete')}>
+                    <Trash2 size={14} />
                     <span>删除分组</span>
                   </div>
                 </>
@@ -576,9 +570,11 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
           {operationMenu.type === 'api' && (
             <>
               <div className="operation-menu-item" onClick={() => handleOperationMenuAction('copy')}>
+                <Copy size={14} />
                 <span>复制</span>
               </div>
               <div className="operation-menu-item danger" onClick={() => handleOperationMenuAction('delete')}>
+                <Trash2 size={14} />
                 <span>删除</span>
               </div>
             </>
