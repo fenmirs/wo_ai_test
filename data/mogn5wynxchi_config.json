@@ -77,6 +77,20 @@
       "chain": [],
       "successAssert": "",
       "id": "api_1777370652399_0mbh8qqbh"
+    },
+    {
+      "name": "接收MES检验单",
+      "group": null,
+      "api_path": "{domain}{api-prj}/openapi/order/mes/receive",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": "{}",
+      "chain": [],
+      "successAssert": "",
+      "id": "api_1777454307702_2y5g39pg0"
     }
   ]
 }

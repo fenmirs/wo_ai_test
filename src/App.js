@@ -427,6 +427,25 @@ function App() {
     setTimeout(() => setSaveMessage(''), 2000);
   };
 
+  // 复制 API
+  const handleCopyAPI = (apiId) => {
+    const newAPI = projectManager.copyAPI(apiId);
+    if (newAPI) {
+      setSaveMessage(`API 已复制为 "${newAPI.name}"`);
+      setTimeout(() => setSaveMessage(''), 2000);
+    }
+  };
+
+  // 复制分组
+  const handleCopyGroup = (groupId) => {
+    const newGroupId = projectManager.copyGroup(groupId);
+    if (newGroupId) {
+      const newGroup = projectData.groups?.find(g => g.id === newGroupId);
+      setSaveMessage(`分组已复制为 "${newGroup?.name || '未知'}"`);
+      setTimeout(() => setSaveMessage(''), 2000);
+    }
+  };
+
   // 编辑 API
   const handleEditAPI = () => {
     if (selectedAPI) {
@@ -578,6 +597,8 @@ function App() {
                  onMoveToGroup={handleMoveToGroup}
                  onMoveGroup={handleMoveGroup}
                  onRenameGroup={handleRenameGroup}
+                 onCopyAPI={handleCopyAPI}
+                 onCopyGroup={handleCopyGroup}
                  onAdd={(parentId) => {
                    const apis = projectData?.apis || [];
                    let baseName = '未命名的API';

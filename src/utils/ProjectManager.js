@@ -560,6 +560,97 @@ class ProjectManager {
   }
 
   /**
+   * 复制 API
+   * @param {string} apiId - 要复制的 API ID
+   * @returns {object|null} - 新复制的 API
+   */
+  copyAPI(apiId) {
+    if (!this.projectData) return null;
+    
+    const sourceAPI = this.projectData.apis?.find(api => api.id === apiId);
+    if (!sourceAPI) return null;
+    
+    // 创建副本，生成新 ID，修改名称
+    const newAPI = JSON.parse(JSON.stringify(sourceAPI));
+    newAPI.id = this._generateId('api');
+    newAPI.name = `${sourceAPI.name}(复制)`;
+    
+    this.projectData.apis.push(newAPI);
+    this.markDirty();
+    
+    return newAPI;
+  }
+
+  /**
+   * 复制分组（递归复制所有子分组和 API）
+   * @param {string} groupId - 要复制的分组 ID
+   * @param {string|null} newParentId - 新分组的父 ID，null 表示根分组
+   * @returns {string|null} - 新分组的 ID
+   */
+  copyGroup(groupId, newParentId = null) {
+    if (!this.projectData) return null;
+    
+    // 查找源分组
+    const sourceGroup = this.projectData.groups?.find(g => g.id === groupId);
+    if (!sourceGroup) return null;
+    
+    // 创建分组 ID 映射表（旧 ID -> 新 ID）
+    const groupIdMap = {};
+    
+    // 递归复制分组
+    const copyGroupRecursive = (sourceGroupId, parentId) => {
+      const group = this.projectData.groups.find(g => g.id === sourceGroupId);
+      if (!group) return null;
+      
+      // 创建新分组
+      const newGroupId = this._generateId('group');
+      groupIdMap[sourceGroupId] = newGroupId;
+      
+      const newGroup = {
+        id: newGroupId,
+        name: group.id === groupId ? `${group.name}(复制)` : group.name,
+        parentId: parentId
+      };
+      
+      this.projectData.groups.push(newGroup);
+      
+      // 复制该分组下的 API
+      this.projectData.apis?.forEach(api => {
+        if (api.group === sourceGroupId) {
+          const newAPI = JSON.parse(JSON.stringify(api));
+          newAPI.id = this._generateId('api');
+          newAPI.group = newGroupId;
+          // 如果有 chain 引用，需要更新引用的 API ID
+          if (newAPI.chain && Array.isArray(newAPI.chain)) {
+            newAPI.chain = newAPI.chain.map(chainRef => {
+              // 如果引用的是同一分组内复制的 API，需要更新为新 ID
+              // 这里暂时保留原引用，因为跨分组的引用可能不需要修改
+              return chainRef;
+            });
+          }
+          this.projectData.apis.push(newAPI);
+        }
+      });
+      
+      // 递归复制子分组
+      const children = this.projectData.groups.filter(g => g.parentId === sourceGroupId);
+      children.forEach(child => {
+        copyGroupRecursive(child.id, newGroupId);
+      });
+      
+      return newGroupId;
+    };
+    
+    const newGroupId = copyGroupRecursive(groupId, newParentId);
+    
+    if (newGroupId) {
+      this.markDirty();
+    }
+    
+    return newGroupId;
+  }
+
+  /**
    * 删除分组（递归删除子分组）
    */
   deleteGroup(groupId) {

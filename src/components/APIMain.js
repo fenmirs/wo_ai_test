@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Search, Folder, FolderOpen, Plus, Trash2, FolderPlus, ChevronRight, ChevronDown, MoreHorizontal } from 'lucide-react';
 import './APIMain.css';
 
-function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, onEdit, onDelete, onAddGroup, onDeleteGroup, onGroupSelect, onMoveToGroup, onRenameGroup, onMoveGroup }) {
+function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, onEdit, onDelete, onAddGroup, onDeleteGroup, onGroupSelect, onMoveToGroup, onRenameGroup, onMoveGroup, onCopyAPI, onCopyGroup }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [showAddMenu, setShowAddMenu] = useState(false);
   const [dragAPI, setDragAPI] = useState(null);
@@ -68,13 +68,7 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
           if (onDeleteGroup) onDeleteGroup(group.id);
           break;
         case 'copy':
-          // 复制分组信息到剪贴板
-          const groupInfo = `分组: ${group.name}`;
-          navigator.clipboard.writeText(groupInfo).then(() => {
-            if (window.electron && window.electron.showNotification) {
-              window.electron.showNotification('分组信息已复制到剪贴板');
-            }
-          });
+          if (onCopyGroup) onCopyGroup(group.id);
           break;
         default:
           break;
@@ -86,13 +80,7 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
           if (onDelete) onDelete(api);
           break;
         case 'copy':
-          // 复制 API 信息到剪贴板
-          const apiInfo = `${api.method} ${api.name} - ${api.api_path}`;
-          navigator.clipboard.writeText(apiInfo).then(() => {
-            if (window.electron && window.electron.showNotification) {
-              window.electron.showNotification('API信息已复制到剪贴板');
-            }
-          });
+          if (onCopyAPI) onCopyAPI(api.id);
           break;
         default:
           break;
