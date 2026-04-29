@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Search, Folder, FolderOpen, Plus, Trash2, FolderPlus, ChevronRight, ChevronDown } from 'lucide-react';
+import { Search, Folder, FolderOpen, Plus, Trash2, FolderPlus, ChevronRight, ChevronDown, MoreHorizontal } from 'lucide-react';
 import './APIMain.css';
 
 function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, onEdit, onDelete, onAddGroup, onDeleteGroup, onGroupSelect, onMoveToGroup, onRenameGroup, onMoveGroup }) {
@@ -11,8 +11,10 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
   const [editingGroup, setEditingGroup] = useState(null);
   const [newGroupName, setNewGroupName] = useState('');
   const [expandedGroups, setExpandedGroups] = useState(new Set());
+  const [operationMenu, setOperationMenu] = useState({ visible: false, type: null, data: null, buttonRef: null });
   const addMenuRef = useRef(null);
   const editInputRef = useRef(null);
+  const operationMenuRef = useRef(null);
 
   const currentActiveGroup = activeGroup || null;
 
@@ -22,6 +24,10 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
       if (addMenuRef.current && !addMenuRef.current.contains(event.target)) {
         setShowAddMenu(false);
       }
+      if (operationMenuRef.current && !operationMenuRef.current.contains(event.target) &&
+          !event.target.closest('.operation-trigger')) {
+        setOperationMenu({ visible: false, type: null, data: null, buttonRef: null });
+      }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
@@ -29,6 +35,57 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  // 处理操作菜单显示/隐藏
+  const toggleOperationMenu = (e, type, data) => {
+    e.stopPropagation();
+    if (operationMenu.visible && operationMenu.data === data) {
+      setOperationMenu({ visible: false, type: null, data: null, buttonRef: null });
+    } else {
+      const rect = e.currentTarget.getBoundingClientRect();
+      setOperationMenu({
+        visible: true,
+        type,
+        data,
+        x: rect.left,
+        y: rect.bottom + 4
+      });
+    }
+  };
+
+  // 执行操作菜单操作
+  const handleOperationMenuAction = (action) => {
+    const { type, data } = operationMenu;
+
+    if (type === 'group') {
+      const group = data;
+      switch (action) {
+        case 'rename':
+          setEditingGroup(group.id);
+          setNewGroupName(group.name);
+          break;
+        case 'delete':
+          if (onDeleteGroup) onDeleteGroup(group.id);
+          break;
+        default:
+          break;
+      }
+    } else if (type === 'api') {
+      const api = data;
+      switch (action) {
+        case 'delete':
+          if (onDelete) onDelete(api);
+          break;
+        case 'edit':
+          if (onEdit) onEdit(api);
+          break;
+        default:
+          break;
+      }
+    }
+
+    setOperationMenu({ visible: false, type: null, data: null, buttonRef: null });
+  };
 
   // 编辑分组时自动聚焦
   useEffect(() => {
@@ -359,16 +416,13 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
 
           <span className="group-count">{apiCount}</span>
 
-          {!isDefault && !editingGroup && onDeleteGroup && (
+          {!isDefault && !editingGroup && (
             <button
-              className="icon-btn danger"
-              onClick={(e) => {
-                e.stopPropagation();
-                onDeleteGroup(groupId);
-              }}
-              title="删除分组"
+              className="icon-btn operation-trigger"
+              onClick={(e) => toggleOperationMenu(e, 'group', group)}
+              title="操作"
             >
-              <Trash2 size={14} />
+              <MoreHorizontal size={14} />
             </button>
           )}
 
@@ -389,52 +443,47 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
         {isExpanded && (
           <div className="group-content">
             {filteredAPIs.map(api => (
-              <div
-                key={api.id || api.name}
-                className={`api-item ${
-                  (selectedAPI?.id && api.id && selectedAPI.id === api.id) || 
-                  (!api.id && selectedAPI?.name === api.name) 
-                    ? 'active' : ''
-                } ${
-                  (dragAPI?.id && api.id && dragAPI.id === api.id) || 
-                  (!api.id && dragAPI?.name === api.name) 
-                    ? 'dragging' : ''
-                }`}
-                style={{ paddingLeft: `${12 + (level + 1) * 16}px` }}
-                draggable
-                onDragStart={(e) => handleDragStart(e, api)}
-                onDragEnd={handleDragEnd}
-                onClick={() => onSelect(api)}
-              >
-                <div className="api-header">
-                  <div className="api-info">
-                    <span className="api-name" title={api.name}>
-                      <span
-                        className="api-method"
-                        style={{ background: getMethodColor(api.method) }}
-                      >
-                        {api.method}
+                <div
+                  key={api.id || api.name}
+                  className={`api-item ${
+                    (selectedAPI?.id && api.id && selectedAPI.id === api.id) ||
+                    (!api.id && selectedAPI?.name === api.name)
+                      ? 'active' : ''
+                  } ${
+                    (dragAPI?.id && api.id && dragAPI.id === api.id) ||
+                    (!api.id && dragAPI?.name === api.name)
+                      ? 'dragging' : ''
+                  }`}
+                  style={{ paddingLeft: `${12 + (level + 1) * 16}px` }}
+                  draggable
+                  onDragStart={(e) => handleDragStart(e, api)}
+                  onDragEnd={handleDragEnd}
+                  onClick={() => onSelect(api)}
+                >
+                  <div className="api-header">
+                    <div className="api-info">
+                      <span className="api-name" title={api.name}>
+                        <span
+                          className="api-method"
+                          style={{ background: getMethodColor(api.method) }}
+                        >
+                          {api.method}
+                        </span>
+                        {api.name}
                       </span>
-                      {api.name}
-                    </span>
-                    <span className="api-path" title={api.api_path}>{api.api_path}</span>
+                      <span className="api-path" title={api.api_path}>{api.api_path}</span>
+                    </div>
+                  </div>
+                  <div className="api-actions">
+                    <button
+                      className="icon-btn operation-trigger"
+                      onClick={(e) => toggleOperationMenu(e, 'api', api)}
+                      title="操作"
+                    >
+                      <MoreHorizontal size={14} />
+                    </button>
                   </div>
                 </div>
-                <div className="api-actions">
-                  {onDelete && (
-                    <button
-                      className="icon-btn danger"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onDelete(api);
-                      }}
-                      title="删除"
-                    >
-                      <Trash2 size={14} />
-                    </button>
-                  )}
-                </div>
-              </div>
             ))}
           </div>
         )}
@@ -496,6 +545,38 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
       <div className="api-list">
         {getGroupTree().map(group => renderGroup(group, 0))}
       </div>
+
+      {/* 操作菜单 */}
+      {operationMenu.visible && (
+        <div
+          ref={operationMenuRef}
+          className="operation-menu"
+          style={{ left: operationMenu.x, top: operationMenu.y }}
+        >
+          {operationMenu.type === 'group' && (
+            <>
+              <div className="operation-menu-item" onClick={() => handleOperationMenuAction('rename')}>
+                <span>重命名</span>
+              </div>
+              {operationMenu.data?.id !== 'default' && (
+                <div className="operation-menu-item danger" onClick={() => handleOperationMenuAction('delete')}>
+                  <span>删除分组</span>
+                </div>
+              )}
+            </>
+          )}
+          {operationMenu.type === 'api' && (
+            <>
+              <div className="operation-menu-item" onClick={() => handleOperationMenuAction('edit')}>
+                <span>编辑</span>
+              </div>
+              <div className="operation-menu-item danger" onClick={() => handleOperationMenuAction('delete')}>
+                <span>删除</span>
+              </div>
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 }

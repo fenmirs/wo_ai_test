@@ -135,7 +135,7 @@
 }
 
 .group-header.active {
-  background: rgba(59, 130, 246, 0.15);
+  /* background: rgba(59, 130, 246, 0.15); */
   color: #3b82f6;
 }
 
@@ -290,7 +290,7 @@
 }
 
 .api-path {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-muted);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -379,4 +379,41 @@
 /* 拖拽预览 */
 .drag-preview {
   font-size: 12px;
+}
+
+/* 操作菜单 */
+.operation-menu {
+  position: fixed;
+  z-index: 1000;
+  min-width: 140px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  padding: 4px 0;
+}
+
+.operation-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.operation-menu-item:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.operation-menu-item.danger {
+  color: var(--error-color, #ef4444);
+}
+
+.operation-menu-item.danger:hover {
+  background: var(--error-bg, rgba(239, 68, 68, 0.1));
 }

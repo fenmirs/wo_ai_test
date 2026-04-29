@@ -31,17 +31,12 @@
       "id": "group_1777446455673_ehughzd42",
       "name": "1212",
       "parentId": null
-    },
-    {
-      "id": "group_1777449195864_44h110cix",
-      "name": "333",
-      "parentId": "group_1777446455673_ehughzd42"
     }
   ],
   "apis": [
     {
       "name": "获取token",
-      "group": "group_1777449195864_44h110cix",
+      "group": null,
       "api_path": "{domain}{api-prj}/openapi/security/token",
       "method": "POST",
       "header": {
@@ -82,6 +77,20 @@
       "chain": [],
       "successAssert": "",
       "id": "api_1777370652399_0mbh8qqbh"
+    },
+    {
+      "id": "api_1777453131554_0a2g2x6bb",
+      "name": "未命名的API",
+      "group": "default",
+      "api_path": "{domain}",
+      "method": "GET",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": "{}",
+      "chain": [],
+      "successAssert": ""
     }
   ]
 }
