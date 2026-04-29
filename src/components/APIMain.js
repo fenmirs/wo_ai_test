@@ -67,6 +67,15 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
         case 'delete':
           if (onDeleteGroup) onDeleteGroup(group.id);
           break;
+        case 'copy':
+          // 复制分组信息到剪贴板
+          const groupInfo = `分组: ${group.name}`;
+          navigator.clipboard.writeText(groupInfo).then(() => {
+            if (window.electron && window.electron.showNotification) {
+              window.electron.showNotification('分组信息已复制到剪贴板');
+            }
+          });
+          break;
         default:
           break;
       }
@@ -76,8 +85,14 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
         case 'delete':
           if (onDelete) onDelete(api);
           break;
-        case 'edit':
-          if (onEdit) onEdit(api);
+        case 'copy':
+          // 复制 API 信息到剪贴板
+          const apiInfo = `${api.method} ${api.name} - ${api.api_path}`;
+          navigator.clipboard.writeText(apiInfo).then(() => {
+            if (window.electron && window.electron.showNotification) {
+              window.electron.showNotification('API信息已复制到剪贴板');
+            }
+          });
           break;
         default:
           break;
@@ -416,7 +431,7 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
 
           <span className="group-count">{apiCount}</span>
 
-          {!isDefault && !editingGroup && (
+          {!editingGroup && (
             <button
               className="icon-btn operation-trigger"
               onClick={(e) => toggleOperationMenu(e, 'group', group)}
@@ -555,20 +570,25 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
         >
           {operationMenu.type === 'group' && (
             <>
-              <div className="operation-menu-item" onClick={() => handleOperationMenuAction('rename')}>
-                <span>重命名</span>
+              <div className="operation-menu-item" onClick={() => handleOperationMenuAction('copy')}>
+                <span>复制</span>
               </div>
               {operationMenu.data?.id !== 'default' && (
-                <div className="operation-menu-item danger" onClick={() => handleOperationMenuAction('delete')}>
-                  <span>删除分组</span>
-                </div>
+                <>
+                  <div className="operation-menu-item" onClick={() => handleOperationMenuAction('rename')}>
+                    <span>重命名</span>
+                  </div>
+                  <div className="operation-menu-item danger" onClick={() => handleOperationMenuAction('delete')}>
+                    <span>删除分组</span>
+                  </div>
+                </>
               )}
             </>
           )}
           {operationMenu.type === 'api' && (
             <>
-              <div className="operation-menu-item" onClick={() => handleOperationMenuAction('edit')}>
-                <span>编辑</span>
+              <div className="operation-menu-item" onClick={() => handleOperationMenuAction('copy')}>
+                <span>复制</span>
               </div>
               <div className="operation-menu-item danger" onClick={() => handleOperationMenuAction('delete')}>
                 <span>删除</span>

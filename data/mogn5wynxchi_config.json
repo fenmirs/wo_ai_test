@@ -77,20 +77,6 @@
       "chain": [],
       "successAssert": "",
       "id": "api_1777370652399_0mbh8qqbh"
-    },
-    {
-      "id": "api_1777453131554_0a2g2x6bb",
-      "name": "未命名的API",
-      "group": "default",
-      "api_path": "{domain}",
-      "method": "GET",
-      "header": {
-        "Content-Type": "application/json"
-      },
-      "param": {},
-      "body": "{}",
-      "chain": [],
-      "successAssert": ""
     }
   ]
 }
