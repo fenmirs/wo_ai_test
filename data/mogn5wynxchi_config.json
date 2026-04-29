@@ -31,12 +31,17 @@
       "id": "group_1777446455673_ehughzd42",
       "name": "1212",
       "parentId": null
+    },
+    {
+      "id": "group_1777449195864_44h110cix",
+      "name": "333",
+      "parentId": "default"
     }
   ],
   "apis": [
     {
       "name": "获取token",
-      "group": "group_1777370652399_v1xzs2ssl",
+      "group": "group_1777449195864_44h110cix",
       "api_path": "{domain}{api-prj}/openapi/security/token",
       "method": "POST",
       "header": {

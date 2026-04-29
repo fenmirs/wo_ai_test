@@ -386,7 +386,7 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
         </div>
 
         {/* API 列表 - 树形缩进 */}
-        {isActive && (
+        {isExpanded && (
           <div className="group-content">
             {filteredAPIs.map(api => (
               <div

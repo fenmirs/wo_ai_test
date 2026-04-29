@@ -239,7 +239,7 @@
 
 .api-item.active {
   background: var(--bg-active);
-  border-left-color: var(--accent-primary);
+  /* border-left-color: var(--accent-primary); */
 }
 
 .api-item.dragging {
