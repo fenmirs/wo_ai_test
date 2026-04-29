@@ -19,12 +19,12 @@
   "groups": [
     {
       "id": "group_1777370652399_wet3n2x3z",
-      "name": "NC对接1",
+      "name": "NC对接",
       "parentId": "group_1777446455673_ehughzd42"
     },
     {
       "id": "group_1777370652399_v1xzs2ssl",
-      "name": "mes对接",
+      "name": "Mes对接",
       "parentId": "group_1777446455673_ehughzd42"
     },
     {
@@ -35,7 +35,7 @@
     {
       "id": "group_1777449195864_44h110cix",
       "name": "333",
-      "parentId": "default"
+      "parentId": "group_1777446455673_ehughzd42"
     }
   ],
   "apis": [

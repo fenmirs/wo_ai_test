@@ -372,7 +372,7 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
             </button>
           )}
 
-          {/* 分组拖拽手柄 */}
+          {/* 分组拖拽手柄
           {!isDefault && !editingGroup && (
             <span className="drag-handle" title="拖拽移动分组">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
@@ -382,7 +382,7 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
                 <circle cx="9" cy="9" r="1.5"/>
               </svg>
             </span>
-          )}
+          )} */}
         </div>
 
         {/* API 列表 - 树形缩进 */}
