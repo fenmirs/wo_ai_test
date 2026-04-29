@@ -149,9 +149,8 @@ class ProjectManager {
       this.executionHistory = historyData || [];
       this.isDirty = false;
       
-      if (!this.projectData.groups) {
-        this.projectData.groups = [];
-      }
+      // 数据迁移：为旧数据添加 id
+      this._migrateData();
       
       // 添加到最近项目列表
       await this.addToRecentProjects(dirPath, projectId, this.projectName);
@@ -163,6 +162,96 @@ class ProjectManager {
       console.error('加载项目失败:', error);
       return { success: false, error: error.message };
     }
+  }
+
+  /**
+   * 数据迁移：为旧数据格式添加 id 字段
+   */
+  _migrateData() {
+    let migrated = false;
+    
+    // 1. 为 API 添加 id（如果不存在）
+    if (this.projectData.apis) {
+      this.projectData.apis.forEach(api => {
+        if (!api.id) {
+          api.id = this._generateId('api');
+          migrated = true;
+        }
+        // 确保 chain 中的元素是 id（如果是旧数据，可能是名称）
+        if (api.chain && Array.isArray(api.chain)) {
+          api.chain = api.chain.map(chainRef => {
+            // 如果 chainRef 是对象（新格式），直接返回 id
+            if (typeof chainRef === 'object' && chainRef.id) {
+              return chainRef.id;
+            }
+            // 如果是字符串，尝试查找对应的 API id
+            if (typeof chainRef === 'string') {
+              // 检查是否是 API id 格式
+              if (chainRef.startsWith('api_')) {
+                return chainRef;
+              }
+              // 否则可能是 API 名称，查找对应的 id
+              const refApi = this.projectData.apis.find(a => a.name === chainRef);
+              return refApi ? refApi.id : chainRef;
+            }
+            return chainRef;
+          });
+        }
+      });
+    }
+    
+    // 2. 将 groups 从字符串数组迁移为对象数组
+    if (this.projectData.groups && typeof this.projectData.groups[0] === 'string') {
+      const oldGroups = this.projectData.groups;
+      const groupNameToId = {};
+      
+      this.projectData.groups = oldGroups.map(name => {
+        const id = this._generateId('group');
+        groupNameToId[name] = id;
+        return { id, name, parentId: null };
+      });
+      
+      // 更新 API 的 group 字段从字符串改为 id
+      if (this.projectData.apis) {
+        this.projectData.apis.forEach(api => {
+          if (api.group && groupNameToId[api.group]) {
+            api.group = groupNameToId[api.group];
+          }
+        });
+      }
+      
+      migrated = true;
+    }
+    
+    // 3. 确保 groups 存在
+    if (!this.projectData.groups) {
+      this.projectData.groups = [];
+    }
+    
+    // 4. 为历史记录添加 apiId（如果不存在）
+    if (this.executionHistory) {
+      this.executionHistory.forEach(entry => {
+        if (!entry.apiId && entry.apiName && this.projectData.apis) {
+          const api = this.projectData.apis.find(a => a.name === entry.apiName);
+          if (api) {
+            entry.apiId = api.id;
+            migrated = true;
+          }
+        }
+      });
+    }
+    
+    if (migrated) {
+      console.log('项目数据已自动迁移到新格式');
+      this.markDirty();
+    }
+  }
+
+  /**
+   * 生成唯一 ID
+   */
+  _generateId(prefix) {
+    return `${prefix}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
   }
 
   /**
@@ -387,12 +476,21 @@ class ProjectManager {
   /**
    * 更新 API 配置
    */
-  updateAPI(apiName, newAPI) {
+  updateAPI(apiIdOrName, newAPI) {
     if (!this.projectData) return;
     
-    const index = this.projectData.apis.findIndex(api => api.name === apiName);
+    const index = this.projectData.apis.findIndex(api => 
+      api.id === apiIdOrName || api.name === apiIdOrName
+    );
+    
     if (index !== -1) {
-      this.projectData.apis[index] = { ...this.projectData.apis[index], ...newAPI };
+      // 保持 id 不变
+      const id = this.projectData.apis[index].id;
+      this.projectData.apis[index] = { 
+        ...this.projectData.apis[index], 
+        ...newAPI,
+        id: id  // 确保 id 不被覆盖
+      };
       this.markDirty();
     }
   }
@@ -403,6 +501,11 @@ class ProjectManager {
   addAPI(api) {
     if (!this.projectData) return;
     
+    // 确保 API 有 id
+    if (!api.id) {
+      api.id = this._generateId('api');
+    }
+    
     this.projectData.apis.push(api);
     this.markDirty();
   }
@@ -410,42 +513,154 @@ class ProjectManager {
   /**
    * 删除 API 配置
    */
-  deleteAPI(apiName) {
+  deleteAPI(apiId) {
     if (!this.projectData) return;
     
-    this.projectData.apis = this.projectData.apis.filter(api => api.name !== apiName);
+    this.projectData.apis = this.projectData.apis.filter(api => api.id !== apiId);
+    
+    // 清理依赖链中的引用
+    this.projectData.apis.forEach(api => {
+      if (api.chain && Array.isArray(api.chain)) {
+        api.chain = api.chain.filter(chainRef => {
+          // chainRef 可能是 id 或 name，都进行过滤
+          return chainRef !== apiId;
+        });
+      }
+    });
+    
     this.markDirty();
   }
 
   /**
    * 添加分组
+   * @param {string} groupName - 分组名称
+   * @param {string|null} parentId - 父分组 ID，null 表示根分组
    */
-  addGroup(groupName) {
+  addGroup(groupName, parentId = null) {
     if (!this.projectData) return;
     
     if (!this.projectData.groups) {
       this.projectData.groups = [];
     }
     
-    if (!this.projectData.groups.includes(groupName)) {
-      this.projectData.groups.push(groupName);
+    // 检查是否已存在（同父分组下名称不能重复）
+    const exists = this.projectData.groups.find(g => 
+      g.name === groupName && g.parentId === parentId
+    );
+    
+    if (!exists) {
+      const newGroup = {
+        id: this._generateId('group'),
+        name: groupName,
+        parentId: parentId
+      };
+      this.projectData.groups.push(newGroup);
       this.markDirty();
     }
   }
 
   /**
-   * 删除分组
+   * 删除分组（递归删除子分组）
    */
-  deleteGroup(groupName) {
+  deleteGroup(groupId) {
     if (!this.projectData || !this.projectData.groups) return;
     
-    this.projectData.groups = this.projectData.groups.filter(g => g !== groupName);
-    this.projectData.apis.forEach(api => {
-      if (api.group === groupName) {
-        api.group = '默认';
+    // 获取所有需要删除的子分组
+    const groupsToDelete = this._getChildGroupIds(groupId);
+    groupsToDelete.push(groupId);
+    
+    // 从分组列表中移除
+    this.projectData.groups = this.projectData.groups.filter(g => !groupsToDelete.includes(g.id));
+    
+    // 将属于这些分组的 API 移到默认分组
+    this.projectData.apis?.forEach(api => {
+      if (groupsToDelete.includes(api.group)) {
+        api.group = null; // null 表示默认分组
       }
     });
+    
     this.markDirty();
+  }
+
+  /**
+   * 更新分组信息
+   */
+  updateGroup(groupId, updates) {
+    if (!this.projectData || !this.projectData.groups) return;
+    
+    const index = this.projectData.groups.findIndex(g => g.id === groupId);
+    if (index !== -1) {
+      this.projectData.groups[index] = { 
+        ...this.projectData.groups[index], 
+        ...updates 
+      };
+      this.markDirty();
+    }
+  }
+
+  /**
+   * 获取所有子分组 ID（递归）
+   */
+  _getChildGroupIds(parentId) {
+    if (!this.projectData?.groups) return [];
+    
+    const children = this.projectData.groups.filter(g => g.parentId === parentId);
+    let allIds = children.map(g => g.id);
+    
+    children.forEach(child => {
+      allIds = [...allIds, ...this._getChildGroupIds(child.id)];
+    });
+    
+    return allIds;
+  }
+
+  /**
+   * 获取分组树形结构
+   */
+  getGroupTree() {
+    if (!this.projectData?.groups) {
+      return [{ id: 'default', name: '默认', parentId: null, children: [] }];
+    }
+    
+    const rootGroups = this.projectData.groups.filter(g => !g.parentId);
+    const buildTree = (parentId) => {
+      return this.projectData.groups
+        .filter(g => g.parentId === parentId)
+        .map(g => ({
+          ...g,
+          children: buildTree(g.id)
+        }));
+    };
+    
+    return rootGroups.map(g => ({
+      ...g,
+      children: buildTree(g.id)
+    }));
+  }
+
+  /**
+   * 获取扁平化的分组列表（包含层级信息）
+   */
+  getFlatGroupsWithLevel() {
+    if (!this.projectData?.groups) {
+      return [{ id: 'default', name: '默认', parentId: null, level: 0 }];
+    }
+    
+    const result = [];
+    const defaultGroup = { id: 'default', name: '默认', parentId: null, level: 0 };
+    result.push(defaultGroup);
+    
+    const addGroupsRecursive = (parentId, level) => {
+      this.projectData.groups
+        .filter(g => g.parentId === parentId)
+        .forEach(g => {
+          result.push({ ...g, level });
+          addGroupsRecursive(g.id, level + 1);
+        });
+    };
+    
+    addGroupsRecursive(null, 0);
+    return result;
   }
 
   /**
@@ -470,7 +685,7 @@ class ProjectManager {
       }
     });
     this.projectData.groups?.forEach(g => {
-      groups.add(g);
+      groups.add(g.id);
     });
     return Array.from(groups);
   }

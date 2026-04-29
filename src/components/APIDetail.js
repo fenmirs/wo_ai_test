@@ -37,7 +37,10 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const [editingSegmentIdx, setEditingSegmentIdx] = useState(null);
   const [editingValue, setEditingValue] = useState('');
 
-  const apiHistory = history.filter(h => h.apiName === formData.name);
+  const apiHistory = history.filter(h => 
+    (h.apiId && h.apiId === formData.id) || 
+    (!h.apiId && h.apiName === formData.name)
+  );
 
   useEffect(() => {
     if (api) {
@@ -399,6 +402,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       .join('; ');
 
     return {
+      id: formData.id, // 保留 id
       name: formData.name,
       group: formData.group,
       api_path: formData.api_path,
@@ -406,7 +410,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       header: headerObj,
       param: paramObj,
       body,
-      chain: formData.chain,
+      chain: formData.chain, // chain 现在存储的是 id 或 name
       successAssert
     };
   };
@@ -788,15 +792,29 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
       <div className="chain-section">
         <span className="section-label">依赖</span>
-        <div className="chain-tags">
-          {Array.isArray(formData.chain) && formData.chain.map((chainName, index) => (
-            <span key={index} className="chain-tag">
-              <span className="chain-tag-name">{String(chainName)}</span>
-              <button className="chain-tag-remove" onClick={() => setFormData(prev => ({ ...prev, chain: prev.chain.filter((_, i) => i !== index) }))}>
-                <X size={10} />
-              </button>
-            </span>
-          ))}
+              <div className="chain-tags">
+          {Array.isArray(formData.chain) && formData.chain.map((chainRef, index) => {
+            // chainRef 可能是 id 或 name（向后兼容）
+            const chainAPI = projectManager.getData()?.apis?.find(a => 
+              a.id === chainRef || a.name === chainRef
+            );
+            const displayName = chainAPI ? chainAPI.name : chainRef;
+            
+            return (
+              <span key={`${chainRef}_${index}`} className="chain-tag">
+                <span className="chain-tag-name">{String(displayName)}</span>
+                <button 
+                  className="chain-tag-remove" 
+                  onClick={() => setFormData(prev => ({ 
+                    ...prev, 
+                    chain: prev.chain.filter((_, i) => i !== index) 
+                  }))}
+                >
+                  <X size={10} />
+                </button>
+              </span>
+            );
+          })}
           <select
             className="chain-add-select"
             value=""
@@ -805,7 +823,18 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
               if (selectedValue) {
                 setFormData(prev => {
                   const currentChain = prev.chain || [];
-                  if (!currentChain.includes(selectedValue)) {
+                  // 检查是否已经添加（通过 id 或 name）
+                  const exists = currentChain.some(ref => {
+                    const api = projectManager.getData()?.apis?.find(a => 
+                      a.id === ref || a.name === ref
+                    );
+                    return api && (
+                      api.id === selectedValue || 
+                      api.name === selectedValue
+                    );
+                  });
+                  
+                  if (!exists) {
                     return { ...prev, chain: [...currentChain, selectedValue] };
                   }
                   return prev;
@@ -816,8 +845,21 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
           >
             <option value="">+ 添加</option>
             {(projectManager.getData()?.apis || [])
-              .filter(a => a.name !== formData.name && !formData.chain?.includes(a.name))
-              .map(a => <option key={a.name} value={a.name}>{a.name}</option>)}
+              .filter(a => {
+                // 过滤掉当前 API
+                if (formData.id && a.id === formData.id) return false;
+                if (!formData.id && a.name === formData.name) return false;
+                // 过滤掉已经在链中的
+                return !formData.chain?.some(ref => 
+                  ref === a.id || ref === a.name
+                );
+              })
+              .map(a => (
+                <option key={a.id || a.name} value={a.id || a.name}>
+                  {a.name} {a.id ? `(${a.id.substr(-6)})` : ''}
+                </option>
+              ))
+            }
           </select>
         </div>
       </div>

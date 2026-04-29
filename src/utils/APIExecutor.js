@@ -32,16 +32,28 @@ class APIExecutor {
       return value;
     }
 
-    // 解析 {{ref:API名称.字段路径}}
+    // 解析 {{ref:API名称或ID.字段路径}}
     const refMatch = value.match(/\{\{ref:([^}]+)\}\}/);
     if (refMatch) {
       const refPath = refMatch.group(1);
       const parts = refPath.split('.');
-      const apiName = parts[0];
+      const apiRef = parts[0]; // 可能是 id 或 name
       const fieldPath = parts.slice(1).join('.');
 
-      if (apiResults[apiName]) {
-        let result = apiResults[apiName].data;
+      // 优先从 apiResults 中查找（key 可能是 id 或 name）
+      let resultData = apiResults[apiRef];
+      
+      // 如果直接查找失败，尝试遍历查找
+      if (!resultData) {
+        const api = this.findAPIByIdOrName(apiRef);
+        if (api) {
+          const resultKey = api.id || api.name;
+          resultData = apiResults[resultKey];
+        }
+      }
+      
+      if (resultData) {
+        let result = resultData.data;
         if (fieldPath) {
           const keys = fieldPath.split('.');
           for (const key of keys) {
@@ -468,16 +480,19 @@ class APIExecutor {
 
     // 并行执行所有依赖 API
     if (chain.length > 0) {
-      const promises = chain.map(async (depAPIName) => {
-        const depAPI = this.findAPIByName(depAPIName);
+      const promises = chain.map(async (chainRef) => {
+        // chainRef 可能是 id 或 name（向后兼容）
+        const depAPI = this.findAPIByIdOrName(chainRef);
         if (!depAPI) {
-          throw new Error(`找不到依赖 API '${depAPIName}'`);
+          throw new Error(`找不到依赖 API '${chainRef}'`);
         }
 
         const result = await this.executeAPI(depAPI);
-        this.apiResults[depAPIName] = result;
+        // 使用 id 存储结果，如果 id 不存在则使用 name
+        const resultKey = depAPI.id || depAPI.name;
+        this.apiResults[resultKey] = result;
         
-        return { name: depAPIName, result };
+        return { id: depAPI.id, name: depAPI.name, result };
       });
 
       // 等待所有依赖执行完成
@@ -486,14 +501,15 @@ class APIExecutor {
       // 检查是否有依赖失败
       const failedDependencies = results.filter(r => !r.result.success);
       if (failedDependencies.length > 0) {
-        const failedNames = failedDependencies.map(r => r.name).join(', ');
+        const failedNames = failedDependencies.map(r => r.name || r.id).join(', ');
         throw new Error(`依赖链执行失败: ${failedNames}`);
       }
     }
 
     // 执行目标 API
     const result = await this.executeAPI(api, customData);
-    this.apiResults[api.name] = result;
+    const targetKey = api.id || api.name;
+    this.apiResults[targetKey] = result;
 
     return {
       targetResult: result,
@@ -502,9 +518,12 @@ class APIExecutor {
     };
   }
 
-  // 根据名称查找 API
-  findAPIByName(name) {
-    return this.config.apis.find(api => api.name === name);
+  // 根据 id 或名称查找 API
+  findAPIByIdOrName(idOrName) {
+    if (!this.config?.apis) return null;
+    return this.config.apis.find(api => 
+      api.id === idOrName || api.name === idOrName
+    );
   }
 }
 

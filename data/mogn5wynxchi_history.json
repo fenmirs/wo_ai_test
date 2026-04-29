@@ -59,7 +59,8 @@
       },
       "bodyType": "raw",
       "rawContentType": "xml"
-    }
+    },
+    "apiId": "api_1777370652399_jdy9x79fh"
   },
   {
     "id": 1777366452029,
@@ -121,7 +122,8 @@
       },
       "bodyType": "raw",
       "rawContentType": "xml"
-    }
+    },
+    "apiId": "api_1777370652399_jdy9x79fh"
   },
   {
     "id": 1777366430806,
@@ -217,7 +219,8 @@
       "path": "/api-prj/openapi/order/nc/receive"
     },
     "assertionResult": null,
-    "responseHeaders": {}
+    "responseHeaders": {},
+    "apiId": "api_1777370652399_jdy9x79fh"
   },
   {
     "id": 1777366423159,
@@ -313,7 +316,8 @@
       "path": "/api-prj/openapi/order/nc/receive"
     },
     "assertionResult": null,
-    "responseHeaders": {}
+    "responseHeaders": {},
+    "apiId": "api_1777370652399_jdy9x79fh"
   },
   {
     "id": 1777365920796,
@@ -409,7 +413,8 @@
       "path": "/api-prj/openapi/order/nc/receive"
     },
     "assertionResult": null,
-    "responseHeaders": {}
+    "responseHeaders": {},
+    "apiId": "api_1777370652399_jdy9x79fh"
   },
   {
     "id": 1777365904931,
@@ -505,7 +510,8 @@
       "path": "/api-prj/openapi/order/nc/receive"
     },
     "assertionResult": null,
-    "responseHeaders": {}
+    "responseHeaders": {},
+    "apiId": "api_1777370652399_jdy9x79fh"
   },
   {
     "id": 1777365638992,
@@ -587,7 +593,8 @@
     "error": "请求失败",
     "errorType": "network",
     "assertionResult": null,
-    "responseHeaders": {}
+    "responseHeaders": {},
+    "apiId": "api_1777370652399_jdy9x79fh"
   },
   {
     "id": 1777365457750,
@@ -693,7 +700,8 @@
       "content-length": "80",
       "date": "Tue, 28 Apr 2026 08:37:38 GMT",
       "connection": "close"
-    }
+    },
+    "apiId": "api_1777370652399_jdy9x79fh"
   },
   {
     "id": 1777365439627,
@@ -817,7 +825,8 @@
       "x-xss-protection": "1 ; mode=block",
       "referrer-policy": "no-referrer",
       "access-control-expose-headers": "Content-disposition"
-    }
+    },
+    "apiId": "api_1777370652399_jdy9x79fh"
   },
   {
     "id": 1777365402355,
@@ -941,7 +950,8 @@
       "x-xss-protection": "1 ; mode=block",
       "referrer-policy": "no-referrer",
       "access-control-expose-headers": "Content-disposition"
-    }
+    },
+    "apiId": "api_1777370652399_jdy9x79fh"
   },
   {
     "id": 1777365240678,
@@ -1065,7 +1075,8 @@
       "x-xss-protection": "1 ; mode=block",
       "referrer-policy": "no-referrer",
       "access-control-expose-headers": "Content-disposition"
-    }
+    },
+    "apiId": "api_1777370652399_jdy9x79fh"
   },
   {
     "id": 1777365102927,
@@ -1187,7 +1198,8 @@
       "x-xss-protection": "1 ; mode=block",
       "referrer-policy": "no-referrer",
       "access-control-expose-headers": "Content-disposition"
-    }
+    },
+    "apiId": "api_1777370652399_jdy9x79fh"
   },
   {
     "id": 1777365001889,
@@ -1293,7 +1305,8 @@
       "x-xss-protection": "1 ; mode=block",
       "referrer-policy": "no-referrer",
       "access-control-expose-headers": "Content-disposition"
-    }
+    },
+    "apiId": "api_1777370652399_jdy9x79fh"
   },
   {
     "id": 1777364526895,
@@ -1405,7 +1418,8 @@
       "x-xss-protection": "1 ; mode=block",
       "referrer-policy": "no-referrer",
       "access-control-expose-headers": "Content-disposition"
-    }
+    },
+    "apiId": "api_1777370652399_lp6onrepi"
   },
   {
     "id": 1777364435830,
@@ -1467,7 +1481,8 @@
     "error": "连接超时，请检查网络或服务器状态",
     "errorType": "network",
     "assertionResult": null,
-    "responseHeaders": {}
+    "responseHeaders": {},
+    "apiId": "api_1777370652399_lp6onrepi"
   },
   {
     "id": 1777363835932,
@@ -1579,7 +1594,8 @@
       "x-xss-protection": "1 ; mode=block",
       "referrer-policy": "no-referrer",
       "access-control-expose-headers": "Content-disposition"
-    }
+    },
+    "apiId": "api_1777370652399_lp6onrepi"
   },
   {
     "id": 1777362722213,
@@ -1691,7 +1707,8 @@
       "x-xss-protection": "1 ; mode=block",
       "referrer-policy": "no-referrer",
       "access-control-expose-headers": "Content-disposition"
-    }
+    },
+    "apiId": "api_1777370652399_lp6onrepi"
   },
   {
     "id": 1777360833824,
@@ -1753,7 +1770,8 @@
     "error": "证书颁发机构无效，请检查证书配置",
     "errorType": "ssl",
     "assertionResult": null,
-    "responseHeaders": {}
+    "responseHeaders": {},
+    "apiId": "api_1777370652399_lp6onrepi"
   },
   {
     "id": 1777360535382,
@@ -1815,7 +1833,8 @@
     "error": "证书颁发机构无效，请检查证书配置",
     "errorType": "ssl",
     "assertionResult": null,
-    "responseHeaders": {}
+    "responseHeaders": {},
+    "apiId": "api_1777370652399_lp6onrepi"
   },
   {
     "id": 1777360508732,
@@ -1877,7 +1896,8 @@
     "error": "证书颁发机构无效，请检查证书配置",
     "errorType": "ssl",
     "assertionResult": null,
-    "responseHeaders": {}
+    "responseHeaders": {},
+    "apiId": "api_1777370652399_lp6onrepi"
   },
   {
     "id": 1777281952363,
@@ -1939,7 +1959,8 @@
     "error": "连接被拒绝，请检查服务器是否启动",
     "errorType": "connection_refused",
     "assertionResult": null,
-    "responseHeaders": {}
+    "responseHeaders": {},
+    "apiId": "api_1777370652399_lp6onrepi"
   },
   {
     "id": 1777281876965,
@@ -2001,7 +2022,8 @@
     "error": "连接被拒绝，请检查服务器是否启动",
     "errorType": "connection_refused",
     "assertionResult": null,
-    "responseHeaders": {}
+    "responseHeaders": {},
+    "apiId": "api_1777370652399_lp6onrepi"
   },
   {
     "id": 1777281860758,
@@ -2063,7 +2085,8 @@
     "error": "连接被拒绝，请检查服务器是否启动",
     "errorType": "connection_refused",
     "assertionResult": null,
-    "responseHeaders": {}
+    "responseHeaders": {},
+    "apiId": "api_1777370652399_lp6onrepi"
   },
   {
     "id": 1777281424179,
@@ -2125,7 +2148,8 @@
     "error": "连接被拒绝，请检查服务器是否启动",
     "errorType": "connection_refused",
     "assertionResult": null,
-    "responseHeaders": {}
+    "responseHeaders": {},
+    "apiId": "api_1777370652399_lp6onrepi"
   },
   {
     "id": 1777281418806,
@@ -2187,7 +2211,8 @@
     "error": "连接被拒绝，请检查服务器是否启动",
     "errorType": "connection_refused",
     "assertionResult": null,
-    "responseHeaders": {}
+    "responseHeaders": {},
+    "apiId": "api_1777370652399_lp6onrepi"
   },
   {
     "id": 1777275565377,
@@ -2249,7 +2274,8 @@
     "error": "连接被拒绝，请检查服务器是否启动",
     "errorType": "connection_refused",
     "assertionResult": null,
-    "responseHeaders": {}
+    "responseHeaders": {},
+    "apiId": "api_1777370652399_lp6onrepi"
   },
   {
     "id": 1777274896905,
@@ -2311,6 +2337,7 @@
     "error": "连接被拒绝，请检查服务器是否启动",
     "errorType": "connection_refused",
     "assertionResult": null,
-    "responseHeaders": {}
+    "responseHeaders": {},
+    "apiId": "api_1777370652399_lp6onrepi"
   }
 ]

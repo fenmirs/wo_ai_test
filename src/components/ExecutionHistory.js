@@ -62,7 +62,10 @@ function ExecutionHistory({ history, onSelect, onClear, onViewDetail }) {
                 <span className={`method-badge method-${entry.apiMethod?.toLowerCase()}`}>
                   {entry.apiMethod}
                 </span>
-                <span className="history-api-name">{entry.apiName}</span>
+                <span className="history-api-name">
+                  {entry.apiName}
+                  {entry.apiId && <span className="api-id-hint">#{entry.apiId.substr(-6)}</span>}
+                </span>
               </div>
               
               <div className="history-path">{entry.apiPath}</div>

@@ -139,6 +139,10 @@
   color: #3b82f6;
 }
 
+.group-header.default-group {
+  background: rgba(34, 197, 94, 0.1);
+}
+
 .group-header .icon-btn {
   opacity: 0;
   transition: opacity 0.2s;
@@ -147,6 +151,21 @@
 
 .group-header:hover .icon-btn {
   opacity: 1;
+}
+
+.expand-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.expand-icon:hover {
+  color: var(--text-primary);
 }
 
 .group-icon {
@@ -162,6 +181,19 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  min-width: 0;
+}
+
+.group-name-edit {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 2px 4px;
+  border: 1px solid var(--accent-primary);
+  border-radius: 3px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  outline: none;
   min-width: 0;
 }
 
@@ -181,6 +213,10 @@
   margin-top: 2px;
   min-height: 0;
   padding-left: 8px;
+}
+
+.group-children {
+  margin-left: 0;
 }
 
 .api-item {
@@ -208,13 +244,11 @@
 
 .api-item.dragging {
   opacity: 0.5;
-  /* border: 2px dashed var(--accent-primary); */
 }
 
 .group-header.drag-over {
-  background: rgba(255, 0, 0, 0.815);
+  background: rgba(255, 0, 0, 0.15);
   opacity: 0.7;
-  /* border: 2px dashed #f6483b; */
 }
 
 .api-header {
@@ -340,4 +374,9 @@
 
 .placeholder button:hover {
   background: var(--accent-hover);
+}
+
+/* 拖拽预览 */
+.drag-preview {
+  font-size: 12px;
 }

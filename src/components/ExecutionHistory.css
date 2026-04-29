@@ -154,6 +154,16 @@
   font-size: 14px;
   font-weight: 600;
   color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.api-id-hint {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-weight: 400;
+  font-family: monospace;
 }
 
 .history-path {

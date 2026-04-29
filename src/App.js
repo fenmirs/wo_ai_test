@@ -266,7 +266,9 @@ function App() {
   // 选择 API
   const handleAPISelect = (api) => {
     setSelectedAPI(api);
-    setActiveGroup(api.group || '默认');
+    // api.group 现在是 id，需要找到对应的 group
+    const groupId = api.group || null;
+    setActiveGroup(groupId);
     setEditingAPI(null);
     setIsAddingAPI(false);
     setTemporaryAPI(null);
@@ -276,11 +278,17 @@ function App() {
   };
 
   // 选择分组
-  const handleGroupSelect = (groupName) => {
-    setActiveGroup(groupName);
-    const apisInGroup = projectData.apis?.filter(api => api.group === groupName) || [];
+  const handleGroupSelect = (groupId) => {
+    setActiveGroup(groupId);
+    const apisInGroup = projectData.apis?.filter(api => {
+      if (groupId === null || groupId === 'default' || groupId === '默认') {
+        return !api.group || api.group === null || api.group === 'default' || api.group === '默认';
+      }
+      return api.group === groupId;
+    }) || [];
+    
     if (apisInGroup.length > 0) {
-      if (!selectedAPI || selectedAPI.group !== groupName) {
+      if (!selectedAPI || selectedAPI.group !== groupId) {
         setSelectedAPI(apisInGroup[0]);
         setViewMode('api_detail');
       }
@@ -293,8 +301,9 @@ function App() {
   // 从历史记录恢复请求（临时模式）
   const handleRestoreFromHistory = (historyEntry) => {
     const restoredApi = {
+      id: historyEntry.apiId || null,
       name: historyEntry.apiName || '临时API',
-      group: historyEntry.apiConfig?.group || '默认',
+      group: historyEntry.apiConfig?.group || null,
       api_path: historyEntry.apiPath || '',
       method: historyEntry.apiMethod || 'GET',
       header: historyEntry.apiConfig?.header || {},
@@ -310,74 +319,111 @@ function App() {
   };
 
   // 添加分组
-  const handleAddGroup = () => {
+  const handleAddGroup = (parentId = null) => {
     setInputDialogConfig({
-      title: '添加分组',
+      title: parentId ? '添加子分组' : '添加分组',
       placeholder: '请输入分组名称',
       defaultValue: '',
       onConfirm: async (groupName) => {
-        // 检查分组是否已存在
+        // 检查分组是否已存在（同父分组下）
         const existingGroups = projectData.groups || [];
-        if (existingGroups.includes(groupName)) {
-          alert('分组已存在');
+        if (existingGroups.find(g => g.name === groupName && g.parentId === parentId)) {
+          alert('当前层级下已存在同名分组');
           return;
         }
-        // 添加到分组列表
-        await projectManager.addGroup(groupName);
+        // 添加分组
+        await projectManager.addGroup(groupName, parentId);
       }
     });
     setShowInputDialog(true);
   };
 
-  // 重命名分组
-  const handleRenameGroup = async (oldName, newName) => {
-    if (oldName === newName) return;
+  // 移动分组到新的父分组（静默处理非法操作）
+  const handleMoveGroup = (groupId, newParentId) => {
+    if (groupId === 'default') return;
+    
+    // 检查是否是自己或自己的子分组（静默忽略）
+    if (groupId === newParentId) return;
+    
+    const childIds = projectManager._getChildGroupIds?.(groupId) || [];
+    if (childIds.includes(newParentId)) return;
+    
+    projectManager.updateGroup(groupId, { parentId: newParentId });
+    
+    setSaveMessage(`分组已移动`);
+    setTimeout(() => setSaveMessage(''), 2000);
+  };
 
-    // 检查新名称是否已存在
-    const existingGroups = projectData.groups || [];
-    if (existingGroups.includes(newName)) {
-      alert('分组名称已存在');
+  // 重命名分组
+  const handleRenameGroup = async (groupId, newName) => {
+    if (groupId === 'default') {
+      setConfirmDialogConfig({
+        title: '提示',
+        message: '默认分组不能重命名',
+        options: [{ value: 'ok', label: '确定' }],
+        onConfirm: () => setShowConfirmDialog(false),
+        onCancel: () => setShowConfirmDialog(false)
+      });
+      setShowConfirmDialog(true);
       return;
     }
 
-    // 更新分组列表
-    const updatedGroups = existingGroups.map(g => g === oldName ? newName : g);
-    await projectManager.updateGroups(updatedGroups);
+    // 查找当前分组
+    const currentGroup = projectData.groups?.find(g => g.id === groupId);
+    if (!currentGroup) return;
 
-    // 更新所有属于该分组的 API
-    const apisToUpdate = projectData.apis?.filter(api => api.group === oldName) || [];
-    for (const api of apisToUpdate) {
-      await projectManager.updateAPI(api.name, { group: newName });
+    // 如果名称没有变化，直接返回（不报错）
+    if (newName === currentGroup.name) return;
+
+    // 检查新名称是否已存在（同父分组下，排除自己）
+    const existingGroup = projectData.groups?.find(g => 
+      g.id !== groupId && // 排除自己
+      g.name === newName && 
+      g.parentId === currentGroup.parentId
+    );
+    
+    if (existingGroup) {
+      setConfirmDialogConfig({
+        title: '提示',
+        message: '当前层级下已存在同名分组',
+        options: [{ value: 'ok', label: '确定' }],
+        onConfirm: () => setShowConfirmDialog(false),
+        onCancel: () => setShowConfirmDialog(false)
+      });
+      setShowConfirmDialog(true);
+      return;
     }
 
-    // 如果当前激活的分组是被重命名的分组，更新激活状态
-    if (activeGroup === oldName) {
-      setActiveGroup(newName);
-    }
+    // 更新分组名称
+    await projectManager.updateGroup(groupId, { name: newName });
 
-    setSaveMessage(`分组 "${oldName}" 已重命名为 "${newName}"`);
+    setSaveMessage(`分组已重命名为 "${newName}"`);
     setTimeout(() => setSaveMessage(''), 2000);
   };
 
   // 移动 API 到新分组
-  const handleMoveToGroup = (apiName, newGroup) => {
-    if (!apiName || !newGroup) return;
+  const handleMoveToGroup = (apiId, newGroupId) => {
+    if (!apiId || newGroupId === undefined) return;
     
-    // 检查目标分组是否存在，不存在则先创建
-    const existingGroups = projectData.groups || [];
-    if (!existingGroups.includes(newGroup) && newGroup !== '默认') {
-      projectManager.addGroup(newGroup);
+    // 检查目标分组是否存在，不存在则先创建（如果是字符串，说明是旧数据）
+    if (typeof newGroupId === 'string' && !newGroupId.startsWith('group_') && newGroupId !== 'default' && newGroupId !== null) {
+      projectManager.addGroup(newGroupId);
+      // 获取新创建的分组 id
+      const newGroup = projectManager.getData().groups?.find(g => g.name === newGroupId);
+      if (newGroup) {
+        newGroupId = newGroup.id;
+      }
     }
     
     // 更新 API 的分组
-    projectManager.updateAPI(apiName, { group: newGroup });
+    projectManager.updateAPI(apiId, { group: newGroupId });
     
     // 如果移动的是当前选中的 API，更新选中状态
-    if (selectedAPI?.name === apiName) {
-      setSelectedAPI({ ...selectedAPI, group: newGroup });
+    if (selectedAPI?.id === apiId) {
+      setSelectedAPI({ ...selectedAPI, group: newGroupId });
     }
     
-    setSaveMessage(`已将 "${apiName}" 移动到 "${newGroup}" 分组`);
+    setSaveMessage(`已将 API 移动到新分组`);
     setTimeout(() => setSaveMessage(''), 2000);
   };
 
@@ -396,30 +442,26 @@ function App() {
     const isTemporary = temporaryAPI !== null;
     
     if (isTemporary || isAddingAPI) {
-      // 检查 API 名称是否重复
-      const exists = projectData.apis.find(api => api.name === formData.name);
+      // 检查 API 名称是否重复（同一分组下）
+      const exists = projectData.apis.find(api => 
+        api.name === formData.name && api.group === formData.group
+      );
       if (exists && !isTemporary) {
-        throw new Error('API 名称已存在');
+        throw new Error('当前分组下已存在同名 API');
       }
-      // 添加新 API
+      // 添加新 API（确保有 id）
+      if (!formData.id) {
+        formData.id = `api_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      }
       await projectManager.addAPI(formData);
       setSelectedAPI(formData);
       setTemporaryAPI(null);
     } else {
-      if (formData.name !== selectedAPI.name) {
-        // 名称改变，检查是否重复
-        const exists = projectData.apis.find(api => api.name === formData.name);
-        if (exists) {
-          throw new Error('API 名称已存在');
-        }
-        // 删除旧的 API
-        await projectManager.deleteAPI(selectedAPI.name);
-        // 添加新的 API
-        await projectManager.addAPI(formData);
-      } else {
-        // 名称没有改变，直接更新
-        await projectManager.updateAPI(selectedAPI.name, formData);
+      // 更新现有 API（通过 id）
+      if (formData.id !== selectedAPI.id) {
+        throw new Error('API ID 不匹配');
       }
+      await projectManager.updateAPI(formData.id, formData);
       setSelectedAPI(formData);
     }
     setEditingAPI(null);
@@ -534,94 +576,112 @@ function App() {
                  onSelect={handleAPISelect}
                  onGroupSelect={handleGroupSelect}
                  onMoveToGroup={handleMoveToGroup}
+                 onMoveGroup={handleMoveGroup}
                  onRenameGroup={handleRenameGroup}
-                 onAdd={() => {
-                  const apis = projectData?.apis || [];
-                  let baseName = '未命名的API';
-                  let newName = baseName;
-                  let counter = 1;
-                  while (apis.some(api => api.name === newName)) {
-                    newName = `${baseName} ${counter}`;
-                    counter++;
-                  }
-                  const newApi = {
-                    name: newName,
-                    group: activeGroup || '默认',
-                    api_path: '',
-                    method: 'GET',
-                    header: {},
-                    param: {},
-                    body: {},
-                    chain: [],
-                    successAssert: ''
-                  };
-                  // 不在这里添加 API，而是在保存时添加
-                  setEditingAPI(newApi);
-                  setIsAddingAPI(true);
-                  setSelectedAPI(newApi);
-                  setViewMode('api_detail');
-                }}
-                onAddGroup={handleAddGroup}
-                onDeleteGroup={(groupName) => {
-                  const apisInGroup = projectData.apis?.filter(api => api.group === groupName) || [];
-                  
-                  if (apisInGroup.length === 0) {
-                    projectManager.deleteGroup(groupName);
-                  } else {
-                    setConfirmDialogConfig({
-                      title: '删除分组',
-                      message: `确定要删除分组 "${groupName}" 吗？该分组下有 ${apisInGroup.length} 个 API。`,
-                      options: [
-                        { value: 'move', label: '将 API 移至默认分组' },
-                        { value: 'delete', label: '同时删除该分组下的所有 API' }
-                      ],
-                      onConfirm: (option) => {
-                        if (option === 'delete') {
-                          apisInGroup.forEach(api => {
-                            projectManager.deleteAPI(api.name);
-                          });
-                          projectManager.deleteGroup(groupName);
-                        } else {
-                          projectManager.deleteGroup(groupName);
-                        }
-                        setShowConfirmDialog(false);
-                      },
-                      onCancel: () => {
-                        setShowConfirmDialog(false);
-                      }
-                    });
-                    setShowConfirmDialog(true);
-                  }
-                }}
-                onEdit={(api) => {
-                  setEditingAPI({ ...api });
-                  setIsAddingAPI(false);
-                  setSelectedAPI(api);
-                  setViewMode('api_detail');
-                }}
-                onDelete={(api) => {
-                  setConfirmDialogConfig({
-                    title: '删除 API',
-                    message: `确定要删除 API "${api.name}" 吗？`,
-                    options: [],
-                    onConfirm: () => {
-                      projectManager.deleteAPI(api.name);
-                      
-                      if (selectedAPI?.name === api.name) {
-                        setSelectedAPI(null);
-                        setEditingAPI(null);
-                        setIsAddingAPI(false);
-                        setViewMode('api');
-                      }
-                      setShowConfirmDialog(false);
-                    },
-                    onCancel: () => {
-                      setShowConfirmDialog(false);
-                    }
-                  });
-                  setShowConfirmDialog(true);
-                }}
-              />
+                 onAdd={(parentId) => {
+                   const apis = projectData?.apis || [];
+                   let baseName = '未命名的API';
+                   let newName = baseName;
+                   let counter = 1;
+                   while (apis.some(api => api.name === newName && api.group === (parentId || 'default'))) {
+                     newName = `${baseName} ${counter}`;
+                     counter++;
+                   }
+                   const newApi = {
+                     name: newName,
+                     group: parentId || 'default',
+                     api_path: '',
+                     method: 'GET',
+                     header: {},
+                     param: {},
+                     body: {},
+                     chain: [],
+                     successAssert: ''
+                   };
+                   // 不在这里添加 API，而是在保存时添加
+                   setEditingAPI(newApi);
+                   setIsAddingAPI(true);
+                   setSelectedAPI(newApi);
+                   setViewMode('api_detail');
+                 }}
+                 onAddGroup={handleAddGroup}
+                 onDeleteGroup={(groupId) => {
+                   const group = projectData.groups?.find(g => g.id === groupId);
+                   if (!group) return;
+                   
+                   // 获取所有子分组
+                   const childGroupIds = projectManager._getChildGroupIds?.(groupId) || [];
+                   const allGroupIds = [groupId, ...childGroupIds];
+                   
+                   // 统计受影响的 API
+                   const apisInGroups = projectData.apis?.filter(api => 
+                     allGroupIds.includes(api.group)
+                   ) || [];
+                   
+                   if (apisInGroups.length === 0 && childGroupIds.length === 0) {
+                     projectManager.deleteGroup(groupId);
+                   } else {
+                     setConfirmDialogConfig({
+                       title: '删除分组',
+                       message: `确定要删除分组 "${group.name}" 吗？该分组下有 ${apisInGroups.length} 个 API，${childGroupIds.length} 个子分组。`,
+                       options: [
+                         { value: 'move', label: '将 API 移至默认分组' },
+                         { value: 'delete', label: '同时删除该分组下的所有 API' }
+                       ],
+                       onConfirm: (option) => {
+                         if (option === 'delete') {
+                           // 删除所有子分组和 API
+                           childGroupIds.forEach(id => projectManager.deleteGroup(id));
+                           apisInGroups.forEach(api => {
+                             projectManager.deleteAPI(api.id);
+                           });
+                           projectManager.deleteGroup(groupId);
+                         } else {
+                           // 只删除分组，API 移到默认分组
+                           projectManager.deleteGroup(groupId);
+                         }
+                         // 如果当前激活的分组被删除，切换到默认分组
+                         if (activeGroup === groupId) {
+                           setActiveGroup('default');
+                         }
+                         setShowConfirmDialog(false);
+                       },
+                       onCancel: () => {
+                         setShowConfirmDialog(false);
+                       }
+                     });
+                     setShowConfirmDialog(true);
+                   }
+                 }}
+                 onEdit={(api) => {
+                   setEditingAPI({ ...api });
+                   setIsAddingAPI(false);
+                   setSelectedAPI(api);
+                   setViewMode('api_detail');
+                 }}
+                 onDelete={(api) => {
+                   setConfirmDialogConfig({
+                     title: '删除 API',
+                     message: `确定要删除 API "${api.name}" 吗？`,
+                     options: [],
+                     onConfirm: () => {
+                       projectManager.deleteAPI(api.id);
+                       
+                       if (selectedAPI?.id === api.id) {
+                         setSelectedAPI(null);
+                         setEditingAPI(null);
+                         setIsAddingAPI(false);
+                         setViewMode('api');
+                       }
+                       setShowConfirmDialog(false);
+                     },
+                     onCancel: () => {
+                       setShowConfirmDialog(false);
+                     }
+                   });
+                   setShowConfirmDialog(true);
+                 }}
+               />
             </div>
           </div>
 
