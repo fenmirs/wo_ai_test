@@ -35,7 +35,7 @@ class APIExecutor {
     // 解析 {{ref:API名称或ID.字段路径}}
     const refMatch = value.match(/\{\{ref:([^}]+)\}\}/);
     if (refMatch) {
-      const refPath = refMatch.group(1);
+      const refPath = refMatch[1];
       const parts = refPath.split('.');
       const apiRef = parts[0]; // 可能是 id 或 name
       const fieldPath = parts.slice(1).join('.');
@@ -72,14 +72,14 @@ class APIExecutor {
     // 解析 {{readFile:文件名}} - 读取文件内容为字符串
     const fileMatch = value.match(/\{\{readFile:([^}]+)\}\}/);
     if (fileMatch) {
-      const filename = fileMatch.group(1);
+      const filename = fileMatch[1];
       return this.readFile(filename);
     }
 
     // 解析 {{file:filename}} - 返回文件信息用于上传
     const uploadMatch = value.match(/\{\{file:([^}]+)\}\}/);
     if (uploadMatch) {
-      const filename = uploadMatch.group(1);
+      const filename = uploadMatch[1];
       return {
         type: 'file_upload',
         filename: filename

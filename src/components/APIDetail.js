@@ -3,10 +3,11 @@ import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, ChevronRight, Chevr
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import './APIDetail.css';
-import APIExecutor from '../utils/APIExecutor';
+import ChainManager from '../utils/ChainManager';
 import { projectManager } from '../utils/ProjectManager';
 import APIDocGenerator from '../utils/APIDocGenerator';
 import CodeEditor from './CodeEditor';
+import RefVariableSelector from './RefVariableSelector';
 
 function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, onSaveError, saveError, groups = [], isAdding = false, isTemporary = false, onViewDetail, onRestoreHistory, onDeleteHistory, theme = 'dark' }) {
   const [resolvedPath, setResolvedPath] = useState('');
@@ -243,7 +244,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     if (!formData.api_path) return;
 
     if (isExecuting) {
-      executorRef.current?.cancel();
+      executorRef.current?.executor?.cancel();
       return;
     }
 
@@ -266,15 +267,15 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         await onSaveAPI(execAPI, isAdding);
       }
 
-      const executor = new APIExecutor(projectPath, config, profile);
-      executorRef.current = executor;
+      const chainManager = new ChainManager(projectPath, config, profile);
+      executorRef.current = chainManager;
 
       const cancelPromise = new Promise((resolve) => {
-        executor._cancelResolver = resolve;
+        chainManager.executor._cancelResolver = resolve;
       });
 
       const result = await Promise.race([
-        executor.executeChain(execAPI, {}),
+        chainManager.execute(execAPI, {}),
         cancelPromise
       ]);
       result.requestInfo = requestInfo;
@@ -403,7 +404,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       .join('; ');
 
     return {
-      id: formData.id, // 保留 id
+      id: formData.id,
       name: formData.name,
       group: formData.group,
       api_path: formData.api_path,
@@ -411,7 +412,9 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       header: headerObj,
       param: paramObj,
       body,
-      chain: formData.chain, // chain 现在存储的是 id 或 name
+      chain: (formData.chain || []).map(ref => {
+        return typeof ref === 'object' ? ref.id : ref;
+      }),
       successAssert
     };
   };
@@ -567,47 +570,19 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                           </>
                         )}
                       </div>
-                    ) : item.type === 'boolean' ? (
-                      <select
-                        value={item.default === true || item.default === 'true' ? 'true' : (item.default === false || item.default === 'false' ? 'false' : '')}
-                        onChange={(e) => {
-                          if (isReadonly) return;
-                          const newItems = [...items];
-                          newItems[index] = { ...item, default: e.target.value === 'true' };
-                          setItems(newItems);
-                        }}
-                        disabled={isReadonly}
-                        className={isReadonly ? 'readonly' : ''}
-                      >
-                        <option value="">选择</option>
-                        <option value="true">true</option>
-                        <option value="false">false</option>
-                      </select>
-                    ) : item.type === 'number' ? (
-                      <input
-                        type="number"
-                        value={item.default ?? ''}
-                        onChange={(e) => {
-                          if (isReadonly) return;
-                          const newItems = [...items];
-                          newItems[index] = { ...item, default: e.target.value === '' ? '' : Number(e.target.value) };
-                          setItems(newItems);
-                        }}
-                        placeholder="数字"
-                        readOnly={isReadonly}
-                        className={isReadonly ? 'readonly' : ''}
-                      />
+                    ) : isReadonly ? (
+                      <input type="text" value={item.default || ''} readOnly className="readonly" />
                     ) : (
-                      <input type="text" value={item.default || ''}
-                        onChange={(e) => {
-                          if (isReadonly) return;
+                      <RefVariableSelector
+                        value={item.default || ''}
+                        onChange={(val) => {
                           const newItems = [...items];
-                          newItems[index] = { ...item, default: e.target.value };
+                          newItems[index] = { ...item, default: val };
                           setItems(newItems);
                         }}
-                        placeholder="默认值" 
-                        // readOnly={isReadonly} className={isReadonly ? 'readonly' : ''}
-                        />
+                        excludeApiId={formData.id}
+                        theme={theme}
+                      />
                     )}
                   </td>
                   <td>
@@ -794,11 +769,9 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       <div className="chain-section">
         <span className="section-label">依赖</span>
               <div className="chain-tags">
-          {Array.isArray(formData.chain) && formData.chain.map((chainRef, index) => {
-            const chainAPI = projectManager.getData()?.apis?.find(a => 
-              a.id === chainRef || a.name === chainRef
-            );
-            const displayName = chainAPI ? chainAPI.name : chainRef;
+          {Array.isArray(formData.chain) && formData.chain.map((chainId, index) => {
+            const chainAPI = projectManager.getData()?.apis?.find(a => a.id === chainId);
+            const displayName = chainAPI ? chainAPI.name : chainId;
             const idSuffix = chainAPI?.id ? ` (${chainAPI.id.substr(-6)})` : '';
             
             const projectData = projectManager.getData();
@@ -817,7 +790,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
             const groupPath = chainAPI ? getGroupPath(chainAPI.group || 'default') : '';
             
             return (
-              <span key={`${chainRef}_${index}`} className="chain-tag" title={groupPath}>
+              <span key={`${chainId}_${index}`} className="chain-tag" title={groupPath}>
                 <span className="chain-tag-name">{String(displayName)}{idSuffix}</span>
                 <button 
                   className="chain-tag-remove" 
@@ -839,15 +812,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
               if (selectedValue) {
                 setFormData(prev => {
                   const currentChain = prev.chain || [];
-                  const exists = currentChain.some(ref => {
-                    const api = projectManager.getData()?.apis?.find(a => 
-                      a.id === ref || a.name === ref
-                    );
-                    return api && (
-                      api.id === selectedValue || 
-                      api.name === selectedValue
-                    );
-                  });
+                  const exists = currentChain.some(id => id === selectedValue);
                   
                   if (!exists) {
                     return { ...prev, chain: [...currentChain, selectedValue] };
@@ -866,8 +831,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
               
               const availableApis = allApis.filter(a => {
                 if (formData.id && a.id === formData.id) return false;
-                if (!formData.id && a.name === formData.name) return false;
-                return !formData.chain?.some(ref => ref === a.id || ref === a.name);
+                return !formData.chain?.includes(a.id);
               });
               
               const groupMap = {};
@@ -896,7 +860,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
               return Object.entries(groupedApis).map(([groupId, group]) => (
                 <optgroup key={groupId} label={group.name}>
                   {group.apis.map(a => (
-                    <option key={a.id || a.name} value={a.id || a.name}>
+                    <option key={a.id} value={a.id}>
                       {a.name} {a.id ? `(${a.id.substr(-6)})` : ''}
                     </option>
                   ))}

@@ -103,6 +103,20 @@
       "body": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}",
       "chain": [],
       "successAssert": ""
+    },
+    {
+      "id": "api_1778233452688_tqezopobb",
+      "name": "获取token(复制)(复制)(复制)",
+      "group": "group_1778232734596_3i45sg9fb",
+      "api_path": "{domain}{api-prj}/openapi/security/token",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}",
+      "chain": [],
+      "successAssert": ""
     }
   ]
 }
