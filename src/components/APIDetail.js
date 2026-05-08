@@ -443,7 +443,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         case 'raw':
           const rawContentTypes = {
             'json': 'application/json',
-            'xml': 'application/xml',
+            'xml': 'text/xml',
             'html': 'text/html',
             'text': 'text/plain'
           };
