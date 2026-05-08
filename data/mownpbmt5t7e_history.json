@@ -1,13 +1,14 @@
 [
   {
-    "id": 1778230877851,
+    "id": 1778231525893,
+    "apiId": "api_1778229346853_qszqzrn52",
     "apiName": "获取token",
     "apiMethod": "POST",
     "apiPath": "{domain}{api-prj}/openapi/security/token",
-    "timestamp": "2026/5/8 17:01:17",
+    "timestamp": "2026/5/8 17:12:05",
     "apiConfig": {
       "name": "获取token",
-      "group": "default",
+      "group": "group_1778230973737_ezewf0k04",
       "api_path": "{domain}{api-prj}/openapi/security/token",
       "method": "POST",
       "header": {
@@ -53,14 +54,14 @@
         "msg": "成功",
         "obj": {
           "appId": "NC6bNAttXRh4",
-          "token": "oPvbhYrp6EmAYcjgGkzeTe1zbYbLG95o5-51Oowu7Yw"
+          "token": "w6uuWpGIuW8QGJa3gEblJaZpoSr6llpF6zYpwPijVxE"
         },
         "status": true
       },
       "headers": {
         "content-type": "application/json;charset=UTF-8",
         "content-length": "137",
-        "date": "Fri, 08 May 2026 09:01:19 GMT",
+        "date": "Fri, 08 May 2026 09:12:07 GMT",
         "connection": "close"
       },
       "elapsedTime": "0.02s",
@@ -81,7 +82,7 @@
       "msg": "成功",
       "obj": {
         "appId": "NC6bNAttXRh4",
-        "token": "oPvbhYrp6EmAYcjgGkzeTe1zbYbLG95o5-51Oowu7Yw"
+        "token": "w6uuWpGIuW8QGJa3gEblJaZpoSr6llpF6zYpwPijVxE"
       },
       "status": true
     },
@@ -89,7 +90,96 @@
     "responseHeaders": {
       "content-type": "application/json;charset=UTF-8",
       "content-length": "137",
-      "date": "Fri, 08 May 2026 09:01:19 GMT",
+      "date": "Fri, 08 May 2026 09:12:07 GMT",
+      "connection": "close"
+    }
+  },
+  {
+    "id": 1778231520455,
+    "apiId": "api_1778230946592_72afxg7nl",
+    "apiName": "获取token",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/openapi/security/token",
+    "timestamp": "2026/5/8 17:12:00",
+    "apiConfig": {
+      "name": "获取token",
+      "group": "group_1778230966713_x42fcerge",
+      "api_path": "{domain}{api-prj}/openapi/security/token",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": "{\n  \"appId\": \"MESUkSn6E7xqQ\",\n  \"appSecret\": \"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\n}",
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://192.168.17.128:25710/api-prj/openapi/security/token",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "value": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "contentType": "json",
+        "content": "{\n  \"appId\": \"MESUkSn6E7xqQ\",\n  \"appSecret\": \"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\n}"
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "code": 500,
+        "error": "appId或appSecret错误",
+        "msg": "appId或appSecret错误",
+        "obj": null,
+        "status": false
+      },
+      "headers": {
+        "content-type": "application/json;charset=UTF-8",
+        "content-length": "104",
+        "date": "Fri, 08 May 2026 09:12:01 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.03s",
+      "responseSize": "92 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown"
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.03s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "code": 500,
+      "error": "appId或appSecret错误",
+      "msg": "appId或appSecret错误",
+      "obj": null,
+      "status": false
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "content-type": "application/json;charset=UTF-8",
+      "content-length": "104",
+      "date": "Fri, 08 May 2026 09:12:01 GMT",
       "connection": "close"
     }
   }

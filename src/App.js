@@ -518,6 +518,7 @@ function App() {
     
     const historyEntry = {
       id: Date.now(),
+      apiId: api.id || null,
       apiName: api.name,
       apiMethod: api.method,
       apiPath: api.api_path,

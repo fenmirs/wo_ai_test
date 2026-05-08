@@ -45,7 +45,7 @@
         "Content-Type": "application/json"
       },
       "param": {},
-      "body": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}",
+      "body": "{\n  \"appId\": \"MESUkSn6E7xqQ\",\n  \"appSecret\": \"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\n}",
       "chain": [],
       "successAssert": ""
     }
