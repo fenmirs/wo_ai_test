@@ -72,6 +72,7 @@ function CodeEditor({ value, onChange, contentType = 'text', readOnly = false, t
       </div>
       <div style={{ flex: 1, minHeight: 0 }}>
         <Editor
+          key={contentType}
           height="100%"
           language={LANGUAGE_MAP[contentType] || 'plaintext'}
           value={value || ''}
