@@ -795,15 +795,30 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         <span className="section-label">依赖</span>
               <div className="chain-tags">
           {Array.isArray(formData.chain) && formData.chain.map((chainRef, index) => {
-            // chainRef 可能是 id 或 name（向后兼容）
             const chainAPI = projectManager.getData()?.apis?.find(a => 
               a.id === chainRef || a.name === chainRef
             );
             const displayName = chainAPI ? chainAPI.name : chainRef;
+            const idSuffix = chainAPI?.id ? ` (${chainAPI.id.substr(-6)})` : '';
+            
+            const projectData = projectManager.getData();
+            const groups = projectData?.groups || [];
+            const groupMap = {};
+            groups.forEach(g => { groupMap[g.id] = g; });
+            const getGroupPath = (groupId) => {
+              const path = [];
+              let current = groupMap[groupId];
+              while (current) {
+                path.unshift(current.name);
+                current = groupMap[current.parentId];
+              }
+              return path.join(' / ');
+            };
+            const groupPath = chainAPI ? getGroupPath(chainAPI.group || 'default') : '';
             
             return (
-              <span key={`${chainRef}_${index}`} className="chain-tag">
-                <span className="chain-tag-name">{String(displayName)}</span>
+              <span key={`${chainRef}_${index}`} className="chain-tag" title={groupPath}>
+                <span className="chain-tag-name">{String(displayName)}{idSuffix}</span>
                 <button 
                   className="chain-tag-remove" 
                   onClick={() => setFormData(prev => ({ 
