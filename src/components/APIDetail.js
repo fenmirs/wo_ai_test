@@ -8,7 +8,7 @@ import { projectManager } from '../utils/ProjectManager';
 import APIDocGenerator from '../utils/APIDocGenerator';
 import CodeEditor from './CodeEditor';
 
-function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, onSaveError, saveError, groups = [], isAdding = false, isTemporary = false, onViewDetail, onRestoreHistory, theme = 'dark' }) {
+function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, onSaveError, saveError, groups = [], isAdding = false, isTemporary = false, onViewDetail, onRestoreHistory, onDeleteHistory, theme = 'dark' }) {
   const [resolvedPath, setResolvedPath] = useState('');
   const [executionResult, setExecutionResult] = useState(null);
   const [isExecuting, setIsExecuting] = useState(false);
@@ -1022,6 +1022,15 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                   </div>
 
                   <div className="history-actions">
+                    {onDeleteHistory && (
+                      <button
+                        className="history-btn delete"
+                        onClick={() => onDeleteHistory(entry.id)}
+                        title="删除记录"
+                      >
+                        <Trash2 size={12} />
+                      </button>
+                    )}
                     <button
                       className="history-btn detail"
                       onClick={() => {

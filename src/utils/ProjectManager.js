@@ -324,10 +324,19 @@ class ProjectManager {
   }
 
   /**
+   * 删除单条历史记录
+   */
+  deleteHistory(entryId) {
+    this.executionHistory = this.executionHistory.filter(entry => entry.id !== entryId);
+    this.markDirty();
+  }
+
+  /**
    * 清空历史记录
    */
   clearHistory() {
     this.executionHistory = [];
+    this.markDirty();
   }
 
   /**

@@ -261,3 +261,9 @@
   border-color: var(--accent-primary);
   color: white;
 }
+
+.history-btn.delete:hover {
+  background: var(--error-bg);
+  border-color: var(--error-color);
+  color: var(--error-color);
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import { CheckCircle, XCircle, Clock, Play, AlertCircle, Trash2, FileText } from 'lucide-react';
 import './ExecutionHistory.css';
 
-function ExecutionHistory({ history, onSelect, onClear, onViewDetail }) {
+function ExecutionHistory({ history, onSelect, onClear, onViewDetail, onDelete }) {
   if (!history || history.length === 0) {
     return (
       <div className="execution-history">
@@ -89,6 +89,15 @@ function ExecutionHistory({ history, onSelect, onClear, onViewDetail }) {
             </div>
 
             <div className="history-actions">
+              {onDelete && (
+                <button 
+                  className="history-btn delete"
+                  onClick={() => onDelete(entry.id)}
+                  title="删除记录"
+                >
+                  <Trash2 size={14} />
+                </button>
+              )}
               {onViewDetail && (
                 <button 
                   className="history-btn detail"

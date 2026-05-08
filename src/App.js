@@ -498,6 +498,20 @@ function App() {
     }
   };
 
+  // 清空历史记录
+  const handleClearHistory = () => {
+    projectManager.clearHistory();
+    setExecutionHistory([]);
+    setSaveMessage('历史记录已清空');
+    setTimeout(() => setSaveMessage(''), 2000);
+  };
+
+  // 删除单条历史记录
+  const handleDeleteHistory = (entryId) => {
+    projectManager.deleteHistory(entryId);
+    setExecutionHistory(projectManager.getHistory());
+  };
+
   // 执行 API 完成，保存到历史记录
   const handleExecute = (api, result) => {
     if (!result) return;
@@ -712,8 +726,9 @@ function App() {
               <ExecutionHistory 
                 history={executionHistory}
                 onSelect={handleRestoreFromHistory}
-                onClear={() => setExecutionHistory([])}
+                onClear={handleClearHistory}
                 onViewDetail={(entry) => setViewingHistoryEntry(entry)}
+                onDelete={handleDeleteHistory}
               />
             ) : viewMode === 'env_var_manager' ? (
               <EnvVarManager 
@@ -743,6 +758,7 @@ function App() {
                 isTemporary={temporaryAPI !== null}
                 onViewDetail={(entry) => setViewingHistoryEntry(entry)}
                 onRestoreHistory={handleRestoreFromHistory}
+                onDeleteHistory={handleDeleteHistory}
                 theme={theme}
               />
             ) : (
