@@ -46,10 +46,12 @@ api_test_ui/
 │   │   ├── HistoryDetailDialog.js # 历史详情对话框
 │   │   ├── InputDialog.js         # 输入对话框
 │   │   ├── ConfirmDialog.js       # 确认对话框
-│   │   └── EmptyState.js         # 空状态页面
+│   │   ├── EmptyState.js         # 空状态页面
+│   │   └── RefVariableSelector.js # 变量引用选择器
 │   ├── utils/           # 工具类
 │   │   ├── ProjectManager.js      # 项目数据管理器（单例）
-│   │   ├── APIExecutor.js         # API 执行器
+│   │   ├── APIExecutor.js         # API 执行器（单个请求）
+│   │   ├── ChainManager.js        # 依赖链管理器（编排执行）
 │   │   └── NotificationManager.js # 通知管理器（按项目隔离）
 │   ├── App.js           # 主应用组件
 │   ├── App.css          # 应用样式
@@ -141,8 +143,10 @@ API 编辑器支持编辑以下配置：
 
 支持以下动态标记：
 
-- `{{ref:API名称.字段路径}}` - 引用其他 API 的返回值
-  - 示例：`{{ref:获取token.data.obj.token}}`
+- `{{ref:API_ID.字段路径}}` - 引用其他 API 的返回值（**基于 API ID，非名称**）
+  - 示例：`{{ref:a1b2c3.data.obj.token}}`
+  - 在 Params/Headers/Body 中可通过可视化选择器配置，无需手动输入 ID
+  - Raw Body 中需手动输入完整格式
   
 - `{{readFile:文件名}}` - 读取文件内容作为字符串
   - 示例：`{{readFile:NC2Lims.xml}}`
@@ -152,6 +156,14 @@ API 编辑器支持编辑以下配置：
 
 - `{变量名}` - 引用环境配置中的变量
   - 示例：`{domain}{api-prj}/openapi/...`
+
+### 可视化引用配置
+
+在 Params、Headers、Body (form-data/x-www-form-urlencoded) 中：
+1. 点击输入框右侧的闪电图标 ⚡
+2. 从下拉列表选择要引用的 API（按分组显示，附带 ID 提示）
+3. 输入字段路径（如 `data.token`）
+4. 自动生成 `{{ref:apiId.fieldPath}}` 格式
 
 ## 断言表达式
 
@@ -183,10 +195,16 @@ API 编辑器支持编辑以下配置：
       "api-prj": ":24110/api-prj"
     }
   ],
+  "groups": [
+    {"id": "grp_001", "name": "认证模块", "parentId": null},
+    {"id": "grp_002", "name": "订单模块", "parentId": null}
+  ],
   "apis": [
     {
+      "id": "api_token_001",
       "chain": [],
       "name": "获取token",
+      "group": "grp_001",
       "api_path": "{domain}{api-prj}/openapi/security/token",
       "method": "POST",
       "header": {
@@ -194,21 +212,24 @@ API 编辑器支持编辑以下配置：
       },
       "param": {},
       "body": {
-        "appId": "NC6bNAttXRh4",
-        "appSecret": "67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS"
+        "type": "json",
+        "content": "{\"appId\": \"NC6bNAttXRh4\", \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"}"
       },
       "successAssert": "$.code == 200"
     },
     {
-      "chain": ["获取token"],
+      "id": "api_order_001",
+      "chain": ["api_token_001"],
       "name": "接收NC订单",
+      "group": "grp_002",
       "api_path": "{domain}{api-prj}/openapi/order/nc/receive",
       "method": "POST",
       "header": {
         "Content-Type": "text/xml",
-        "appId": "{{ref:获取token.data.obj.appId}}",
-        "token": "{{ref:获取token.data.obj.token}}"
+        "appId": "{{ref:api_token_001.data.obj.appId}}",
+        "token": "{{ref:api_token_001.data.obj.token}}"
       },
+      "param": {},
       "body": "{{readFile:NC2Lims.xml}}",
       "successAssert": "$.success == true"
     }
@@ -251,8 +272,9 @@ API 编辑器支持编辑以下配置：
 1. 项目数据在内存中管理，关闭应用前记得保存
 2. 变量名在所有环境中必须保持一致
 3. 删除变量前会检查 API 引用情况
-4. API 名称不能重复
+4. **API ID 是唯一标识**，用于调用链引用和动态参数引用（非 API 名称）
 5. 敏感信息（如 appSecret）请妥善保管
+6. 依赖链按配置顺序依次执行，任一依赖失败将中断后续执行
 
 ## 开发计划
 
