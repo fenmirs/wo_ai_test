@@ -824,7 +824,6 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
               if (selectedValue) {
                 setFormData(prev => {
                   const currentChain = prev.chain || [];
-                  // 检查是否已经添加（通过 id 或 name）
                   const exists = currentChain.some(ref => {
                     const api = projectManager.getData()?.apis?.find(a => 
                       a.id === ref || a.name === ref
@@ -845,22 +844,50 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
             }}
           >
             <option value="">+ 添加</option>
-            {(projectManager.getData()?.apis || [])
-              .filter(a => {
-                // 过滤掉当前 API
+            {(() => {
+              const projectData = projectManager.getData();
+              const allApis = projectData?.apis || [];
+              const groups = projectData?.groups || [];
+              
+              const availableApis = allApis.filter(a => {
                 if (formData.id && a.id === formData.id) return false;
                 if (!formData.id && a.name === formData.name) return false;
-                // 过滤掉已经在链中的
-                return !formData.chain?.some(ref => 
-                  ref === a.id || ref === a.name
-                );
-              })
-              .map(a => (
-                <option key={a.id || a.name} value={a.id || a.name}>
-                  {a.name} {a.id ? `(${a.id.substr(-6)})` : ''}
-                </option>
-              ))
-            }
+                return !formData.chain?.some(ref => ref === a.id || ref === a.name);
+              });
+              
+              const groupMap = {};
+              groups.forEach(g => { groupMap[g.id] = g; });
+              
+              const getGroupPath = (groupId) => {
+                const path = [];
+                let current = groupMap[groupId];
+                while (current) {
+                  path.unshift(current.name);
+                  current = groupMap[current.parentId];
+                }
+                return path.join(' / ');
+              };
+              
+              const groupedApis = {};
+              availableApis.forEach(api => {
+                const groupId = api.group || 'default';
+                const groupName = groupId === 'default' ? '默认' : getGroupPath(groupId);
+                if (!groupedApis[groupId]) {
+                  groupedApis[groupId] = { name: groupName, apis: [] };
+                }
+                groupedApis[groupId].apis.push(api);
+              });
+              
+              return Object.entries(groupedApis).map(([groupId, group]) => (
+                <optgroup key={groupId} label={group.name}>
+                  {group.apis.map(a => (
+                    <option key={a.id || a.name} value={a.id || a.name}>
+                      {a.name} {a.id ? `(${a.id.substr(-6)})` : ''}
+                    </option>
+                  ))}
+                </optgroup>
+              ));
+            })()}
           </select>
         </div>
       </div>
