@@ -1,18 +1,11 @@
 {
   "projects": [
     {
-      "id": "mogn5j7tleaj",
-      "name": "很好",
+      "id": "mownpbmt5t7e",
+      "name": "测试",
       "path": "C:\\Users\\fenmi\\Desktop\\api_test_ui\\data",
-      "configFile": "mogn5j7tleaj_config.json",
-      "historyFile": "mogn5j7tleaj_history.json"
-    },
-    {
-      "id": "mogn5wynxchi",
-      "name": "很好2",
-      "path": "C:\\Users\\fenmi\\Desktop\\api_test_ui\\data",
-      "configFile": "mogn5wynxchi_config.json",
-      "historyFile": "mogn5wynxchi_history.json"
+      "configFile": "mownpbmt5t7e_config.json",
+      "historyFile": "mownpbmt5t7e_history.json"
     }
   ],
   "lastOpened": null

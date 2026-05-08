@@ -1,0 +1,28 @@
+{
+  "projectName": "测试",
+  "profile": [
+    {
+      "activate": true,
+      "name": "dev",
+      "domain": "192.168.17.128",
+      "api-prj": ":30200/api-prj"
+    }
+  ],
+  "groups": [],
+  "apis": [
+    {
+      "id": "api_1778229346853_qszqzrn52",
+      "name": "获取token",
+      "group": "default",
+      "api_path": "{domain}{api-prj}/openapi/security/token",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": "{}",
+      "chain": [],
+      "successAssert": ""
+    }
+  ]
+}

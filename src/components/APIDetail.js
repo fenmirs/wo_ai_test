@@ -125,6 +125,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     const isFullUrl = apiPath.startsWith('http://') || apiPath.startsWith('https://');
 
     setFormData({
+      id: apiData.id,
       name: apiData.name || '',
       group: apiData.group || '默认',
       api_path: apiData.api_path || '',
