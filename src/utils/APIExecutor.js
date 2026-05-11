@@ -433,6 +433,15 @@ class APIExecutor {
       console.log(`[APIExecutor]  响应数据:`, responseData !== undefined ? (typeof responseData === 'object' ? JSON.stringify(responseData, null, 2).substring(0, 1000) : String(responseData).substring(0, 500)) : '(无)');
       console.log(`[APIExecutor] ════════════════════════════════════════`);
 
+      const cleanRequest = {
+        url: requestConfig.url,
+        method: requestConfig.method,
+        headers: { ...requestConfig.headers },
+        params: { ...requestConfig.params },
+        body: requestConfig.data instanceof FormData ? '[FormData]' : requestConfig.data,
+        bodyType: requestConfig.data instanceof FormData ? 'form-data' : (typeof requestConfig.data === 'string' ? 'raw' : (requestConfig.data ? 'json' : 'none'))
+      };
+
       const result = {
         status_code: statusCode,
         status_text: statusText,
@@ -444,7 +453,8 @@ class APIExecutor {
         responseSize,
         assertionResult,  // 断言详细信息
         error: errorMessage,
-        errorType: errorType
+        errorType: errorType,
+        requestConfig: cleanRequest
       };
 
       return result;
@@ -486,7 +496,8 @@ class APIExecutor {
         data: error.response?.data || null,
         headers: error.response?.headers || {},
         elapsedTime,
-        responseSize: null
+        responseSize: null,
+        requestConfig: null
       };
     }
   }

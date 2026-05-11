@@ -1379,12 +1379,12 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 6px 16px;
+  padding: 2px 10px;
   background: var(--bg-tertiary);
   border-bottom: 1px solid var(--border-color);
   flex-wrap: wrap;
   flex-shrink: 0;
-  height: 42px;
+  height: 30px;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -1838,7 +1838,7 @@
 
 /* 响应 Body */
 .response-body {
-  padding: 12px 16px;
+  /* padding: 12px 16px; */
   overflow-y: auto;
   max-height: 250px;
 }
