@@ -173,6 +173,17 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
     return count;
   };
 
+  // 递归计算分组（含所有子分组）的搜索匹配 API 数量
+  const getFilteredGroupAPICount = (group) => {
+    let count = getFilteredAPIs(group.id).length;
+    if (group.children && group.children.length > 0) {
+      group.children.forEach(child => {
+        count += getFilteredGroupAPICount(child);
+      });
+    }
+    return count;
+  };
+
   // 切换分组展开/折叠
   const toggleGroup = (groupId) => {
     if (onGroupSelect) {
@@ -358,7 +369,7 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
     const isDragOver = dragOverGroup === groupId;
     const isDraggingGroup = dragGroup && dragGroup.id === groupId;
     const filteredAPIs = getFilteredAPIs(groupId);
-    const apiCount = getGroupAPICount(group);
+    const apiCount = searchQuery ? getFilteredGroupAPICount(group) : getGroupAPICount(group);
     
     // 如果有搜索条件，只显示有匹配 API 的分组
     if (searchQuery && filteredAPIs.length === 0 && !hasChildren) {

@@ -1,10 +1,7 @@
 class APIDocGenerator {
-  static generate(apiData, resolvedPath, executionResult = null, config = null) {
+  static generate(apiData, resolvedPath, executionResult = null, config = null, profile = null) {
     const lines = [];
-    const refApis = this._collectRefApis(apiData, config);
-
-    // lines.push(`# ${apiData.name}`);
-    // lines.push('');
+    const refApis = this._collectRefApis(apiData, config, profile);
 
     refApis.forEach((refApi, index) => {
       refApi.index = index + 1;
@@ -12,6 +9,7 @@ class APIDocGenerator {
       lines.push('');
       lines.push(`- **方法**: \`${refApi.method}\``);
       lines.push(`- **完整路径**: \`${refApi.resolvedPath}\``);
+      this._renderRequestDetail(lines, refApi, refApis);
       const refResult = this._findApiResult(refApi.id, executionResult);
       if (refResult && refResult.data !== undefined) {
         lines.push('');
@@ -28,61 +26,7 @@ class APIDocGenerator {
     lines.push('');
     lines.push(`- **方法**: \`${apiData.method}\``);
     lines.push(`- **完整路径**: \`${resolvedPath}\``);
-    lines.push('');
-
-    const enabledHeaders = apiData.header.filter(h => h.enabled && h.key);
-    if (enabledHeaders.length > 0) {
-      lines.push('### Headers');
-      lines.push('');
-      lines.push('| Key | Value | 备注 |');
-      lines.push('|-----|-------|------|');
-      enabledHeaders.forEach(h => {
-        const displayValue = this._resolveRefValue(h.default || '', refApis);
-        lines.push(`| \`${h.key}\` | ${displayValue} | ${h.description || ''} |`);
-      });
-      lines.push('');
-    }
-
-    const enabledParams = apiData.param.filter(p => p.enabled && p.key);
-    if (enabledParams.length > 0) {
-      lines.push('### Query Parameters');
-      lines.push('');
-      lines.push('| Key | 类型 | 默认值 | 备注 |');
-      lines.push('|-----|------|--------|------|');
-      enabledParams.forEach(p => {
-        const displayValue = this._resolveRefValue(p.default || '', refApis);
-        lines.push(`| \`${p.key}\` | ${p.type || 'string'} | ${displayValue} | ${p.description || ''} |`);
-      });
-      lines.push('');
-    }
-
-    if (apiData.body && apiData.body.type !== 'none') {
-      lines.push(`### Body (${apiData.body.type})`);
-      lines.push('');
-
-      if (apiData.body.type === 'raw') {
-        const lang = apiData.body.contentType === 'json' ? 'json'
-          : apiData.body.contentType === 'xml' ? 'xml'
-          : apiData.body.contentType === 'html' ? 'html' : 'text';
-        const content = this._resolveRefValue(apiData.body.content || '', refApis);
-        lines.push(`\`\`\`${lang}`);
-        lines.push(content);
-        lines.push('```');
-        lines.push('');
-      } else if (apiData.body.type === 'form-data' || apiData.body.type === 'x-www-form-urlencoded') {
-        const items = apiData.body.type === 'form-data' ? apiData.body.formData : apiData.body.xwwwFormUrlencoded;
-        const enabledItems = items ? items.filter(i => i.enabled && i.key) : [];
-        if (enabledItems.length > 0) {
-          lines.push('| Key | 类型 | 默认值 | 备注 |');
-          lines.push('|-----|------|--------|------|');
-          enabledItems.forEach(i => {
-            const displayValue = this._resolveRefValue(i.default || '', refApis);
-            lines.push(`| \`${i.key}\` | ${i.type || 'string'} | ${displayValue} | ${i.description || ''} |`);
-          });
-          lines.push('');
-        }
-      }
-    }
+    this._renderRequestDetail(lines, apiData, refApis);
 
     if (executionResult && executionResult.targetResult && executionResult.targetResult.data !== undefined) {
       const tr = executionResult.targetResult;
@@ -127,7 +71,63 @@ class APIDocGenerator {
     return lines.join('\n');
   }
 
-  static _collectRefApis(apiData, config) {
+  static _renderRequestDetail(lines, data, refApis) {
+    const enabledHeaders = data.header.filter(h => h.enabled && h.key);
+    if (enabledHeaders.length > 0) {
+      lines.push('');
+      lines.push('### Headers');
+      lines.push('');
+      lines.push('| Key | Value | 备注 |');
+      lines.push('|-----|-------|------|');
+      enabledHeaders.forEach(h => {
+        const displayValue = this._resolveRefValue(h.default || '', refApis);
+        lines.push(`| \`${h.key}\` | ${displayValue} | ${h.description || ''} |`);
+      });
+    }
+
+    const enabledParams = data.param.filter(p => p.enabled && p.key);
+    if (enabledParams.length > 0) {
+      lines.push('');
+      lines.push('### Query Parameters');
+      lines.push('');
+      lines.push('| Key | 类型 | 默认值 | 备注 |');
+      lines.push('|-----|------|--------|------|');
+      enabledParams.forEach(p => {
+        const displayValue = this._resolveRefValue(p.default || '', refApis);
+        lines.push(`| \`${p.key}\` | ${p.type || 'string'} | ${displayValue} | ${p.description || ''} |`);
+      });
+    }
+
+    if (data.body && data.body.type !== 'none') {
+      lines.push('');
+      lines.push(`### Body (${data.body.type})`);
+
+      if (data.body.type === 'raw' || data.body.type === 'json') {
+        lines.push('');
+        const lang = data.body.type === 'json' || data.body.contentType === 'json' ? 'json'
+          : data.body.contentType === 'xml' ? 'xml'
+          : data.body.contentType === 'html' ? 'html' : 'text';
+        const content = this._resolveRefValue(data.body.content || '', refApis);
+        lines.push(`\`\`\`${lang}`);
+        lines.push(content);
+        lines.push('```');
+      } else if (data.body.type === 'form-data' || data.body.type === 'x-www-form-urlencoded') {
+        const items = data.body.type === 'form-data' ? data.body.formData : data.body.xwwwFormUrlencoded;
+        const enabledItems = items ? items.filter(i => i.enabled && i.key) : [];
+        if (enabledItems.length > 0) {
+          lines.push('');
+          lines.push('| Key | 类型 | 默认值 | 备注 |');
+          lines.push('|-----|------|--------|------|');
+          enabledItems.forEach(i => {
+            const displayValue = this._resolveRefValue(i.default || '', refApis);
+            lines.push(`| \`${i.key}\` | ${i.type || 'string'} | ${displayValue} | ${i.description || ''} |`);
+          });
+        }
+      }
+    }
+  }
+
+  static _collectRefApis(apiData, config, profile) {
     if (!config?.apis) return [];
     const refApiIds = new Set();
     const refRegex = /\{\{ref:([^}]+)\}\}/g;
@@ -170,9 +170,69 @@ class APIDocGenerator {
         shortId: id.length > 8 ? id.slice(-6) : id,
         method: api.method,
         api_path: api.api_path,
+        resolvedPath: this._resolveAPIPath(api.api_path, profile),
+        header: this._parseToArray(api.header),
+        param: this._parseToArray(api.param),
+        body: this._normalizeBody(api.body),
         index: 0,
       };
     }).filter(Boolean);
+  }
+
+  static _resolveAPIPath(apiPath, profile) {
+    if (!apiPath || !profile) return apiPath || '';
+    let path = apiPath;
+    Object.keys(profile).forEach(key => {
+      if (key !== 'name' && key !== 'activate') {
+        path = path.replace(`{${key}}`, profile[key]);
+      }
+    });
+    if (!path.startsWith('http://') && !path.startsWith('https://')) {
+      path = 'http://' + path;
+    }
+    return path;
+  }
+
+  static _parseToArray(data) {
+    if (!data) return [];
+    if (Array.isArray(data)) return data;
+    if (typeof data === 'object') {
+      return Object.entries(data).map(([key, value]) => {
+        if (typeof value === 'object' && value !== null) {
+          return { key, ...value };
+        }
+        return { key, default: value, type: 'string', description: '', enabled: true };
+      });
+    }
+    return [];
+  }
+
+  static _normalizeBody(body) {
+    if (!body || !body.type) {
+      return { type: 'none', formData: [], xwwwFormUrlencoded: [], contentType: 'text', content: '' };
+    }
+    const normalized = { type: body.type, contentType: body.contentType || (body.type === 'json' ? 'json' : 'text'), content: body.content || '' };
+    if (body.formData && typeof body.formData === 'object' && !Array.isArray(body.formData)) {
+      normalized.formData = Object.entries(body.formData).map(([key, val]) => {
+        if (typeof val === 'object' && val !== null) {
+          return { key, ...val };
+        }
+        return { key, default: val, type: 'string', description: '', enabled: true };
+      });
+    } else {
+      normalized.formData = body.formData || [];
+    }
+    if (body.xwwwFormUrlencoded && typeof body.xwwwFormUrlencoded === 'object' && !Array.isArray(body.xwwwFormUrlencoded)) {
+      normalized.xwwwFormUrlencoded = Object.entries(body.xwwwFormUrlencoded).map(([key, val]) => {
+        if (typeof val === 'object' && val !== null) {
+          return { key, ...val };
+        }
+        return { key, default: val, type: 'string', description: '', enabled: true };
+      });
+    } else {
+      normalized.xwwwFormUrlencoded = body.xwwwFormUrlencoded || [];
+    }
+    return normalized;
   }
 
   static _resolveRefValue(value, refApis) {
