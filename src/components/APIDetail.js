@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, ChevronRight, ChevronDown, ChevronUp, Trash2, Plus, Upload, X, AlertCircle, FileText, Save, FileDown } from 'lucide-react';
+import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, ChevronRight, ChevronDown, ChevronUp, Trash2, Plus, Upload, X, AlertCircle, FileText, Save, FileDown, Code, Layout } from 'lucide-react';
 import './APIDetail.css';
 import ChainManager from '../utils/ChainManager';
 import { projectManager } from '../utils/ProjectManager';
 import APIDocGenerator from '../utils/APIDocGenerator';
+import JSONSchemaConverter from '../utils/JSONSchemaConverter';
 import CodeEditor from './CodeEditor';
 import RefVariableSelector from './RefVariableSelector';
+import JSONTreeEditor from './JSONTreeEditor';
 
 function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, onSaveError, saveError, groups = [], isAdding = false, isTemporary = false, onViewDetail, onRestoreHistory, onDeleteHistory, theme = 'dark', onResultChange }) {
   const [resolvedPath, setResolvedPath] = useState('');
@@ -25,7 +27,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     method: 'GET',
     header: [],
     param: [],
-    body: { type: 'none', formData: [], xwwwFormUrlencoded: [], contentType: 'text', content: '' },
+    body: { type: 'none', formData: [], xwwwFormUrlencoded: [], contentType: 'text', content: '', schema: null },
     assertions: [{ expression: '', enabled: true }]
   });
 
@@ -34,6 +36,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const [editingSegmentIdx, setEditingSegmentIdx] = useState(null);
   const [editingValue, setEditingValue] = useState('');
   const [urlCopied, setUrlCopied] = useState(false);
+  const [jsonEditMode, setJsonEditMode] = useState('code');
 
   const apiHistory = history.filter(h =>
     (h.apiId && h.apiId === formData.id) ||
@@ -293,23 +296,55 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   };
 
   const parseBodyData = (body, header) => {
-    if (!body) return { type: 'none', formData: [], xwwwFormUrlencoded: [], contentType: 'text', content: '' };
+    if (!body) return { type: 'none', formData: [], xwwwFormUrlencoded: [], contentType: 'text', content: '', schema: null };
     const contentType = header?.['Content-Type'] || '';
 
     if (typeof body === 'object' && !Array.isArray(body)) {
-      if (contentType.includes('application/json')) {
-        return { type: 'raw', formData: [], xwwwFormUrlencoded: [], contentType: 'json', content: JSON.stringify(body, null, 2) };
+      if (body.schema && (body.type === 'raw' || body.contentType === 'json')) {
+        return {
+          type: body.type || 'raw',
+          formData: body.formData || [],
+          xwwwFormUrlencoded: body.xwwwFormUrlencoded || [],
+          contentType: body.contentType || 'json',
+          content: body.content || '',
+          schema: body.schema
+        };
+      }
+
+      if (contentType.includes('application/json') || body.contentType === 'json') {
+        const content = typeof body.content === 'string' ? body.content : JSON.stringify(body, null, 2);
+        let schema = null;
+        try {
+          const parsed = typeof body.content === 'string' ? JSON.parse(body.content) : body;
+          schema = JSONSchemaConverter.jsonToSchema(parsed);
+        } catch (e) {
+          console.warn('[APIDetail] Failed to parse JSON for schema:', e);
+        }
+        return { 
+          type: 'raw', 
+          formData: [], 
+          xwwwFormUrlencoded: [], 
+          contentType: 'json', 
+          content,
+          schema
+        };
       } else if (contentType.includes('application/x-www-form-urlencoded')) {
-        return { type: 'x-www-form-urlencoded', formData: [], xwwwFormUrlencoded: parseToArray(body), contentType: 'text', content: '' };
+        return { type: 'x-www-form-urlencoded', formData: [], xwwwFormUrlencoded: parseToArray(body), contentType: 'text', content: '', schema: null };
       } else if (contentType.includes('multipart/form-data')) {
-        return { type: 'form-data', formData: parseToArray(body), xwwwFormUrlencoded: [], contentType: 'text', content: '' };
+        return { type: 'form-data', formData: parseToArray(body), xwwwFormUrlencoded: [], contentType: 'text', content: '', schema: null };
       }
     }
 
     if (typeof body === 'string') {
       let detectedContentType = 'text';
+      let schema = null;
       if (contentType.includes('application/json') || contentType.includes('json')) {
         detectedContentType = 'json';
+        try {
+          schema = JSONSchemaConverter.jsonToSchema(body);
+        } catch (e) {
+          console.warn('[APIDetail] Failed to parse JSON for schema:', e);
+        }
       } else if (contentType.includes('xml')) {
         detectedContentType = 'xml';
       } else if (contentType.includes('html')) {
@@ -317,10 +352,10 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       } else if (contentType.includes('text/plain')) {
         detectedContentType = 'text';
       }
-      return { type: 'raw', formData: [], xwwwFormUrlencoded: [], contentType: detectedContentType, content: body };
+      return { type: 'raw', formData: [], xwwwFormUrlencoded: [], contentType: detectedContentType, content: body, schema };
     }
 
-    return { type: 'raw', formData: [], xwwwFormUrlencoded: [], contentType: 'text', content: typeof body === 'string' ? body : JSON.stringify(body, null, 2) };
+    return { type: 'raw', formData: [], xwwwFormUrlencoded: [], contentType: 'text', content: typeof body === 'string' ? body : JSON.stringify(body, null, 2), schema: null };
   };
 
   const updateResolvedPath = () => {
@@ -1125,17 +1160,95 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
               </div>
             )}
 
-            {formData.body.type === 'raw' && (
-              <div className="body-raw">
-                <CodeEditor
-                  value={formData.body.content || ''}
-                  onChange={(content) => updateFormBody({ content })}
-                  contentType={formData.body.contentType || 'text'}
-                  onTypeChange={(contentType) => updateFormBody({ contentType })}
-                  theme={theme}
-                />
-              </div>
-            )}
+             {formData.body.type === 'raw' && (
+               <div className="body-raw">
+                 {formData.body.contentType === 'json' && (
+                   <div className="json-mode-switcher">
+                     <label className={`json-mode-btn ${jsonEditMode === 'code' ? 'active' : ''}`}>
+                       <input 
+                         type="radio" 
+                         name="jsonEditMode" 
+                         value="code"
+                         checked={jsonEditMode === 'code'}
+                         onChange={() => setJsonEditMode('code')}
+                       />
+                       <Code size={12} />
+                       代码
+                     </label>
+                     <label className={`json-mode-btn ${jsonEditMode === 'ui' ? 'active' : ''}`}>
+                       <input 
+                         type="radio" 
+                         name="jsonEditMode" 
+                         value="ui"
+                         checked={jsonEditMode === 'ui'}
+                         onChange={(e) => {
+                           setJsonEditMode('ui');
+                           try {
+                             const currentContent = formData.body.content || '{}';
+                             const existingSchema = formData.body.schema;
+                             const newSchema = JSONSchemaConverter.jsonToSchema(currentContent, existingSchema);
+                             if (newSchema) {
+                               updateFormBody({ schema: newSchema });
+                             }
+                           } catch (err) {
+                             console.warn('[APIDetail] Failed to convert JSON to schema:', err);
+                           }
+                         }}
+                       />
+                       <Layout size={12} />
+                       UI
+                     </label>
+                   </div>
+                 )}
+                 
+                 {formData.body.contentType === 'json' && jsonEditMode === 'ui' ? (
+                   <div className="json-editor-wrapper">
+                     {formData.body.schema ? (
+                       <JSONTreeEditor
+                         schema={formData.body.schema}
+                         onChange={(newSchema) => {
+                           const newContent = JSONSchemaConverter.schemaToJson(newSchema, true);
+                           updateFormBody({ schema: newSchema, content: newContent });
+                         }}
+                         excludeApiId={formData.id}
+                         theme={theme}
+                       />
+                     ) : (
+                       <div className="body-none">
+                         无法解析 JSON 数据，请切换到代码模式检查格式
+                       </div>
+                     )}
+                   </div>
+                 ) : (
+                   <CodeEditor
+                     value={formData.body.content || ''}
+                     onChange={(content) => {
+                       updateFormBody({ content });
+                       
+                       if (formData.body.contentType === 'json' && jsonEditMode === 'code') {
+                         try {
+                           const existingSchema = formData.body.schema;
+                           const newSchema = JSONSchemaConverter.jsonToSchema(content, existingSchema);
+                           if (newSchema) {
+                             updateFormBody({ schema: newSchema });
+                           }
+                         } catch (err) {
+                           // Ignore parse errors when typing
+                         }
+                       }
+                     }}
+                     contentType={formData.body.contentType || 'text'}
+                     onTypeChange={(contentType) => {
+                       updateFormBody({ contentType });
+                       if (contentType !== 'json') {
+                         setJsonEditMode('code');
+                       }
+                     }}
+                     theme={theme}
+                   />
+                 )}
+               </div>
+             )}
           </div>
         )}
 
