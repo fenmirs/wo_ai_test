@@ -236,6 +236,16 @@ function BottomBar({
         {/* <span>执行历史</span> */}
       </button>
 
+      <div className="bar-section" ref={notificationRef} style={{ marginLeft: 'auto' }}>
+        {/* <button
+          className="bar-btn"
+          onClick={onSave}
+          disabled={!isDirty || isSaving}
+          title="保存配置"
+        >
+          <Save size={14} />
+        </button> */}
+        
       <div className="bar-separator"></div>
 
       {/* 面板显隐切换 */}
@@ -246,13 +256,13 @@ function BottomBar({
       >
         <PanelLeft size={13} />
       </button>
-      <button
+      {/* <button
         className={`bar-btn panel-toggle ${showCenterPanel ? 'active' : ''}`}
         onClick={onToggleCenterPanel}
         title={showCenterPanel ? '隐藏请求编辑区' : '显示请求编辑区'}
       >
         <Columns size={13} />
-      </button>
+      </button> */}
       <button
         className={`bar-btn panel-toggle ${showRightPanel ? 'active' : ''}`}
         onClick={onToggleRightPanel}
@@ -262,16 +272,6 @@ function BottomBar({
       </button>
 
       <div className="bar-separator"></div>
-
-      <div className="bar-section" ref={notificationRef} style={{ marginLeft: 'auto' }}>
-        {/* <button
-          className="bar-btn"
-          onClick={onSave}
-          disabled={!isDirty || isSaving}
-          title="保存配置"
-        >
-          <Save size={14} />
-        </button> */}
         <button
           className="bar-btn"
           onClick={toggleTheme}
