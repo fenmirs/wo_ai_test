@@ -20,6 +20,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const [localSaveError, setLocalSaveError] = useState(null);
   const [selectedCardIdx, setSelectedCardIdx] = useState(0);
   const [responseCollapsed, setResponseCollapsed] = useState(true);
+  const [showSyntaxHighlighter, setShowSyntaxHighlighter] = useState(false);
   const fileInputRef = useRef(null);
   const executorRef = useRef(null);
 
@@ -112,6 +113,15 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     ).join('');
     setFormData(prev => ({ ...prev, api_path: path }));
   }, [urlSegments]);
+
+  useEffect(() => {
+    if (!responseCollapsed && executionResult) {
+      const timer = requestAnimationFrame(() => setShowSyntaxHighlighter(true));
+      return () => cancelAnimationFrame(timer);
+    } else {
+      setShowSyntaxHighlighter(false);
+    }
+  }, [responseCollapsed, executionResult]);
 
   const extractRefApis = () => {
     const refRegex = /\{\{ref:([^}]+)\}\}/g;
@@ -1340,9 +1350,13 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                           <div className="request-section-title">响应 Body</div>
                           <div className="request-body-content">
                             {cardResult?.data !== undefined ? (
-                              <SyntaxHighlighter language="json" style={vscDarkPlus} customStyle={{ margin: 0, fontSize: '11px', maxHeight: '250px' }}>
-                                {JSON.stringify(cardResult.data, null, 2)}
-                              </SyntaxHighlighter>
+                              showSyntaxHighlighter ? (
+                                <SyntaxHighlighter language="json" style={vscDarkPlus} customStyle={{ margin: 0, fontSize: '11px', maxHeight: '250px' }}>
+                                  {JSON.stringify(cardResult.data, null, 2)}
+                                </SyntaxHighlighter>
+                              ) : (
+                                <pre className="body-text">{JSON.stringify(cardResult.data, null, 2)}</pre>
+                              )
                             ) : (
                               <div className="response-empty">无响应体</div>
                             )}

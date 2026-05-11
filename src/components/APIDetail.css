@@ -561,15 +561,6 @@
   }
 }
 
-/* URL 栏 */
-.url-bar {
-  display: flex;
-  align-items: center;
-  padding: 8px 16px;
-  background: var(--bg-secondary);
-  border-bottom: 1px solid var(--border-color);
-}
-
 .method-badge {
   padding: 6px 12px;
   border-radius: 4px 0 0 4px;
@@ -1121,15 +1112,6 @@
   margin-bottom: 10px;
 }
 
-.body-type {
-  padding: 2px 8px;
-  background: var(--bg-tertiary);
-  border-radius: 3px;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--text-secondary);
-}
-
 .body-hint {
   font-size: 11px;
   color: var(--accent-primary);
@@ -1343,7 +1325,6 @@
   display: flex;
   flex-direction: column;
   min-height: 0;
-  transition: all 0.25s ease;
 }
 
 .response-panel.expanded {
@@ -1835,13 +1816,6 @@
   color: var(--text-secondary);
   font-family: monospace;
   word-break: break-all;
-}
-
-/* 响应 Body */
-.response-body {
-  /* padding: 12px 16px; */
-  overflow-y: auto;
-  max-height: 250px;
 }
 
 /* 响应空状态 */
