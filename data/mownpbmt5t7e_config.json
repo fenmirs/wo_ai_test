@@ -66,7 +66,7 @@
       "api_path": "{domain}{api-prj}/openapi/order/nc/receive",
       "method": "POST",
       "header": {
-        "auth": "{{ref:api_1778229346853_qszqzrn52.data.token}}",
+        "auth": "{{ref:api_1778229346853_qszqzrn52.obj.token}}",
         "Content-Type": "text/xml"
       },
       "param": {},

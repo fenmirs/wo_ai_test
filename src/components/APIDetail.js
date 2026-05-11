@@ -18,6 +18,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const [showHistoryPanel, setShowHistoryPanel] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [localSaveError, setLocalSaveError] = useState(null);
+  const [selectedCardIdx, setSelectedCardIdx] = useState(0);
   const fileInputRef = useRef(null);
   const executorRef = useRef(null);
 
@@ -314,8 +315,23 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         chainManager.execute(execAPI, {}),
         cancelPromise
       ]);
+
+      const allApis = projectManager.getData()?.apis || [];
+      const cards = [];
+      for (const depId of (execAPI.chain || [])) {
+        const api = allApis.find(a => a.id === depId);
+        const res = result.allResults?.[depId];
+        if (res) {
+          cards.push({ apiId: depId, name: api?.name || depId, result: res, isTarget: false });
+        }
+      }
+      const targetApi = allApis.find(a => a.id === execAPI.id);
+      cards.push({ apiId: execAPI.id, name: targetApi?.name || execAPI.name || '目标', result: result.targetResult, isTarget: true });
+
       result.requestInfo = requestInfo;
+      result.resultCards = cards;
       setExecutionResult(result);
+      setSelectedCardIdx(cards.length - 1);
 
       if (onExecute) onExecute(execAPI, result);
     } catch (error) {
@@ -1045,185 +1061,226 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
       {executionResult && (
         <div className="response-panel">
-          <div className="response-summary">
-            <div className="summary-left">
-              <span className="summary-label">HTTP</span>
-              {executionResult.targetResult?.status_code ? (
-                <span className={`http-status ${executionResult.targetResult.httpSuccess ? 'success' : 'error'}`}>
-                  {executionResult.targetResult.status_code}
-                </span>
-              ) : executionResult.targetResult?.error ? (
-                <span className="http-status error">错误</span>
-              ) : (
-                <span className="http-status error">请求失败</span>
-              )}
-            </div>
-
-            <div className="summary-divider"></div>
-
-            {executionResult.targetResult?.assertionResult && (
-              <div className="summary-left">
-                <span className="summary-label">断言</span>
-                <span className={`assert-status ${executionResult.targetResult.assertionResult.passed ? 'success' : 'error'}`}>
-                  {executionResult.targetResult.assertionResult.summary}
-                </span>
+          {executionResult.resultCards && executionResult.resultCards.length > 0 ? (
+            <>
+              <div className="response-card-bar">
+                {executionResult.resultCards.map((card, idx) => (
+                  <button
+                    key={card.apiId}
+                    className={`response-card-tab ${selectedCardIdx === idx ? 'active' : ''} ${card.result?.success ? 'card-ok' : 'card-fail'}`}
+                    onClick={() => setSelectedCardIdx(idx)}
+                  >
+                    {card.isTarget ? '🎯 ' : ''}{card.name}
+                    <span className={`card-status-dot ${card.result?.success ? 'dot-ok' : 'dot-fail'}`}>
+                      {card.result?.success ? '✓' : '✗'}
+                    </span>
+                  </button>
+                ))}
               </div>
-            )}
-
-            <div className="summary-divider"></div>
-
-            <div className="summary-left">
-              <span className="summary-label">耗时</span>
-              <span className="meta-value">{executionResult.targetResult?.elapsedTime || '-'}</span>
-            </div>
-
-            {executionResult.targetResult?.error && (
-              <>
-                <div className="summary-divider"></div>
-                <div className="summary-left error-info">
-                  <XCircle size={14} className="error-icon" />
-                  <span className="error-text">{executionResult.targetResult.error}</span>
-                </div>
-              </>
-            )}
-
-            <div className="summary-right">
-              <span className={`final-status ${executionResult.targetResult?.success ? 'success' : 'error'}`}>
-                {executionResult.targetResult?.success ? <><CheckCircle size={16} /> 通过</> : <><XCircle size={16} /> 失败</>}
-              </span>
-            </div>
-          </div>
-
-          <div className="response-tabs">
-            <button className={`response-tab ${responseTab === 'request' ? 'active' : ''}`} onClick={() => setResponseTab('request')}>请求</button>
-            <button className={`response-tab ${responseTab === 'response' ? 'active' : ''}`} onClick={() => setResponseTab('response')}>响应</button>
-          </div>
-
-          {responseTab === 'request' && executionResult.requestInfo && (
-            <div className="request-info">
-              <div className="request-section">
-                <div className="request-section-title">基本信息</div>
-                <div className="request-info-row">
-                  <span className="info-label">URL</span>
-                  <code className="info-value">{executionResult.requestInfo.url}</code>
-                </div>
-                <div className="request-info-row">
-                  <span className="info-label">Method</span>
-                  <span className="info-value method">{executionResult.requestInfo.method}</span>
-                </div>
-              </div>
-
-              {executionResult.requestInfo.header.length > 0 && (
-                <div className="request-section">
-                  <div className="request-section-title">请求 Headers</div>
-                  <div className="kv-list">
-                    {executionResult.requestInfo.header.map((h, idx) => (
-                      <div key={idx} className="kv-item">
-                        <span className="kv-key">{h.key}</span>
-                        <span className="kv-value">{h.default || ''}</span>
+              {(() => {
+                const currentCard = executionResult.resultCards[selectedCardIdx];
+                if (!currentCard) return null;
+                const cardResult = currentCard.result;
+                return (
+                  <>
+                    <div className="response-summary">
+                      <div className="summary-left">
+                        <span className="summary-label">HTTP</span>
+                        {cardResult?.status_code ? (
+                          <span className={`http-status ${cardResult.httpSuccess ? 'success' : 'error'}`}>
+                            {cardResult.status_code}
+                          </span>
+                        ) : cardResult?.error ? (
+                          <span className="http-status error">错误</span>
+                        ) : (
+                          <span className="http-status error">请求失败</span>
+                        )}
                       </div>
-                    ))}
-                  </div>
-                </div>
-              )}
 
-              {executionResult.requestInfo.param.length > 0 && (
-                <div className="request-section">
-                  <div className="request-section-title">Query Parameters</div>
-                  <div className="kv-list">
-                    {executionResult.requestInfo.param.map((p, idx) => (
-                      <div key={idx} className="kv-item">
-                        <span className="kv-key">{p.key}</span>
-                        <span className="kv-value">{p.default || ''}</span>
+                      <div className="summary-divider"></div>
+
+                      {cardResult?.assertionResult && (
+                        <div className="summary-left">
+                          <span className="summary-label">断言</span>
+                          <span className={`assert-status ${cardResult.assertionResult.passed ? 'success' : 'error'}`}>
+                            {cardResult.assertionResult.summary}
+                          </span>
+                        </div>
+                      )}
+
+                      <div className="summary-divider"></div>
+
+                      <div className="summary-left">
+                        <span className="summary-label">耗时</span>
+                        <span className="meta-value">{cardResult?.elapsedTime || '-'}</span>
                       </div>
-                    ))}
-                  </div>
-                </div>
-              )}
 
-              {executionResult.requestInfo.bodyType !== 'none' && (
-                <div className="request-section">
-                  <div className="request-section-title">请求 Body ({executionResult.requestInfo.bodyType})</div>
-                  <div className="request-body-content">
-                    {executionResult.requestInfo.bodyType === 'raw' && (
-                      <pre className="body-text">{executionResult.requestInfo.body.content || ''}</pre>
-                    )}
-                    {(executionResult.requestInfo.bodyType === 'form-data' || executionResult.requestInfo.bodyType === 'x-www-form-urlencoded') && (
-                      <div className="kv-list">
-                        {(executionResult.requestInfo.bodyType === 'form-data' ? executionResult.requestInfo.body.formData : executionResult.requestInfo.body.xwwwFormUrlencoded)
-                          .filter(p => p.enabled && p.key)
-                          .map((p, idx) => (
-                            <div key={idx} className="kv-item">
-                              <span className="kv-key">{p.key}</span>
-                              <span className="kv-value">{p.default || ''}</span>
+                      {cardResult?.error && (
+                        <>
+                          <div className="summary-divider"></div>
+                          <div className="summary-left error-info">
+                            <XCircle size={14} className="error-icon" />
+                            <span className="error-text">{cardResult.error}</span>
+                          </div>
+                        </>
+                      )}
+
+                      <div className="summary-right">
+                        <span className={`final-status ${cardResult?.success ? 'success' : 'error'}`}>
+                          {cardResult?.success ? <><CheckCircle size={16} /> 通过</> : <><XCircle size={16} /> 失败</>}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="response-tabs">
+                      <button className={`response-tab ${responseTab === 'request' ? 'active' : ''}`} onClick={() => setResponseTab('request')}>请求</button>
+                      <button className={`response-tab ${responseTab === 'response' ? 'active' : ''}`} onClick={() => setResponseTab('response')}>响应</button>
+                    </div>
+
+                    {responseTab === 'request' && currentCard.isTarget && executionResult.requestInfo && (
+                      <div className="request-info">
+                        <div className="request-section">
+                          <div className="request-section-title">基本信息</div>
+                          <div className="request-info-row">
+                            <span className="info-label">URL</span>
+                            <code className="info-value">{executionResult.requestInfo.url}</code>
+                          </div>
+                          <div className="request-info-row">
+                            <span className="info-label">Method</span>
+                            <span className="info-value method">{executionResult.requestInfo.method}</span>
+                          </div>
+                        </div>
+                        {executionResult.requestInfo.header.length > 0 && (
+                          <div className="request-section">
+                            <div className="request-section-title">请求 Headers</div>
+                            <div className="kv-list">
+                              {executionResult.requestInfo.header.map((h, idx) => (
+                                <div key={idx} className="kv-item">
+                                  <span className="kv-key">{h.key}</span>
+                                  <span className="kv-value">{h.default || ''}</span>
+                                </div>
+                              ))}
                             </div>
-                          ))}
+                          </div>
+                        )}
+                        {executionResult.requestInfo.param.length > 0 && (
+                          <div className="request-section">
+                            <div className="request-section-title">Query Parameters</div>
+                            <div className="kv-list">
+                              {executionResult.requestInfo.param.map((p, idx) => (
+                                <div key={idx} className="kv-item">
+                                  <span className="kv-key">{p.key}</span>
+                                  <span className="kv-value">{p.default || ''}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        {executionResult.requestInfo.bodyType !== 'none' && (
+                          <div className="request-section">
+                            <div className="request-section-title">请求 Body ({executionResult.requestInfo.bodyType})</div>
+                            <div className="request-body-content">
+                              {executionResult.requestInfo.bodyType === 'raw' && (
+                                <pre className="body-text">{executionResult.requestInfo.body.content || ''}</pre>
+                              )}
+                              {(executionResult.requestInfo.bodyType === 'form-data' || executionResult.requestInfo.bodyType === 'x-www-form-urlencoded') && (
+                                <div className="kv-list">
+                                  {(executionResult.requestInfo.bodyType === 'form-data' ? executionResult.requestInfo.body.formData : executionResult.requestInfo.body.xwwwFormUrlencoded)
+                                    .filter(p => p.enabled && p.key)
+                                    .map((p, idx) => (
+                                      <div key={idx} className="kv-item">
+                                        <span className="kv-key">{p.key}</span>
+                                        <span className="kv-value">{p.default || ''}</span>
+                                      </div>
+                                    ))}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     )}
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
+                    {responseTab === 'request' && !currentCard.isTarget && (
+                      <div className="request-info">
+                        <div className="response-empty">依赖链步骤的请求信息未记录</div>
+                      </div>
+                    )}
 
-          {responseTab === 'response' && (
+                    {responseTab === 'response' && (
+                      <div className="response-info">
+                        <div className="request-section">
+                          <div className="request-section-title">基本信息</div>
+                          <div className="request-info-row">
+                            <span className="info-label">状态码</span>
+                            <span className={`info-value status ${cardResult?.httpSuccess ? 'success' : 'error'}`}>
+                              {cardResult?.status_code || '-'}
+                            </span>
+                          </div>
+                          <div className="request-info-row">
+                            <span className="info-label">耗时</span>
+                            <span className="info-value">{cardResult?.elapsedTime || '-'}</span>
+                          </div>
+                          <div className="request-info-row">
+                            <span className="info-label">大小</span>
+                            <span className="info-value">{cardResult?.responseSize || '-'}</span>
+                          </div>
+                        </div>
+
+                        {cardResult?.headers && Object.keys(cardResult.headers).length > 0 && (
+                          <div className="request-section">
+                            <div className="request-section-title">响应 Headers</div>
+                            <div className="kv-list">
+                              {Object.entries(cardResult.headers).map(([key, value]) => (
+                                <div key={key} className="kv-item">
+                                  <span className="kv-key">{key}</span>
+                                  <span className="kv-value">{Array.isArray(value) ? value.join(', ') : value}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        <div className="request-section">
+                          <div className="request-section-title">响应 Body</div>
+                          <div className="request-body-content">
+                            {cardResult?.data !== undefined ? (
+                              <SyntaxHighlighter language="json" style={vscDarkPlus} customStyle={{ margin: 0, fontSize: '11px', maxHeight: '250px' }}>
+                                {JSON.stringify(cardResult.data, null, 2)}
+                              </SyntaxHighlighter>
+                            ) : (
+                              <div className="response-empty">无响应体</div>
+                            )}
+                          </div>
+                        </div>
+
+                        {cardResult?.assertionResult && (
+                          <div className="request-section">
+                            <div className="request-section-title">断言结果</div>
+                            <div className="assert-results">
+                              {cardResult.assertionResult.results.map((r, idx) => (
+                                <div key={idx} className={`assert-item ${r.passed ? 'passed' : 'failed'}`}>
+                                  <span className="assert-icon">{r.passed ? <CheckCircle size={14} /> : <XCircle size={14} />}</span>
+                                  <span className="assert-expr">{r.expression}</span>
+                                  <span className="assert-actual">实际值: {r.actual}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </>
+                );
+              })()}
+            </>
+          ) : (
             <div className="response-info">
-              <div className="request-section">
-                <div className="request-section-title">基本信息</div>
-                <div className="request-info-row">
-                  <span className="info-label">状态码</span>
-                  <span className={`info-value status ${executionResult.targetResult?.httpSuccess ? 'success' : 'error'}`}>
-                    {executionResult.targetResult?.status_code || '-'}
-                  </span>
-                </div>
-                <div className="request-info-row">
-                  <span className="info-label">耗时</span>
-                  <span className="info-value">{executionResult.targetResult?.elapsedTime || '-'}</span>
-                </div>
-                <div className="request-info-row">
-                  <span className="info-label">大小</span>
-                  <span className="info-value">{executionResult.targetResult?.responseSize || '-'}</span>
-                </div>
-              </div>
-
-              {executionResult.targetResult?.headers && Object.keys(executionResult.targetResult.headers).length > 0 && (
+              {executionResult.error && (
                 <div className="request-section">
-                  <div className="request-section-title">响应 Headers</div>
-                  <div className="kv-list">
-                    {Object.entries(executionResult.targetResult.headers).map(([key, value]) => (
-                      <div key={key} className="kv-item">
-                        <span className="kv-key">{key}</span>
-                        <span className="kv-value">{Array.isArray(value) ? value.join(', ') : value}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              <div className="request-section">
-                <div className="request-section-title">响应 Body</div>
-                <div className="request-body-content">
-                  {executionResult.targetResult?.data !== undefined ? (
-                    <SyntaxHighlighter language="json" style={vscDarkPlus} customStyle={{ margin: 0, fontSize: '11px', maxHeight: '250px' }}>
-                      {JSON.stringify(executionResult.targetResult.data, null, 2)}
-                    </SyntaxHighlighter>
-                  ) : (
-                    <div className="response-empty">无响应体</div>
-                  )}
-                </div>
-              </div>
-
-              {executionResult.targetResult?.assertionResult && (
-                <div className="request-section">
-                  <div className="request-section-title">断言结果</div>
-                  <div className="assert-results">
-                    {executionResult.targetResult.assertionResult.results.map((r, idx) => (
-                      <div key={idx} className={`assert-item ${r.passed ? 'passed' : 'failed'}`}>
-                        <span className="assert-icon">{r.passed ? <CheckCircle size={14} /> : <XCircle size={14} />}</span>
-                        <span className="assert-expr">{r.expression}</span>
-                        <span className="assert-actual">实际值: {r.actual}</span>
-                      </div>
-                    ))}
+                  <div className="request-section-title">错误信息</div>
+                  <div className="error-info" style={{ padding: '12px' }}>
+                    <XCircle size={14} className="error-icon" />
+                    <span className="error-text">{executionResult.error}</span>
                   </div>
                 </div>
               )}
