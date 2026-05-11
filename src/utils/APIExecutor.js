@@ -302,6 +302,13 @@ class APIExecutor {
         }
       }
 
+      console.log(`[APIExecutor] ════════════════════════════════════════`);
+      console.log(`[APIExecutor]  请求 ${method} ${apiPath}`);
+      console.log(`[APIExecutor]  名称: ${api.name || '-'}`);
+      console.log(`[APIExecutor]  Headers:`, JSON.stringify(header, null, 2));
+      console.log(`[APIExecutor]  Params:`, JSON.stringify(params, null, 2));
+      console.log(`[APIExecutor]  Body:`, typeof body === 'string' ? body.substring(0, 500) : JSON.stringify(body, null, 2));
+
       // 检查是否包含文件上传
       let hasFileUpload = false;
       if (typeof body === 'object' && body !== null) {
@@ -420,6 +427,12 @@ class APIExecutor {
       // 最终成功状态：HTTP 成功 且 断言通过（如果有断言）
       const success = httpSuccess && (!assertionResult || assertionResult.passed);
 
+      console.log(`[APIExecutor]  ────────────────────────────────────────`);
+      console.log(`[APIExecutor]  响应 HTTP ${statusCode} | 耗时 ${elapsedTime} | 大小 ${responseSize}`);
+      console.log(`[APIExecutor]  成功: ${success} (HTTP: ${httpSuccess}${assertionResult ? `, 断言: ${assertionResult.passed}` : ''})`);
+      console.log(`[APIExecutor]  响应数据:`, responseData !== undefined ? (typeof responseData === 'object' ? JSON.stringify(responseData, null, 2).substring(0, 1000) : String(responseData).substring(0, 500)) : '(无)');
+      console.log(`[APIExecutor] ════════════════════════════════════════`);
+
       const result = {
         status_code: statusCode,
         status_text: statusText,
@@ -458,6 +471,11 @@ class APIExecutor {
         errorType = 'dns_error';
         errorMessage = '无法解析域名';
       }
+
+      console.log(`[APIExecutor]  ❌ 请求异常 | 耗时 ${elapsedTime}`);
+      console.log(`[APIExecutor]  错误类型: ${errorType}`);
+      console.log(`[APIExecutor]  错误信息: ${errorMessage}`);
+      console.log(`[APIExecutor] ════════════════════════════════════════`);
 
       return {
         status_code: error.response?.status || null,

@@ -13,15 +13,27 @@ class ChainManager {
     this.chainResults = {};
     const chain = targetAPI.chain || [];
 
+    console.log(`[ChainManager] ════════════════════════════════════════`);
+    console.log(`[ChainManager]  开始执行依赖链`);
+    console.log(`[ChainManager]  目标 API: ${targetAPI.name || targetAPI.id} (${targetAPI.id})`);
+    console.log(`[ChainManager]  依赖数量: ${chain.length}`);
+    console.log(`[ChainManager] ════════════════════════════════════════`);
+
     // 1. 按顺序执行依赖链
-    for (const chainItem of chain) {
+    for (let i = 0; i < chain.length; i++) {
+      const chainItem = chain[i];
       // chainItem 结构应为: { id: 'xxx', ... } 或直接是 id 字符串 (向后兼容)
       const apiId = typeof chainItem === 'object' ? chainItem.id : chainItem;
       
       const depAPI = this.findAPIById(apiId);
       if (!depAPI) {
+        console.error(`[ChainManager] ❌ 找不到依赖 API (ID: ${apiId})`);
         throw new Error(`找不到依赖 API (ID: ${apiId})`);
       }
+
+      console.log(`[ChainManager] ────────────────────────────────────────`);
+      console.log(`[ChainManager] ▶ [依赖 ${i + 1}/${chain.length}] ${depAPI.name} (${depAPI.id})`);
+      console.log(`[ChainManager]   ${depAPI.method} ${depAPI.api_path}`);
 
       // 执行依赖 API
       const result = await this.executor.executeAPI(depAPI, {});
@@ -29,17 +41,29 @@ class ChainManager {
       // 记录结果
       this.chainResults[apiId] = result;
 
+      console.log(`[ChainManager]   ↳ 完成 | HTTP ${result.status_code} | 耗时 ${result.elapsedTime} | 成功: ${result.success}`);
+
       if (!result.success) {
+        console.error(`[ChainManager] ❌ 依赖链执行失败: ${depAPI.name} (ID: ${apiId})`);
         throw new Error(`依赖链执行失败: ${depAPI.name} (ID: ${apiId})`);
       }
     }
 
+    console.log(`[ChainManager] ────────────────────────────────────────`);
+    console.log(`[ChainManager] ✓ 所有依赖执行完毕，开始解析动态引用`);
+
     // 2. 解析目标 API 中的所有动态引用
     const resolvedTarget = this.resolveAPI(targetAPI);
+
+    console.log(`[ChainManager] ▶ [目标 API] ${targetAPI.name || targetAPI.id}`);
+    console.log(`[ChainManager]   ${targetAPI.method} ${targetAPI.api_path}`);
 
     // 3. 执行目标 API
     const targetResult = await this.executor.executeAPI(resolvedTarget, customData);
     this.chainResults[targetAPI.id || targetAPI.name] = targetResult;
+
+    console.log(`[ChainManager]   ↳ 完成 | HTTP ${targetResult.status_code} | 耗时 ${targetResult.elapsedTime} | 成功: ${targetResult.success}`);
+    console.log(`[ChainManager] ════════════════════════════════════════`);
 
     return {
       targetResult,
@@ -84,19 +108,22 @@ class ChainManager {
       const resultData = this.chainResults[apiId];
       
       if (resultData && resultData.data) {
-        let value = resultData.data;
+        let resolved = resultData.data;
         if (fieldPath) {
           const keys = fieldPath.split('.');
           for (const key of keys) {
-            if (typeof value === 'object' && value !== null) {
-              value = value[key];
+            if (typeof resolved === 'object' && resolved !== null) {
+              resolved = resolved[key];
             } else {
+              console.log(`[ChainManager]   ⚠ 引用解析失败: {{ref:${refPath}}} -> 路径 ${key} 不存在`);
               return null;
             }
           }
         }
-        return value;
+        console.log(`[ChainManager]   ✓ 引用解析: {{ref:${refPath}}} -> ${JSON.stringify(resolved).substring(0, 100)}${JSON.stringify(resolved).length > 100 ? '...' : ''}`);
+        return resolved;
       }
+      console.log(`[ChainManager]   ⚠ 引用解析失败: {{ref:${refPath}}} -> 找不到 API ${apiId} 的结果`);
       return null;
     }
 
