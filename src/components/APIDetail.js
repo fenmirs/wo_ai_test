@@ -1366,7 +1366,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                 <div className="request-section">
                   <div className="request-section-title">错误信息</div>
                   <div className="error-info" style={{ padding: '12px' }}>
-                    <XCircle size={14} className="error-icon" />
+                    {/* <XCircle size={14} className="error-icon" /> */}
                     <span className="error-text">{executionResult.error}</span>
                   </div>
                 </div>
