@@ -238,13 +238,37 @@
 }
 
 .detail-section-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: 11px;
   font-weight: 600;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 6px 10px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
   margin-bottom: 8px;
-  padding-bottom: 4px;
-  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.detail-section-title:hover {
+  background: var(--bg-hover);
+  border-color: var(--accent-primary);
+}
+
+.detail-section-title svg {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.detail-section-content {
+  padding: 0 4px;
 }
 
 .request-info-row {
@@ -290,7 +314,7 @@
 }
 
 .kv-key {
-  flex: 0 0 140px;
+  flex: 0 0 80px;
   font-family: monospace;
   color: var(--accent-primary);
   word-break: break-all;
