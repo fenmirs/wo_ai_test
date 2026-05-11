@@ -115,16 +115,16 @@ class ChainManager {
             if (typeof resolved === 'object' && resolved !== null) {
               resolved = resolved[key];
             } else {
-              console.log(`[ChainManager]   ⚠ 引用解析失败: {{ref:${refPath}}} -> 路径 ${key} 不存在`);
-              return null;
+              console.error(`[ChainManager]   ❌ 引用解析失败: {{ref:${refPath}}} -> 路径 ${key} 不存在`);
+              throw new Error(`引用变量解析失败: {{ref:${refPath}}}，路径 ${key} 不存在于 API ${apiId} 的响应中`);
             }
           }
         }
         console.log(`[ChainManager]   ✓ 引用解析: {{ref:${refPath}}} -> ${JSON.stringify(resolved).substring(0, 100)}${JSON.stringify(resolved).length > 100 ? '...' : ''}`);
         return resolved;
       }
-      console.log(`[ChainManager]   ⚠ 引用解析失败: {{ref:${refPath}}} -> 找不到 API ${apiId} 的结果`);
-      return null;
+      console.error(`[ChainManager]   ❌ 引用解析失败: {{ref:${refPath}}} -> 找不到 API ${apiId} 的结果`);
+      throw new Error(`引用变量解析失败: {{ref:${refPath}}}，找不到 API ${apiId} 的执行结果`);
     }
 
     // 解析 {{readFile:filename}}

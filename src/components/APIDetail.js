@@ -29,7 +29,6 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     header: [],
     param: [],
     body: { type: 'none', formData: [], xwwwFormUrlencoded: [], contentType: 'text', content: '' },
-    chain: [],
     assertions: [{ expression: '', enabled: true }]
   });
 
@@ -66,6 +65,43 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     ).join('');
     setFormData(prev => ({ ...prev, api_path: path }));
   }, [urlSegments]);
+
+  const extractRefApis = () => {
+    const refRegex = /\{\{ref:([^}]+)\}\}/g;
+    const apiIds = new Set();
+
+    const scanValue = (value) => {
+      if (typeof value !== 'string') return;
+      refRegex.lastIndex = 0;
+      let match;
+      while ((match = refRegex.exec(value)) !== null) {
+        const apiId = match[1].split('.')[0];
+        if (apiId) apiIds.add(apiId);
+      }
+    };
+
+    formData.header.forEach(item => {
+      if (item.enabled) scanValue(item.default);
+    });
+    formData.param.forEach(item => {
+      if (item.enabled) scanValue(item.default);
+    });
+    if (formData.body.type === 'form-data') {
+      formData.body.formData.forEach(item => {
+        if (item.enabled) scanValue(item.default);
+      });
+    }
+    if (formData.body.type === 'x-www-form-urlencoded') {
+      formData.body.xwwwFormUrlencoded.forEach(item => {
+        if (item.enabled) scanValue(item.default);
+      });
+    }
+    if (formData.body.type === 'raw') {
+      scanValue(formData.body.content);
+    }
+
+    return [...apiIds];
+  };
 
   const generateResolvedPath = () => {
     if (!profile) return '';
@@ -134,7 +170,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       header: parseToArray({ ...defaultHeader, ...apiData.header }),
       param: parseToArray(apiData.param),
       body: parseBodyData(apiData.body, { ...defaultHeader, ...apiData.header }),
-      chain: apiData.chain || [],
+
       assertions: parseAssertions(apiData.successAssert)
     });
 
@@ -168,7 +204,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       header: parseToArray({ ...defaultHeader, ...cfg.header }),
       param: parseToArray(cfg.param),
       body: parseBodyData(cfg.body, { ...defaultHeader, ...cfg.header }),
-      chain: cfg.chain || [],
+
       assertions: parseAssertions(cfg.successAssert)
     });
 
@@ -412,9 +448,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       header: headerObj,
       param: paramObj,
       body,
-      chain: (formData.chain || []).map(ref => {
-        return typeof ref === 'object' ? ref.id : ref;
-      }),
+      chain: extractRefApis(),
       successAssert
     };
   };
@@ -768,12 +802,12 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
       <div className="chain-section">
         <span className="section-label">依赖</span>
-              <div className="chain-tags">
-          {Array.isArray(formData.chain) && formData.chain.map((chainId, index) => {
-            const chainAPI = projectManager.getData()?.apis?.find(a => a.id === chainId);
-            const displayName = chainAPI ? chainAPI.name : chainId;
-            const idSuffix = chainAPI?.id ? ` (${chainAPI.id.substr(-6)})` : '';
-            
+        <div className="chain-tags">
+          {(() => {
+            const computed = extractRefApis();
+            if (computed.length === 0) {
+              return <span className="chain-empty">自动从引用变量中检测</span>;
+            }
             const projectData = projectManager.getData();
             const groups = projectData?.groups || [];
             const groupMap = {};
@@ -787,87 +821,18 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
               }
               return path.join(' / ');
             };
-            const groupPath = chainAPI ? getGroupPath(chainAPI.group || 'default') : '';
-            
-            return (
-              <span key={`${chainId}_${index}`} className="chain-tag" title={groupPath}>
-                <span className="chain-tag-name">{String(displayName)}{idSuffix}</span>
-                <button 
-                  className="chain-tag-remove" 
-                  onClick={() => setFormData(prev => ({ 
-                    ...prev, 
-                    chain: prev.chain.filter((_, i) => i !== index) 
-                  }))}
-                >
-                  <X size={10} />
-                </button>
-              </span>
-            );
-          })}
-          <select
-            className="chain-add-select"
-            value=""
-            onChange={(e) => {
-              const selectedValue = e.target.value;
-              if (selectedValue) {
-                setFormData(prev => {
-                  const currentChain = prev.chain || [];
-                  const exists = currentChain.some(id => id === selectedValue);
-                  
-                  if (!exists) {
-                    return { ...prev, chain: [...currentChain, selectedValue] };
-                  }
-                  return prev;
-                });
-                e.target.value = '';
-              }
-            }}
-          >
-            <option value="">+ 添加</option>
-            {(() => {
-              const projectData = projectManager.getData();
-              const allApis = projectData?.apis || [];
-              const groups = projectData?.groups || [];
-              
-              const availableApis = allApis.filter(a => {
-                if (formData.id && a.id === formData.id) return false;
-                return !formData.chain?.includes(a.id);
-              });
-              
-              const groupMap = {};
-              groups.forEach(g => { groupMap[g.id] = g; });
-              
-              const getGroupPath = (groupId) => {
-                const path = [];
-                let current = groupMap[groupId];
-                while (current) {
-                  path.unshift(current.name);
-                  current = groupMap[current.parentId];
-                }
-                return path.join(' / ');
-              };
-              
-              const groupedApis = {};
-              availableApis.forEach(api => {
-                const groupId = api.group || 'default';
-                const groupName = groupId === 'default' ? '默认' : getGroupPath(groupId);
-                if (!groupedApis[groupId]) {
-                  groupedApis[groupId] = { name: groupName, apis: [] };
-                }
-                groupedApis[groupId].apis.push(api);
-              });
-              
-              return Object.entries(groupedApis).map(([groupId, group]) => (
-                <optgroup key={groupId} label={group.name}>
-                  {group.apis.map(a => (
-                    <option key={a.id} value={a.id}>
-                      {a.name} {a.id ? `(${a.id.substr(-6)})` : ''}
-                    </option>
-                  ))}
-                </optgroup>
-              ));
-            })()}
-          </select>
+            return computed.map((apiId, index) => {
+              const chainAPI = projectData?.apis?.find(a => a.id === apiId);
+              const displayName = chainAPI ? chainAPI.name : apiId;
+              const idSuffix = chainAPI?.id ? ` (${chainAPI.id.substr(-6)})` : '';
+              const groupPath = chainAPI ? getGroupPath(chainAPI.group || 'default') : '';
+              return (
+                <span key={`${apiId}_${index}`} className="chain-tag" title={groupPath}>
+                  <span className="chain-tag-name">{String(displayName)}{idSuffix}</span>
+                </span>
+              );
+            });
+          })()}
         </div>
       </div>
 
