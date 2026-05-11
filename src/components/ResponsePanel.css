@@ -229,15 +229,15 @@
   min-height: 0;
 }
 
-.request-section {
+.detail-section {
   margin-bottom: 16px;
 }
 
-.request-section:last-child {
+.detail-section:last-child {
   margin-bottom: 0;
 }
 
-.request-section-title {
+.detail-section-title {
   font-size: 11px;
   font-weight: 600;
   color: var(--text-muted);
@@ -394,4 +394,52 @@
   text-align: center;
   color: var(--text-muted);
   font-size: 12px;
+}
+
+/* 断言结果栏 - 位于 summary 下方 */
+.assertion-results-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px 12px 6px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.assertion-results-header {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.assertion-results-bar .assert-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.assertion-results-bar .assert-item.passed {
+  background: var(--success-bg);
+}
+
+.assertion-results-bar .assert-item.failed {
+  background: var(--error-bg);
+}
+
+/* summary 中的文本颜色 */
+.text-success {
+  color: var(--success-color);
+}
+
+.text-error {
+  color: var(--error-color);
 }

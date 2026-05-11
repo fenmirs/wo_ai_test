@@ -94,7 +94,38 @@ function ResponsePanel({ executionResult, theme }) {
           <span className="summary-label">大小</span>
           <span className="meta-value">{selectedCard?.result?.responseSize || '-'}</span>
         </div>
+
+        {selectedCard?.result?.assertionResult && (() => {
+          const results = selectedCard.result.assertionResult.results || [];
+          const passed = results.filter(r => r.passed).length;
+          const total = results.length;
+          const allPassed = passed === total;
+          return (
+            <>
+              <div className="summary-divider"></div>
+              <div className="summary-left">
+                <span className="summary-label">断言</span>
+                <span className={`meta-value ${allPassed ? 'text-success' : 'text-error'}`}>
+                  {passed}/{total}
+                </span>
+              </div>
+            </>
+          );
+        })()}
       </div>
+
+      {selectedCard?.result?.assertionResult && (
+        <div className="assertion-results-bar">
+          <div className="assertion-results-header">断言结果</div>
+          {selectedCard.result.assertionResult.results.map((r, idx) => (
+            <div key={idx} className={`assert-item ${r.passed ? 'passed' : 'failed'}`}>
+              <span className="assert-icon">{r.passed ? <CheckCircle size={14} /> : <XCircle size={14} />}</span>
+              <span className="assert-expr">{r.expression}</span>
+              <span className="assert-actual">实际值: {r.actual}</span>
+            </div>
+          ))}
+        </div>
+      )}
 
       <div className="response-body">
             {executionResult.resultCards && executionResult.resultCards.length > 0 ? (() => {
@@ -105,15 +136,15 @@ function ResponsePanel({ executionResult, theme }) {
               if (cardResult?.errorType === 'chain_break') {
                 return (
                   <div className="response-info">
-                    <div className="request-section">
+                    <div className="detail-section">
                       <div className="error-info-chain">
                         <AlertCircle size={14} className="error-icon" />
                         <span>{cardResult.error || '前置依赖API未执行成功，中断本请求'}</span>
                       </div>
                     </div>
                     {cardResult.refParams && cardResult.refParams.length > 0 && (
-                      <div className="request-section">
-                        <div className="request-section-title">引用该 API 的参数</div>
+                      <div className="detail-section">
+                        <div className="detail-section-title">引用该 API 的参数</div>
                         <div className="kv-list">
                           {cardResult.refParams.map((ref, idx) => (
                             <div key={idx} className="kv-item">
@@ -132,16 +163,16 @@ function ResponsePanel({ executionResult, theme }) {
                 const refs = cardResult._refs || [];
                 return (
                   <div className="response-info">
-                    <div className="request-section">
-                      <div className="request-section-title">无法获取的参数</div>
+                    <div className="detail-section">
+                      <div className="detail-section-title">无法获取的参数</div>
                       <div className="error-info-chain">
                         <AlertCircle size={14} className="error-icon" />
                         <span>{cardResult.error}</span>
                       </div>
                     </div>
                     {refs.length > 0 && (
-                      <div className="request-section">
-                        <div className="request-section-title">引用详情</div>
+                      <div className="detail-section">
+                        <div className="detail-section-title">引用详情</div>
                         <div className="kv-list">
                           {refs.map((ref, idx) => (
                             <div key={idx} className="kv-item">
@@ -173,8 +204,8 @@ function ResponsePanel({ executionResult, theme }) {
                         const isLegacy = currentCard.isTarget;
                         return (
                           <>
-                            <div className="request-section">
-                              <div className="request-section-title">基本信息</div>
+                            <div className="detail-section">
+                              <div className="detail-section-title">基本信息</div>
                               <div className="request-info-row">
                                 <span className="info-label">URL</span>
                                 <code className="info-value">{isLegacy ? reqConfig.url : reqConfig.url}</code>
@@ -188,8 +219,8 @@ function ResponsePanel({ executionResult, theme }) {
                             {isLegacy ? (
                               <>
                                 {reqConfig.header && reqConfig.header.length > 0 && (
-                                  <div className="request-section">
-                                    <div className="request-section-title">请求 Headers</div>
+                                  <div className="detail-section">
+                                    <div className="detail-section-title">请求 Headers</div>
                                     <div className="kv-list">
                                       {reqConfig.header.map((h, idx) => (
                                         <div key={idx} className="kv-item">
@@ -201,8 +232,8 @@ function ResponsePanel({ executionResult, theme }) {
                                   </div>
                                 )}
                                 {reqConfig.param && reqConfig.param.length > 0 && (
-                                  <div className="request-section">
-                                    <div className="request-section-title">Query Parameters</div>
+                                  <div className="detail-section">
+                                    <div className="detail-section-title">Query Parameters</div>
                                     <div className="kv-list">
                                       {reqConfig.param.map((p, idx) => (
                                         <div key={idx} className="kv-item">
@@ -214,8 +245,8 @@ function ResponsePanel({ executionResult, theme }) {
                                   </div>
                                 )}
                                 {reqConfig.bodyType && reqConfig.bodyType !== 'none' && (
-                                  <div className="request-section">
-                                    <div className="request-section-title">请求 Body ({reqConfig.bodyType})</div>
+                                  <div className="detail-section">
+                                    <div className="detail-section-title">请求 Body ({reqConfig.bodyType})</div>
                                     <div className="request-body-content">
                                       {reqConfig.bodyType === 'raw' && (
                                         <pre className="body-text">{reqConfig.body?.content || ''}</pre>
@@ -239,8 +270,8 @@ function ResponsePanel({ executionResult, theme }) {
                             ) : (
                               <>
                                 {reqConfig.headers && Object.keys(reqConfig.headers).length > 0 && (
-                                  <div className="request-section">
-                                    <div className="request-section-title">请求 Headers</div>
+                                  <div className="detail-section">
+                                    <div className="detail-section-title">请求 Headers</div>
                                     <div className="kv-list">
                                       {Object.entries(reqConfig.headers).map(([key, value]) => (
                                         <div key={key} className="kv-item">
@@ -252,8 +283,8 @@ function ResponsePanel({ executionResult, theme }) {
                                   </div>
                                 )}
                                 {reqConfig.params && Object.keys(reqConfig.params).length > 0 && (
-                                  <div className="request-section">
-                                    <div className="request-section-title">Query Parameters</div>
+                                  <div className="detail-section">
+                                    <div className="detail-section-title">Query Parameters</div>
                                     <div className="kv-list">
                                       {Object.entries(reqConfig.params).map(([key, value]) => (
                                         <div key={key} className="kv-item">
@@ -265,8 +296,8 @@ function ResponsePanel({ executionResult, theme }) {
                                   </div>
                                 )}
                                 {reqConfig.bodyType && reqConfig.bodyType !== 'none' && (
-                                  <div className="request-section">
-                                    <div className="request-section-title">请求 Body ({reqConfig.bodyType})</div>
+                                  <div className="detail-section">
+                                    <div className="detail-section-title">请求 Body ({reqConfig.bodyType})</div>
                                     <div className="request-body-content">
                                       {typeof reqConfig.body === 'string' ? (
                                         <pre className="body-text">{reqConfig.body}</pre>
@@ -289,8 +320,8 @@ function ResponsePanel({ executionResult, theme }) {
                   {responseTab === 'response' && (
                     <div className="response-info">
                       {cardResult?.headers && Object.keys(cardResult.headers).length > 0 && (
-                        <div className="request-section">
-                          <div className="request-section-title">响应 Headers</div>
+                        <div className="detail-section">
+                          <div className="detail-section-title">响应 Headers</div>
                           <div className="kv-list">
                             {Object.entries(cardResult.headers).map(([key, value]) => (
                               <div key={key} className="kv-item">
@@ -302,8 +333,8 @@ function ResponsePanel({ executionResult, theme }) {
                         </div>
                       )}
 
-                      <div className="request-section">
-                        <div className="request-section-title">响应 Body</div>
+                      <div className="detail-section">
+                        <div className="detail-section-title">响应 Body</div>
                         <div className="request-body-content">
                           {cardResult?.data !== undefined ? (
                             showSyntaxHighlighter ? (
@@ -319,20 +350,6 @@ function ResponsePanel({ executionResult, theme }) {
                         </div>
                       </div>
 
-                      {cardResult?.assertionResult && (
-                        <div className="request-section">
-                          <div className="request-section-title">断言结果</div>
-                          <div className="assert-results">
-                            {cardResult.assertionResult.results.map((r, idx) => (
-                              <div key={idx} className={`assert-item ${r.passed ? 'passed' : 'failed'}`}>
-                                <span className="assert-icon">{r.passed ? <CheckCircle size={14} /> : <XCircle size={14} />}</span>
-                                <span className="assert-expr">{r.expression}</span>
-                                <span className="assert-actual">实际值: {r.actual}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
                     </div>
                   )}
                 </>
@@ -341,8 +358,8 @@ function ResponsePanel({ executionResult, theme }) {
           : (
           <div className="response-info">
             {executionResult.error && (
-              <div className="request-section">
-                <div className="request-section-title">错误信息</div>
+              <div className="detail-section">
+                <div className="detail-section-title">错误信息</div>
                 <div className="error-info" style={{ padding: '12px' }}>
                   <span className="error-text">{executionResult.error}</span>
                 </div>
