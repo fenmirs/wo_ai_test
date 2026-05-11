@@ -1338,13 +1338,41 @@
 
 /* 响应面板 */
 .response-panel {
-  flex-shrink: 0;
   border-top: 1px solid var(--border-color);
   background: var(--bg-primary);
-  height: 350px;
-  max-height: 50%;
   display: flex;
   flex-direction: column;
+  min-height: 0;
+  transition: all 0.25s ease;
+}
+
+.response-panel.expanded {
+  flex: 0 0 350px;
+  max-height: 50%;
+}
+
+.response-panel.collapsed {
+  flex: 0 0 auto;
+}
+
+.response-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: max-height 0.25s ease, opacity 0.2s ease;
+}
+
+.response-panel.collapsed .response-body {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.response-panel.expanded .response-body {
+  max-height: 500px;
+  opacity: 1;
 }
 
 .response-summary {
@@ -1525,6 +1553,27 @@
   height: 3px;
 }
 
+.btn-toggle-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.btn-toggle-panel:hover {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: #fff;
+}
+
 .response-card-bar::-webkit-scrollbar-thumb {
   background: var(--border-color);
   border-radius: 2px;
@@ -1602,7 +1651,6 @@
   overflow-y: auto;
   padding: 10px 16px;
   min-height: 0;
-  max-height: calc(350px - 42px - 36px);
 }
 
 .request-section {

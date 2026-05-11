@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, ChevronRight, ChevronDown, Trash2, Plus, Upload, X, AlertCircle, FileText, Save, FileDown } from 'lucide-react';
+import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, ChevronRight, ChevronDown, ChevronUp, Trash2, Plus, Upload, X, AlertCircle, FileText, Save, FileDown } from 'lucide-react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import './APIDetail.css';
@@ -19,6 +19,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const [isSaving, setIsSaving] = useState(false);
   const [localSaveError, setLocalSaveError] = useState(null);
   const [selectedCardIdx, setSelectedCardIdx] = useState(0);
+  const [responseCollapsed, setResponseCollapsed] = useState(true);
   const fileInputRef = useRef(null);
   const executorRef = useRef(null);
 
@@ -332,10 +333,12 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       result.resultCards = cards;
       setExecutionResult(result);
       setSelectedCardIdx(cards.length - 1);
+      setResponseCollapsed(false);
 
       if (onExecute) onExecute(execAPI, result);
     } catch (error) {
       setExecutionResult({ success: false, error: error.message, allResults: {} });
+      setResponseCollapsed(false);
     } finally {
       setIsExecuting(false);
       executorRef.current = null;
@@ -1060,7 +1063,60 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       )}
 
       {executionResult && (
-        <div className="response-panel">
+        <div className={`response-panel ${responseCollapsed ? 'collapsed' : ''}`}>
+          <div className="response-summary" onClick={() => executionResult.resultCards?.length > 0 && setResponseCollapsed(!responseCollapsed)} style={{ cursor: executionResult.resultCards?.length > 0 ? 'pointer' : 'default' }}>
+            <div className="summary-left">
+              <span className="summary-label">HTTP</span>
+              {executionResult.resultCards ? (
+                (() => {
+                  const targetCard = [...(executionResult.resultCards || [])].pop();
+                  const cr = targetCard?.result;
+                  return cr?.status_code ? (
+                    <span className={`http-status ${cr.httpSuccess ? 'success' : 'error'}`}>{cr.status_code}</span>
+                  ) : cr?.error ? (
+                    <span className="http-status error">错误</span>
+                  ) : (
+                    <span className="http-status error">请求失败</span>
+                  );
+                })()
+              ) : executionResult.error ? (
+                <span className="http-status error">错误</span>
+              ) : (
+                <span className="http-status error">请求失败</span>
+              )}
+            </div>
+
+            <div className="summary-divider"></div>
+
+            <div className="summary-left">
+              <span className="summary-label">耗时</span>
+              <span className="meta-value">
+                {executionResult.resultCards ? (() => { const tc = [...executionResult.resultCards].pop(); return tc?.result?.elapsedTime || '-'; })() : '-'}
+              </span>
+            </div>
+
+            <div className="summary-divider"></div>
+
+            <div className="summary-left">
+              <span className="summary-label">大小</span>
+              <span className="meta-value">
+                {executionResult.resultCards ? (() => { const tc = [...executionResult.resultCards].pop(); return tc?.result?.responseSize || '-'; })() : '-'}
+              </span>
+            </div>
+
+            <div className="summary-right" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span className={`final-status ${executionResult.targetResult?.success ? 'success' : 'error'}`}>
+                {executionResult.targetResult?.success ? <><CheckCircle size={14} /> 通过</> : <><XCircle size={14} /> 失败</>}
+              </span>
+              {executionResult.resultCards?.length > 0 && (
+                <button className="btn-toggle-panel" onClick={(e) => { e.stopPropagation(); setResponseCollapsed(!responseCollapsed); }} title={responseCollapsed ? '展开详情' : '折叠'}>
+                  {responseCollapsed ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                </button>
+              )}
+            </div>
+          </div>
+
+          <div className="response-body">
           {executionResult.resultCards && executionResult.resultCards.length > 0 ? (
             <>
               <div className="response-card-bar">
@@ -1083,62 +1139,6 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                 const cardResult = currentCard.result;
                 return (
                   <>
-                    <div className="response-summary">
-                      <div className="summary-left">
-                        <span className="summary-label">HTTP</span>
-                        {cardResult?.status_code ? (
-                          <span className={`http-status ${cardResult.httpSuccess ? 'success' : 'error'}`}>
-                            {cardResult.status_code}
-                          </span>
-                        ) : cardResult?.error ? (
-                          <span className="http-status error">错误</span>
-                        ) : (
-                          <span className="http-status error">请求失败</span>
-                        )}
-                      </div>
-
-                      <div className="summary-divider"></div>
-
-                      {cardResult?.assertionResult && (
-                        <div className="summary-left">
-                          <span className="summary-label">断言</span>
-                          <span className={`assert-status ${cardResult.assertionResult.passed ? 'success' : 'error'}`}>
-                            {cardResult.assertionResult.summary}
-                          </span>
-                        </div>
-                      )}
-
-                      <div className="summary-divider"></div>
-
-                      <div className="summary-left">
-                        <span className="summary-label">耗时</span>
-                        <span className="meta-value">{cardResult?.elapsedTime || '-'}</span>
-                      </div>
-
-                      <div className="summary-divider"></div>
-
-                      <div className="summary-left">
-                        <span className="summary-label">大小</span>
-                        <span className="meta-value">{cardResult?.responseSize || '-'}</span>
-                      </div>
-
-                      {cardResult?.error && (
-                        <>
-                          <div className="summary-divider"></div>
-                          <div className="summary-left error-info">
-                            <XCircle size={14} className="error-icon" />
-                            <span className="error-text">{cardResult.error}</span>
-                          </div>
-                        </>
-                      )}
-
-                      <div className="summary-right">
-                        <span className={`final-status ${cardResult?.success ? 'success' : 'error'}`}>
-                          {cardResult?.success ? <><CheckCircle size={16} /> 通过</> : <><XCircle size={16} /> 失败</>}
-                        </span>
-                      </div>
-                    </div>
-
                     <div className="response-tabs">
                       <button className={`response-tab ${responseTab === 'request' ? 'active' : ''}`} onClick={() => setResponseTab('request')}>请求</button>
                       <button className={`response-tab ${responseTab === 'response' ? 'active' : ''}`} onClick={() => setResponseTab('response')}>响应</button>
@@ -1275,6 +1275,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
               )}
             </div>
           )}
+          </div>
         </div>
       )}
     </div>
