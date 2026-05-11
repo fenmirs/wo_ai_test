@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { FileText, LucideHistory, Save, Edit, X, Plus, FolderPlus, ArrowLeft, Sun, Moon, XCircle, Globe, PanelLeft, Columns, PanelRight } from 'lucide-react';
 import APIMain from './components/APIMain';
 import APIDetail from './components/APIDetail';
@@ -40,6 +40,53 @@ function App() {
   const [showLeftPanel, setShowLeftPanel] = useState(true);
   const [showCenterPanel, setShowCenterPanel] = useState(true);
   const [showRightPanel, setShowRightPanel] = useState(true);
+
+  // 面板宽度（可拖动调整）
+  const [leftPanelWidth, setLeftPanelWidth] = useState(280);
+  const [rightPanelWidth, setRightPanelWidth] = useState(450);
+  const dragInfo = useRef(null);
+
+  // 面板拖动调整宽度
+  const handleResizeStart = useCallback((e, side) => {
+    e.preventDefault();
+    dragInfo.current = {
+      side,
+      startX: e.clientX,
+      startLeft: leftPanelWidth,
+      startRight: rightPanelWidth
+    };
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+  }, [leftPanelWidth, rightPanelWidth]);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (!dragInfo.current) return;
+      const { side, startX, startLeft, startRight } = dragInfo.current;
+      const dx = e.clientX - startX;
+
+      if (side === 'left') {
+        const newWidth = Math.max(200, Math.min(600, startLeft + dx));
+        setLeftPanelWidth(newWidth);
+      } else {
+        const newWidth = Math.max(300, Math.min(800, startRight - dx));
+        setRightPanelWidth(newWidth);
+      }
+    };
+
+    const handleMouseUp = () => {
+      dragInfo.current = null;
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, []);
 
   // 视图模式：'api' | 'api_detail' | 'env_var_manager' | 'history'
   const [viewMode, setViewMode] = useState('api');
@@ -632,7 +679,7 @@ function App() {
         <div className="content-area">
           {/* 左侧面板 - API 树 */}
           {showLeftPanel && (
-            <div className="left-panel">
+            <div className="left-panel" style={{ width: leftPanelWidth }}>
               <div className="panel-section flex-1">
                 <APIMain
                    apis={projectData?.apis || []}
@@ -754,6 +801,11 @@ function App() {
             </div>
           )}
 
+          {/* 左侧调整手柄 */}
+          {showLeftPanel && showCenterPanel && (
+            <div className="resize-handle" onMouseDown={(e) => handleResizeStart(e, 'left')} />
+          )}
+
           {/* 中间面板 - API 内容操作区 */}
           {showCenterPanel && (
             <div className="center-panel">
@@ -825,9 +877,14 @@ function App() {
             </div>
           )}
 
+          {/* 右侧调整手柄 */}
+          {showCenterPanel && showRightPanel && (
+            <div className="resize-handle" onMouseDown={(e) => handleResizeStart(e, 'right')} />
+          )}
+
           {/* 右侧面板 - 响应/文档 */}
           {showRightPanel && (
-            <div className="right-panel">
+            <div className="right-panel" style={{ width: rightPanelWidth }}>
               <ResponsePanel executionResult={currentExecutionResult} theme={theme} />
             </div>
           )}

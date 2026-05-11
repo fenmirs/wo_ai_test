@@ -33,9 +33,10 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const [activeSegmentIdx, setActiveSegmentIdx] = useState(null);
   const [editingSegmentIdx, setEditingSegmentIdx] = useState(null);
   const [editingValue, setEditingValue] = useState('');
+  const [urlCopied, setUrlCopied] = useState(false);
 
-  const apiHistory = history.filter(h => 
-    (h.apiId && h.apiId === formData.id) || 
+  const apiHistory = history.filter(h =>
+    (h.apiId && h.apiId === formData.id) ||
     (!h.apiId && h.apiName === formData.name)
   );
 
@@ -109,6 +110,17 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       onResultChange(executionResult);
     }
   }, [executionResult]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setActiveSegmentIdx(null);
+        setEditingSegmentIdx(null);
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const extractRefApis = () => {
     const refRegex = /\{\{ref:([^}]+)\}\}/g;
@@ -856,6 +868,12 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             placeholder={isTemporary ? "请输入 API 名称以保存" : "API 名称"}
           />
+          {formData.id && (
+            <span className="api-id-badge" onClick={() => navigator.clipboard.writeText(formData.id)} title="点击复制 ID">
+              <span className="api-id-text">{formData.id}</span>
+              <Copy size={10} />
+            </span>
+          )}
         </div>
         <div className="header-actions">
           <button
@@ -909,24 +927,24 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                     value={editingValue}
                     onChange={(e) => setEditingValue(e.target.value)}
                     onKeyDown={(e) => {
-                       if (e.key === 'Enter') {
-                         const newSegments = [...urlSegments];
-                         newSegments[idx] = { ...seg, value: editingValue, type: 'text' };
-                         setUrlSegments(newSegments);
-                         setEditingSegmentIdx(null);
-                         setActiveSegmentIdx(null);
-                       } else if (e.key === 'Escape') {
-                         setEditingSegmentIdx(null);
-                         setActiveSegmentIdx(null);
-                       }
-                     }}
-                     onBlur={() => {
-                       const newSegments = [...urlSegments];
-                       newSegments[idx] = { ...seg, value: editingValue, type: 'text' };
-                       setUrlSegments(newSegments);
-                       setEditingSegmentIdx(null);
-                       setActiveSegmentIdx(null);
-                     }}
+                      if (e.key === 'Enter') {
+                        const newSegments = [...urlSegments];
+                        newSegments[idx] = { ...seg, value: editingValue, type: 'text' };
+                        setUrlSegments(newSegments);
+                        setEditingSegmentIdx(null);
+                        setActiveSegmentIdx(null);
+                      } else if (e.key === 'Escape') {
+                        setEditingSegmentIdx(null);
+                        setActiveSegmentIdx(null);
+                      }
+                    }}
+                    onBlur={() => {
+                      const newSegments = [...urlSegments];
+                      newSegments[idx] = { ...seg, value: editingValue, type: 'text' };
+                      setUrlSegments(newSegments);
+                      setEditingSegmentIdx(null);
+                      setActiveSegmentIdx(null);
+                    }}
                     autoFocus
                   />
                 ) : (
@@ -991,15 +1009,14 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
             </button>
           </div>
         </div>
-
-        <button className="btn-copy" onClick={() => navigator.clipboard.writeText(generateResolvedPath())} title="复制URL">
-          <Copy size={14} />
-        </button>
       </div>
 
       <div className="url-preview">
         <span className="preview-label">完整路径:</span>
         <code className="preview-path">{generateResolvedPath()}</code>
+        <button className="btn-copy" onClick={() => navigator.clipboard.writeText(generateResolvedPath())} title="复制URL">
+          <Copy size={14} />
+        </button>
       </div>
 
       <div className="chain-section">

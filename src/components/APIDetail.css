@@ -13,7 +13,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
+  padding: 8px 12px;
   border-bottom: 1px solid var(--border-color);
   flex-shrink: 0;
 }
@@ -66,14 +66,41 @@
   border-radius: 3px;
   background: var(--bg-primary);
   color: var(--text-primary);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   outline: none;
-  min-width: 200px;
+  min-width: 300px;
 }
 
 .api-name-input:focus {
   border-color: var(--accent-primary);
+}
+
+.api-id-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 11px;
+  color: var(--text-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.api-id-badge:hover {
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.api-id-text {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* URL 栏 */
@@ -83,7 +110,7 @@
   padding: 8px 16px;
   background: var(--bg-secondary);
   border-bottom: 1px solid var(--border-color);
-  flex-wrap: wrap;
+  flex-shrink: 0;
 }
 
 .method-select {
@@ -111,6 +138,7 @@
 
 .url-bar .url-input {
   flex: 1;
+  min-width: 100px;
   padding: 6px 12px;
   margin: 0 8px;
   background: var(--bg-primary);
@@ -283,7 +311,7 @@
 .preview-path {
   flex: 1;
   padding: 3px 8px;
-  background: var(--bg-primary);
+  /* background: var(--bg-primary); */
   border-radius: 3px;
   color: var(--success-color);
   font-family: monospace;
@@ -306,6 +334,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
+  flex-shrink: 0;
 }
 
 /* 基本信息 - 编辑模式 */
@@ -455,6 +484,7 @@
   color: var(--text-secondary);
   cursor: pointer;
   transition: all 0.2s;
+  flex-shrink: 0;
 }
 
 .btn-icon:hover {
@@ -481,6 +511,8 @@
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .btn-send:hover {
@@ -500,6 +532,8 @@
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .btn-doc:hover {
@@ -511,7 +545,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 16px;
+  padding: 6px 16px;
   background: #6b7280;
   border: none;
   border-radius: 4px;
@@ -520,6 +554,8 @@
   font-weight: 500;
   cursor: pointer;
   transition: background 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .btn-save:hover {
@@ -668,6 +704,8 @@
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .tab-item:hover {

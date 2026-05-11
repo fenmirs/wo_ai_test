@@ -125,6 +125,20 @@
       "body": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}",
       "chain": [],
       "successAssert": ""
+    },
+    {
+      "id": "api_1778492369608_mneik39ib",
+      "name": "未命名的API",
+      "group": "default",
+      "api_path": "{domain}{api-prj}sssdads",
+      "method": "GET",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": "{}",
+      "chain": [],
+      "successAssert": ""
     }
   ]
 }
