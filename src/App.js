@@ -828,7 +828,7 @@ function App() {
           {/* 右侧面板 - 响应/文档 */}
           {showRightPanel && (
             <div className="right-panel">
-              <ResponsePanel executionResult={currentExecutionResult} />
+              <ResponsePanel executionResult={currentExecutionResult} theme={theme} />
             </div>
           )}
         </div>

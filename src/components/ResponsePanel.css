@@ -7,13 +7,6 @@
   overflow: hidden;
 }
 
-.response-panel-full.collapsed .response-body {
-  flex: 0;
-  max-height: 0;
-  overflow: hidden;
-  padding: 0;
-}
-
 .response-empty-state {
   display: flex;
   flex-direction: column;
@@ -41,7 +34,7 @@
   margin: 0;
 }
 
-.response-panel-full .response-summary {
+.response-summary {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -55,7 +48,7 @@
   overflow: hidden;
 }
 
-.response-panel-full .response-body {
+.response-body {
   flex: 1;
   min-height: 0;
   display: flex;
@@ -63,26 +56,10 @@
   overflow: hidden;
 }
 
-.response-panel-full.collapsed .response-body {
-  max-height: 0;
-  padding-top: 0;
-  padding-bottom: 0;
-  border-top: none;
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
 .summary-left {
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-.summary-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-left: auto;
 }
 
 .summary-label {
@@ -119,27 +96,6 @@
 .http-status.error {
   background: var(--error-bg);
   color: var(--error-color);
-}
-
-.btn-toggle-panel {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  color: var(--text-muted);
-  cursor: pointer;
-  transition: all 0.2s;
-  flex-shrink: 0;
-}
-
-.btn-toggle-panel:hover {
-  background: var(--accent-primary);
-  border-color: var(--accent-primary);
-  color: #fff;
 }
 
 .response-card-bar {

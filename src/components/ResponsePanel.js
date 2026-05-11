@@ -1,45 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { CheckCircle, XCircle, ChevronDown, ChevronUp, AlertCircle, FileText, Play, Trash2, Clock } from 'lucide-react';
+import { CheckCircle, XCircle, AlertCircle, FileText, Play, Trash2, Clock } from 'lucide-react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { projectManager } from '../utils/ProjectManager';
 import './ResponsePanel.css';
 
-const getErrorTitle = (errorType) => {
-  const titles = {
-    'cors': 'CORS 跨域错误',
-    'network': '网络错误',
-    'timeout': '请求超时',
-    'server_error': '服务器错误',
-    'ssl': '证书错误',
-    'connection_refused': '连接被拒绝',
-    'dns_error': 'DNS 解析失败',
-    'connection_reset': '连接被重置',
-    'network_unreachable': '网络不可达',
-    'socket_error': '网络错误',
-    'unknown': '请求失败'
-  };
-  return titles[errorType] || '请求失败';
-};
-
-function ResponsePanel({ executionResult }) {
-  const [responseCollapsed, setResponseCollapsed] = useState(true);
+function ResponsePanel({ executionResult, theme }) {
   const [selectedCardIdx, setSelectedCardIdx] = useState(0);
   const [responseTab, setResponseTab] = useState('request');
   const [showSyntaxHighlighter, setShowSyntaxHighlighter] = useState(false);
 
   useEffect(() => {
-    if (!responseCollapsed && executionResult) {
+    if (executionResult) {
       const timer = requestAnimationFrame(() => setShowSyntaxHighlighter(true));
       return () => cancelAnimationFrame(timer);
     } else {
       setShowSyntaxHighlighter(false);
-    }
-  }, [responseCollapsed, executionResult]);
-
-  useEffect(() => {
-    if (executionResult) {
-      setResponseCollapsed(false);
     }
   }, [executionResult]);
 
@@ -47,6 +24,10 @@ function ResponsePanel({ executionResult }) {
     const colors = { 'GET': '#10b981', 'POST': '#3b82f6', 'PUT': '#f59e0b', 'DELETE': '#ef4444', 'PATCH': '#8b5cf6', 'HEAD': '#6b7280', 'OPTIONS': '#6b7280' };
     return colors[method] || '#64748b';
   };
+
+  const codeTheme = theme === 'light' ? oneLight : vscDarkPlus;
+
+  const selectedCard = executionResult?.resultCards?.[selectedCardIdx];
 
   if (!executionResult) {
     return (
@@ -61,14 +42,30 @@ function ResponsePanel({ executionResult }) {
   }
 
   return (
-    <div className={`response-panel response-panel-full ${responseCollapsed ? 'collapsed' : ''}`}>
-      <div className="response-summary" onClick={() => executionResult.resultCards?.length > 0 && setResponseCollapsed(!responseCollapsed)} style={{ cursor: executionResult.resultCards?.length > 0 ? 'pointer' : 'default' }}>
+    <div className="response-panel response-panel-full">
+      {executionResult.resultCards && executionResult.resultCards.length > 0 && (
+        <div className="response-card-bar">
+          {executionResult.resultCards.map((card, idx) => (
+            <button
+              key={card.apiId}
+              className={`response-card-tab ${selectedCardIdx === idx ? 'active' : ''} ${card.result?.success ? 'card-ok' : 'card-fail'}`}
+              onClick={() => setSelectedCardIdx(idx)}
+            >
+              {card.isTarget ? '🎯 ' : ''}{card.name}
+              <span className={`card-status-dot ${card.result?.success ? 'dot-ok' : 'dot-fail'}`}>
+                {card.result?.success ? '✓' : '✗'}
+              </span>
+            </button>
+          ))}
+        </div>
+      )}
+
+      <div className="response-summary">
         <div className="summary-left">
           <span className="summary-label">HTTP</span>
-          {executionResult.resultCards ? (
+          {selectedCard ? (
             (() => {
-              const targetCard = [...(executionResult.resultCards || [])].pop();
-              const cr = targetCard?.result;
+              const cr = selectedCard.result;
               return cr?.status_code ? (
                 <span className={`http-status ${cr.httpSuccess ? 'success' : 'error'}`}>{cr.status_code}</span>
               ) : cr?.error ? (
@@ -88,47 +85,19 @@ function ResponsePanel({ executionResult }) {
 
         <div className="summary-left">
           <span className="summary-label">耗时</span>
-          <span className="meta-value">
-            {executionResult.resultCards ? (() => { const tc = [...executionResult.resultCards].pop(); return tc?.result?.elapsedTime || '-'; })() : '-'}
-          </span>
+          <span className="meta-value">{selectedCard?.result?.elapsedTime || '-'}</span>
         </div>
 
         <div className="summary-divider"></div>
 
         <div className="summary-left">
           <span className="summary-label">大小</span>
-          <span className="meta-value">
-            {executionResult.resultCards ? (() => { const tc = [...executionResult.resultCards].pop(); return tc?.result?.responseSize || '-'; })() : '-'}
-          </span>
-        </div>
-
-        <div className="summary-right">
-          {executionResult.resultCards?.length > 0 && (
-            <button className="btn-toggle-panel" onClick={(e) => { e.stopPropagation(); setResponseCollapsed(!responseCollapsed); }} title={responseCollapsed ? '展开详情' : '折叠'}>
-              {responseCollapsed ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
-            </button>
-          )}
+          <span className="meta-value">{selectedCard?.result?.responseSize || '-'}</span>
         </div>
       </div>
 
       <div className="response-body">
-        {executionResult.resultCards && executionResult.resultCards.length > 0 ? (
-          <>
-            <div className="response-card-bar">
-              {executionResult.resultCards.map((card, idx) => (
-                <button
-                  key={card.apiId}
-                  className={`response-card-tab ${selectedCardIdx === idx ? 'active' : ''} ${card.result?.success ? 'card-ok' : 'card-fail'}`}
-                  onClick={() => setSelectedCardIdx(idx)}
-                >
-                  {card.isTarget ? '🎯 ' : ''}{card.name}
-                  <span className={`card-status-dot ${card.result?.success ? 'dot-ok' : 'dot-fail'}`}>
-                    {card.result?.success ? '✓' : '✗'}
-                  </span>
-                </button>
-              ))}
-            </div>
-            {(() => {
+            {executionResult.resultCards && executionResult.resultCards.length > 0 ? (() => {
               const currentCard = executionResult.resultCards[selectedCardIdx];
               if (!currentCard) return null;
               const cardResult = currentCard.result;
@@ -338,7 +307,7 @@ function ResponsePanel({ executionResult }) {
                         <div className="request-body-content">
                           {cardResult?.data !== undefined ? (
                             showSyntaxHighlighter ? (
-                              <SyntaxHighlighter language="json" style={vscDarkPlus} customStyle={{ margin: 0, fontSize: '11px', maxHeight: '250px' }}>
+                              <SyntaxHighlighter language="json" style={codeTheme} customStyle={{ margin: 0, fontSize: '11px', maxHeight: '250px' }}>
                                 {JSON.stringify(cardResult.data, null, 2)}
                               </SyntaxHighlighter>
                             ) : (
@@ -368,9 +337,8 @@ function ResponsePanel({ executionResult }) {
                   )}
                 </>
               );
-            })()}
-          </>
-        ) : (
+            })()
+          : (
           <div className="response-info">
             {executionResult.error && (
               <div className="request-section">
