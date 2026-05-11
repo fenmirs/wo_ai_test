@@ -573,7 +573,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   };
 
   const handleGenerateDoc = async () => {
-    const markdown = APIDocGenerator.generate(formData, resolvedPath, executionResult);
+    const markdown = APIDocGenerator.generate(formData, resolvedPath, executionResult, config);
     const fileName = `${formData.name || 'api'}_文档.md`;
 
     try {
