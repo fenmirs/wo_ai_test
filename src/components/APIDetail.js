@@ -1014,8 +1014,12 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       <div className="url-preview">
         <span className="preview-label">完整路径:</span>
         <code className="preview-path">{generateResolvedPath()}</code>
-        <button className="btn-copy" onClick={() => navigator.clipboard.writeText(generateResolvedPath())} title="复制URL">
-          <Copy size={14} />
+        <button className={`btn-copy ${urlCopied ? 'copied' : ''}`} onClick={() => {
+          navigator.clipboard.writeText(generateResolvedPath());
+          setUrlCopied(true);
+          setTimeout(() => setUrlCopied(false), 1500);
+        }} title={urlCopied ? '已复制' : '复制URL'}>
+          {urlCopied ? <CheckCircle size={14} /> : <Copy size={14} />}
         </button>
       </div>
 

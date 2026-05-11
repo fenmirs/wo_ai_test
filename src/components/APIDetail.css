@@ -296,7 +296,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 16px;
+  padding: 2px 16px;
   background: var(--bg-tertiary);
   border-bottom: 1px solid var(--border-color);
   font-size: 11px;
@@ -639,6 +639,12 @@
 .btn-copy:hover {
   background: var(--bg-hover);
   color: var(--text-primary);
+}
+
+.btn-copy.copied {
+  background: var(--success-color, #10b981);
+  border-color: var(--success-color, #10b981);
+  color: #fff;
 }
 
 /* 调用链 */
