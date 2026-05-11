@@ -208,11 +208,11 @@ function ResponsePanel({ executionResult, theme }) {
                   {responseTab === 'request' && (
                     <div className="request-info">
                       {(() => {
-                        const reqConfig = currentCard.isTarget ? executionResult.requestInfo : cardResult?.requestConfig;
+                        const reqConfig = cardResult?.requestConfig || executionResult.requestInfo;
                         if (!reqConfig) {
                           return <div className="response-empty">无请求信息</div>;
                         }
-                        const isLegacy = currentCard.isTarget;
+                        const isLegacy = !cardResult?.requestConfig && !!executionResult.requestInfo;
                         return (
                           <>
                             {renderSection('基本信息',

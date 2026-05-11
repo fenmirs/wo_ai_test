@@ -162,6 +162,17 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
     return apis?.filter(api => api.group === groupId) || [];
   };
 
+  // 递归计算分组（含所有子分组）的 API 数量
+  const getGroupAPICount = (group) => {
+    let count = getAPIsInGroup(group.id).length;
+    if (group.children && group.children.length > 0) {
+      group.children.forEach(child => {
+        count += getGroupAPICount(child);
+      });
+    }
+    return count;
+  };
+
   // 切换分组展开/折叠
   const toggleGroup = (groupId) => {
     if (onGroupSelect) {
@@ -347,7 +358,7 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
     const isDragOver = dragOverGroup === groupId;
     const isDraggingGroup = dragGroup && dragGroup.id === groupId;
     const filteredAPIs = getFilteredAPIs(groupId);
-    const apiCount = getAPIsInGroup(groupId).length;
+    const apiCount = getGroupAPICount(group);
     
     // 如果有搜索条件，只显示有匹配 API 的分组
     if (searchQuery && filteredAPIs.length === 0 && !hasChildren) {
@@ -480,7 +491,8 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
                         </span>
                         {api.name}
                       </span>
-                      <span className="api-path" title={api.api_path}>{api.api_path}</span>
+                      {/* <span className="api-path" title={api.api_path}>{api.api_path}</span> */}
+                      {/* <span className="api-path" title={api.id}>{api.id}</span> */}
                     </div>
                   </div>
                   <div className="api-actions">
