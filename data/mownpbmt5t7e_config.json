@@ -18,16 +18,6 @@
       "id": "group_1778230973737_ezewf0k04",
       "name": "nc",
       "parentId": "default"
-    },
-    {
-      "id": "group_1778232734596_3i45sg9fb",
-      "name": "12",
-      "parentId": null
-    },
-    {
-      "id": "group_1778232757363_qj3jcs14m",
-      "name": "34",
-      "parentId": "group_1778232734596_3i45sg9fb"
     }
   ],
   "apis": [
@@ -83,62 +73,6 @@
         "api_1778229346853_qszqzrn52"
       ],
       "successAssert": "$.code == 200"
-    },
-    {
-      "id": "api_1778232741074_wwdwlp39d",
-      "name": "获取token(复制)",
-      "group": "group_1778232757363_qj3jcs14m",
-      "api_path": "{domain}{api-prj}/openapi/security/token",
-      "method": "POST",
-      "header": {
-        "Content-Type": "application/json"
-      },
-      "param": {},
-      "body": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}",
-      "chain": [],
-      "successAssert": ""
-    },
-    {
-      "id": "api_1778232912826_am8lycb8h",
-      "name": "获取token(复制)(复制)",
-      "group": "group_1778232734596_3i45sg9fb",
-      "api_path": "{domain}{api-prj}/openapi/security/token",
-      "method": "POST",
-      "header": {
-        "Content-Type": "application/json"
-      },
-      "param": {},
-      "body": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}",
-      "chain": [],
-      "successAssert": ""
-    },
-    {
-      "id": "api_1778233452688_tqezopobb",
-      "name": "获取token(复制)(复制)(复制)",
-      "group": "group_1778232734596_3i45sg9fb",
-      "api_path": "{domain}{api-prj}/openapi/security/token",
-      "method": "POST",
-      "header": {
-        "Content-Type": "application/json"
-      },
-      "param": {},
-      "body": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}",
-      "chain": [],
-      "successAssert": ""
-    },
-    {
-      "id": "api_1778492369608_mneik39ib",
-      "name": "未命名的API",
-      "group": "default",
-      "api_path": "{domain}{api-prj}sssdads",
-      "method": "GET",
-      "header": {
-        "Content-Type": "application/json"
-      },
-      "param": {},
-      "body": "{}",
-      "chain": [],
-      "successAssert": ""
     }
   ]
 }

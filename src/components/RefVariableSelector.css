@@ -38,7 +38,7 @@
   align-items: center;
   gap: 6px;
   /* background: var(--bg-input, #1f2937); */
-  border: 1px solid var(--border-color, #374151);
+  /* border: 1px solid var(--border-color, #374151); */
   border-radius: 4px;
   padding: 4px 8px;
   min-height: 28px;
