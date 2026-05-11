@@ -47,6 +47,50 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   useEffect(() => {
     if (api) {
       initializeFromApi(api);
+      setExecutionResult(null);
+      setResponseCollapsed(true);
+      setSelectedCardIdx(0);
+      setResponseTab('request');
+
+      // 从历史记录恢复最近一次执行结果
+      const matchingHistory = history
+        .filter(h => (h.apiId && h.apiId === api.id) || (!h.apiId && h.apiName === api.name))
+        .sort((a, b) => b.id - a.id);
+      if (matchingHistory.length > 0) {
+        const latest = matchingHistory[0];
+        const restoredAllResults = latest.allResults || {};
+        const targetApiResult = latest.targetResult || {
+          success: latest.success,
+          status_code: latest.status_code,
+          elapsedTime: latest.elapsedTime,
+          error: latest.error,
+          data: latest.responseData,
+          headers: latest.responseHeaders,
+          assertionResult: latest.assertionResult,
+          allResults: {}
+        };
+        if (targetApiResult) {
+          const allApis = projectManager.getData()?.apis || [];
+          const restoredCards = latest.resultCards || (() => {
+            const cards = [];
+            for (const [apiId, res] of Object.entries(restoredAllResults)) {
+              const a = allApis.find(ap => ap.id === apiId);
+              cards.push({ apiId, name: a?.name || apiId, result: res, isTarget: apiId === api.id });
+            }
+            if (!cards.find(c => c.isTarget)) {
+              cards.push({ apiId: api.id, name: api.name || '目标', result: targetApiResult, isTarget: true });
+            }
+            return cards;
+          })();
+          setExecutionResult({
+            targetResult: targetApiResult,
+            allResults: restoredAllResults,
+            requestInfo: latest.requestInfo || null,
+            resultCards: restoredCards
+          });
+          setResponseCollapsed(false);
+        }
+      }
     }
   }, [api]);
 

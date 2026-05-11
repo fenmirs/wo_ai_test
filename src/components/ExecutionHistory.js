@@ -89,15 +89,6 @@ function ExecutionHistory({ history, onSelect, onClear, onViewDetail, onDelete }
             </div>
 
             <div className="history-actions">
-              {onDelete && (
-                <button 
-                  className="history-btn delete"
-                  onClick={() => onDelete(entry.id)}
-                  title="删除记录"
-                >
-                  <Trash2 size={14} />
-                </button>
-              )}
               {onViewDetail && (
                 <button 
                   className="history-btn detail"
@@ -114,6 +105,15 @@ function ExecutionHistory({ history, onSelect, onClear, onViewDetail, onDelete }
               >
                 <Play size={14} />
               </button>
+               {onDelete && (
+                <button 
+                  className="history-btn delete"
+                  onClick={() => onDelete(entry.id)}
+                  title="删除记录"
+                >
+                  <Trash2 size={14} />
+                </button>
+              )}
             </div>
           </div>
         ))}

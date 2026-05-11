@@ -544,7 +544,9 @@ function App() {
       errorType: result.targetResult?.errorType,
       responseData: result.targetResult?.data,
       assertionResult: result.targetResult?.assertionResult,
-      responseHeaders: result.targetResult?.headers
+      responseHeaders: result.targetResult?.headers,
+      allResults: result.allResults || null,
+      resultCards: result.resultCards || null
     };
     
     // 保存到 ProjectManager

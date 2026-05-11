@@ -1361,18 +1361,19 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: max-height 0.25s ease, opacity 0.2s ease;
 }
 
 .response-panel.collapsed .response-body {
   max-height: 0;
-  opacity: 0;
-  overflow: hidden;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-top: none;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .response-panel.expanded .response-body {
-  max-height: 500px;
-  opacity: 1;
+  max-height: 600px;
 }
 
 .response-summary {
