@@ -482,3 +482,30 @@
 .notification-restore-btn:hover {
   background: var(--accent-hover, #2563eb);
 }
+
+/* 面板显隐切换按钮 */
+.bar-btn.panel-toggle {
+  padding: 4px 6px;
+}
+
+.bar-btn.panel-toggle.active {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: #ffffff;
+}
+
+.bar-btn.panel-toggle:not(.active) {
+  opacity: 0.5;
+}
+
+.bar-btn.panel-toggle:not(.active):hover {
+  opacity: 0.8;
+}
+
+/* 分隔符 */
+.bar-separator {
+  width: 1px;
+  height: 20px;
+  background: var(--border-color);
+  flex-shrink: 0;
+}

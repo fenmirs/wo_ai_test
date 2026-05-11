@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Globe, Variable, ChevronUp, Settings2,FolderKanban, Save, XCircle, Sun, Moon, History,LogOut, Bell, CheckCheck, Trash2 } from 'lucide-react';
+import { Globe, Variable, ChevronUp, Settings2,FolderKanban, Save, XCircle, Sun, Moon, History,LogOut, Bell, CheckCheck, Trash2, PanelLeft, Columns, PanelRight } from 'lucide-react';
 import { notificationManager } from '../utils/NotificationManager';
 import { projectManager } from '../utils/ProjectManager';
 import './BottomBar.css';
@@ -20,7 +20,13 @@ function BottomBar({
   toggleTheme,
   theme,
   isSaving,
-  onBackToApi
+  onBackToApi,
+  showLeftPanel,
+  onToggleLeftPanel,
+  showCenterPanel,
+  onToggleCenterPanel,
+  showRightPanel,
+  onToggleRightPanel
 }) {
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const [showProjectDropdown, setShowProjectDropdown] = useState(false);
@@ -229,6 +235,33 @@ function BottomBar({
         <History size={14} />
         {/* <span>执行历史</span> */}
       </button>
+
+      <div className="bar-separator"></div>
+
+      {/* 面板显隐切换 */}
+      <button
+        className={`bar-btn panel-toggle ${showLeftPanel ? 'active' : ''}`}
+        onClick={onToggleLeftPanel}
+        title={showLeftPanel ? '隐藏目录树' : '显示目录树'}
+      >
+        <PanelLeft size={13} />
+      </button>
+      <button
+        className={`bar-btn panel-toggle ${showCenterPanel ? 'active' : ''}`}
+        onClick={onToggleCenterPanel}
+        title={showCenterPanel ? '隐藏请求编辑区' : '显示请求编辑区'}
+      >
+        <Columns size={13} />
+      </button>
+      <button
+        className={`bar-btn panel-toggle ${showRightPanel ? 'active' : ''}`}
+        onClick={onToggleRightPanel}
+        title={showRightPanel ? '隐藏响应面板' : '显示响应面板'}
+      >
+        <PanelRight size={13} />
+      </button>
+
+      <div className="bar-separator"></div>
 
       <div className="bar-section" ref={notificationRef} style={{ marginLeft: 'auto' }}>
         {/* <button
