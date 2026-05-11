@@ -46,6 +46,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
   useEffect(() => {
     if (api) {
+      console.log(`[APIDetail] useEffect(api) fired, api.id=${api.id}, api.name=${api.name}, api.param=`, JSON.stringify(api.param));
       initializeFromApi(api);
       setExecutionResult(null);
       setResponseCollapsed(true);
@@ -207,14 +208,19 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     const apiPath = apiData.api_path || '';
     const isFullUrl = apiPath.startsWith('http://') || apiPath.startsWith('https://');
 
+    const parsedParam = parseToArray(apiData.param);
+    const parsedHeader = parseToArray({ ...defaultHeader, ...apiData.header });
+    console.log(`[APIDetail] initializeFromApi - parsedParam:`, JSON.stringify(parsedParam));
+    console.log(`[APIDetail] initializeFromApi - parsedHeader:`, JSON.stringify(parsedHeader));
+
     setFormData({
       id: apiData.id,
       name: apiData.name || '',
       group: apiData.group || '默认',
       api_path: apiData.api_path || '',
       method: apiData.method || 'GET',
-      header: parseToArray({ ...defaultHeader, ...apiData.header }),
-      param: parseToArray(apiData.param),
+      header: parsedHeader,
+      param: parsedParam,
       body: parseBodyData(apiData.body, { ...defaultHeader, ...apiData.header }),
 
       assertions: parseAssertions(apiData.successAssert)
@@ -271,7 +277,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         if (typeof value === 'object' && value !== null) {
           return { key, ...value };
         }
-        return { key, default: value, value, type: 'string', description: '', enabled: true };
+        return { key, default: value, type: 'string', description: '', enabled: true };
       });
     }
     return [];
@@ -404,9 +410,12 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
     try {
       const execAPI = prepareForExecute();
+      console.log(`[APIDetail] handleSave - execAPI params:`, JSON.stringify(execAPI.param));
+      console.log(`[APIDetail] handleSave - execAPI headers:`, JSON.stringify(execAPI.header));
       if (onSaveAPI) {
         await onSaveAPI(execAPI, isAdding || isTemporary);
       }
+      console.log(`[APIDetail] handleSave - after save complete`);
     } catch (error) {
       const errMsg = error.message || '保存失败';
       setLocalSaveError(errMsg);
@@ -453,7 +462,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     const headerObj = {};
     formData.header.forEach(item => {
       if (item.enabled && item.key && item.key.toLowerCase() !== 'content-type') {
-        headerObj[item.key] = item.value || item.default || '';
+        headerObj[item.key] = item.default || '';
       }
     });
 
@@ -467,7 +476,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     formData.param.forEach(item => {
       if (item.enabled && item.key) {
         paramObj[item.key] = {
-          default: item.value || item.default || '',
+          default: item.default || '',
           description: item.description || '',
           type: item.type || 'string',
           enabled: item.enabled
@@ -483,14 +492,14 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       body = {};
       formData.body.formData.forEach(item => {
         if (item.enabled && item.key) {
-          body[item.key] = { default: item.value || item.default || '', type: item.type };
+          body[item.key] = { default: item.default || '', type: item.type };
         }
       });
     } else if (formData.body.type === 'x-www-form-urlencoded') {
       body = {};
       formData.body.xwwwFormUrlencoded.forEach(item => {
         if (item.enabled && item.key) {
-          body[item.key] = item.value || item.default || '';
+          body[item.key] = item.default || '';
         }
       });
     } else if (formData.body.type === 'raw') {

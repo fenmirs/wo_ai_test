@@ -11,6 +11,7 @@ function RefVariableSelector({ value, onChange, excludeApiId, theme = 'dark' }) 
   const dropdownRef = useRef(null);
 
   useEffect(() => {
+    console.log(`[RefVar] value prop changed:`, JSON.stringify(value));
     parseRefValue(value);
   }, [value]);
 
@@ -143,7 +144,10 @@ function RefVariableSelector({ value, onChange, excludeApiId, theme = 'dark' }) 
               type="text"
               className="static-value-input"
               value={value || ''}
-              onChange={(e) => onChange(e.target.value)}
+              onChange={(e) => {
+                console.log(`[RefVar] static input onChange:`, e.target.value);
+                onChange(e.target.value);
+              }}
               placeholder="输入值或选择引用"
             />
           )}
