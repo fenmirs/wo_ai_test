@@ -1115,6 +1115,13 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                         <span className="meta-value">{cardResult?.elapsedTime || '-'}</span>
                       </div>
 
+                      <div className="summary-divider"></div>
+
+                      <div className="summary-left">
+                        <span className="summary-label">大小</span>
+                        <span className="meta-value">{cardResult?.responseSize || '-'}</span>
+                      </div>
+
                       {cardResult?.error && (
                         <>
                           <div className="summary-divider"></div>
@@ -1208,24 +1215,6 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
                     {responseTab === 'response' && (
                       <div className="response-info">
-                        <div className="request-section">
-                          <div className="request-section-title">基本信息</div>
-                          <div className="request-info-row">
-                            <span className="info-label">状态码</span>
-                            <span className={`info-value status ${cardResult?.httpSuccess ? 'success' : 'error'}`}>
-                              {cardResult?.status_code || '-'}
-                            </span>
-                          </div>
-                          <div className="request-info-row">
-                            <span className="info-label">耗时</span>
-                            <span className="info-value">{cardResult?.elapsedTime || '-'}</span>
-                          </div>
-                          <div className="request-info-row">
-                            <span className="info-label">大小</span>
-                            <span className="info-value">{cardResult?.responseSize || '-'}</span>
-                          </div>
-                        </div>
-
                         {cardResult?.headers && Object.keys(cardResult.headers).length > 0 && (
                           <div className="request-section">
                             <div className="request-section-title">响应 Headers</div>

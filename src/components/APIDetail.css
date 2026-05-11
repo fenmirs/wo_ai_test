@@ -1463,26 +1463,28 @@
 .response-tabs {
   display: flex;
   gap: 0;
-  padding: 0 16px;
+  padding: 0 12px;
+  background: var(--bg-secondary);
   border-bottom: 1px solid var(--border-color);
   flex-shrink: 0;
-  height: 36px;
+  height: 32px;
   box-sizing: border-box;
 }
 
 .response-tab {
   display: flex;
   align-items: center;
-  padding: 0 16px;
+  padding: 0 14px;
   height: 100%;
   background: none;
   border: none;
   border-bottom: 2px solid transparent;
   color: var(--text-tertiary);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
+  position: relative;
 }
 
 .response-tab:hover {
@@ -1493,6 +1495,104 @@
 .response-tab.active {
   color: var(--accent-primary);
   border-bottom-color: var(--accent-primary);
+  font-weight: 600;
+}
+
+.response-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 8px;
+  right: 8px;
+  height: 2px;
+  background: var(--accent-primary);
+  border-radius: 1px;
+}
+
+/* 响应卡片导航栏 */
+.response-card-bar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  overflow-x: auto;
+  flex-shrink: 0;
+}
+
+.response-card-bar::-webkit-scrollbar {
+  height: 3px;
+}
+
+.response-card-bar::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 2px;
+}
+
+.response-card-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.response-card-tab:hover {
+  border-color: var(--accent-primary);
+  color: var(--text-primary);
+  background: var(--bg-hover);
+}
+
+.response-card-tab.active {
+  border-color: var(--accent-primary);
+  background: var(--accent-primary);
+  color: #fff;
+  font-weight: 600;
+}
+
+.response-card-tab.card-fail {
+  border-color: var(--error-color);
+  color: var(--error-color);
+}
+
+.response-card-tab.card-fail.active {
+  background: var(--error-color);
+  color: #fff;
+}
+
+.response-card-tab.card-fail:hover {
+  border-color: var(--error-color);
+}
+
+.card-status-dot {
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.dot-ok {
+  color: var(--success-color);
+}
+
+.response-card-tab.active .dot-ok {
+  color: #fff;
+}
+
+.dot-fail {
+  color: var(--error-color);
+}
+
+.response-card-tab.active .dot-fail {
+  color: #fff;
 }
 
 /* 请求/响应详情 - 可滚动 */
