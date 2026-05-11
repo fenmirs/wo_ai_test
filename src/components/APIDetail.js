@@ -338,6 +338,148 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     setResolvedPath(path);
   };
 
+  const findRefParamsForApi = (apiId) => {
+    const refs = [];
+    const refRegex = /\{\{ref:([^}]+)\}\}/g;
+
+    const scanValue = (section, key, value) => {
+      if (typeof value !== 'string') return;
+      refRegex.lastIndex = 0;
+      let match;
+      while ((match = refRegex.exec(value)) !== null) {
+        const refApiId = match[1].split('.')[0];
+        if (refApiId === apiId) {
+          refs.push({ section, key, ref: match[1] });
+        }
+      }
+    };
+
+    formData.header.forEach(item => {
+      if (item.enabled) scanValue('Header', item.key, item.default);
+    });
+    formData.param.forEach(item => {
+      if (item.enabled) scanValue('Params', item.key, item.default);
+    });
+    if (formData.body.type === 'form-data') {
+      formData.body.formData.forEach(item => {
+        if (item.enabled) scanValue('Body', item.key, item.default);
+      });
+    }
+    if (formData.body.type === 'x-www-form-urlencoded') {
+      formData.body.xwwwFormUrlencoded.forEach(item => {
+        if (item.enabled) scanValue('Body', item.key, item.default);
+      });
+    }
+    if (formData.body.type === 'raw') {
+      scanValue('Body', 'content', formData.body.content);
+    }
+
+    return refs;
+  };
+
+  const findRefParamsByRefPath = (refPath) => {
+    const refs = [];
+    const refRegex = /\{\{ref:([^}]+)\}\}/g;
+
+    const scanValue = (section, key, value) => {
+      if (typeof value !== 'string') return;
+      refRegex.lastIndex = 0;
+      let match;
+      while ((match = refRegex.exec(value)) !== null) {
+        if (match[1] === refPath) {
+          refs.push({ section, key, ref: match[1] });
+        }
+      }
+    };
+
+    formData.header.forEach(item => {
+      if (item.enabled) scanValue('Header', item.key, item.default);
+    });
+    formData.param.forEach(item => {
+      if (item.enabled) scanValue('Params', item.key, item.default);
+    });
+    if (formData.body.type === 'form-data') {
+      formData.body.formData.forEach(item => {
+        if (item.enabled) scanValue('Body', item.key, item.default);
+      });
+    }
+    if (formData.body.type === 'x-www-form-urlencoded') {
+      formData.body.xwwwFormUrlencoded.forEach(item => {
+        if (item.enabled) scanValue('Body', item.key, item.default);
+      });
+    }
+    if (formData.body.type === 'raw') {
+      scanValue('Body', 'content', formData.body.content);
+    }
+
+    return refs;
+  };
+
+  const extractRefPathFromError = (errorMessage) => {
+    const match = errorMessage.match(/\{\{ref:([^}]+)\}\}/);
+    return match ? match[1] : null;
+  };
+
+  const buildResultCards = (execAPI, allResults, targetResult, errorMessage) => {
+    const allApis = projectManager.getData()?.apis || [];
+    const cards = [];
+
+    // 判断错误类型
+    const isRefResolveFail = errorMessage && errorMessage.includes('引用变量解析失败');
+
+    // 从错误信息中提取失败的依赖 ID
+    let failedApiId = null;
+    if (errorMessage && !isRefResolveFail) {
+      const idMatch = errorMessage.match(/\(ID:\s*([^)]+)\)/);
+      if (idMatch) failedApiId = idMatch[1];
+    }
+
+    for (const depId of (execAPI.chain || [])) {
+      const api = allApis.find(a => a.id === depId);
+      const res = allResults?.[depId];
+      if (res) {
+        cards.push({ apiId: depId, name: api?.name || depId, result: res, isTarget: false });
+      } else {
+        // 未执行的依赖 - 标记失败原因
+        const refs = findRefParamsForApi(depId);
+        const isFailed = depId === failedApiId;
+        cards.push({
+          apiId: depId,
+          name: api?.name || depId,
+          result: {
+            success: false,
+            error: isRefResolveFail ? '引用参数解析失败，本请求中断' : (isFailed ? errorMessage : '前置依赖API未执行成功，中断本请求'),
+            errorType: 'chain_break',
+            refParams: refs
+          },
+          isTarget: false
+        });
+      }
+    }
+
+    // 目标 API 卡片
+    const targetApi = allApis.find(a => a.id === execAPI.id);
+    if (targetResult) {
+      cards.push({ apiId: execAPI.id, name: targetApi?.name || execAPI.name || '目标', result: targetResult, isTarget: true });
+    } else if (isRefResolveFail) {
+      cards.push({
+        apiId: execAPI.id,
+        name: targetApi?.name || execAPI.name || '目标',
+        result: { success: false, error: errorMessage, errorType: 'ref_resolve_fail' },
+        isTarget: true
+      });
+    } else {
+      cards.push({
+        apiId: execAPI.id,
+        name: targetApi?.name || execAPI.name || '目标',
+        result: { success: false, error: '前置依赖API未执行成功，中断本请求', errorType: 'chain_break' },
+        isTarget: true
+      });
+    }
+
+    return cards;
+  };
+
   const handleSend = async () => {
     if (!formData.api_path) return;
 
@@ -377,28 +519,22 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         cancelPromise
       ]);
 
-      const allApis = projectManager.getData()?.apis || [];
-      const cards = [];
-      for (const depId of (execAPI.chain || [])) {
-        const api = allApis.find(a => a.id === depId);
-        const res = result.allResults?.[depId];
-        if (res) {
-          cards.push({ apiId: depId, name: api?.name || depId, result: res, isTarget: false });
-        }
-      }
-      const targetApi = allApis.find(a => a.id === execAPI.id);
-      cards.push({ apiId: execAPI.id, name: targetApi?.name || execAPI.name || '目标', result: result.targetResult, isTarget: true });
+      const cards = buildResultCards(execAPI, result.allResults, result.targetResult, null);
 
       result.requestInfo = requestInfo;
       result.resultCards = cards;
       setExecutionResult(result);
       setSelectedCardIdx(cards.length - 1);
-      setResponseCollapsed(false);
+      requestAnimationFrame(() => setResponseCollapsed(false));
 
       if (onExecute) onExecute(execAPI, result);
     } catch (error) {
-      setExecutionResult({ success: false, error: error.message, allResults: {} });
-      setResponseCollapsed(false);
+      const partialResults = executorRef.current?.chainResults || {};
+      const execAPI = prepareForExecute();
+      const cards = buildResultCards(execAPI, partialResults, null, error.message);
+      setExecutionResult({ success: false, error: error.message, allResults: partialResults, resultCards: cards });
+      setSelectedCardIdx(cards.length - 1);
+      requestAnimationFrame(() => setResponseCollapsed(false));
     } finally {
       setIsExecuting(false);
       executorRef.current = null;
@@ -1200,6 +1336,64 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                 const currentCard = executionResult.resultCards[selectedCardIdx];
                 if (!currentCard) return null;
                 const cardResult = currentCard.result;
+
+                // 链中断卡片 - 不显示 tabs，直接显示提示
+                if (cardResult?.errorType === 'chain_break') {
+                  return (
+                    <div className="response-info">
+                      <div className="request-section">
+                        <div className="error-info-chain">
+                          <AlertCircle size={14} className="error-icon" />
+                          <span>{cardResult.error || '前置依赖API未执行成功，中断本请求'}</span>
+                        </div>
+                      </div>
+                      {cardResult.refParams && cardResult.refParams.length > 0 && (
+                        <div className="request-section">
+                          <div className="request-section-title">引用该 API 的参数</div>
+                          <div className="kv-list">
+                            {cardResult.refParams.map((ref, idx) => (
+                              <div key={idx} className="kv-item">
+                                <span className="kv-key">{ref.section}</span>
+                                <span className="kv-value">{ref.key}: {`{{ref:${ref.ref}}}`}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+
+                // 引用解析失败卡片 - 显示无法获取的参数详情
+                if (cardResult?.errorType === 'ref_resolve_fail') {
+                  const refPath = extractRefPathFromError(cardResult.error);
+                  const refs = refPath ? findRefParamsByRefPath(refPath) : [];
+                  return (
+                    <div className="response-info">
+                      <div className="request-section">
+                        <div className="request-section-title">无法获取的参数</div>
+                        <div className="error-info-chain">
+                          <AlertCircle size={14} className="error-icon" />
+                          <span>{cardResult.error}</span>
+                        </div>
+                      </div>
+                      {refs.length > 0 && (
+                        <div className="request-section">
+                          <div className="request-section-title">引用详情</div>
+                          <div className="kv-list">
+                            {refs.map((ref, idx) => (
+                              <div key={idx} className="kv-item">
+                                <span className="kv-key">{ref.section}</span>
+                                <span className="kv-value">{ref.key}: {`{{ref:${ref.ref}}}`}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+
                 return (
                   <>
                     <div className="response-tabs">

@@ -1,1 +1,125 @@
-[]
+[
+  {
+    "id": 1778470559964,
+    "apiId": "api_1778229346853_qszqzrn52",
+    "apiName": "获取token",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/openapi/security/token",
+    "timestamp": "2026/5/11 11:35:59",
+    "apiConfig": {
+      "name": "获取token",
+      "group": "group_1778230973737_ezewf0k04",
+      "api_path": "{domain}{api-prj}/openapi/security/token",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}",
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://192.168.17.128:25710/api-prj/openapi/security/token",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "contentType": "json",
+        "content": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}"
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "NETWORK",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "2.02s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "连接被拒绝，请检查服务器是否启动",
+      "errorType": "network",
+      "requestConfig": {
+        "url": "http://192.168.17.128:25710/api-prj/openapi/security/token",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "params": {},
+        "body": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}",
+        "bodyType": "raw"
+      }
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "2.02s",
+    "error": "连接被拒绝，请检查服务器是否启动",
+    "errorType": "network",
+    "assertionResult": null,
+    "responseHeaders": {},
+    "allResults": {
+      "api_1778229346853_qszqzrn52": {
+        "status_text": "NETWORK",
+        "httpSuccess": false,
+        "success": false,
+        "headers": {},
+        "elapsedTime": "2.02s",
+        "responseSize": "0 B",
+        "assertionResult": null,
+        "error": "连接被拒绝，请检查服务器是否启动",
+        "errorType": "network",
+        "requestConfig": {
+          "url": "http://192.168.17.128:25710/api-prj/openapi/security/token",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "params": {},
+          "body": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}",
+          "bodyType": "raw"
+        }
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1778229346853_qszqzrn52",
+        "name": "获取token",
+        "result": {
+          "status_text": "NETWORK",
+          "httpSuccess": false,
+          "success": false,
+          "headers": {},
+          "elapsedTime": "2.02s",
+          "responseSize": "0 B",
+          "assertionResult": null,
+          "error": "连接被拒绝，请检查服务器是否启动",
+          "errorType": "network",
+          "requestConfig": {
+            "url": "http://192.168.17.128:25710/api-prj/openapi/security/token",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "params": {},
+            "body": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}",
+            "bodyType": "raw"
+          }
+        },
+        "isTarget": true
+      }
+    ]
+  }
+]
