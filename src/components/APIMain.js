@@ -88,6 +88,11 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
         case 'copy':
           if (onCopyAPI) onCopyAPI(api.id);
           break;
+        case 'copyId':
+          if (api.id) {
+            navigator.clipboard.writeText(api.id);
+          }
+          break;
         default:
           break;
       }
@@ -334,6 +339,14 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
     setDragOverGroup(null);
   };
 
+  // 提取简短 ID 后缀
+  const getShortIdSuffix = (id) => {
+    if (!id) return '';
+    const parts = id.split('_');
+    const suffix = parts[parts.length - 1];
+    return suffix && suffix !== id ? `#${suffix}` : '';
+  };
+
   // 搜索过滤
   const getFilteredAPIs = (groupId) => {
     const groupAPIs = getAPIsInGroup(groupId);
@@ -342,8 +355,10 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
     const lowerQuery = searchQuery.toLowerCase();
     return groupAPIs.filter(api => {
       const name = api.name.toLowerCase();
+      const id = (api.id || '').toLowerCase();
       return name.includes(lowerQuery) || 
-             api.api_path.toLowerCase().includes(lowerQuery);
+             api.api_path.toLowerCase().includes(lowerQuery) ||
+             id.includes(lowerQuery);
     });
   };
 
@@ -502,8 +517,7 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
                         </span>
                         {api.name}
                       </span>
-                      {/* <span className="api-path" title={api.api_path}>{api.api_path}</span> */}
-                      {/* <span className="api-path" title={api.id}>{api.id}</span> */}
+                      <span className="api-id-suffix">{getShortIdSuffix(api.id)}</span>
                     </div>
                   </div>
                   <div className="api-actions">
@@ -595,6 +609,10 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
               <div className="operation-menu-item" onClick={() => handleOperationMenuAction('copy')}>
                 <Copy size={14} />
                 <span>复制</span>
+              </div>
+              <div className="operation-menu-item" onClick={() => handleOperationMenuAction('copyId')}>
+                <Copy size={14} />
+                <span>复制 ID</span>
               </div>
               <div className="operation-menu-item danger" onClick={() => handleOperationMenuAction('delete')}>
                 <Trash2 size={14} />

@@ -221,14 +221,15 @@ function JSONTreeNode({
     }
     
     return (
-      <div onClick={(e) => e.stopPropagation()}>
+      // <div onClick={(e) => e.stopPropagation()}>
         <RefVariableSelector
+         onClick={(e) => e.stopPropagation()}
           value={node.value ?? ''}
           onChange={handleValueChange}
           excludeApiId={excludeApiId}
           theme={theme}
         />
-      </div>
+      // </div>
     );
   };
 

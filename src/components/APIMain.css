@@ -298,6 +298,13 @@
   min-width: 0;
 }
 
+.api-id-suffix {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-family: monospace;
+  opacity: 0.7;
+}
+
 .api-actions {
   display: flex;
   gap: 4px;
