@@ -1,15 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { CheckCircle, XCircle, AlertCircle, FileText, Play, Trash2, Clock, ChevronRight, ChevronDown } from 'lucide-react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import MonacoView from './MonacoView';
 import { projectManager } from '../utils/ProjectManager';
 import './ResponsePanel.css';
 
 function ResponsePanel({ executionResult, theme }) {
   const [selectedCardIdx, setSelectedCardIdx] = useState(0);
   const [responseTab, setResponseTab] = useState('request');
-  const [showSyntaxHighlighter, setShowSyntaxHighlighter] = useState(false);
   const [collapsedSections, setCollapsedSections] = useState({});
 
   const toggleSection = useCallback((key) => {
@@ -29,21 +26,10 @@ function ResponsePanel({ executionResult, theme }) {
     );
   }, [collapsedSections, toggleSection]);
 
-  useEffect(() => {
-    if (executionResult) {
-      const timer = requestAnimationFrame(() => setShowSyntaxHighlighter(true));
-      return () => cancelAnimationFrame(timer);
-    } else {
-      setShowSyntaxHighlighter(false);
-    }
-  }, [executionResult]);
-
   const getMethodColor = (method) => {
     const colors = { 'GET': '#10b981', 'POST': '#3b82f6', 'PUT': '#f59e0b', 'DELETE': '#ef4444', 'PATCH': '#8b5cf6', 'HEAD': '#6b7280', 'OPTIONS': '#6b7280' };
     return colors[method] || '#64748b';
   };
-
-  const codeTheme = theme === 'light' ? oneLight : vscDarkPlus;
 
   const selectedCard = executionResult?.resultCards?.[selectedCardIdx];
 
@@ -253,7 +239,13 @@ function ResponsePanel({ executionResult, theme }) {
                                 {reqConfig.bodyType && reqConfig.bodyType !== 'none' && renderSection(`请求 Body (${reqConfig.bodyType})`,
                                   <div className="request-body-content">
                                     {reqConfig.bodyType === 'raw' && (
-                                      <pre className="body-text">{reqConfig.body?.content || ''}</pre>
+                                      <MonacoView
+                                        height="150px"
+                                        language="plaintext"
+                                        value={reqConfig.body?.content || ''}
+                                        theme={theme}
+                                        readOnly={true}
+                                      />
                                     )}
                                     {(reqConfig.bodyType === 'form-data' || reqConfig.bodyType === 'x-www-form-urlencoded') && (
                                       <div className="kv-list">
@@ -294,13 +286,24 @@ function ResponsePanel({ executionResult, theme }) {
                                 )}
                                 {reqConfig.bodyType && reqConfig.bodyType !== 'none' && renderSection(`请求 Body (${reqConfig.bodyType})`,
                                   <div className="request-body-content">
-                                    {typeof reqConfig.body === 'string' ? (
-                                      <pre className="body-text">{reqConfig.body}</pre>
-                                    ) : typeof reqConfig.body === 'object' && reqConfig.body !== null ? (
-                                      <pre className="body-text">{JSON.stringify(reqConfig.body, null, 2)}</pre>
-                                    ) : reqConfig.body ? (
-                                      <pre className="body-text">{String(reqConfig.body)}</pre>
-                                    ) : null}
+                                    {(() => {
+                                      if (!reqConfig.body) return null;
+                                      const bodyVal = typeof reqConfig.body === 'string'
+                                        ? reqConfig.body
+                                        : typeof reqConfig.body === 'object' && reqConfig.body !== null
+                                          ? JSON.stringify(reqConfig.body, null, 2)
+                                          : String(reqConfig.body);
+                                      const bodyLang = typeof reqConfig.body === 'object' && reqConfig.body !== null ? 'json' : 'plaintext';
+                                      return (
+                                        <MonacoView
+                                          height="150px"
+                                          language={bodyLang}
+                                          value={bodyVal}
+                                          theme={theme}
+                                          readOnly={true}
+                                        />
+                                      );
+                                    })()}
                                   </div>
                                 )}
                               </>
@@ -325,15 +328,16 @@ function ResponsePanel({ executionResult, theme }) {
                       )}
 
                       {renderSection('响应 Body',
-                        <div className="request-body-content">
+                        <div className="response-body-editor">
                           {cardResult?.data !== undefined ? (
-                            showSyntaxHighlighter ? (
-                              <SyntaxHighlighter language="json" style={codeTheme} customStyle={{ margin: 0, fontSize: '11px', maxHeight: '250px' }}>
-                                {JSON.stringify(cardResult.data, null, 2)}
-                              </SyntaxHighlighter>
-                            ) : (
-                              <pre className="body-text">{JSON.stringify(cardResult.data, null, 2)}</pre>
-                            )
+                            <MonacoView
+                              height="300px"
+                              language="json"
+                              value={JSON.stringify(cardResult.data, null, 2)}
+                              theme={theme}
+                              readOnly={true}
+                              showCopyButton={true}
+                            />
                           ) : (
                             <div className="response-empty">无响应体</div>
                           )}

@@ -459,6 +459,43 @@
   background: var(--error-bg);
 }
 
+/* 响应 Body Monaco 编辑器容器 */
+.response-body-editor {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.editor-copy-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.15s, background 0.15s;
+  user-select: none;
+}
+
+.response-body-editor:hover .editor-copy-btn {
+  opacity: 1;
+}
+
+.editor-copy-btn:hover {
+  background: var(--bg-hover);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
 /* summary 中的文本颜色 */
 .text-success {
   color: var(--success-color);
