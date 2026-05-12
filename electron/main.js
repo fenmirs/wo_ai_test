@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog, net, session } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, net, session, shell } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const { exec } = require('child_process');
@@ -648,6 +648,16 @@ ipcMain.handle('cancel-http-request', async (event, id) => {
 ipcMain.on('toggle-devtools', () => {
   if (mainWindow) {
     mainWindow.webContents.toggleDevTools();
+  }
+});
+
+// IPC - 在文件管理器中显示项目
+ipcMain.handle('show-item-in-folder', async (event, filePath) => {
+  try {
+    shell.showItemInFolder(filePath);
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
   }
 });
 

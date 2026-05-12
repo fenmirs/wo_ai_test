@@ -35,4 +35,7 @@ contextBridge.exposeInMainWorld('electron', {
 
   // 开发者工具
   toggleDevtools: () => ipcRenderer.send('toggle-devtools'),
+
+  // 在文件管理器中显示
+  showItemInFolder: (filePath) => ipcRenderer.invoke('show-item-in-folder', filePath),
 });

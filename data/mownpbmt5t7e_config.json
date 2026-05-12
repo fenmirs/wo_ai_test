@@ -34,25 +34,26 @@
       "body": {
         "content": "{\n  \"appId\": false,\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}",
         "schema": {
-          "id": "node_1778549015269_rz2zjnywh",
+          "id": "node_1778564445497_btp93fyqd",
           "type": "object",
           "key": null,
           "value": null,
           "description": "",
           "children": [
             {
-              "id": "node_1778549015269_inr2h5yf7",
+              "id": "node_1778564445497_o20co1784",
               "type": "boolean",
               "key": "appId",
               "value": false,
-              "description": "啦啦啦啦啦啦"
+              "description": "啦啦啦啦啦啦",
+              "children": []
             },
             {
-              "id": "node_1778549015269_ck5ryg6dc",
+              "id": "node_1778564445497_r7nm1ffiu",
               "type": "string",
               "key": "appSecret",
               "value": "67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS",
-              "description": "",
+              "description": "授权秘钥",
               "children": []
             }
           ]

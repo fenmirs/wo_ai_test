@@ -3,6 +3,7 @@ import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, ChevronRight, Chevr
 import './APIDetail.css';
 import ChainManager from '../utils/ChainManager';
 import { projectManager } from '../utils/ProjectManager';
+import { notificationManager } from '../utils/NotificationManager';
 import APIDocGenerator from '../utils/APIDocGenerator';
 import JSONSchemaConverter from '../utils/JSONSchemaConverter';
 import CodeEditor from './CodeEditor';
@@ -630,9 +631,9 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         if (result && result.filePath) {
           const writeResult = await window.electron.writeFile(result.filePath, markdown);
           if (writeResult && writeResult.success) {
-            alert(`文档已保存到: ${result.filePath}`);
+            notificationManager.addNotification('success', '文档保存成功', result.filePath, { filePath: result.filePath });
           } else {
-            alert(`保存文档失败: ${writeResult?.error || '未知错误'}`);
+            notificationManager.addNotification('error', '文档保存失败', writeResult?.error || '未知错误');
           }
         }
       } else {
@@ -641,7 +642,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       }
     } catch (error) {
       console.error('保存文档失败:', error);
-      alert('保存文档失败');
+      notificationManager.addNotification('error', '文档保存失败', error.message || '未知错误');
     }
   };
 

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Globe, Variable, ChevronUp, Settings2,FolderKanban, Save, XCircle, Sun, Moon, History,LogOut, Bell, CheckCheck, Trash2, PanelLeft, Columns, PanelRight, Bug } from 'lucide-react';
+import { Globe, Variable, ChevronUp, Settings2, FolderKanban, Save, XCircle, Sun, Moon, History, LogOut, Bell, CheckCheck, Trash2, PanelLeft, Columns, PanelRight, Bug, FolderOpen } from 'lucide-react';
 import { notificationManager } from '../utils/NotificationManager';
 import { projectManager } from '../utils/ProjectManager';
 import './BottomBar.css';
@@ -315,23 +315,39 @@ function BottomBar({
                       onClick={() => markAsRead(notification.id)}
                     >
                       <div className="notification-content">
-                        <div className="notification-title">
-                          {notification.title}
-                          {!notification.read && <span className="unread-dot"></span>}
+                        <div className="notification-title-row">
+                          <div className="notification-title">
+                            {notification.title}
+                            {!notification.read && <span className="unread-dot"></span>}
+                          </div>
+                          <div className="notification-actions">
+                            {notification.data?.filePath && (
+                              <button
+                                className="notification-open-btn"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  window.electron?.showItemInFolder(notification.data.filePath);
+                                }}
+                                title="在文件管理器中显示"
+                              >
+                                <FolderOpen size={12} />
+                              </button>
+                            )}
+                            <button
+                              className="notification-delete-btn"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                deleteNotification(notification.id);
+                              }}
+                              title="删除"
+                            >
+                              <Trash2 size={12} />
+                            </button>
+                          </div>
                         </div>
                         <div className="notification-message">{notification.message}</div>
                         <div className="notification-time">{notification.timestamp}</div>
                       </div>
-                      <button
-                        className="notification-delete-btn"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          deleteNotification(notification.id);
-                        }}
-                        title="删除"
-                      >
-                        <Trash2 size={12} />
-                      </button>
                     </div>
                   ))
               )}
