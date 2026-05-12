@@ -369,3 +369,231 @@
   flex-direction: column;
   min-height: 0;
 }
+
+/* XML mode: tag name */
+.xml-tag-name {
+  color: var(--accent-primary);
+  font-weight: 600;
+}
+
+/* XML mode: attribute button on tag row */
+.xml-attr-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 6px;
+  padding: 1px 6px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  color: var(--text-muted);
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+  max-width: 300px;
+  overflow: hidden;
+}
+
+.xml-attr-btn:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  background: var(--bg-hover);
+}
+
+.xml-attr-summary {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: monospace;
+  font-size: 9px;
+}
+
+/* Attribute Dialog */
+.attr-dialog-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  border-radius: 4px;
+}
+
+.attr-dialog {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  width: 420px;
+  max-width: 90%;
+  max-height: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+.attr-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.attr-dialog-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.15s;
+}
+
+.attr-dialog-close:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.attr-dialog-body {
+  padding: 12px 14px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.attr-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.attr-table th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 4px 6px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.attr-col-name {
+  width: 40%;
+}
+
+.attr-col-value {
+  width: 45%;
+}
+
+.attr-col-action {
+  width: 15%;
+  text-align: center;
+}
+
+.attr-table td {
+  padding: 3px 4px;
+  vertical-align: middle;
+}
+
+.attr-input {
+  width: 100%;
+  padding: 4px 6px;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 12px;
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+}
+
+.attr-input:focus {
+  border-color: var(--accent-primary);
+}
+
+.attr-del-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.15s;
+}
+
+.attr-del-btn:hover {
+  background: var(--error-bg);
+  color: var(--error-color);
+}
+
+.attr-add-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+  padding: 5px 10px;
+  background: var(--bg-secondary);
+  border: 1px dashed var(--border-color);
+  border-radius: 4px;
+  color: var(--text-secondary);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.attr-add-btn:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+.attr-dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 10px 14px;
+  border-top: 1px solid var(--border-color);
+}
+
+.attr-btn-cancel,
+.attr-btn-save {
+  padding: 6px 16px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.attr-btn-cancel {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+
+.attr-btn-cancel:hover {
+  background: var(--bg-hover);
+}
+
+.attr-btn-save {
+  background: var(--accent-primary);
+  border: 1px solid var(--accent-primary);
+  color: #ffffff;
+}
+
+.attr-btn-save:hover {
+  background: var(--accent-hover);
+}

@@ -693,7 +693,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         }
       });
     } else if (formData.body.type === 'raw') {
-      if (formData.body.contentType === 'json' && formData.body.schema) {
+      if (formData.body.schema) {
         body = {
           content: formData.body.content || '',
           schema: formData.body.schema,
@@ -1279,6 +1279,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                     <div className="json-editor-wrapper">
                       {formData.body.schema ? (
                         <JSONTreeEditor
+                          mode="xml"
                           schema={formData.body.schema}
                           onChange={(newSchema) => {
                             const newContent = XMLSchemaConverter.schemaToXml(newSchema, true);

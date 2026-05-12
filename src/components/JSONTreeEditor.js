@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { ChevronRight, ChevronDown, Plus, Minus, ArrowRight, Layout } from 'lucide-react';
+import { ChevronRight, ChevronDown, Plus, Minus, ArrowRight, X, Settings } from 'lucide-react';
 import JSONSchemaConverter from '../utils/JSONSchemaConverter';
+import XMLSchemaConverter from '../utils/XMLSchemaConverter';
 import RefVariableSelector from './RefVariableSelector';
 import './JSONTreeEditor.css';
 
@@ -13,29 +14,43 @@ const VALUE_TYPES = [
   { value: 'array', label: 'Array' },
 ];
 
-function JSONTreeNode({ 
-  node, 
-  level, 
-  selectedId, 
+function JSONTreeNode({
+  node,
+  level,
+  selectedId,
   onSelect,
-  onUpdate, 
-  expandedIds, 
+  onUpdate,
+  expandedIds,
   onToggleExpand,
   excludeApiId,
-  theme 
+  theme,
+  mode = 'json',
+  onOpenAttrDialog
 }) {
   const [editingKey, setEditingKey] = useState(false);
   const [tempKeyValue, setTempKeyValue] = useState('');
 
+  const isXmlMode = mode === 'xml';
+
+  const attrChildren = isXmlMode && node.children
+    ? node.children.filter(c => c.key && String(c.key).startsWith('@'))
+    : [];
+  const textChild = isXmlMode && node.children
+    ? node.children.find(c => c.key === '#text')
+    : null;
+  const elemChildren = isXmlMode && node.children
+    ? node.children.filter(c => !String(c.key || '').startsWith('@') && c.key !== '#text')
+    : node.children;
+
+  const visibleChildren = isXmlMode ? elemChildren : (node.children || []);
   const isContainer = node.type === 'object' || node.type === 'array';
-  const hasChildren = node.children && node.children.length > 0;
+  const hasChildren = visibleChildren.length > 0;
   const isExpanded = expandedIds.has(node.id);
   const isSelected = selectedId === node.id;
-  const isArrayItem = Number.isInteger(node.key);
   const isRoot = node.key === null || node.key === undefined;
 
   const handleDoubleClick = (e) => {
-    if (isRoot || isArrayItem) return;
+    if (isRoot) return;
     e.stopPropagation();
     setEditingKey(true);
     setTempKeyValue(String(node.key || ''));
@@ -72,7 +87,7 @@ function JSONTreeNode({
     e.stopPropagation();
     const newType = e.target.value;
     const updates = { type: newType };
-    
+
     switch (newType) {
       case 'string':
         updates.value = '';
@@ -111,7 +126,7 @@ function JSONTreeNode({
         }];
         break;
     }
-    
+
     onUpdate(node.id, updates);
   }, [node.id, onUpdate]);
 
@@ -128,10 +143,6 @@ function JSONTreeNode({
   const renderKey = () => {
     if (isRoot) {
       return <span className="tree-key root-key">root</span>;
-    }
-    
-    if (isArrayItem) {
-      return <span className="tree-key array-index">[{node.key}]</span>;
     }
 
     if (editingKey) {
@@ -151,14 +162,72 @@ function JSONTreeNode({
 
     return (
       <span className="tree-key" onDoubleClick={handleDoubleClick}>
-        <span className="key-quote">"</span>
-        {String(node.key)}
-        <span className="key-quote">"</span>
+        {isXmlMode ? (
+          <span className="xml-tag-name">&lt;{String(node.key)}&gt;</span>
+        ) : (
+          <>
+            <span className="key-quote">"</span>
+            {String(node.key)}
+            <span className="key-quote">"</span>
+          </>
+        )}
       </span>
     );
   };
 
+  const renderAttrButton = () => {
+    const attrSummary = attrChildren
+      .map(a => `${String(a.key || '').replace(/^@/, '')}="${a.value ?? ''}"`)
+      .join(' ');
+
+    return (
+      <button
+        className="xml-attr-btn"
+        onClick={(e) => { e.stopPropagation(); onOpenAttrDialog(node.id); }}
+        title="管理属性"
+      >
+        <Settings size={10} />
+        <span className="xml-attr-summary">{attrSummary || '添加属性'}</span>
+      </button>
+    );
+  };
+
+  const renderXmlValue = () => {
+    if (textChild) {
+      return (
+        <input
+          type="text"
+          value={textChild.value ?? ''}
+          onChange={(e) => { onUpdate(textChild.id, { value: e.target.value }); }}
+          className="value-input-inline"
+          placeholder="文本内容"
+          onClick={(e) => e.stopPropagation()}
+        />
+      );
+    }
+
+    if (elemChildren.length > 0) {
+      return (
+        <span className="tree-value container-value">
+          Element <span className="count">({elemChildren.length})</span>
+        </span>
+      );
+    }
+
+    return (
+      <input
+        type="text"
+        value={node.value ?? ''}
+        onChange={(e) => { e.stopPropagation(); handleValueChange(e.target.value); }}
+        className="value-input-inline"
+        placeholder="值"
+        onClick={(e) => e.stopPropagation()}
+      />
+    );
+  };
+
   const renderType = () => {
+    if (isXmlMode) return null;
     return (
       <select
         value={node.type}
@@ -174,6 +243,8 @@ function JSONTreeNode({
   };
 
   const renderValue = () => {
+    if (isXmlMode) return renderXmlValue();
+
     if (node.type === 'object') {
       return (
         <span className="tree-value container-value">
@@ -181,7 +252,7 @@ function JSONTreeNode({
         </span>
       );
     }
-    
+
     if (node.type === 'array') {
       return (
         <span className="tree-value container-value">
@@ -189,14 +260,14 @@ function JSONTreeNode({
         </span>
       );
     }
-    
+
     if (node.type === 'null') {
       return <span className="tree-value type-null">null</span>;
     }
-    
+
     if (node.type === 'boolean') {
       return (
-        <select 
+        <select
           value={node.value ? 'true' : 'false'}
           onChange={(e) => { e.stopPropagation(); handleValueChange(e.target.value === 'true'); }}
           className="boolean-select-inline"
@@ -207,7 +278,7 @@ function JSONTreeNode({
         </select>
       );
     }
-    
+
     if (node.type === 'number') {
       return (
         <input
@@ -219,17 +290,15 @@ function JSONTreeNode({
         />
       );
     }
-    
+
     return (
-      // <div onClick={(e) => e.stopPropagation()}>
-        <RefVariableSelector
-         onClick={(e) => e.stopPropagation()}
-          value={node.value ?? ''}
-          onChange={handleValueChange}
-          excludeApiId={excludeApiId}
-          theme={theme}
-        />
-      // </div>
+      <RefVariableSelector
+        onClick={(e) => e.stopPropagation()}
+        value={node.value ?? ''}
+        onChange={handleValueChange}
+        excludeApiId={excludeApiId}
+        theme={theme}
+      />
     );
   };
 
@@ -250,40 +319,44 @@ function JSONTreeNode({
 
   return (
     <div className="tree-node">
-      <div 
+      <div
         className={`tree-node-row ${isSelected ? 'selected' : ''}`}
         style={{ paddingLeft: `${levelIndent}px` }}
         onClick={handleRowClick}
       >
         <div className="node-expand-btn" onClick={handleToggle}>
-          {isContainer && (
-            isExpanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />
-          )}
+          {isContainer && (isExpanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />)}
           {!isContainer && <span className="expand-placeholder" />}
         </div>
-        
+
         <div className="node-content">
-          <div className="node-col col-key-cell">
-            {renderKey()}
-          </div>
-          
-          <div className="node-col col-type-cell">
-            {renderType()}
-          </div>
-          
-          <div className="node-col col-desc-cell">
-            {renderDescription()}
-          </div>
-          
-          <div className="node-col col-value-cell">
-            {renderValue()}
-          </div>
+          {isXmlMode ? (
+            <>
+              <div className="node-col col-key-cell">
+                {renderKey()}
+                {renderAttrButton()}
+              </div>
+              <div className="node-col col-value-cell">
+                {renderXmlValue()}
+              </div>
+              <div className="node-col col-desc-cell">
+                {renderDescription()}
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="node-col col-key-cell">{renderKey()}</div>
+              <div className="node-col col-type-cell">{renderType()}</div>
+              <div className="node-col col-desc-cell">{renderDescription()}</div>
+              <div className="node-col col-value-cell">{renderValue()}</div>
+            </>
+          )}
         </div>
       </div>
-      
-      {isContainer && isExpanded && hasChildren && (
+
+      {isContainer && isExpanded && visibleChildren && visibleChildren.length > 0 && (
         <div className="tree-children">
-          {node.children.map((child) => (
+          {visibleChildren.map((child) => (
             <JSONTreeNode
               key={child.id}
               node={child}
@@ -295,6 +368,8 @@ function JSONTreeNode({
               onToggleExpand={onToggleExpand}
               excludeApiId={excludeApiId}
               theme={theme}
+              mode={mode}
+              onOpenAttrDialog={onOpenAttrDialog}
             />
           ))}
         </div>
@@ -303,14 +378,117 @@ function JSONTreeNode({
   );
 }
 
-function JSONTreeEditor({ 
-  schema, 
-  onChange, 
-  excludeApiId, 
-  theme = 'dark' 
+function AttributeDialog({ node, onClose, onUpdate }) {
+  const [attrs, setAttrs] = useState(() => {
+    const existing = (node.children || [])
+      .filter(c => c.key && String(c.key).startsWith('@'))
+      .map(c => ({
+        id: c.id,
+        name: String(c.key).replace(/^@/, ''),
+        value: c.value ?? ''
+      }));
+    return existing.length > 0 ? existing : [{ id: JSONSchemaConverter.generateId(), name: '', value: '' }];
+  });
+
+  const handleChange = (index, field, value) => {
+    const updated = attrs.map((a, i) => i === index ? { ...a, [field]: value } : a);
+    setAttrs(updated);
+  };
+
+  const handleAdd = () => {
+    setAttrs([...attrs, { id: JSONSchemaConverter.generateId(), name: '', value: '' }]);
+  };
+
+  const handleRemove = (index) => {
+    setAttrs(attrs.filter((_, i) => i !== index));
+  };
+
+  const handleSave = () => {
+    const validAttrs = attrs.filter(a => a.name.trim());
+    const attrNodes = validAttrs.map(a => ({
+      id: a.id,
+      type: 'string',
+      key: `@${a.name}`,
+      value: a.value,
+      description: '',
+      children: []
+    }));
+    const otherChildren = (node.children || []).filter(c => !String(c.key || '').startsWith('@'));
+    onUpdate(node.id, { children: [...attrNodes, ...otherChildren] });
+    onClose();
+  };
+
+  return (
+    <div className="attr-dialog-overlay" onClick={onClose}>
+      <div className="attr-dialog" onClick={(e) => e.stopPropagation()}>
+        <div className="attr-dialog-header">
+          <span>属性管理 - &lt;{node.key}&gt;</span>
+          <button className="attr-dialog-close" onClick={onClose}><X size={14} /></button>
+        </div>
+        <div className="attr-dialog-body">
+          <table className="attr-table">
+            <thead>
+              <tr>
+                <th className="attr-col-name">属性名</th>
+                <th className="attr-col-value">值</th>
+                <th className="attr-col-action"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {attrs.map((attr, index) => (
+                <tr key={attr.id}>
+                  <td>
+                    <input
+                      type="text"
+                      value={attr.name}
+                      onChange={(e) => handleChange(index, 'name', e.target.value)}
+                      placeholder="属性名"
+                      className="attr-input"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      value={attr.value}
+                      onChange={(e) => handleChange(index, 'value', e.target.value)}
+                      placeholder="值"
+                      className="attr-input"
+                    />
+                  </td>
+                  <td>
+                    <button className="attr-del-btn" onClick={() => handleRemove(index)} title="删除属性">
+                      <X size={12} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <button className="attr-add-btn" onClick={handleAdd}>
+            <Plus size={12} /> 添加属性
+          </button>
+        </div>
+        <div className="attr-dialog-footer">
+          <button className="attr-btn-cancel" onClick={onClose}>取消</button>
+          <button className="attr-btn-save" onClick={handleSave}>保存</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function JSONTreeEditor({
+  schema,
+  onChange,
+  excludeApiId,
+  theme = 'dark',
+  mode = 'json'
 }) {
   const [expandedIds, setExpandedIds] = useState(new Set());
   const [selectedId, setSelectedId] = useState(null);
+  const [attrDialogNodeId, setAttrDialogNodeId] = useState(null);
+
+  const isXmlMode = mode === 'xml';
 
   React.useEffect(() => {
     if (schema) {
@@ -326,7 +504,11 @@ function JSONTreeEditor({
     if (node.type === 'object' || node.type === 'array') {
       ids.add(node.id);
       if (node.children) {
-        node.children.forEach(child => collectExpandableIds(child, ids));
+        node.children.forEach(child => {
+          if (!isXmlMode || (!String(child.key || '').startsWith('@') && child.key !== '#text')) {
+            collectExpandableIds(child, ids);
+          }
+        });
       }
     }
   };
@@ -334,90 +516,81 @@ function JSONTreeEditor({
   const handleToggleExpand = useCallback((nodeId) => {
     setExpandedIds(prev => {
       const next = new Set(prev);
-      if (next.has(nodeId)) {
-        next.delete(nodeId);
-      } else {
-        next.add(nodeId);
-      }
+      if (next.has(nodeId)) next.delete(nodeId);
+      else next.add(nodeId);
       return next;
     });
   }, []);
 
   const handleUpdate = useCallback((nodeId, updates) => {
     if (!schema) return;
-    
-    const updated = JSONSchemaConverter.updateNode(schema, nodeId, updates);
+    const converter = isXmlMode ? XMLSchemaConverter : JSONSchemaConverter;
+    const updated = converter.updateNode(schema, nodeId, updates);
     onChange(updated);
-  }, [schema, onChange]);
+  }, [schema, onChange, isXmlMode]);
 
   const getParentInfo = useCallback((nodeId) => {
     if (!schema) return { parent: null, index: -1, parentType: null };
-    
-    const parent = JSONSchemaConverter.findParentNode(schema, nodeId);
+    const converter = isXmlMode ? XMLSchemaConverter : JSONSchemaConverter;
+    const parent = converter.findParentNode(schema, nodeId);
     if (!parent) {
-      const node = JSONSchemaConverter.findNodeById(schema, nodeId);
+      const node = converter.findNodeById(schema, nodeId);
       if (node && (node.key === null || node.key === undefined)) {
         return { parent: null, index: -1, parentType: null, isRoot: true };
       }
       return { parent: null, index: -1, parentType: null };
     }
-    
     const index = parent.children ? parent.children.findIndex(c => c.id === nodeId) : -1;
     return { parent, index, parentType: parent.type };
-  }, [schema]);
+  }, [schema, isXmlMode]);
 
-  const selectedNodeInfo = selectedId 
-    ? { 
-        node: JSONSchemaConverter.findNodeById(schema, selectedId),
+  const selectedNodeInfo = selectedId
+    ? {
+        node: (isXmlMode ? XMLSchemaConverter : JSONSchemaConverter).findNodeById(schema, selectedId),
         ...getParentInfo(selectedId)
       }
     : null;
 
   const canAddSibling = selectedNodeInfo && selectedNodeInfo.parent !== null;
-  const canAddChild = selectedNodeInfo && selectedNodeInfo.node && 
+  const canAddChild = selectedNodeInfo && selectedNodeInfo.node &&
     (selectedNodeInfo.node.type === 'object' || selectedNodeInfo.node.type === 'array');
   const canDelete = selectedNodeInfo && selectedNodeInfo.parent !== null;
 
   const handleAddSibling = () => {
     if (!schema || !canAddSibling) return;
-    
     const { parent, index, parentType } = selectedNodeInfo;
-    const cloned = JSONSchemaConverter.cloneSchema(schema);
-    const clonedParent = JSONSchemaConverter.findNodeById(cloned, parent.id);
-    
+    const converter = isXmlMode ? XMLSchemaConverter : JSONSchemaConverter;
+    const cloned = converter.cloneSchema(schema);
+    const clonedParent = converter.findNodeById(cloned, parent.id);
+
     if (clonedParent && clonedParent.children) {
       let newNode;
       if (parentType === 'array') {
         const newIndex = index + 1;
         clonedParent.children.forEach((child, i) => {
-          if (i >= newIndex && typeof child.key === 'number') {
-            child.key = child.key + 1;
-          }
+          if (i >= newIndex && typeof child.key === 'number') child.key = child.key + 1;
         });
-        
         newNode = {
-          id: JSONSchemaConverter.generateId(),
+          id: converter.generateId(),
           type: 'string',
           key: newIndex,
           value: '',
           description: '',
           children: []
         };
-        
         clonedParent.children.splice(newIndex, 0, newNode);
       } else {
         newNode = {
-          id: JSONSchemaConverter.generateId(),
-          type: 'string',
-          key: `newKey_${Date.now()}`,
-          value: '',
+          id: converter.generateId(),
+          type: isXmlMode ? 'object' : 'string',
+          key: `newElement_${Date.now()}`,
+          value: null,
           description: '',
-          children: []
+          children: isXmlMode ? [] : undefined
         };
-        
         clonedParent.children.splice(index + 1, 0, newNode);
       }
-      
+
       setExpandedIds(prev => new Set([...prev, clonedParent.id]));
       setSelectedId(newNode.id);
       onChange(cloned);
@@ -426,20 +599,18 @@ function JSONTreeEditor({
 
   const handleAddChild = () => {
     if (!schema || !canAddChild) return;
-    
     const { node } = selectedNodeInfo;
-    const cloned = JSONSchemaConverter.cloneSchema(schema);
-    const clonedNode = JSONSchemaConverter.findNodeById(cloned, node.id);
-    
+    const converter = isXmlMode ? XMLSchemaConverter : JSONSchemaConverter;
+    const cloned = converter.cloneSchema(schema);
+    const clonedNode = converter.findNodeById(cloned, node.id);
+
     if (clonedNode) {
-      if (!clonedNode.children) {
-        clonedNode.children = [];
-      }
-      
+      if (!clonedNode.children) clonedNode.children = [];
+
       let newNode;
       if (clonedNode.type === 'array') {
         newNode = {
-          id: JSONSchemaConverter.generateId(),
+          id: converter.generateId(),
           type: 'string',
           key: clonedNode.children.length,
           value: '',
@@ -448,15 +619,15 @@ function JSONTreeEditor({
         };
       } else {
         newNode = {
-          id: JSONSchemaConverter.generateId(),
-          type: 'string',
-          key: `newKey_${Date.now()}`,
-          value: '',
+          id: converter.generateId(),
+          type: isXmlMode ? 'object' : 'string',
+          key: `newElement_${Date.now()}`,
+          value: null,
           description: '',
-          children: []
+          children: isXmlMode ? [] : undefined
         };
       }
-      
+
       clonedNode.children.push(newNode);
       setExpandedIds(prev => new Set([...prev, clonedNode.id]));
       setSelectedId(newNode.id);
@@ -466,22 +637,18 @@ function JSONTreeEditor({
 
   const handleDelete = () => {
     if (!schema || !canDelete) return;
-    
     const { node, parent, index, parentType } = selectedNodeInfo;
-    const cloned = JSONSchemaConverter.cloneSchema(schema);
-    const clonedParent = JSONSchemaConverter.findNodeById(cloned, parent.id);
-    
+    const converter = isXmlMode ? XMLSchemaConverter : JSONSchemaConverter;
+    const cloned = converter.cloneSchema(schema);
+    const clonedParent = converter.findNodeById(cloned, parent.id);
+
     if (clonedParent && clonedParent.children) {
       clonedParent.children = clonedParent.children.filter(c => c.id !== selectedId);
-      
       if (parentType === 'array') {
         clonedParent.children.forEach((child, i) => {
-          if (typeof child.key === 'number') {
-            child.key = i;
-          }
+          if (typeof child.key === 'number') child.key = i;
         });
       }
-      
       let newSelectedId = clonedParent.id;
       if (clonedParent.children.length > 0) {
         const newIndex = Math.min(index, clonedParent.children.length - 1);
@@ -492,10 +659,14 @@ function JSONTreeEditor({
     }
   };
 
+  const attrDialogNode = attrDialogNodeId
+    ? (isXmlMode ? XMLSchemaConverter : JSONSchemaConverter).findNodeById(schema, attrDialogNodeId)
+    : null;
+
   if (!schema) {
     return (
       <div className="json-tree-editor empty">
-        <div className="empty-message">无 JSON 数据</div>
+        <div className="empty-message">{isXmlMode ? '无 XML 数据' : '无 JSON 数据'}</div>
       </div>
     );
   }
@@ -503,45 +674,55 @@ function JSONTreeEditor({
   return (
     <div className="json-tree-editor">
       <div className="tree-toolbar">
-        <div className="toolbar-title">JSON 编辑器</div>
+        <div className="toolbar-title">{isXmlMode ? 'XML 编辑器' : 'JSON 编辑器'}</div>
         <div className="toolbar-actions">
-          <button
-            className={`toolbar-btn ${!canAddSibling ? 'disabled' : ''}`}
-            onClick={handleAddSibling}
-            disabled={!canAddSibling}
-            title="添加同级元素"
-          >
-            <ArrowRight size={14} />
-            同级
-          </button>
-          <button
-            className={`toolbar-btn ${!canAddChild ? 'disabled' : ''}`}
-            onClick={handleAddChild}
-            disabled={!canAddChild}
-            title="添加子元素"
-          >
-            <Plus size={14} />
-            子项
-          </button>
-          <button
-            className={`toolbar-btn danger ${!canDelete ? 'disabled' : ''}`}
-            onClick={handleDelete}
-            disabled={!canDelete}
-            title="删除选中元素"
-          >
-            <Minus size={14} />
-            删除
-          </button>
+          {isXmlMode ? (
+            <>
+              <button className={`toolbar-btn ${!canAddChild ? 'disabled' : ''}`}
+                onClick={handleAddChild} disabled={!canAddChild} title="添加子元素">
+                <Plus size={14} /> 子元素
+              </button>
+              <button className={`toolbar-btn danger ${!canDelete ? 'disabled' : ''}`}
+                onClick={handleDelete} disabled={!canDelete} title="删除选中元素">
+                <Minus size={14} /> 删除
+              </button>
+            </>
+          ) : (
+            <>
+              <button className={`toolbar-btn ${!canAddSibling ? 'disabled' : ''}`}
+                onClick={handleAddSibling} disabled={!canAddSibling} title="添加同级元素">
+                <ArrowRight size={14} /> 同级
+              </button>
+              <button className={`toolbar-btn ${!canAddChild ? 'disabled' : ''}`}
+                onClick={handleAddChild} disabled={!canAddChild} title="添加子元素">
+                <Plus size={14} /> 子项
+              </button>
+              <button className={`toolbar-btn danger ${!canDelete ? 'disabled' : ''}`}
+                onClick={handleDelete} disabled={!canDelete} title="删除选中元素">
+                <Minus size={14} /> 删除
+              </button>
+            </>
+          )}
         </div>
       </div>
-      
+
       <div className="tree-header">
-        <div className="tree-header-col col-key">属性名</div>
-        <div className="tree-header-col col-type">类型</div>
-        <div className="tree-header-col col-desc">描述</div>
-        <div className="tree-header-col col-value">值</div>
+        {isXmlMode ? (
+          <>
+            <div className="tree-header-col col-key" style={{ width: '35%', minWidth: '200px' }}>标签名</div>
+            <div className="tree-header-col col-value" style={{ width: '30%' }}>值</div>
+            <div className="tree-header-col col-desc" style={{ width: '25%' }}>描述</div>
+          </>
+        ) : (
+          <>
+            <div className="tree-header-col col-key">属性名</div>
+            <div className="tree-header-col col-type">类型</div>
+            <div className="tree-header-col col-desc">描述</div>
+            <div className="tree-header-col col-value">值</div>
+          </>
+        )}
       </div>
-      
+
       <div className="tree-body">
         <JSONTreeNode
           node={schema}
@@ -553,8 +734,18 @@ function JSONTreeEditor({
           onToggleExpand={handleToggleExpand}
           excludeApiId={excludeApiId}
           theme={theme}
+          mode={mode}
+          onOpenAttrDialog={setAttrDialogNodeId}
         />
       </div>
+
+      {attrDialogNode && (
+        <AttributeDialog
+          node={attrDialogNode}
+          onClose={() => setAttrDialogNodeId(null)}
+          onUpdate={handleUpdate}
+        />
+      )}
     </div>
   );
 }

@@ -126,7 +126,3444 @@
           "enabled": true
         }
       },
-      "body": "<?xml version=\"1.0\" encoding='UTF-8'?>\n<ufinterface modules=\"qc\" receiver=\"LIMS\" sender=\"NC\">\n    <ccgb id=\"20260416144611\">\n        <head>\n            <pk_checkbill>1001ZZ10000000H51B0W</pk_checkbill>\n            <vtasktype>委托单</vtasktype>\n            <vtasksource>NC系统</vtasksource>\n            <vchecktype>内部报检</vchecktype>\n            <vchkdeptcode>0110401</vchkdeptcode>\n            <vchkdeptname>管理与分析组</vchkdeptname>\n            <vapplydeptname>精制车间</vapplydeptname>\n            <billmaker>包立兴</billmaker>\n            <dmakedate>2019-12-21</dmakedate>\n            <vtrantypecode>C001-0005</vtrantypecode>\n            <vdefaultstdname>雨生红球藻孢子</vdefaultstdname>\n            <vchkstandardinfo>CGJT/BZB11405-2026《雨生红球藻孢子》</vchkstandardinfo>\n            <vmaterialname>辣椒红</vmaterialname>\n            <vmaterialmodel>1000L~高色价原膏B</vmaterialmodel>\n            <vbatchcode>1-0130-191221</vbatchcode>\n            <vdef21>入库成品</vdef21>\n            <vmemo>11</vmemo>\n            <nnum>900</nnum>\n            <vmainunitname>千克</vmainunitname>\n            <vdef1>\n            </vdef1>\n            <vdef3>\n            </vdef3>\n            <vchkstandardid>2121838181266</vchkstandardid>\n        </head>\n        <body>\n            <entry>\n                <pk_checkbill_b>1001ZZ10000000H51B0X</pk_checkbill_b>\n                <pk_checkbill>1001ZZ10000000H51B0W</pk_checkbill>\n                <pk_checkitem>1001ZZ10000000H5107L</pk_checkitem>\n                <pk_applybill>1001ZZ10000000H51B0M</pk_applybill>\n                <vcheckitemname>色泽</vcheckitemname>\n                <vcheckitemunit>\n                </vcheckitemunit>\n                <pk_material>1001N6100000000WMHHM</pk_material>\n                <csourcebid>1001N610000000H5177I</csourcebid>\n                <csourceid>1001N610000000H5177F</csourceid>\n                <vcheckitemid>1245412104933</vcheckitemid>\n            </entry>\n            <entry>\n                <pk_checkbill_b>1001ZZ10000000H51B0Y</pk_checkbill_b>\n                <pk_checkbill>1001ZZ10000000H51B0W</pk_checkbill>\n                <pk_checkitem>1001ZZ10000000H5107M</pk_checkitem>\n                <pk_applybill>1001ZZ10000000H51B0M</pk_applybill>\n                <vcheckitemname>菌落总数</vcheckitemname>\n                <vcheckitemunit>CFU/g</vcheckitemunit>\n                <pk_material>1001N6100000000WMHHM</pk_material>\n                <csourcebid>1001N610000000H5177I</csourcebid>\n                <csourceid>1001N610000000H5177F</csourceid>\n                <vcheckitemid>1245412104952</vcheckitemid>\n            </entry>\n            <entry>\n                <pk_checkbill_b>1001ZZ10000000H51B0Z</pk_checkbill_b>\n                <pk_checkbill>1001ZZ10000000H51B0W</pk_checkbill>\n                <pk_checkitem>1001ZZ10000000H5107N</pk_checkitem>\n                <pk_applybill>1001ZZ10000000H51B0M</pk_applybill>\n                <vcheckitemname>霉菌和酵母</vcheckitemname>\n                <vcheckitemunit>CFU/g</vcheckitemunit>\n                <pk_material>1001N6100000000WMHHM</pk_material>\n                <csourcebid>1001N610000000H5177I</csourcebid>\n                <csourceid>1001N610000000H5177F</csourceid>\n                <vcheckitemid>1245412105140</vcheckitemid>\n            </entry>\n            <entry>\n                <pk_checkbill_b>1001ZZ10000000H51B10</pk_checkbill_b>\n                <pk_checkbill>1001ZZ10000000H51B0W</pk_checkbill>\n                <pk_checkitem>1001ZZ10000000H5107O</pk_checkitem>\n                <pk_applybill>1001ZZ10000000H51B0M</pk_applybill>\n                <vcheckitemname>大肠菌群</vcheckitemname>\n                <vcheckitemunit>MPN/g</vcheckitemunit>\n                <pk_material>1001N6100000000WMHHM</pk_material>\n                <csourcebid>1001N610000000H5177I</csourcebid>\n                <csourceid>1001N610000000H5177F</csourceid>\n                <vcheckitemid>1245412104955</vcheckitemid>\n            </entry>\n            <entry>\n                <pk_checkbill_b>1001ZZ10000000H51B11</pk_checkbill_b>\n                <pk_checkbill>1001ZZ10000000H51B0W</pk_checkbill>\n                <pk_checkitem>1001ZZ10000000H5107P</pk_checkitem>\n                <pk_applybill>1001ZZ10000000H51B0M</pk_applybill>\n                <vcheckitemname>杂质</vcheckitemname>\n                <vcheckitemunit>\n                </vcheckitemunit>\n                <pk_material>1001N6100000000WMHHM</pk_material>\n                <csourcebid>1001N610000000H5177I</csourcebid>\n                <csourceid>1001N610000000H5177F</csourceid>\n                <vcheckitemid>1245412105160</vcheckitemid>\n            </entry>\n            <entry>\n                <pk_checkbill_b>1001ZZ10000000H51B12</pk_checkbill_b>\n                <pk_checkbill>1001ZZ10000000H51B0W</pk_checkbill>\n                <pk_checkitem>1001ZZ10000000H5107Q</pk_checkitem>\n                <pk_applybill>1001ZZ10000000H51B0M</pk_applybill>\n                <vcheckitemname>气味</vcheckitemname>\n                <vcheckitemunit>\n                </vcheckitemunit>\n                <pk_material>1001N6100000000WMHHM</pk_material>\n                <csourcebid>1001N610000000H5177I</csourcebid>\n                <csourceid>1001N610000000H5177F</csourceid>\n                <vcheckitemid>1245412105102</vcheckitemid>\n            </entry>\n            <entry>\n                <pk_checkbill_b>1001ZZ10000000H51B13</pk_checkbill_b>\n                <pk_checkbill>1001ZZ10000000H51B0W</pk_checkbill>\n                <pk_checkitem>1001ZZ10000000H5107R</pk_checkitem>\n                <pk_applybill>1001ZZ10000000H51B0M</pk_applybill>\n                <vcheckitemname>组织形态</vcheckitemname>\n                <vcheckitemunit>\n                </vcheckitemunit>\n                <pk_material>1001N6100000000WMHHM</pk_material>\n                <csourcebid>1001N610000000H5177I</csourcebid>\n                <csourceid>1001N610000000H5177F</csourceid>\n                <vcheckitemid>1245412104687</vcheckitemid>\n            </entry>\n        </body>\n        <attachment>\n            <entry>\n                <filename>色素.docx</filename>\n                <fileid>f0076088-b0ab-4ced-b361-9561b64e7728</fileid>\n            </entry>\n        </attachment>\n    </ccgb>\n</ufinterface>",
+      "body": {
+        "content": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<ufinterface modules=\"qc\" receiver=\"LIMS\" sender=\"NC\">\n  <ccgb id=\"20260416144611\">\n    <head>\n      <pk_checkbill>1001ZZ10000000H51B0W</pk_checkbill>\n      <vtasktype>委托单</vtasktype>\n      <vtasksource>NC系统</vtasksource>\n      <vchecktype>内部报检</vchecktype>\n      <vchkdeptcode>0110401</vchkdeptcode>\n      <vchkdeptname>管理与分析组</vchkdeptname>\n      <vapplydeptname>精制车间</vapplydeptname>\n      <billmaker>包立兴</billmaker>\n      <dmakedate>2019-12-21</dmakedate>\n      <vtrantypecode>C001-0005</vtrantypecode>\n      <vdefaultstdname>雨生红球藻孢子</vdefaultstdname>\n      <vchkstandardinfo>CGJT/BZB11405-2026《雨生红球藻孢子》</vchkstandardinfo>\n      <vmaterialname>辣椒红</vmaterialname>\n      <vmaterialmodel>1000L~高色价原膏B</vmaterialmodel>\n      <vbatchcode>1-0130-191221</vbatchcode>\n      <vdef21>入库成品</vdef21>\n      <vmemo>11</vmemo>\n      <nnum>900</nnum>\n      <vmainunitname>千克</vmainunitname>\n      <vdef1></vdef1>\n      <vdef3></vdef3>\n      <vchkstandardid>2121838181266</vchkstandardid>\n    </head>\n    <body>\n      <entry>\n        <pk_checkbill_b>1001ZZ10000000H51B0X</pk_checkbill_b>\n        <pk_checkbill>1001ZZ10000000H51B0W</pk_checkbill>\n        <pk_checkitem>1001ZZ10000000H5107L</pk_checkitem>\n        <pk_applybill>1001ZZ10000000H51B0M</pk_applybill>\n        <vcheckitemname>色泽</vcheckitemname>\n        <vcheckitemunit></vcheckitemunit>\n        <pk_material>1001N6100000000WMHHM</pk_material>\n        <csourcebid>1001N610000000H5177I</csourcebid>\n        <csourceid>1001N610000000H5177F</csourceid>\n        <vcheckitemid>1245412104933</vcheckitemid>\n      </entry>\n      <entry>\n        <pk_checkbill_b>1001ZZ10000000H51B0Y</pk_checkbill_b>\n        <pk_checkbill>1001ZZ10000000H51B0W</pk_checkbill>\n        <pk_checkitem>1001ZZ10000000H5107M</pk_checkitem>\n        <pk_applybill>1001ZZ10000000H51B0M</pk_applybill>\n        <vcheckitemname>菌落总数</vcheckitemname>\n        <vcheckitemunit>CFU/g</vcheckitemunit>\n        <pk_material>1001N6100000000WMHHM</pk_material>\n        <csourcebid>1001N610000000H5177I</csourcebid>\n        <csourceid>1001N610000000H5177F</csourceid>\n        <vcheckitemid>1245412104952</vcheckitemid>\n      </entry>\n      <entry>\n        <pk_checkbill_b>1001ZZ10000000H51B0Z</pk_checkbill_b>\n        <pk_checkbill>1001ZZ10000000H51B0W</pk_checkbill>\n        <pk_checkitem>1001ZZ10000000H5107N</pk_checkitem>\n        <pk_applybill>1001ZZ10000000H51B0M</pk_applybill>\n        <vcheckitemname>霉菌和酵母</vcheckitemname>\n        <vcheckitemunit>CFU/g</vcheckitemunit>\n        <pk_material>1001N6100000000WMHHM</pk_material>\n        <csourcebid>1001N610000000H5177I</csourcebid>\n        <csourceid>1001N610000000H5177F</csourceid>\n        <vcheckitemid>1245412105140</vcheckitemid>\n      </entry>\n      <entry>\n        <pk_checkbill_b>1001ZZ10000000H51B10</pk_checkbill_b>\n        <pk_checkbill>1001ZZ10000000H51B0W</pk_checkbill>\n        <pk_checkitem>1001ZZ10000000H5107O</pk_checkitem>\n        <pk_applybill>1001ZZ10000000H51B0M</pk_applybill>\n        <vcheckitemname>大肠菌群</vcheckitemname>\n        <vcheckitemunit>MPN/g</vcheckitemunit>\n        <pk_material>1001N6100000000WMHHM</pk_material>\n        <csourcebid>1001N610000000H5177I</csourcebid>\n        <csourceid>1001N610000000H5177F</csourceid>\n        <vcheckitemid>1245412104955</vcheckitemid>\n      </entry>\n      <entry>\n        <pk_checkbill_b>1001ZZ10000000H51B11</pk_checkbill_b>\n        <pk_checkbill>1001ZZ10000000H51B0W</pk_checkbill>\n        <pk_checkitem>1001ZZ10000000H5107P</pk_checkitem>\n        <pk_applybill>1001ZZ10000000H51B0M</pk_applybill>\n        <vcheckitemname>杂质</vcheckitemname>\n        <vcheckitemunit></vcheckitemunit>\n        <pk_material>1001N6100000000WMHHM</pk_material>\n        <csourcebid>1001N610000000H5177I</csourcebid>\n        <csourceid>1001N610000000H5177F</csourceid>\n        <vcheckitemid>1245412105160</vcheckitemid>\n      </entry>\n      <entry>\n        <pk_checkbill_b>1001ZZ10000000H51B12</pk_checkbill_b>\n        <pk_checkbill>1001ZZ10000000H51B0W</pk_checkbill>\n        <pk_checkitem>1001ZZ10000000H5107Q</pk_checkitem>\n        <pk_applybill>1001ZZ10000000H51B0M</pk_applybill>\n        <vcheckitemname>气味</vcheckitemname>\n        <vcheckitemunit></vcheckitemunit>\n        <pk_material>1001N6100000000WMHHM</pk_material>\n        <csourcebid>1001N610000000H5177I</csourcebid>\n        <csourceid>1001N610000000H5177F</csourceid>\n        <vcheckitemid>1245412105102</vcheckitemid>\n      </entry>\n      <entry>\n        <pk_checkbill_b>1001ZZ10000000H51B13</pk_checkbill_b>\n        <pk_checkbill>1001ZZ10000000H51B0W</pk_checkbill>\n        <pk_checkitem>1001ZZ10000000H5107R</pk_checkitem>\n        <pk_applybill>1001ZZ10000000H51B0M</pk_applybill>\n        <vcheckitemname>组织形态</vcheckitemname>\n        <vcheckitemunit></vcheckitemunit>\n        <pk_material>1001N6100000000WMHHM</pk_material>\n        <csourcebid>1001N610000000H5177I</csourcebid>\n        <csourceid>1001N610000000H5177F</csourceid>\n        <vcheckitemid>1245412104687</vcheckitemid>\n      </entry>\n    </body>\n    <attachment>\n      <entry>\n        <filename>色素.docx</filename>\n        <fileid>f0076088-b0ab-4ced-b361-9561b64e7728</fileid>\n      </entry>\n    </attachment>\n  </ccgb>\n</ufinterface>\n",
+        "schema": {
+          "id": "xml_1778577918915_2r427hot0",
+          "type": "object",
+          "key": "ufinterface",
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "xml_1778577918915_s29r6gljp",
+              "type": "string",
+              "key": "@modules",
+              "value": "qc",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "xml_1778577918916_1kjufqbhw",
+              "type": "string",
+              "key": "@receiver",
+              "value": "LIMS",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "xml_1778577918916_o48tf2tf3",
+              "type": "string",
+              "key": "@sender",
+              "value": "NC",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "xml_1778577918917_ru1hzgqc6",
+              "type": "object",
+              "key": "ccgb",
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "xml_1778577918917_630ixtflz",
+                  "type": "string",
+                  "key": "@id",
+                  "value": "20260416144611",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "xml_1778577918917_sj9dk21p1",
+                  "type": "object",
+                  "key": "head",
+                  "value": null,
+                  "description": "",
+                  "children": [
+                    {
+                      "id": "xml_1778577918917_npv4spf7e",
+                      "type": "object",
+                      "key": "pk_checkbill",
+                      "value": null,
+                      "description": "业务id",
+                      "children": [
+                        {
+                          "id": "xml_1778577918917_nrs9ch1be",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "1001ZZ10000000H51B0W",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778577918917_u520jps7u",
+                      "type": "object",
+                      "key": "vtasktype",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778577918917_hasbvth4f",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "委托单",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778577918917_z8vlx9ibr",
+                      "type": "object",
+                      "key": "vtasksource",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778577918917_e0ropkyhw",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "NC系统",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778577918917_ex42dovue",
+                      "type": "object",
+                      "key": "vchecktype",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778577918917_cc1tpepts",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "内部报检",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778577918917_ip9h7n59h",
+                      "type": "object",
+                      "key": "vchkdeptcode",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778577918917_v8rq42st5",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "0110401",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778577918917_vu2usphiy",
+                      "type": "object",
+                      "key": "vchkdeptname",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778577918917_xt3rynxn3",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "管理与分析组",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778577918917_qysm6k3vz",
+                      "type": "object",
+                      "key": "vapplydeptname",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778577918917_9mml3yusb",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "精制车间",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778577918917_bqe33do30",
+                      "type": "object",
+                      "key": "billmaker",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778577918917_9ynid2ezu",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "包立兴",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778577918917_phab6oylr",
+                      "type": "object",
+                      "key": "dmakedate",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778577918917_fg3bcvnhl",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "2019-12-21",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778577918917_89guhktek",
+                      "type": "object",
+                      "key": "vtrantypecode",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778577918917_v09mum2q4",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "C001-0005",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778577918917_lefrj7yix",
+                      "type": "object",
+                      "key": "vdefaultstdname",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778577918917_tzi9bvnv2",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "雨生红球藻孢子",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778577918917_vr6kimppl",
+                      "type": "object",
+                      "key": "vchkstandardinfo",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778577918917_rubsyxsz4",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "CGJT/BZB11405-2026《雨生红球藻孢子》",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778577918917_5yh9eaad4",
+                      "type": "object",
+                      "key": "vmaterialname",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778577918917_e0uunxpxk",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "辣椒红",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778577918917_qvnqssqpk",
+                      "type": "object",
+                      "key": "vmaterialmodel",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778577918917_cd6s45tox",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "1000L~高色价原膏B",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778577918917_wodntvd8i",
+                      "type": "object",
+                      "key": "vbatchcode",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778577918917_flc5ccf0l",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "1-0130-191221",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778577918917_6gfumsy9o",
+                      "type": "object",
+                      "key": "vdef21",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778577918917_dm88847dn",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "入库成品",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778577918917_5udxzvcsf",
+                      "type": "object",
+                      "key": "vmemo",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778577918917_699hjbik3",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "11",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778577918918_dl66tmtkn",
+                      "type": "object",
+                      "key": "nnum",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778577918918_b0rp883me",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "900",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778577918918_rr0iiicni",
+                      "type": "object",
+                      "key": "vmainunitname",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778577918918_x0jxh9ndw",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "千克",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778577918918_4pfhxbpiw",
+                      "type": "string",
+                      "key": "vdef1",
+                      "value": "",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "xml_1778577918918_p6t8n13p0",
+                      "type": "string",
+                      "key": "vdef3",
+                      "value": "",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "xml_1778577918918_g1wzqho7g",
+                      "type": "object",
+                      "key": "vchkstandardid",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778577918918_qs6kdw3em",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "2121838181266",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "xml_1778577918918_xup31nny1",
+                  "type": "object",
+                  "key": "body",
+                  "value": null,
+                  "description": "",
+                  "children": [
+                    {
+                      "id": "xml_1778577918918_hll272x3e",
+                      "type": "array",
+                      "key": "entry",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778577918918_dbjk4kmix",
+                          "type": "object",
+                          "key": 0,
+                          "value": null,
+                          "description": "",
+                          "children": [
+                            {
+                              "id": "xml_1778577918918_2rmzxfs6z",
+                              "type": "object",
+                              "key": "pk_checkbill_b",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_irhg0037x",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0X",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_bvlm5c8w7",
+                              "type": "object",
+                              "key": "pk_checkbill",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_ap1mz3bfe",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0W",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_sue66cfbz",
+                              "type": "object",
+                              "key": "pk_checkitem",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_ivvc4ij84",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H5107L",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_1eig840nk",
+                              "type": "object",
+                              "key": "pk_applybill",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_wbdd3f7hn",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0M",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_i4shkgjdn",
+                              "type": "object",
+                              "key": "vcheckitemname",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_97sr3l5gs",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "色泽",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_0nt1ryeau",
+                              "type": "string",
+                              "key": "vcheckitemunit",
+                              "value": "",
+                              "description": "",
+                              "children": []
+                            },
+                            {
+                              "id": "xml_1778577918918_riw3wsa0p",
+                              "type": "object",
+                              "key": "pk_material",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_ztkhhag9k",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N6100000000WMHHM",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_y3hjy7bpc",
+                              "type": "object",
+                              "key": "csourcebid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_zgqj6fbap",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177I",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_a95j91vs8",
+                              "type": "object",
+                              "key": "csourceid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_3zwxca9fu",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177F",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_0ng73x6ws",
+                              "type": "object",
+                              "key": "vcheckitemid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_mplen7ctl",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1245412104933",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "id": "xml_1778577918918_bsa7dommm",
+                          "type": "object",
+                          "key": 1,
+                          "value": null,
+                          "description": "",
+                          "children": [
+                            {
+                              "id": "xml_1778577918918_mkoiy6oud",
+                              "type": "object",
+                              "key": "pk_checkbill_b",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_2usn7z337",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0Y",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_gjy5hj9ag",
+                              "type": "object",
+                              "key": "pk_checkbill",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_zaaemg7q8",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0W",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_nj6ert7w4",
+                              "type": "object",
+                              "key": "pk_checkitem",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_6skbka0oc",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H5107M",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_at9eezg70",
+                              "type": "object",
+                              "key": "pk_applybill",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_cnn1nzz6p",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0M",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_hga7vwu9z",
+                              "type": "object",
+                              "key": "vcheckitemname",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_gobiv7j6e",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "菌落总数",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_h8i7vt3r4",
+                              "type": "object",
+                              "key": "vcheckitemunit",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_q6wz1ykrb",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "CFU/g",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_r3wzcmnql",
+                              "type": "object",
+                              "key": "pk_material",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_kz0nd3q32",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N6100000000WMHHM",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_v1phx60y4",
+                              "type": "object",
+                              "key": "csourcebid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_qv99rxp4z",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177I",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_8qgpch16j",
+                              "type": "object",
+                              "key": "csourceid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_lxnny82mi",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177F",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_ds439jsrn",
+                              "type": "object",
+                              "key": "vcheckitemid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_9wrmmsl88",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1245412104952",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "id": "xml_1778577918918_i8tktosc6",
+                          "type": "object",
+                          "key": 2,
+                          "value": null,
+                          "description": "",
+                          "children": [
+                            {
+                              "id": "xml_1778577918918_8c8dh23bh",
+                              "type": "object",
+                              "key": "pk_checkbill_b",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_hbu2e873p",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0Z",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_0so84txde",
+                              "type": "object",
+                              "key": "pk_checkbill",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_5b7tkduu9",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0W",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_zjbj8pf2m",
+                              "type": "object",
+                              "key": "pk_checkitem",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_1ye2u4zw5",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H5107N",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_71ncykt7t",
+                              "type": "object",
+                              "key": "pk_applybill",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_753i4pbkc",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0M",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_7flw3r7c0",
+                              "type": "object",
+                              "key": "vcheckitemname",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_oofgtlizc",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "霉菌和酵母",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_2oblea7lb",
+                              "type": "object",
+                              "key": "vcheckitemunit",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_gcoassfrm",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "CFU/g",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_bgbc2q2fe",
+                              "type": "object",
+                              "key": "pk_material",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_theyt6nsq",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N6100000000WMHHM",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_7fjb4bsq3",
+                              "type": "object",
+                              "key": "csourcebid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_wkcenvyv0",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177I",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_nwiytq31b",
+                              "type": "object",
+                              "key": "csourceid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_prgms8wah",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177F",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_q0216sr62",
+                              "type": "object",
+                              "key": "vcheckitemid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_b1hu9i7vu",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1245412105140",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "id": "xml_1778577918918_khf4e01gl",
+                          "type": "object",
+                          "key": 3,
+                          "value": null,
+                          "description": "",
+                          "children": [
+                            {
+                              "id": "xml_1778577918918_su7100tf8",
+                              "type": "object",
+                              "key": "pk_checkbill_b",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_zwqlho9ah",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B10",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_v7w9sul2r",
+                              "type": "object",
+                              "key": "pk_checkbill",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_9e3m6m0f6",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0W",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_w7sawnhxm",
+                              "type": "object",
+                              "key": "pk_checkitem",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_vsjy2fe0o",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H5107O",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_rjydnouvd",
+                              "type": "object",
+                              "key": "pk_applybill",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_cmg9djum6",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0M",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_2u4gzuyar",
+                              "type": "object",
+                              "key": "vcheckitemname",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_aj9vgvs4n",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "大肠菌群",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_cjfk3rck0",
+                              "type": "object",
+                              "key": "vcheckitemunit",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_fi94mlg0z",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "MPN/g",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_xz534qtis",
+                              "type": "object",
+                              "key": "pk_material",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_mrw2xuwgk",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N6100000000WMHHM",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_dxcjtqgyr",
+                              "type": "object",
+                              "key": "csourcebid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_gqz0t27yr",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177I",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_usc6t0rof",
+                              "type": "object",
+                              "key": "csourceid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_vuuirooet",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177F",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_qeq1tpkyj",
+                              "type": "object",
+                              "key": "vcheckitemid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_c3pk6geon",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1245412104955",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "id": "xml_1778577918918_vvonm5ur1",
+                          "type": "object",
+                          "key": 4,
+                          "value": null,
+                          "description": "",
+                          "children": [
+                            {
+                              "id": "xml_1778577918918_y47r42ol1",
+                              "type": "object",
+                              "key": "pk_checkbill_b",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_ku5h6t9c8",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B11",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_ee3oaxp7h",
+                              "type": "object",
+                              "key": "pk_checkbill",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_l45c62ae6",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0W",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_sv4p2b2nc",
+                              "type": "object",
+                              "key": "pk_checkitem",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_z5oskord9",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H5107P",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_bgaiki0ns",
+                              "type": "object",
+                              "key": "pk_applybill",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_hcjh3ccls",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0M",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_9d1lmqn11",
+                              "type": "object",
+                              "key": "vcheckitemname",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_6sicdv2mt",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "杂质",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_edq9k3xz0",
+                              "type": "string",
+                              "key": "vcheckitemunit",
+                              "value": "",
+                              "description": "",
+                              "children": []
+                            },
+                            {
+                              "id": "xml_1778577918918_vq0mn2pay",
+                              "type": "object",
+                              "key": "pk_material",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_uf7sikbrv",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N6100000000WMHHM",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_m7c0tccqy",
+                              "type": "object",
+                              "key": "csourcebid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_rwssp5irt",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177I",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_10aw3gyye",
+                              "type": "object",
+                              "key": "csourceid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_awak2gw1u",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177F",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_mzzkcbvw8",
+                              "type": "object",
+                              "key": "vcheckitemid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_pf1v40j2t",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1245412105160",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "id": "xml_1778577918918_ov485dpmu",
+                          "type": "object",
+                          "key": 5,
+                          "value": null,
+                          "description": "",
+                          "children": [
+                            {
+                              "id": "xml_1778577918918_sxsr12b0c",
+                              "type": "object",
+                              "key": "pk_checkbill_b",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_hb5t89fwk",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B12",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_nxbbg5rcp",
+                              "type": "object",
+                              "key": "pk_checkbill",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_86a1lg95f",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0W",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_fsfo4guvd",
+                              "type": "object",
+                              "key": "pk_checkitem",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_tbml248z5",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H5107Q",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_02hq6m4dn",
+                              "type": "object",
+                              "key": "pk_applybill",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_hzucip82v",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0M",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_1y4zuttam",
+                              "type": "object",
+                              "key": "vcheckitemname",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_6bqroh2s0",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "气味",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_3wl8szid6",
+                              "type": "string",
+                              "key": "vcheckitemunit",
+                              "value": "",
+                              "description": "",
+                              "children": []
+                            },
+                            {
+                              "id": "xml_1778577918918_q4hhu9o53",
+                              "type": "object",
+                              "key": "pk_material",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_ayqv1z14h",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N6100000000WMHHM",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_en92guz4o",
+                              "type": "object",
+                              "key": "csourcebid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_bhgly7wqz",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177I",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_vqwrkha8l",
+                              "type": "object",
+                              "key": "csourceid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_54aan8xtc",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177F",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_851cwrnub",
+                              "type": "object",
+                              "key": "vcheckitemid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_r1df5cmec",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1245412105102",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "id": "xml_1778577918918_m9x99xjif",
+                          "type": "object",
+                          "key": 6,
+                          "value": null,
+                          "description": "",
+                          "children": [
+                            {
+                              "id": "xml_1778577918918_13yd2lv25",
+                              "type": "object",
+                              "key": "pk_checkbill_b",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_ofxjr73aq",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B13",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_og31mjs5h",
+                              "type": "object",
+                              "key": "pk_checkbill",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_tk81t1p3y",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0W",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_gjjwbik67",
+                              "type": "object",
+                              "key": "pk_checkitem",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_j50aq98dz",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H5107R",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_7prvsha6n",
+                              "type": "object",
+                              "key": "pk_applybill",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_jjybv6zzj",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0M",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_1doxhnffk",
+                              "type": "object",
+                              "key": "vcheckitemname",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_8y0ehpgnz",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "组织形态",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_a4fxggmww",
+                              "type": "string",
+                              "key": "vcheckitemunit",
+                              "value": "",
+                              "description": "",
+                              "children": []
+                            },
+                            {
+                              "id": "xml_1778577918918_4kau89xo7",
+                              "type": "object",
+                              "key": "pk_material",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_qrtsew0r9",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N6100000000WMHHM",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_xd0f0i6qo",
+                              "type": "object",
+                              "key": "csourcebid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_1akevz9of",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177I",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_xdz49vnr9",
+                              "type": "object",
+                              "key": "csourceid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_63os9px98",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177F",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778577918918_r8fnu1g61",
+                              "type": "object",
+                              "key": "vcheckitemid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778577918918_xnqfsv9od",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1245412104687",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "xml_1778577918918_k7km1jadp",
+                  "type": "object",
+                  "key": "attachment",
+                  "value": null,
+                  "description": "",
+                  "children": [
+                    {
+                      "id": "xml_1778577918918_00rabv27q",
+                      "type": "object",
+                      "key": "entry",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778577918918_he8cobwwf",
+                          "type": "object",
+                          "key": "filename",
+                          "value": null,
+                          "description": "",
+                          "children": [
+                            {
+                              "id": "xml_1778577918918_n6120tngp",
+                              "type": "string",
+                              "key": "#text",
+                              "value": "色素.docx",
+                              "description": "",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "xml_1778577918918_bi5g5sehz",
+                          "type": "object",
+                          "key": "fileid",
+                          "value": null,
+                          "description": "",
+                          "children": [
+                            {
+                              "id": "xml_1778577918918_reteoxmbg",
+                              "type": "string",
+                              "key": "#text",
+                              "value": "f0076088-b0ab-4ced-b361-9561b64e7728",
+                              "description": "",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "type": "raw",
+        "contentType": "xml"
+      },
+      "chain": [
+        "api_1778229346853_qszqzrn52"
+      ],
+      "successAssert": "$.code == 200"
+    },
+    {
+      "id": "api_1778578586777_lj2ed6ljz",
+      "name": "测试",
+      "group": "group_1778230973737_ezewf0k04",
+      "api_path": "{domain}{api-prj}/openapi/order/nc/receive",
+      "method": "POST",
+      "header": {
+        "token": "{{ref:api_1778229346853_qszqzrn52.obj.token}}",
+        "appId": "{{ref:api_1778229346853_qszqzrn52.obj.appId}}",
+        "Content-Type": "text/xml"
+      },
+      "param": {
+        "ss": {
+          "default": "{{ref:api_1778229346853_qszqzrn52.obj.token}}",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        }
+      },
+      "body": {
+        "content": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<ufinterface modules=\"qc\" receiver=\"LIMS\" sender=\"NC\">\n  <ccgb id=\"20260416144611\">\n    <head>\n      <pk_checkbill>1001ZZ10000000H51B0W</pk_checkbill>\n      <vtasktype>委托单</vtasktype>\n      <vtasksource>NC系统</vtasksource>\n      <vchecktype>内部报检</vchecktype>\n      <vchkdeptcode>0110401</vchkdeptcode>\n      <vchkdeptname>管理与分析组</vchkdeptname>\n      <vapplydeptname>精制车间</vapplydeptname>\n      <billmaker>包立兴</billmaker>\n      <dmakedate>2019-12-21</dmakedate>\n      <vtrantypecode>C001-0005</vtrantypecode>\n      <vdefaultstdname>雨生红球藻孢子</vdefaultstdname>\n      <vchkstandardinfo>CGJT/BZB11405-2026《雨生红球藻孢子》</vchkstandardinfo>\n      <vmaterialname>辣椒红</vmaterialname>\n      <vmaterialmodel>1000L~高色价原膏B</vmaterialmodel>\n      <vbatchcode>1-0130-191221</vbatchcode>\n      <vdef21>入库成品</vdef21>\n      <vmemo>11</vmemo>\n      <nnum>900</nnum>\n      <vmainunitname>千克</vmainunitname>\n      <vdef1></vdef1>\n      <vdef3></vdef3>\n      <vchkstandardid>2121838181266</vchkstandardid>\n    </head>\n</ufinterface>\n",
+        "schema": {
+          "id": "xml_1778579223046_v68c7hi5v",
+          "type": "object",
+          "key": "ufinterface",
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "xml_1778579223046_4tbaml0n5",
+              "type": "string",
+              "key": "@modules",
+              "value": "qc",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "xml_1778579223046_npos4mqfb",
+              "type": "string",
+              "key": "@receiver",
+              "value": "LIMS",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "xml_1778579223046_ioywpkegv",
+              "type": "string",
+              "key": "@sender",
+              "value": "NC",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "xml_1778579223047_561hwqmif",
+              "type": "object",
+              "key": "ccgb",
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "xml_1778579223047_pxyeqw02e",
+                  "type": "string",
+                  "key": "@id",
+                  "value": "20260416144611",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "xml_1778579223047_5xq5hld9v",
+                  "type": "object",
+                  "key": "head",
+                  "value": null,
+                  "description": "",
+                  "children": [
+                    {
+                      "id": "xml_1778579223047_o9rhyqbs1",
+                      "type": "object",
+                      "key": "pk_checkbill",
+                      "value": null,
+                      "description": "业务id",
+                      "children": [
+                        {
+                          "id": "xml_1778579223047_sc5foloqj",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "1001ZZ10000000H51B0W",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778579223047_pbmtayst5",
+                      "type": "object",
+                      "key": "vtasktype",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778579223047_j2nkdssc8",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "委托单",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778579223047_hjmxwrkh9",
+                      "type": "object",
+                      "key": "vtasksource",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778579223047_7f58rqjmb",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "NC系统",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778579223047_h36dpvj6q",
+                      "type": "object",
+                      "key": "vchecktype",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778579223047_mx94u5sw7",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "内部报检",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778579223047_e12x6exhd",
+                      "type": "object",
+                      "key": "vchkdeptcode",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778579223047_g169k4wff",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "0110401",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778579223047_7qkvd4814",
+                      "type": "object",
+                      "key": "vchkdeptname",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778579223047_9vndhigr8",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "管理与分析组",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778579223047_z10rqz90w",
+                      "type": "object",
+                      "key": "vapplydeptname",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778579223047_1irc9x3zd",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "精制车间",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778579223047_4sim34u01",
+                      "type": "object",
+                      "key": "billmaker",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778579223047_7d8m8jlhp",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "包立兴",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778579223047_i94ccpe44",
+                      "type": "object",
+                      "key": "dmakedate",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778579223047_l6xfl1pkt",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "2019-12-21",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778579223047_pbzzdbnlb",
+                      "type": "object",
+                      "key": "vtrantypecode",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778579223047_m5dbb58e0",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "C001-0005",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778579223047_4yk3jbz32",
+                      "type": "object",
+                      "key": "vdefaultstdname",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778579223047_lwzooennl",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "雨生红球藻孢子",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778579223047_hgw3d1dh8",
+                      "type": "object",
+                      "key": "vchkstandardinfo",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778579223047_zqnnmxy6n",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "CGJT/BZB11405-2026《雨生红球藻孢子》",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778579223047_alelbtqdk",
+                      "type": "object",
+                      "key": "vmaterialname",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778579223047_ek110bfkl",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "辣椒红",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778579223047_hbc5o2on6",
+                      "type": "object",
+                      "key": "vmaterialmodel",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778579223047_hj8x5o1vg",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "1000L~高色价原膏B",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778579223047_z2k5osxmv",
+                      "type": "object",
+                      "key": "vbatchcode",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778579223047_iljov440i",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "1-0130-191221",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778579223047_lrfuidvfw",
+                      "type": "object",
+                      "key": "vdef21",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778579223047_2wxzjqmef",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "入库成品",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778579223047_lc8hvekt3",
+                      "type": "object",
+                      "key": "vmemo",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778579223047_ygf4cls0n",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "11",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778579223047_ld5rqida1",
+                      "type": "object",
+                      "key": "nnum",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778579223047_nmjxkfhbi",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "900",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778579223047_mt3k3tsbq",
+                      "type": "object",
+                      "key": "vmainunitname",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778579223047_gko1v3v2c",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "千克",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "xml_1778579223047_57q964n3g",
+                      "type": "string",
+                      "key": "vdef1",
+                      "value": "",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "xml_1778579223047_2zd8drugl",
+                      "type": "string",
+                      "key": "vdef3",
+                      "value": "",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "xml_1778579223047_py93127e6",
+                      "type": "object",
+                      "key": "vchkstandardid",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778579223047_mtp0f07ls",
+                          "type": "string",
+                          "key": "#text",
+                          "value": "2121838181266",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "xml_1778579223047_a583y5gya",
+                  "type": "object",
+                  "key": "body",
+                  "value": null,
+                  "description": "",
+                  "children": [
+                    {
+                      "id": "xml_1778579223047_9lg4y40ow",
+                      "type": "array",
+                      "key": "entry",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778579223047_6a7229aj2",
+                          "type": "object",
+                          "key": 0,
+                          "value": null,
+                          "description": "",
+                          "children": [
+                            {
+                              "id": "xml_1778579223047_oq1vvg5x9",
+                              "type": "object",
+                              "key": "pk_checkbill_b",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_lxd6zdqbn",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0X",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223047_qpvesp1sd",
+                              "type": "object",
+                              "key": "pk_checkbill",
+                              "value": null,
+                              "description": "业务id",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_efijwytvz",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0W",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223047_drgi0uk9j",
+                              "type": "object",
+                              "key": "pk_checkitem",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_8uom8jcj3",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H5107L",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223047_nj8cko2e2",
+                              "type": "object",
+                              "key": "pk_applybill",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_oi7m012s6",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0M",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223047_1p1wrxhvs",
+                              "type": "object",
+                              "key": "vcheckitemname",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_aciofdxi2",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "色泽",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223047_m2sp1rj62",
+                              "type": "string",
+                              "key": "vcheckitemunit",
+                              "value": "",
+                              "description": "",
+                              "children": []
+                            },
+                            {
+                              "id": "xml_1778579223047_zw99vtqff",
+                              "type": "object",
+                              "key": "pk_material",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_t2ez3l0ux",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N6100000000WMHHM",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223047_zzkv89qvb",
+                              "type": "object",
+                              "key": "csourcebid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_f9hhqiajh",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177I",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223047_ojfuh59to",
+                              "type": "object",
+                              "key": "csourceid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_x49t4t6hf",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177F",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223047_yg9wcd0nl",
+                              "type": "object",
+                              "key": "vcheckitemid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_rg6ufafkj",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1245412104933",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "id": "xml_1778579223047_j8ukpg0ij",
+                          "type": "object",
+                          "key": 1,
+                          "value": null,
+                          "description": "",
+                          "children": [
+                            {
+                              "id": "xml_1778579223047_js4c34rwk",
+                              "type": "object",
+                              "key": "pk_checkbill_b",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_t7aqz5ljv",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0Y",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223047_kckyczpop",
+                              "type": "object",
+                              "key": "pk_checkbill",
+                              "value": null,
+                              "description": "业务id",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_rgjrgx8j2",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0W",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223047_23muvpj28",
+                              "type": "object",
+                              "key": "pk_checkitem",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_iz69tcr30",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H5107M",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223047_g5v58tkrt",
+                              "type": "object",
+                              "key": "pk_applybill",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_7bxy767t7",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0M",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223047_r85i4ko1h",
+                              "type": "object",
+                              "key": "vcheckitemname",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_wb09n4qn2",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "菌落总数",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223047_4eow7e9s1",
+                              "type": "object",
+                              "key": "vcheckitemunit",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_ukk9g11ai",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "CFU/g",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223047_y9dp766lq",
+                              "type": "object",
+                              "key": "pk_material",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_zsktgbhwg",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N6100000000WMHHM",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223047_3q6xc3uqb",
+                              "type": "object",
+                              "key": "csourcebid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_903ttllet",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177I",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223047_94qrvvgvf",
+                              "type": "object",
+                              "key": "csourceid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_utog29u26",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177F",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223047_1g3m8c3ya",
+                              "type": "object",
+                              "key": "vcheckitemid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_o5syrm139",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1245412104952",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "id": "xml_1778579223047_v9db31pgr",
+                          "type": "object",
+                          "key": 2,
+                          "value": null,
+                          "description": "",
+                          "children": [
+                            {
+                              "id": "xml_1778579223047_3mtaug3mm",
+                              "type": "object",
+                              "key": "pk_checkbill_b",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_9on31nfzi",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0Z",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223047_wg8u016t9",
+                              "type": "object",
+                              "key": "pk_checkbill",
+                              "value": null,
+                              "description": "业务id",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_z231a74jz",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0W",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223047_sk5xp7w1a",
+                              "type": "object",
+                              "key": "pk_checkitem",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_f0kgqu5li",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H5107N",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223047_qik4izjxg",
+                              "type": "object",
+                              "key": "pk_applybill",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_um5jm82mk",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0M",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223047_3pgzp9vhl",
+                              "type": "object",
+                              "key": "vcheckitemname",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_6gbknmjxi",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "霉菌和酵母",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223047_fkzoflmhq",
+                              "type": "object",
+                              "key": "vcheckitemunit",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_hy1fnq263",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "CFU/g",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223047_w5z7s7elo",
+                              "type": "object",
+                              "key": "pk_material",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_1rtfue1ke",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N6100000000WMHHM",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223047_f7ek82ev2",
+                              "type": "object",
+                              "key": "csourcebid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_fxthg6er3",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177I",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223047_qjeqyy0fe",
+                              "type": "object",
+                              "key": "csourceid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_qsh5xjn61",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177F",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223047_tt8loskyn",
+                              "type": "object",
+                              "key": "vcheckitemid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223047_tqehuibw4",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1245412105140",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "id": "xml_1778579223047_xxaisb732",
+                          "type": "object",
+                          "key": 3,
+                          "value": null,
+                          "description": "",
+                          "children": [
+                            {
+                              "id": "xml_1778579223048_p9xatylql",
+                              "type": "object",
+                              "key": "pk_checkbill_b",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_0twq17clk",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B10",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_j01w2svy8",
+                              "type": "object",
+                              "key": "pk_checkbill",
+                              "value": null,
+                              "description": "业务id",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_94o496gu9",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0W",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_nj2ks7y9j",
+                              "type": "object",
+                              "key": "pk_checkitem",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_cpily2f11",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H5107O",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_8rshxw6s4",
+                              "type": "object",
+                              "key": "pk_applybill",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_tzo1u1thx",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0M",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_xbhcf9izb",
+                              "type": "object",
+                              "key": "vcheckitemname",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_83wi3s20o",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "大肠菌群",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_gw21s7gjb",
+                              "type": "object",
+                              "key": "vcheckitemunit",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_rub34bxxv",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "MPN/g",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_uxevtj3n4",
+                              "type": "object",
+                              "key": "pk_material",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_12ozbperk",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N6100000000WMHHM",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_a0svnacf9",
+                              "type": "object",
+                              "key": "csourcebid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_xpwdf61wo",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177I",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_0lsjb3r64",
+                              "type": "object",
+                              "key": "csourceid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_nveaj12gy",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177F",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_mo8y00bfc",
+                              "type": "object",
+                              "key": "vcheckitemid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_sv8o6rbq0",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1245412104955",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "id": "xml_1778579223048_iwpx7l1op",
+                          "type": "object",
+                          "key": 4,
+                          "value": null,
+                          "description": "",
+                          "children": [
+                            {
+                              "id": "xml_1778579223048_qn5f6p2p8",
+                              "type": "object",
+                              "key": "pk_checkbill_b",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_oxt42gn6s",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B11",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_3wq0rt6og",
+                              "type": "object",
+                              "key": "pk_checkbill",
+                              "value": null,
+                              "description": "业务id",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_ijhj3khaz",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0W",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_7j5inkpvi",
+                              "type": "object",
+                              "key": "pk_checkitem",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_01bv720mt",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H5107P",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_u20g8nft8",
+                              "type": "object",
+                              "key": "pk_applybill",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_u1enmvfor",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0M",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_23ycc9wb9",
+                              "type": "object",
+                              "key": "vcheckitemname",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_twceyqxx4",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "杂质",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_srka5z9ah",
+                              "type": "string",
+                              "key": "vcheckitemunit",
+                              "value": "",
+                              "description": "",
+                              "children": []
+                            },
+                            {
+                              "id": "xml_1778579223048_5209n97oq",
+                              "type": "object",
+                              "key": "pk_material",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_vbcnf19rj",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N6100000000WMHHM",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_22m9rmuas",
+                              "type": "object",
+                              "key": "csourcebid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_6fw854zps",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177I",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_ufd3zxzb8",
+                              "type": "object",
+                              "key": "csourceid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_wifxngjy3",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177F",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_p8pad6vrh",
+                              "type": "object",
+                              "key": "vcheckitemid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_ampzfjs1x",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1245412105160",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "id": "xml_1778579223048_npn9v1ema",
+                          "type": "object",
+                          "key": 5,
+                          "value": null,
+                          "description": "",
+                          "children": [
+                            {
+                              "id": "xml_1778579223048_yfcllc6u3",
+                              "type": "object",
+                              "key": "pk_checkbill_b",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_thnzgjkgo",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B12",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_0jmv9vkuq",
+                              "type": "object",
+                              "key": "pk_checkbill",
+                              "value": null,
+                              "description": "业务id",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_umi3fjxmz",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0W",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_73pgflq0p",
+                              "type": "object",
+                              "key": "pk_checkitem",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_esq4wstv2",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H5107Q",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_xsyhihlvx",
+                              "type": "object",
+                              "key": "pk_applybill",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_82bw0tv7y",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0M",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_nrrysb422",
+                              "type": "object",
+                              "key": "vcheckitemname",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_w33x9gxlg",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "气味",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_51e2v1w5e",
+                              "type": "string",
+                              "key": "vcheckitemunit",
+                              "value": "",
+                              "description": "",
+                              "children": []
+                            },
+                            {
+                              "id": "xml_1778579223048_yw1uqw0kd",
+                              "type": "object",
+                              "key": "pk_material",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_7qjjoiyyt",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N6100000000WMHHM",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_3x5y6sxee",
+                              "type": "object",
+                              "key": "csourcebid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_cl95edapr",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177I",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_zy72z0rad",
+                              "type": "object",
+                              "key": "csourceid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_8xtk1bfhs",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177F",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_wr0qwisuw",
+                              "type": "object",
+                              "key": "vcheckitemid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_ourvw6au4",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1245412105102",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "id": "xml_1778579223048_vsovkmhn1",
+                          "type": "object",
+                          "key": 6,
+                          "value": null,
+                          "description": "",
+                          "children": [
+                            {
+                              "id": "xml_1778579223048_avw4bge8t",
+                              "type": "object",
+                              "key": "pk_checkbill_b",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_bufgqs47l",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B13",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_abqoxpboz",
+                              "type": "object",
+                              "key": "pk_checkbill",
+                              "value": null,
+                              "description": "业务id",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_w9uf272zb",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0W",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_7cfay9inh",
+                              "type": "object",
+                              "key": "pk_checkitem",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_qgbcgfwwf",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H5107R",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_l14p89rl7",
+                              "type": "object",
+                              "key": "pk_applybill",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_p5xuwrse6",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001ZZ10000000H51B0M",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_k3swyxrkp",
+                              "type": "object",
+                              "key": "vcheckitemname",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_op5kz2g8h",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "组织形态",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_ohzix1ksu",
+                              "type": "string",
+                              "key": "vcheckitemunit",
+                              "value": "",
+                              "description": "",
+                              "children": []
+                            },
+                            {
+                              "id": "xml_1778579223048_itexv01rp",
+                              "type": "object",
+                              "key": "pk_material",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_g6erdgv3z",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N6100000000WMHHM",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_5x5bj9thc",
+                              "type": "object",
+                              "key": "csourcebid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_l2fz85oar",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177I",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_9c411rrw2",
+                              "type": "object",
+                              "key": "csourceid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_dse630edt",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1001N610000000H5177F",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "xml_1778579223048_zkl29f97s",
+                              "type": "object",
+                              "key": "vcheckitemid",
+                              "value": null,
+                              "description": "",
+                              "children": [
+                                {
+                                  "id": "xml_1778579223048_wrw1joqp4",
+                                  "type": "string",
+                                  "key": "#text",
+                                  "value": "1245412104687",
+                                  "description": "",
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "xml_1778579223048_gs5ekmo1l",
+                  "type": "object",
+                  "key": "attachment",
+                  "value": null,
+                  "description": "",
+                  "children": [
+                    {
+                      "id": "xml_1778579223048_oqygt6dbg",
+                      "type": "object",
+                      "key": "entry",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "xml_1778579223048_opsugqnxe",
+                          "type": "object",
+                          "key": "filename",
+                          "value": null,
+                          "description": "",
+                          "children": [
+                            {
+                              "id": "xml_1778579223048_h9b7d0ho9",
+                              "type": "string",
+                              "key": "#text",
+                              "value": "色素.docx",
+                              "description": "",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "xml_1778579223048_rq29qq3l9",
+                          "type": "object",
+                          "key": "fileid",
+                          "value": null,
+                          "description": "",
+                          "children": [
+                            {
+                              "id": "xml_1778579223048_efxh1sax6",
+                              "type": "string",
+                              "key": "#text",
+                              "value": "f0076088-b0ab-4ced-b361-9561b64e7728",
+                              "description": "",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "type": "raw",
+        "contentType": "xml"
+      },
       "chain": [
         "api_1778229346853_qszqzrn52"
       ],
