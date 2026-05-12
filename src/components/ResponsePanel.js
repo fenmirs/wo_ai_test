@@ -240,7 +240,7 @@ function ResponsePanel({ executionResult, theme }) {
                                   <div className="request-body-content">
                                     {reqConfig.bodyType === 'raw' && (
                                       <MonacoView
-                                        height="150px"
+                                        height="200px"
                                         language="plaintext"
                                         value={reqConfig.body?.content || ''}
                                         theme={theme}
@@ -296,7 +296,7 @@ function ResponsePanel({ executionResult, theme }) {
                                       const bodyLang = typeof reqConfig.body === 'object' && reqConfig.body !== null ? 'json' : 'plaintext';
                                       return (
                                         <MonacoView
-                                          height="150px"
+                                          height="200px"
                                           language={bodyLang}
                                           value={bodyVal}
                                           theme={theme}
@@ -331,7 +331,7 @@ function ResponsePanel({ executionResult, theme }) {
                         <div className="response-body-editor">
                           {cardResult?.data !== undefined ? (
                             <MonacoView
-                              height="300px"
+                              height="460px"
                               language="json"
                               value={JSON.stringify(cardResult.data, null, 2)}
                               theme={theme}
