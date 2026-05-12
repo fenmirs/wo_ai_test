@@ -32,29 +32,54 @@
       },
       "param": {},
       "body": {
-        "content": "{\n  \"appId\": false,\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"1\n}",
+        "content": "{\n  \"appId\": false,\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\",\n  \"a\": {\n    \"a1\": \"232323\",\n    \"a1\": \"232325\",\n    \"newElement_1778584228413\": \"ss111\"\n  }\n}",
         "schema": {
-          "id": "node_1778582092513_2luyt6xmx",
+          "id": "node_1778584311537_qy2p2u3o2",
           "type": "object",
           "key": null,
           "value": null,
           "description": "",
           "children": [
             {
-              "id": "node_1778582092513_y60z943dh",
+              "id": "node_1778584311537_ngygoafte",
               "type": "boolean",
               "key": "appId",
               "value": false,
-              "description": "啦啦啦啦啦啦",
+              "description": "",
               "children": []
             },
             {
-              "id": "node_1778582092513_mbmse4c8o",
+              "id": "node_1778584311537_at8w1g32k",
               "type": "string",
               "key": "appSecret",
               "value": "67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS",
-              "description": "授权秘钥",
+              "description": "",
               "children": []
+            },
+            {
+              "id": "node_1778584311537_pjmqxd2z3",
+              "type": "object",
+              "key": "a",
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1778584311537_ltzmkvmms",
+                  "type": "string",
+                  "key": "a1",
+                  "value": "232325",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1778584311537_nmoy6r4oc",
+                  "type": "string",
+                  "key": "newElement_1778584228413",
+                  "value": "ss111",
+                  "description": "",
+                  "children": []
+                }
+              ]
             }
           ]
         },

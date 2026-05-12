@@ -610,9 +610,15 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       return;
     }
 
-    if (jsonParseError) {
-      setLocalSaveError('JSON 格式错误，请检查后重试');
-      return;
+    if (formData.body.type === 'raw' && formData.body.contentType === 'json') {
+      const rawContent = formData.body.content || '';
+      if (rawContent.trim()) {
+        try { JSON.parse(rawContent); }
+        catch (e) {
+          setLocalSaveError('JSON 格式错误，请检查后重试');
+          return;
+        }
+      }
     }
 
     setIsSaving(true);
@@ -620,6 +626,8 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
     try {
       const execAPI = prepareForExecute();
+      console.log(`[APIDetail] handleSave - formData.body:`, JSON.stringify(formData.body));
+      console.log(`[APIDetail] handleSave - execAPI.body:`, JSON.stringify(execAPI.body));
       console.log(`[APIDetail] handleSave - execAPI params:`, JSON.stringify(execAPI.param));
       console.log(`[APIDetail] handleSave - execAPI headers:`, JSON.stringify(execAPI.header));
       if (onSaveAPI) {
@@ -1223,9 +1231,14 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                             checked={jsonEditMode === 'ui'}
                             disabled={!!jsonParseError}
                             onChange={(e) => {
-                              if (jsonParseError) return;
+                              const currentContent = formData.body.content || '{}';
+                              if (!currentContent.trim()) return;
                               try {
-                                const currentContent = formData.body.content || '{}';
+                                JSON.parse(currentContent);
+                              } catch (_) {
+                                return;
+                              }
+                              try {
                                 const existingSchema = formData.body.schema;
                                 const newSchema = JSONSchemaConverter.jsonToSchema(currentContent, existingSchema);
                                 if (newSchema) {
@@ -1324,41 +1337,47 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                     <CodeEditor
                       value={formData.body.content || ''}
                       onChange={(content) => {
-                        updateFormBody({ content });
+                        const updates = { content };
                         
                          if (formData.body.contentType === 'json' && jsonEditMode === 'code') {
-                           if (content && content.trim()) {
-                             try {
-                               JSON.parse(content);
-                               setJsonParseError(null);
-                             } catch (e) {
-                               setJsonParseError(e.message);
-                             }
-                           } else {
-                             setJsonParseError(null);
-                           }
+                            let isJsonValid = true;
+                            if (content && content.trim()) {
+                              try {
+                                JSON.parse(content);
+                                setJsonParseError(null);
+                              } catch (e) {
+                                setJsonParseError(e.message);
+                                isJsonValid = false;
+                              }
+                            } else {
+                              setJsonParseError(null);
+                            }
+                            if (isJsonValid) {
+                              try {
+                                const existingSchema = formData.body.schema;
+                                const newSchema = JSONSchemaConverter.jsonToSchema(content, existingSchema);
+                                if (newSchema) {
+                                  updates.schema = newSchema;
+                                }
+                              } catch (err) {
+                                // Ignore parse errors when typing
+                              }
+                            }
+                          }
+
+                         if (formData.body.contentType === 'xml' && xmlEditMode === 'code') {
                            try {
                              const existingSchema = formData.body.schema;
-                             const newSchema = JSONSchemaConverter.jsonToSchema(content, existingSchema);
+                             const newSchema = XMLSchemaConverter.xmlToSchema(content, existingSchema);
                              if (newSchema) {
-                               updateFormBody({ schema: newSchema });
+                               updates.schema = newSchema;
                              }
                            } catch (err) {
                              // Ignore parse errors when typing
                            }
                          }
 
-                        if (formData.body.contentType === 'xml' && xmlEditMode === 'code') {
-                          try {
-                            const existingSchema = formData.body.schema;
-                            const newSchema = XMLSchemaConverter.xmlToSchema(content, existingSchema);
-                            if (newSchema) {
-                              updateFormBody({ schema: newSchema });
-                            }
-                          } catch (err) {
-                            // Ignore parse errors when typing
-                          }
-                        }
+                         updateFormBody(updates);
                       }}
                       contentType={formData.body.contentType || 'text'}
                       onTypeChange={(contentType) => {
