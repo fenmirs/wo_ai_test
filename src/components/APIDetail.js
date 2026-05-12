@@ -10,15 +10,15 @@ import XMLSchemaConverter from '../utils/XMLSchemaConverter';
 import CodeEditor from './CodeEditor';
 import RefVariableSelector from './RefVariableSelector';
 import JSONTreeEditor from './JSONTreeEditor';
+import { toast } from './Toast';
 
-function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, onSaveError, saveError, groups = [], isAdding = false, isTemporary = false, onViewDetail, onRestoreHistory, onDeleteHistory, theme = 'dark', onResultChange }) {
+function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, groups = [], isAdding = false, isTemporary = false, onViewDetail, onRestoreHistory, onDeleteHistory, theme = 'dark', onResultChange }) {
   const [resolvedPath, setResolvedPath] = useState('');
   const [executionResult, setExecutionResult] = useState(null);
   const [isExecuting, setIsExecuting] = useState(false);
   const [activeTab, setActiveTab] = useState('params');
   const [showHistoryPanel, setShowHistoryPanel] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [localSaveError, setLocalSaveError] = useState(null);
   const fileInputRef = useRef(null);
   const executorRef = useRef(null);
   const initializedApiIdRef = useRef(null);
@@ -602,11 +602,11 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
   const handleSave = async () => {
     if (!formData.name && (isAdding || isTemporary)) {
-      setLocalSaveError('请输入 API 名称');
+      toast.error('请输入 API 名称');
       return;
     }
     if (!formData.api_path) {
-      setLocalSaveError('请输入 API 路径');
+      toast.error('请输入 API 路径');
       return;
     }
 
@@ -615,14 +615,13 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       if (rawContent.trim()) {
         try { JSON.parse(rawContent); }
         catch (e) {
-          setLocalSaveError('JSON 格式错误，请检查后重试');
+          toast.error('JSON 格式错误，请检查后重试');
           return;
         }
       }
     }
 
     setIsSaving(true);
-    setLocalSaveError(null);
 
     try {
       const execAPI = prepareForExecute();
@@ -633,11 +632,11 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       if (onSaveAPI) {
         await onSaveAPI(execAPI, isAdding || isTemporary);
       }
+      toast.success('保存成功');
       console.log(`[APIDetail] handleSave - after save complete`);
     } catch (error) {
       const errMsg = error.message || '保存失败';
-      setLocalSaveError(errMsg);
-      if (onSaveError) onSaveError(errMsg);
+      toast.error(errMsg);
     } finally {
       setIsSaving(false);
     }
@@ -957,14 +956,12 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         </div>
         <div className="header-actions">
           <button
-            className={`btn-save ${saveError || localSaveError ? 'error' : ''}`}
+            className="btn-save"
             onClick={handleSave}
-            title={saveError || localSaveError || '保存 API'}
+            title="保存 API"
           >
             {isSaving ? (
               <RefreshCw size={16} className="spin" />
-            ) : saveError || localSaveError ? (
-              <AlertCircle size={16} />
             ) : (
               <Save size={16} />
             )}

@@ -10,6 +10,7 @@ import InputDialog from './components/InputDialog';
 import ConfirmDialog from './components/ConfirmDialog';
 import HistoryDetailDialog from './components/HistoryDetailDialog';
 import ResponsePanel from './components/ResponsePanel';
+import { ToastContainer } from './components/Toast';
 import { projectManager } from './utils/ProjectManager';
 import { notificationManager } from './utils/NotificationManager';
 import './App.css';
@@ -21,7 +22,6 @@ function App() {
   const [isDirty, setIsDirty] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState('');
-  const [saveError, setSaveError] = useState(null);
   const [currentProfile, setCurrentProfile] = useState(null);
   const [selectedAPI, setSelectedAPI] = useState(null);
   const [temporaryAPI, setTemporaryAPI] = useState(null);
@@ -348,7 +348,6 @@ function App() {
     setIsAddingAPI(false);
     setTemporaryAPI(null);
     setRestoringHistoryEntry(null);
-    setSaveError(null);
     setViewMode('api_detail');
   };
 
@@ -634,6 +633,7 @@ function App() {
   if (!hasProject) {
     return (
       <div className="app">
+        <ToastContainer />
         <button
           className="theme-toggle-btn"
           onClick={toggleTheme}
@@ -681,6 +681,7 @@ function App() {
 
   return (
     <div className="app">
+      <ToastContainer />
       {/* 主内容区 */}
       <main className="app-main">
         <div className="content-area">
@@ -845,8 +846,6 @@ function App() {
                   restoringHistoryEntry={restoringHistoryEntry}
                   onRestored={() => setRestoringHistoryEntry(null)}
                   onSaveAPI={handleSaveAPI}
-                  onSaveError={(msg) => setSaveError(msg)}
-                  saveError={saveError}
                   groups={projectManager.getGroups()}
                   isAdding={isAddingAPI}
                   isTemporary={temporaryAPI !== null}

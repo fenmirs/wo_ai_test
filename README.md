@@ -22,6 +22,7 @@
 - ✅ **面板系统** - 三栏可调宽度布局，面板可独立显隐
 - ✅ **API 文档生成** - 一键生成 Markdown 文档，支持 Electron 保存和浏览器下载
 - ✅ **响应展示** - 多卡片显示调用链各环节结果，请求/响应详情查看
+- ✅ **Toast 提示** - 顶部居中自动消失的通知提示（保存成功/错误等瞬时消息）
 
 ### 界面布局
 
@@ -62,6 +63,7 @@ api_test_ui/
 │   │   ├── InputDialog.js        # 输入对话框
 │   │   ├── ConfirmDialog.js      # 确认对话框
 │   │   ├── EmptyState.js         # 空状态/欢迎页
+│   │   ├── Toast.js              # Toast 提示组件（顶部居中，自动消失）
 │   │   └── ProjectSelector.js    # 项目选择器
 │   ├── utils/           # 工具类（单例模式）
 │   │   ├── ProjectManager.js      # 项目数据管理器
