@@ -136,8 +136,17 @@ npm start
 ### 构建桌面安装包
 
 ```bash
+# windows打包：管理员身份进入powershell运行
 npm run electron-build
 ```
+#### 由于github某些包下载缓慢或无法下载，现提供解决办法
+我先下载好了放到了项目下的[github下载包](github下载包)目录
+1. [winCodeSign](github下载包/winCodeSign-2.6.0.7z) 包解压后放到`C:\Users\用户名\AppData\Local\electron-builder\Cache\winCodeSign`
+2. [nsis](github下载包/nsis-3.0.4.1.7z) 包解压后放到`C:\Users\用户名\AppData\Local\electron-builder\Cache\nsis`
+3. [nsis-resources](github下载包/nsis-resources-3.4.1.7z) 包解压后放到`C:\Users\用户名\AppData\Local\electron-builder\Cache\nsis`
+
+类似于如下图，版本可能不同
+![alt text](github下载包/微信图片_20260512152744_63_4.png)
 
 支持 Windows（NSIS）、macOS（DMG）、Linux（AppImage）。
 
