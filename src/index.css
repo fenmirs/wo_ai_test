@@ -10,12 +10,12 @@
   --bg-secondary: #1e293b;
   --bg-tertiary: #334155;
   --bg-hover: #334155;
-  --bg-active: #1e40af33;
+  --bg-active: #33a37e33;
   
   --text-primary: #f1f5f9;
   --text-secondary: #e2e8f0;
   --text-tertiary: #94a3b8;
-  --text-muted: #64748b;
+  --text-muted: #b2b9c0;
   
   --border-color: #334155;
   --border-hover: #475569;
@@ -59,6 +59,11 @@
   --section-assert: #10b981;
   --section-assert-bg: rgba(16, 185, 129, 0.1);
   --section-assert-hover: rgba(16, 185, 129, 0.15);
+
+  /* 引用选择器 */
+  --bg-dropdown: #1e293b;
+  --accent-ref: #7c3aed;
+  --accent-ref-hover: #6d28d9;
 }
 
 /* 白昼主题 */
@@ -116,6 +121,11 @@
   --section-assert: #059669;
   --section-assert-bg: rgba(5, 150, 105, 0.08);
   --section-assert-hover: rgba(5, 150, 105, 0.12);
+
+  /* 引用选择器 */
+  --bg-dropdown: #ffffff;
+  --accent-ref: #7c3aed;
+  --accent-ref-hover: #6d28d9;
 }
 
 body {
