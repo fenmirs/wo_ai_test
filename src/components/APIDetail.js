@@ -41,6 +41,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const [urlCopied, setUrlCopied] = useState(false);
   const [jsonEditMode, setJsonEditMode] = useState('code');
   const [xmlEditMode, setXmlEditMode] = useState('code');
+  const [jsonParseError, setJsonParseError] = useState(null);
 
   const apiHistory = history.filter(h =>
     (h.apiId && h.apiId === formData.id) ||
@@ -121,6 +122,20 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       onResultChange(executionResult);
     }
   }, [executionResult]);
+
+  useEffect(() => {
+    if (formData.body.contentType === 'json' && formData.body.type === 'raw') {
+      const content = formData.body.content || '';
+      if (content.trim()) {
+        try { JSON.parse(content); setJsonParseError(null); }
+        catch (e) { setJsonParseError(e.message); }
+      } else {
+        setJsonParseError(null);
+      }
+    } else {
+      setJsonParseError(null);
+    }
+  }, [formData.body.content, formData.body.contentType, formData.body.type]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -592,6 +607,11 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     }
     if (!formData.api_path) {
       setLocalSaveError('请输入 API 路径');
+      return;
+    }
+
+    if (jsonParseError) {
+      setLocalSaveError('JSON 格式错误，请检查后重试');
       return;
     }
 
@@ -1182,39 +1202,45 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                   {formData.body.contentType === 'json' && (
                     <div className="json-mode-switcher">
                       <label className={`json-mode-btn ${jsonEditMode === 'code' ? 'active' : ''}`}>
-                        <input 
-                          type="radio" 
-                          name="jsonEditMode" 
-                          value="code"
-                          checked={jsonEditMode === 'code'}
-                          onChange={() => setJsonEditMode('code')}
-                        />
-                        <Code size={12} />
-                        代码
-                      </label>
-                      <label className={`json-mode-btn ${jsonEditMode === 'ui' ? 'active' : ''}`}>
-                        <input 
-                          type="radio" 
-                          name="jsonEditMode" 
-                          value="ui"
-                          checked={jsonEditMode === 'ui'}
-                          onChange={(e) => {
-                            setJsonEditMode('ui');
-                            try {
-                              const currentContent = formData.body.content || '{}';
-                              const existingSchema = formData.body.schema;
-                              const newSchema = JSONSchemaConverter.jsonToSchema(currentContent, existingSchema);
-                              if (newSchema) {
-                                updateFormBody({ schema: newSchema });
+                          <input 
+                            type="radio" 
+                            name="jsonEditMode" 
+                            value="code"
+                            checked={jsonEditMode === 'code'}
+                            onChange={() => {
+                              setJsonEditMode('code');
+                              setJsonParseError(null);
+                            }}
+                          />
+                          <Code size={12} />
+                          代码
+                        </label>
+                      <label className={`json-mode-btn ${jsonEditMode === 'ui' ? 'active' : ''}${jsonParseError ? ' disabled' : ''}`}>
+                          <input 
+                            type="radio" 
+                            name="jsonEditMode" 
+                            value="ui"
+                            checked={jsonEditMode === 'ui'}
+                            disabled={!!jsonParseError}
+                            onChange={(e) => {
+                              if (jsonParseError) return;
+                              try {
+                                const currentContent = formData.body.content || '{}';
+                                const existingSchema = formData.body.schema;
+                                const newSchema = JSONSchemaConverter.jsonToSchema(currentContent, existingSchema);
+                                if (newSchema) {
+                                  updateFormBody({ schema: newSchema });
+                                  setJsonEditMode('ui');
+                                }
+                              } catch (err) {
+                                console.warn('[APIDetail] Failed to convert JSON to schema:', err);
                               }
-                            } catch (err) {
-                              console.warn('[APIDetail] Failed to convert JSON to schema:', err);
-                            }
-                          }}
-                        />
-                        <Layout size={12} />
-                        UI
-                      </label>
+                            }}
+                          />
+                          <Layout size={12} />
+                          UI
+                          {jsonParseError && <span className="parse-error-badge" title={jsonParseError}>!</span>}
+                        </label>
                     </div>
                   )}
 
@@ -1300,17 +1326,27 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                       onChange={(content) => {
                         updateFormBody({ content });
                         
-                        if (formData.body.contentType === 'json' && jsonEditMode === 'code') {
-                          try {
-                            const existingSchema = formData.body.schema;
-                            const newSchema = JSONSchemaConverter.jsonToSchema(content, existingSchema);
-                            if (newSchema) {
-                              updateFormBody({ schema: newSchema });
-                            }
-                          } catch (err) {
-                            // Ignore parse errors when typing
-                          }
-                        }
+                         if (formData.body.contentType === 'json' && jsonEditMode === 'code') {
+                           if (content && content.trim()) {
+                             try {
+                               JSON.parse(content);
+                               setJsonParseError(null);
+                             } catch (e) {
+                               setJsonParseError(e.message);
+                             }
+                           } else {
+                             setJsonParseError(null);
+                           }
+                           try {
+                             const existingSchema = formData.body.schema;
+                             const newSchema = JSONSchemaConverter.jsonToSchema(content, existingSchema);
+                             if (newSchema) {
+                               updateFormBody({ schema: newSchema });
+                             }
+                           } catch (err) {
+                             // Ignore parse errors when typing
+                           }
+                         }
 
                         if (formData.body.contentType === 'xml' && xmlEditMode === 'code') {
                           try {
