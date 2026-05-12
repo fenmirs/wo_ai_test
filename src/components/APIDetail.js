@@ -6,6 +6,7 @@ import { projectManager } from '../utils/ProjectManager';
 import { notificationManager } from '../utils/NotificationManager';
 import APIDocGenerator from '../utils/APIDocGenerator';
 import JSONSchemaConverter from '../utils/JSONSchemaConverter';
+import XMLSchemaConverter from '../utils/XMLSchemaConverter';
 import CodeEditor from './CodeEditor';
 import RefVariableSelector from './RefVariableSelector';
 import JSONTreeEditor from './JSONTreeEditor';
@@ -39,6 +40,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const [editingValue, setEditingValue] = useState('');
   const [urlCopied, setUrlCopied] = useState(false);
   const [jsonEditMode, setJsonEditMode] = useState('code');
+  const [xmlEditMode, setXmlEditMode] = useState('code');
 
   const apiHistory = history.filter(h =>
     (h.apiId && h.apiId === formData.id) ||
@@ -306,7 +308,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     const contentType = header?.['Content-Type'] || '';
 
     if (typeof body === 'object' && !Array.isArray(body)) {
-      if (body.schema && (body.type === 'raw' || body.contentType === 'json')) {
+      if (body.schema && (body.type === 'raw' || body.contentType === 'json' || body.contentType === 'xml')) {
         return {
           type: body.type || 'raw',
           formData: body.formData || [],
@@ -1177,93 +1179,165 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
              {formData.body.type === 'raw' && (
                <div className="body-raw">
-                 {formData.body.contentType === 'json' && (
-                   <div className="json-mode-switcher">
-                     <label className={`json-mode-btn ${jsonEditMode === 'code' ? 'active' : ''}`}>
-                       <input 
-                         type="radio" 
-                         name="jsonEditMode" 
-                         value="code"
-                         checked={jsonEditMode === 'code'}
-                         onChange={() => setJsonEditMode('code')}
-                       />
-                       <Code size={12} />
-                       代码
-                     </label>
-                     <label className={`json-mode-btn ${jsonEditMode === 'ui' ? 'active' : ''}`}>
-                       <input 
-                         type="radio" 
-                         name="jsonEditMode" 
-                         value="ui"
-                         checked={jsonEditMode === 'ui'}
-                         onChange={(e) => {
-                           setJsonEditMode('ui');
-                           try {
-                             const currentContent = formData.body.content || '{}';
-                             const existingSchema = formData.body.schema;
-                             const newSchema = JSONSchemaConverter.jsonToSchema(currentContent, existingSchema);
-                             if (newSchema) {
-                               updateFormBody({ schema: newSchema });
-                             }
-                           } catch (err) {
-                             console.warn('[APIDetail] Failed to convert JSON to schema:', err);
-                           }
-                         }}
-                       />
-                       <Layout size={12} />
-                       UI
-                     </label>
-                   </div>
-                 )}
-                 
-                 {formData.body.contentType === 'json' && jsonEditMode === 'ui' ? (
-                   <div className="json-editor-wrapper">
-                     {formData.body.schema ? (
-                       <JSONTreeEditor
-                         schema={formData.body.schema}
-                         onChange={(newSchema) => {
-                           const newContent = JSONSchemaConverter.schemaToJson(newSchema, true);
-                           updateFormBody({ schema: newSchema, content: newContent });
-                         }}
-                         excludeApiId={formData.id}
-                         theme={theme}
-                       />
-                     ) : (
-                       <div className="body-none">
-                         无法解析 JSON 数据，请切换到代码模式检查格式
-                       </div>
-                     )}
-                   </div>
-                 ) : (
-                   <CodeEditor
-                     value={formData.body.content || ''}
-                     onChange={(content) => {
-                       updateFormBody({ content });
-                       
-                       if (formData.body.contentType === 'json' && jsonEditMode === 'code') {
-                         try {
-                           const existingSchema = formData.body.schema;
-                           const newSchema = JSONSchemaConverter.jsonToSchema(content, existingSchema);
-                           if (newSchema) {
-                             updateFormBody({ schema: newSchema });
-                           }
-                         } catch (err) {
-                           // Ignore parse errors when typing
-                         }
-                       }
-                     }}
-                     contentType={formData.body.contentType || 'text'}
-                     onTypeChange={(contentType) => {
-                       updateFormBody({ contentType });
-                       if (contentType !== 'json') {
-                         setJsonEditMode('code');
-                       }
-                     }}
-                     theme={theme}
-                   />
-                 )}
-               </div>
-             )}
+                  {formData.body.contentType === 'json' && (
+                    <div className="json-mode-switcher">
+                      <label className={`json-mode-btn ${jsonEditMode === 'code' ? 'active' : ''}`}>
+                        <input 
+                          type="radio" 
+                          name="jsonEditMode" 
+                          value="code"
+                          checked={jsonEditMode === 'code'}
+                          onChange={() => setJsonEditMode('code')}
+                        />
+                        <Code size={12} />
+                        代码
+                      </label>
+                      <label className={`json-mode-btn ${jsonEditMode === 'ui' ? 'active' : ''}`}>
+                        <input 
+                          type="radio" 
+                          name="jsonEditMode" 
+                          value="ui"
+                          checked={jsonEditMode === 'ui'}
+                          onChange={(e) => {
+                            setJsonEditMode('ui');
+                            try {
+                              const currentContent = formData.body.content || '{}';
+                              const existingSchema = formData.body.schema;
+                              const newSchema = JSONSchemaConverter.jsonToSchema(currentContent, existingSchema);
+                              if (newSchema) {
+                                updateFormBody({ schema: newSchema });
+                              }
+                            } catch (err) {
+                              console.warn('[APIDetail] Failed to convert JSON to schema:', err);
+                            }
+                          }}
+                        />
+                        <Layout size={12} />
+                        UI
+                      </label>
+                    </div>
+                  )}
+
+                  {formData.body.contentType === 'xml' && (
+                    <div className="json-mode-switcher">
+                      <label className={`json-mode-btn ${xmlEditMode === 'code' ? 'active' : ''}`}>
+                        <input 
+                          type="radio" 
+                          name="xmlEditMode" 
+                          value="code"
+                          checked={xmlEditMode === 'code'}
+                          onChange={() => setXmlEditMode('code')}
+                        />
+                        <Code size={12} />
+                        代码
+                      </label>
+                      <label className={`json-mode-btn ${xmlEditMode === 'ui' ? 'active' : ''}`}>
+                        <input 
+                          type="radio" 
+                          name="xmlEditMode" 
+                          value="ui"
+                          checked={xmlEditMode === 'ui'}
+                          onChange={(e) => {
+                            setXmlEditMode('ui');
+                            try {
+                              const currentContent = formData.body.content || '<root></root>';
+                              const existingSchema = formData.body.schema;
+                              const newSchema = XMLSchemaConverter.xmlToSchema(currentContent, existingSchema);
+                              if (newSchema) {
+                                updateFormBody({ schema: newSchema });
+                              }
+                            } catch (err) {
+                              console.warn('[APIDetail] Failed to convert XML to schema:', err);
+                            }
+                          }}
+                        />
+                        <Layout size={12} />
+                        UI
+                      </label>
+                    </div>
+                  )}
+                  
+                  {formData.body.contentType === 'json' && jsonEditMode === 'ui' ? (
+                    <div className="json-editor-wrapper">
+                      {formData.body.schema ? (
+                        <JSONTreeEditor
+                          schema={formData.body.schema}
+                          onChange={(newSchema) => {
+                            const newContent = JSONSchemaConverter.schemaToJson(newSchema, true);
+                            updateFormBody({ schema: newSchema, content: newContent });
+                          }}
+                          excludeApiId={formData.id}
+                          theme={theme}
+                        />
+                      ) : (
+                        <div className="body-none">
+                          无法解析 JSON 数据，请切换到代码模式检查格式
+                        </div>
+                      )}
+                    </div>
+                  ) : formData.body.contentType === 'xml' && xmlEditMode === 'ui' ? (
+                    <div className="json-editor-wrapper">
+                      {formData.body.schema ? (
+                        <JSONTreeEditor
+                          schema={formData.body.schema}
+                          onChange={(newSchema) => {
+                            const newContent = XMLSchemaConverter.schemaToXml(newSchema, true);
+                            updateFormBody({ schema: newSchema, content: newContent });
+                          }}
+                          excludeApiId={formData.id}
+                          theme={theme}
+                        />
+                      ) : (
+                        <div className="body-none">
+                          无法解析 XML 数据，请切换到代码模式检查格式
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <CodeEditor
+                      value={formData.body.content || ''}
+                      onChange={(content) => {
+                        updateFormBody({ content });
+                        
+                        if (formData.body.contentType === 'json' && jsonEditMode === 'code') {
+                          try {
+                            const existingSchema = formData.body.schema;
+                            const newSchema = JSONSchemaConverter.jsonToSchema(content, existingSchema);
+                            if (newSchema) {
+                              updateFormBody({ schema: newSchema });
+                            }
+                          } catch (err) {
+                            // Ignore parse errors when typing
+                          }
+                        }
+
+                        if (formData.body.contentType === 'xml' && xmlEditMode === 'code') {
+                          try {
+                            const existingSchema = formData.body.schema;
+                            const newSchema = XMLSchemaConverter.xmlToSchema(content, existingSchema);
+                            if (newSchema) {
+                              updateFormBody({ schema: newSchema });
+                            }
+                          } catch (err) {
+                            // Ignore parse errors when typing
+                          }
+                        }
+                      }}
+                      contentType={formData.body.contentType || 'text'}
+                      onTypeChange={(contentType) => {
+                        updateFormBody({ contentType });
+                        if (contentType !== 'json') {
+                          setJsonEditMode('code');
+                        }
+                        if (contentType !== 'xml') {
+                          setXmlEditMode('code');
+                        }
+                      }}
+                      theme={theme}
+                    />
+                  )}
+                </div>
+              )}
           </div>
         )}
 

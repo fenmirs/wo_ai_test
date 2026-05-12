@@ -1,8 +1,9 @@
 {
-  "name": "api-test-ui",
+  "name": "WoAiTest",
   "version": "1.0.0",
-  "description": "API 测试工具 - UI 版本",
+  "description": "WoAiTest",
   "main": "electron/main.js",
+  "homepage": "./",
   "scripts": {
     "start": "electron .",
     "dev": "concurrently \"npm run react-start\" \"wait-on http://localhost:3000 && electron . --dev\"",
@@ -72,7 +73,8 @@
       "main": "electron/main.js"
     },
     "win": {
-      "target": "portable"
+      "target": "portable",
+      "defaultArch": "x64"
     },
     "mac": {
       "target": "dmg"

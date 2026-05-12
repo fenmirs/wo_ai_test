@@ -8,6 +8,30 @@
   transition: background 0.3s ease, color 0.3s ease;
 }
 
+.theme-toggle-btn {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  z-index: 100;
+  transition: all 0.2s;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border-color: var(--accent-primary);
+}
+
 /* 顶部导航栏 */
 .app-header {
   display: flex;

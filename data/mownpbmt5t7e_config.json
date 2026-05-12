@@ -74,7 +74,36 @@
         "Content-Type": "application/json"
       },
       "param": {},
-      "body": "{\n  \"appId\": \"MESUkSn6E7xqQ\",\n  \"appSecret\": \"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\n}",
+      "body": {
+        "content": "{\n  \"appId\": \"MESUkSn6E7xqQ\",\n  \"appSecret\": \"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\n}",
+        "schema": {
+          "id": "node_1778575603035_xz7fvy3x9",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1778575603035_syfvs5hv8",
+              "type": "string",
+              "key": "appId",
+              "value": "MESUkSn6E7xqQ",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1778575603035_bx7svom5r",
+              "type": "string",
+              "key": "appSecret",
+              "value": "xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
       "chain": [],
       "successAssert": ""
     },

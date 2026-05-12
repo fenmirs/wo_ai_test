@@ -634,6 +634,13 @@ function App() {
   if (!hasProject) {
     return (
       <div className="app">
+        <button
+          className="theme-toggle-btn"
+          onClick={toggleTheme}
+          title={theme === 'dark' ? '切换到白昼模式' : '切换到暗黑模式'}
+        >
+          {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+        </button>
         <main className="app-main">
           <EmptyState 
             onImportProject={handleImportProject}

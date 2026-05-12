@@ -63,11 +63,7 @@ function createWindow() {
     }
   } else {
     console.log('[Electron] 加载打包文件:', buildPath);
-    let htmlContent = fs.readFileSync(buildPath, 'utf-8');
-    htmlContent = htmlContent.replace(/\/static\//g, 'static/');
-    const tempHtmlPath = path.join(__dirname, '../build/index-fixed.html');
-    fs.writeFileSync(tempHtmlPath, htmlContent);
-    mainWindow.loadFile(tempHtmlPath);
+    mainWindow.loadFile(buildPath);
   }
 
   mainWindow.once('ready-to-show', () => {
