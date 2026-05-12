@@ -111,7 +111,7 @@ function RefVariableSelector({ value, onChange, excludeApiId, theme = 'dark' }) 
   return (
     <div className="ref-selector" ref={containerRef}>
       <div className="ref-selector-header">
-        {!isRefMode && (
+        {!isRefMode && !value && (
           <button 
             className="ref-mode-btn"
             onClick={() => setIsDropdownOpen(true)}
