@@ -449,148 +449,6 @@ ipcMain.handle('get-history-path', async () => {
   return { success: true, path: path.join(__dirname, '../.history.json') };
 });
 
-// IPC 通信 - HTTP 请求（Electron 主进程，不受 CORS 限制）
-ipcMain.handle('http-request', async (event, requestConfig) => {
-  const { method, url, headers, data, timeout } = requestConfig;
-  
-  return new Promise((resolve) => {
-    const startTime = Date.now();
-    
-    try {
-      const request = net.request({
-        method: method || 'GET',
-        url: url,
-        redirect: 'follow'
-      });
-
-      // 设置请求头
-      if (headers) {
-        Object.keys(headers).forEach(key => {
-          if (key.toLowerCase() !== 'host') {
-            request.setHeader(key, headers[key]);
-          }
-        });
-      }
-
-      // 设置超时
-      const timeoutId = setTimeout(() => {
-        request.abort();
-        resolve({
-          success: false,
-          error: '请求超时',
-          errorType: 'timeout',
-          elapsedTime: ((Date.now() - startTime) / 1000).toFixed(2) + 's'
-        });
-      }, timeout || 30000);
-
-      let responseData = '';
-      let responseHeaders = {};
-      let statusCode = null;
-      let statusMessage = '';
-
-      request.on('response', (response) => {
-        statusCode = response.statusCode;
-        statusMessage = response.statusMessage || '';
-        responseHeaders = response.headers || {};
-
-        response.on('data', (chunk) => {
-          responseData += chunk.toString();
-        });
-
-        response.on('end', () => {
-          clearTimeout(timeoutId);
-          const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(2) + 's';
-          
-          let parsedData = responseData;
-          try {
-            parsedData = JSON.parse(responseData);
-          } catch {
-            // 不是 JSON 格式，保持原字符串
-          }
-
-          resolve({
-            success: statusCode < 400,
-            status_code: statusCode,
-            status_text: statusMessage,
-            headers: responseHeaders,
-            data: parsedData,
-            elapsedTime,
-            responseSize: formatSize(responseData.length)
-          });
-        });
-
-        response.on('error', (error) => {
-          clearTimeout(timeoutId);
-          resolve({
-            success: false,
-            error: error.message,
-            errorType: 'network',
-            elapsedTime: ((Date.now() - startTime) / 1000).toFixed(2) + 's'
-          });
-        });
-      });
-
-      request.on('error', (error) => {
-        clearTimeout(timeoutId);
-        
-        let errorType = 'network';
-        let errorMessage = error.message;
-        
-        // 根据错误代码提供更友好的错误信息
-        if (error.code === 'ECONNREFUSED') {
-          errorType = 'connection_refused';
-          errorMessage = '连接被拒绝，请检查服务器是否启动';
-        } else if (error.code === 'ENOTFOUND' || error.code === 'EAI_NONAME') {
-          errorType = 'dns_error';
-          errorMessage = '无法解析域名，请检查地址是否正确';
-        } else if (error.code === 'ETIMEDOUT' || error.code === 'ESOCKETTIMEDOUT') {
-          errorType = 'timeout';
-          errorMessage = '连接超时，请检查网络或服务器状态';
-        } else if (error.code === 'ECONNRESET') {
-          errorType = 'connection_reset';
-          errorMessage = '连接被重置，请检查服务器是否正常运行';
-        } else if (error.code === 'EHOSTUNREACH' || error.code === 'ENETUNREACH') {
-          errorType = 'network_unreachable';
-          errorMessage = '网络不可达，请检查网络连接';
-        } else if (error.message.includes('getaddrinfo')) {
-          errorType = 'dns_error';
-          errorMessage = '无法解析域名，请检查地址是否正确';
-        } else if (error.message.includes('socket')) {
-          errorType = 'socket_error';
-          errorMessage = `网络错误: ${error.message}`;
-        }
-        
-        resolve({
-          success: false,
-          error: errorMessage,
-          errorType: errorType,
-          errorDetail: error.code ? `${error.code}: ${error.message}` : error.message,
-          elapsedTime: ((Date.now() - startTime) / 1000).toFixed(2) + 's'
-        });
-      });
-
-      // 发送请求体
-      if (data) {
-        if (typeof data === 'object') {
-          request.write(JSON.stringify(data));
-        } else {
-          request.write(data);
-        }
-      }
-      
-      request.end();
-
-    } catch (error) {
-      resolve({
-        success: false,
-        error: error.message,
-        errorType: 'unknown',
-        elapsedTime: ((Date.now() - startTime) / 1000).toFixed(2) + 's'
-      });
-    }
-  });
-});
-
 // 解析浏览器错误格式
 function parseBrowserError(message) {
   const errorMap = {
@@ -651,7 +509,7 @@ function formatErrorMessage(error) {
 
 // IPC 通信 - 可取消的 HTTP 请求（使用 axios，支持忽略自签名证书）
 ipcMain.handle('http-request-with-cancel', async (event, { id, requestConfig }) => {
-  const { method, url, headers, data, timeout } = requestConfig;
+  const { method, url, headers, data, params, timeout } = requestConfig;
 
   return new Promise((resolve) => {
     const startTime = Date.now();
@@ -677,6 +535,7 @@ ipcMain.handle('http-request-with-cancel', async (event, { id, requestConfig }) 
     const config = {
       method: method || 'GET',
       url: url,
+      params: params,
       headers: headers || {},
       data: data,
       timeout: timeout || 30000,
@@ -686,11 +545,35 @@ ipcMain.handle('http-request-with-cancel', async (event, { id, requestConfig }) 
       validateStatus: () => true
     };
 
+    const logPayload = (label, payload) => {
+      if (payload === undefined || payload === null) return;
+      const str = typeof payload === 'string' ? payload : JSON.stringify(payload, null, 2);
+      const lines = str.split('\n');
+      lines.forEach(line => console.log(`[Electron]  ${label} ${line}`));
+    };
+
+    console.log(`[Electron] ════════════════════════════════════════`);
+    console.log(`[Electron]  >> [${config.method}] ${config.url}`);
+    if (config.params && Object.keys(config.params).length > 0) {
+      logPayload('Params:', config.params);
+    }
+    if (config.headers && Object.keys(config.headers).length > 0) {
+      logPayload('Headers:', config.headers);
+    }
+    if (config.data !== undefined && config.data !== null) {
+      logPayload('Body:', config.data);
+    }
+
     axios(config)
       .then(response => {
         clearTimeout(timeoutId);
         activeRequests.delete(id);
         const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(2) + 's';
+
+        console.log(`[Electron]  << [${response.status} ${response.statusText}] 耗时 ${elapsedTime}`);
+        logPayload('响应头:', response.headers);
+        logPayload('响应体:', typeof response.data === 'string' ? response.data.substring(0, 5000) : response.data);
+        console.log(`[Electron] ════════════════════════════════════════`);
 
         resolve({
           success: response.status < 400,
@@ -707,6 +590,7 @@ ipcMain.handle('http-request-with-cancel', async (event, { id, requestConfig }) 
         activeRequests.delete(id);
 
         if (axios.isCancel(error)) {
+          console.log(`[Electron]  !! 请求已取消: ${error.message}`);
           resolve({
             success: false,
             error: error.message,
@@ -719,6 +603,8 @@ ipcMain.handle('http-request-with-cancel', async (event, { id, requestConfig }) 
         // 服务器返回错误状态码（如401）时，error.response 包含响应数据
         if (error.response) {
           const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(2) + 's';
+          console.log(`[Electron]  !! [${error.response.status} ${error.response.statusText}] 耗时 ${elapsedTime}`);
+          logPayload('错误响应体:', error.response.data);
           resolve({
             success: false,
             status_code: error.response.status,
@@ -734,6 +620,7 @@ ipcMain.handle('http-request-with-cancel', async (event, { id, requestConfig }) 
         }
 
         const { type, message } = formatErrorMessage(error);
+        console.log(`[Electron]  !! ${type}: ${message}`);
         resolve({
           success: false,
           error: message,

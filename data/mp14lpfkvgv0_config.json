@@ -24,7 +24,9 @@
       "group": "default",
       "api_path": "{domain}{lcgl-prj}/order/item/infos",
       "method": "GET",
-      "header": {},
+      "header": {
+        "Content-Type": "application/json"
+      },
       "param": {
         "orderId": {
           "default": "2080156866160",
@@ -45,7 +47,19 @@
           "enabled": true
         }
       },
-      "body": {},
+      "body": {
+        "content": "{}",
+        "schema": {
+          "id": "node_1778550231459_re03ysf5n",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
       "chain": [],
       "successAssert": ""
     }

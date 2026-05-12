@@ -307,11 +307,18 @@ class APIExecutor {
       }
 
       console.log(`[APIExecutor] ════════════════════════════════════════`);
-      console.log(`[APIExecutor]  请求 ${method} ${apiPath}`);
+      console.log(`[APIExecutor]  >> ${method} ${apiPath}`);
       console.log(`[APIExecutor]  名称: ${api.name || '-'}`);
-      console.log(`[APIExecutor]  Headers:`, JSON.stringify(header, null, 2));
-      console.log(`[APIExecutor]  Params:`, JSON.stringify(params, null, 2));
-      console.log(`[APIExecutor]  Body:`, typeof body === 'string' ? body.substring(0, 500) : JSON.stringify(body, null, 2));
+      if (params && Object.keys(params).length > 0) {
+        console.log(`[APIExecutor]  Params:`, JSON.stringify(params, null, 2));
+      }
+      if (header && Object.keys(header).length > 0) {
+        console.log(`[APIExecutor]  Headers:`, JSON.stringify(header, null, 2));
+      }
+      if (body !== undefined && body !== null && body !== '') {
+        const bodyStr = typeof body === 'string' ? body : JSON.stringify(body, null, 2);
+        console.log(`[APIExecutor]  Body:`, bodyStr.length > 2000 ? bodyStr.substring(0, 2000) + '...' : bodyStr);
+      }
 
       // 检查是否包含文件上传
       let hasFileUpload = false;
@@ -432,9 +439,15 @@ class APIExecutor {
       const success = httpSuccess && (!assertionResult || assertionResult.passed);
 
       console.log(`[APIExecutor]  ────────────────────────────────────────`);
-      console.log(`[APIExecutor]  响应 HTTP ${statusCode} | 耗时 ${elapsedTime} | 大小 ${responseSize}`);
-      console.log(`[APIExecutor]  成功: ${success} (HTTP: ${httpSuccess}${assertionResult ? `, 断言: ${assertionResult.passed}` : ''})`);
-      console.log(`[APIExecutor]  响应数据:`, responseData !== undefined ? (typeof responseData === 'object' ? JSON.stringify(responseData, null, 2).substring(0, 1000) : String(responseData).substring(0, 500)) : '(无)');
+      console.log(`[APIExecutor]  << [${statusCode}${statusText ? ' ' + statusText : ''}] 耗时 ${elapsedTime} | 大小 ${responseSize}`);
+      if (responseHeaders && Object.keys(responseHeaders).length > 0) {
+        console.log(`[APIExecutor]  响应头:`, JSON.stringify(responseHeaders, null, 2));
+      }
+      console.log(`[APIExecutor]  断言: ${assertionResult ? (assertionResult.passed ? '通过' : '失败') : '无'} | 最终结果: ${success ? '成功' : '失败'}`);
+      if (responseData !== undefined) {
+        const dataStr = typeof responseData === 'object' ? JSON.stringify(responseData, null, 2) : String(responseData);
+        console.log(`[APIExecutor]  响应体:`, dataStr.length > 3000 ? dataStr.substring(0, 3000) + '...' : dataStr);
+      }
       console.log(`[APIExecutor] ════════════════════════════════════════`);
 
       const cleanRequest = {
@@ -487,8 +500,16 @@ class APIExecutor {
       }
 
       console.log(`[APIExecutor]  ❌ 请求异常 | 耗时 ${elapsedTime}`);
+      console.log(`[APIExecutor]  请求配置: ${requestConfig.method} ${requestConfig.url}`);
+      if (requestConfig.params && Object.keys(requestConfig.params).length > 0) {
+        console.log(`[APIExecutor]  Query Params:`, JSON.stringify(requestConfig.params));
+      }
       console.log(`[APIExecutor]  错误类型: ${errorType}`);
       console.log(`[APIExecutor]  错误信息: ${errorMessage}`);
+      if (error.response?.data) {
+        const errBody = typeof error.response.data === 'object' ? JSON.stringify(error.response.data, null, 2) : error.response.data;
+        console.log(`[APIExecutor]  错误响应体:`, String(errBody).substring(0, 2000));
+      }
       console.log(`[APIExecutor] ════════════════════════════════════════`);
 
       return {

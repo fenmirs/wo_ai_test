@@ -30,7 +30,6 @@ contextBridge.exposeInMainWorld('electron', {
   getHistoryPath: () => ipcRenderer.invoke('get-history-path'),
   
   // HTTP 请求（通过 Electron 主进程，不受 CORS 限制）
-  httpRequest: (config) => ipcRenderer.invoke('http-request', config),
   httpRequestWithCancel: (config) => ipcRenderer.invoke('http-request-with-cancel', config),
   cancelHttpRequest: (id) => ipcRenderer.invoke('cancel-http-request', id),
 });
