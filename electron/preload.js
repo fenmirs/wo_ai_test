@@ -32,4 +32,7 @@ contextBridge.exposeInMainWorld('electron', {
   // HTTP 请求（通过 Electron 主进程，不受 CORS 限制）
   httpRequestWithCancel: (config) => ipcRenderer.invoke('http-request-with-cancel', config),
   cancelHttpRequest: (id) => ipcRenderer.invoke('cancel-http-request', id),
+
+  // 开发者工具
+  toggleDevtools: () => ipcRenderer.send('toggle-devtools'),
 });

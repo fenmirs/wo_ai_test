@@ -644,6 +644,13 @@ ipcMain.handle('cancel-http-request', async (event, id) => {
   return { success: false, error: '请求不存在' };
 });
 
+// IPC - 切换开发者工具
+ipcMain.on('toggle-devtools', () => {
+  if (mainWindow) {
+    mainWindow.webContents.toggleDevTools();
+  }
+});
+
 // 格式化文件大小
 function formatSize(bytes) {
   if (bytes < 1024) return bytes + ' B';

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Globe, Variable, ChevronUp, Settings2,FolderKanban, Save, XCircle, Sun, Moon, History,LogOut, Bell, CheckCheck, Trash2, PanelLeft, Columns, PanelRight } from 'lucide-react';
+import { Globe, Variable, ChevronUp, Settings2,FolderKanban, Save, XCircle, Sun, Moon, History,LogOut, Bell, CheckCheck, Trash2, PanelLeft, Columns, PanelRight, Bug } from 'lucide-react';
 import { notificationManager } from '../utils/NotificationManager';
 import { projectManager } from '../utils/ProjectManager';
 import './BottomBar.css';
@@ -287,7 +287,14 @@ function BottomBar({
           <Bell size={14} />
           {unreadCount > 0 && <span className="notification-badge">{unreadCount}</span>}
         </button>
-        {showNotificationPanel && (
+        <button
+          className="bar-btn"
+          onClick={() => window.electron?.toggleDevtools()}
+          title="开发者工具"
+        >
+          <Bug size={14} />
+        </button>
+          {showNotificationPanel && (
           <div className="notification-panel">
             <div className="notification-header">
               <span>通知</span>

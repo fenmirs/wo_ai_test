@@ -1310,7 +1310,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
         {activeTab === 'history' && apiHistory.length > 0 && (
           <div className="tab-content">
-            <div className="history-list" style={{ maxHeight: '280px', overflowY: 'auto' }}>
+            <div className="history-list">
               {apiHistory.map((entry) => (
                 <div key={entry.id} className="history-item">
                   <div className="history-status">
