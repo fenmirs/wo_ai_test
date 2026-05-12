@@ -55,18 +55,23 @@
     ]
   },
   "build": {
+    "extends": null,
     "appId": "com.apitest.ui",
-    "productName": "API Test UI",
+    "productName": "WoAiTest",
     "directories": {
       "output": "dist"
     },
     "files": [
       "build/**/*",
       "electron/**/*",
-      "node_modules/**/*"
+      "node_modules/**/*",
+      "package.json"
     ],
+    "extraMetadata": {
+      "main": "electron/main.js"
+    },
     "win": {
-      "target": "nsis"
+      "target": "portable"
     },
     "mac": {
       "target": "dmg"
