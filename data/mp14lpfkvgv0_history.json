@@ -1,5 +1,1033 @@
 [
   {
+    "id": 1778549500506,
+    "apiId": "api_1778499510607_trf5wpwl4",
+    "apiName": "infos-订单项目列表",
+    "apiMethod": "GET",
+    "apiPath": "{domain}{lcgl-prj}/order/item/infos",
+    "timestamp": "2026/5/12 09:31:40",
+    "apiConfig": {
+      "name": "infos-订单项目列表",
+      "group": "default",
+      "api_path": "{domain}{lcgl-prj}/order/item/infos",
+      "method": "GET",
+      "header": {},
+      "param": {
+        "orderId": {
+          "default": "2080156866160",
+          "description": "订单id",
+          "type": "string",
+          "enabled": true
+        },
+        "findHistory": {
+          "default": "true",
+          "description": "是否是查询历史",
+          "type": "boolean",
+          "enabled": true
+        },
+        "JID": {
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ3LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3Nzg0OTE0NDEsImlzcyI6IlF6In0.-TM4jHmTarTcVR__BdEZLm-Df7-1KWYSHQQhl4XL9YY",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        }
+      },
+      "body": {},
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://192.168.17.128:23208/lcgl-prj/order/item/infos",
+      "method": "GET",
+      "header": [],
+      "param": [
+        {
+          "key": "orderId",
+          "default": "2080156866160",
+          "description": "订单id",
+          "type": "string",
+          "enabled": true
+        },
+        {
+          "key": "findHistory",
+          "default": "true",
+          "description": "是否是查询历史",
+          "type": "boolean",
+          "enabled": true
+        },
+        {
+          "key": "JID",
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ3LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3Nzg0OTE0NDEsImlzcyI6IlF6In0.-TM4jHmTarTcVR__BdEZLm-Df7-1KWYSHQQhl4XL9YY",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        }
+      ],
+      "body": {
+        "type": "none",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1778549432144_7fbl1rgfa",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        }
+      },
+      "bodyType": "none",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "allRow": 0,
+        "beginPage": 0,
+        "code": -1,
+        "currentPage": 0,
+        "data": null,
+        "error": [
+          "订单id不能为空"
+        ],
+        "firstPage": false,
+        "hasNextPage": false,
+        "hasPreviousPage": false,
+        "jumpUrl": "",
+        "lastPage": true,
+        "list": [],
+        "listSize": 0,
+        "msg": "订单id不能为空",
+        "obj": null,
+        "order": "",
+        "pageLength": 0,
+        "pageSize": 0,
+        "sort": "",
+        "status": false,
+        "throwable": null,
+        "totalPage": 0
+      },
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "346",
+        "date": "Tue, 12 May 2026 01:31:40 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.01s",
+      "responseSize": "322 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://192.168.17.128:23208/lcgl-prj/order/item/infos",
+        "method": "GET",
+        "headers": {},
+        "params": {
+          "orderId": "2080156866160",
+          "findHistory": "true",
+          "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ3LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3Nzg0OTE0NDEsImlzcyI6IlF6In0.-TM4jHmTarTcVR__BdEZLm-Df7-1KWYSHQQhl4XL9YY"
+        },
+        "body": {},
+        "bodyType": "json"
+      }
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.01s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "allRow": 0,
+      "beginPage": 0,
+      "code": -1,
+      "currentPage": 0,
+      "data": null,
+      "error": [
+        "订单id不能为空"
+      ],
+      "firstPage": false,
+      "hasNextPage": false,
+      "hasPreviousPage": false,
+      "jumpUrl": "",
+      "lastPage": true,
+      "list": [],
+      "listSize": 0,
+      "msg": "订单id不能为空",
+      "obj": null,
+      "order": "",
+      "pageLength": 0,
+      "pageSize": 0,
+      "sort": "",
+      "status": false,
+      "throwable": null,
+      "totalPage": 0
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "346",
+      "date": "Tue, 12 May 2026 01:31:40 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1778499510607_trf5wpwl4": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "allRow": 0,
+          "beginPage": 0,
+          "code": -1,
+          "currentPage": 0,
+          "data": null,
+          "error": [
+            "订单id不能为空"
+          ],
+          "firstPage": false,
+          "hasNextPage": false,
+          "hasPreviousPage": false,
+          "jumpUrl": "",
+          "lastPage": true,
+          "list": [],
+          "listSize": 0,
+          "msg": "订单id不能为空",
+          "obj": null,
+          "order": "",
+          "pageLength": 0,
+          "pageSize": 0,
+          "sort": "",
+          "status": false,
+          "throwable": null,
+          "totalPage": 0
+        },
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "346",
+          "date": "Tue, 12 May 2026 01:31:40 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.01s",
+        "responseSize": "322 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://192.168.17.128:23208/lcgl-prj/order/item/infos",
+          "method": "GET",
+          "headers": {},
+          "params": {
+            "orderId": "2080156866160",
+            "findHistory": "true",
+            "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ3LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3Nzg0OTE0NDEsImlzcyI6IlF6In0.-TM4jHmTarTcVR__BdEZLm-Df7-1KWYSHQQhl4XL9YY"
+          },
+          "body": {},
+          "bodyType": "json"
+        }
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1778499510607_trf5wpwl4",
+        "name": "infos-订单项目列表",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "allRow": 0,
+            "beginPage": 0,
+            "code": -1,
+            "currentPage": 0,
+            "data": null,
+            "error": [
+              "订单id不能为空"
+            ],
+            "firstPage": false,
+            "hasNextPage": false,
+            "hasPreviousPage": false,
+            "jumpUrl": "",
+            "lastPage": true,
+            "list": [],
+            "listSize": 0,
+            "msg": "订单id不能为空",
+            "obj": null,
+            "order": "",
+            "pageLength": 0,
+            "pageSize": 0,
+            "sort": "",
+            "status": false,
+            "throwable": null,
+            "totalPage": 0
+          },
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "346",
+            "date": "Tue, 12 May 2026 01:31:40 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.01s",
+          "responseSize": "322 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://192.168.17.128:23208/lcgl-prj/order/item/infos",
+            "method": "GET",
+            "headers": {},
+            "params": {
+              "orderId": "2080156866160",
+              "findHistory": "true",
+              "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ3LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3Nzg0OTE0NDEsImlzcyI6IlF6In0.-TM4jHmTarTcVR__BdEZLm-Df7-1KWYSHQQhl4XL9YY"
+            },
+            "body": {},
+            "bodyType": "json"
+          }
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1778549489033,
+    "apiId": "api_1778499510607_trf5wpwl4",
+    "apiName": "infos-订单项目列表",
+    "apiMethod": "GET",
+    "apiPath": "{domain}{lcgl-prj}/order/item/infos",
+    "timestamp": "2026/5/12 09:31:29",
+    "apiConfig": {
+      "name": "infos-订单项目列表",
+      "group": "default",
+      "api_path": "{domain}{lcgl-prj}/order/item/infos",
+      "method": "GET",
+      "header": {},
+      "param": {
+        "orderId": {
+          "default": "2080156866160",
+          "description": "订单id",
+          "type": "string",
+          "enabled": true
+        },
+        "findHistory": {
+          "default": "true",
+          "description": "是否是查询历史",
+          "type": "boolean",
+          "enabled": true
+        },
+        "JID": {
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ3LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3Nzg0OTE0NDEsImlzcyI6IlF6In0.-TM4jHmTarTcVR__BdEZLm-Df7-1KWYSHQQhl4XL9YY",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        }
+      },
+      "body": {},
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://192.168.17.128:23208/lcgl-prj/order/item/infos",
+      "method": "GET",
+      "header": [],
+      "param": [
+        {
+          "key": "orderId",
+          "default": "2080156866160",
+          "description": "订单id",
+          "type": "string",
+          "enabled": true
+        },
+        {
+          "key": "findHistory",
+          "default": "true",
+          "description": "是否是查询历史",
+          "type": "boolean",
+          "enabled": true
+        },
+        {
+          "key": "JID",
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ3LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3Nzg0OTE0NDEsImlzcyI6IlF6In0.-TM4jHmTarTcVR__BdEZLm-Df7-1KWYSHQQhl4XL9YY",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        }
+      ],
+      "body": {
+        "type": "none",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1778549432144_7fbl1rgfa",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        }
+      },
+      "bodyType": "none",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "allRow": 0,
+        "beginPage": 0,
+        "code": -1,
+        "currentPage": 0,
+        "data": null,
+        "error": [
+          "订单id不能为空"
+        ],
+        "firstPage": false,
+        "hasNextPage": false,
+        "hasPreviousPage": false,
+        "jumpUrl": "",
+        "lastPage": true,
+        "list": [],
+        "listSize": 0,
+        "msg": "订单id不能为空",
+        "obj": null,
+        "order": "",
+        "pageLength": 0,
+        "pageSize": 0,
+        "sort": "",
+        "status": false,
+        "throwable": null,
+        "totalPage": 0
+      },
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "346",
+        "date": "Tue, 12 May 2026 01:31:29 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.20s",
+      "responseSize": "322 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://192.168.17.128:23208/lcgl-prj/order/item/infos",
+        "method": "GET",
+        "headers": {},
+        "params": {
+          "orderId": "2080156866160",
+          "findHistory": "true",
+          "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ3LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3Nzg0OTE0NDEsImlzcyI6IlF6In0.-TM4jHmTarTcVR__BdEZLm-Df7-1KWYSHQQhl4XL9YY"
+        },
+        "body": {},
+        "bodyType": "json"
+      }
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.20s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "allRow": 0,
+      "beginPage": 0,
+      "code": -1,
+      "currentPage": 0,
+      "data": null,
+      "error": [
+        "订单id不能为空"
+      ],
+      "firstPage": false,
+      "hasNextPage": false,
+      "hasPreviousPage": false,
+      "jumpUrl": "",
+      "lastPage": true,
+      "list": [],
+      "listSize": 0,
+      "msg": "订单id不能为空",
+      "obj": null,
+      "order": "",
+      "pageLength": 0,
+      "pageSize": 0,
+      "sort": "",
+      "status": false,
+      "throwable": null,
+      "totalPage": 0
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "346",
+      "date": "Tue, 12 May 2026 01:31:29 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1778499510607_trf5wpwl4": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "allRow": 0,
+          "beginPage": 0,
+          "code": -1,
+          "currentPage": 0,
+          "data": null,
+          "error": [
+            "订单id不能为空"
+          ],
+          "firstPage": false,
+          "hasNextPage": false,
+          "hasPreviousPage": false,
+          "jumpUrl": "",
+          "lastPage": true,
+          "list": [],
+          "listSize": 0,
+          "msg": "订单id不能为空",
+          "obj": null,
+          "order": "",
+          "pageLength": 0,
+          "pageSize": 0,
+          "sort": "",
+          "status": false,
+          "throwable": null,
+          "totalPage": 0
+        },
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "346",
+          "date": "Tue, 12 May 2026 01:31:29 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.20s",
+        "responseSize": "322 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://192.168.17.128:23208/lcgl-prj/order/item/infos",
+          "method": "GET",
+          "headers": {},
+          "params": {
+            "orderId": "2080156866160",
+            "findHistory": "true",
+            "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ3LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3Nzg0OTE0NDEsImlzcyI6IlF6In0.-TM4jHmTarTcVR__BdEZLm-Df7-1KWYSHQQhl4XL9YY"
+          },
+          "body": {},
+          "bodyType": "json"
+        }
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1778499510607_trf5wpwl4",
+        "name": "infos-订单项目列表",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "allRow": 0,
+            "beginPage": 0,
+            "code": -1,
+            "currentPage": 0,
+            "data": null,
+            "error": [
+              "订单id不能为空"
+            ],
+            "firstPage": false,
+            "hasNextPage": false,
+            "hasPreviousPage": false,
+            "jumpUrl": "",
+            "lastPage": true,
+            "list": [],
+            "listSize": 0,
+            "msg": "订单id不能为空",
+            "obj": null,
+            "order": "",
+            "pageLength": 0,
+            "pageSize": 0,
+            "sort": "",
+            "status": false,
+            "throwable": null,
+            "totalPage": 0
+          },
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "346",
+            "date": "Tue, 12 May 2026 01:31:29 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.20s",
+          "responseSize": "322 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://192.168.17.128:23208/lcgl-prj/order/item/infos",
+            "method": "GET",
+            "headers": {},
+            "params": {
+              "orderId": "2080156866160",
+              "findHistory": "true",
+              "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ3LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3Nzg0OTE0NDEsImlzcyI6IlF6In0.-TM4jHmTarTcVR__BdEZLm-Df7-1KWYSHQQhl4XL9YY"
+            },
+            "body": {},
+            "bodyType": "json"
+          }
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1778549479436,
+    "apiId": "api_1778499510607_trf5wpwl4",
+    "apiName": "infos-订单项目列表",
+    "apiMethod": "GET",
+    "apiPath": "{domain}{lcgl-prj}/order/item/infos",
+    "timestamp": "2026/5/12 09:31:19",
+    "apiConfig": {
+      "name": "infos-订单项目列表",
+      "group": "default",
+      "api_path": "{domain}{lcgl-prj}/order/item/infos",
+      "method": "GET",
+      "header": {},
+      "param": {
+        "orderId": {
+          "default": "2080156866160",
+          "description": "订单id",
+          "type": "string",
+          "enabled": true
+        },
+        "findHistory": {
+          "default": "true",
+          "description": "是否是查询历史",
+          "type": "boolean",
+          "enabled": true
+        },
+        "JID": {
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ3LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3Nzg0OTE0NDEsImlzcyI6IlF6In0.-TM4jHmTarTcVR__BdEZLm-Df7-1KWYSHQQhl4XL9YY",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        }
+      },
+      "body": {},
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://192.168.2.213:23200/lcgl-prj/order/item/infos",
+      "method": "GET",
+      "header": [],
+      "param": [
+        {
+          "key": "orderId",
+          "default": "2080156866160",
+          "description": "订单id",
+          "type": "string",
+          "enabled": true
+        },
+        {
+          "key": "findHistory",
+          "default": "true",
+          "description": "是否是查询历史",
+          "type": "boolean",
+          "enabled": true
+        },
+        {
+          "key": "JID",
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ3LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3Nzg0OTE0NDEsImlzcyI6IlF6In0.-TM4jHmTarTcVR__BdEZLm-Df7-1KWYSHQQhl4XL9YY",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        }
+      ],
+      "body": {
+        "type": "none",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1778549432144_7fbl1rgfa",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        }
+      },
+      "bodyType": "none",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 400,
+      "status_text": "Bad Request",
+      "httpSuccess": false,
+      "success": false,
+      "data": "<html>\r\n<head><title>400 The plain HTTP request was sent to HTTPS port</title></head>\r\n<body>\r\n<center><h1>400 Bad Request</h1></center>\r\n<center>The plain HTTP request was sent to HTTPS port</center>\r\n<hr><center>nginx/1.25.5</center>\r\n</body>\r\n</html>\r\n",
+      "headers": {
+        "server": "nginx/1.25.5",
+        "date": "Tue, 12 May 2026 01:31:19 GMT",
+        "content-type": "text/html; charset=utf-8",
+        "content-length": "255",
+        "connection": "close"
+      },
+      "elapsedTime": "0.00s",
+      "responseSize": "255 B",
+      "assertionResult": null,
+      "error": "请求失败",
+      "errorType": "network",
+      "requestConfig": {
+        "url": "http://192.168.2.213:23200/lcgl-prj/order/item/infos",
+        "method": "GET",
+        "headers": {},
+        "params": {
+          "orderId": "2080156866160",
+          "findHistory": "true",
+          "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ3LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3Nzg0OTE0NDEsImlzcyI6IlF6In0.-TM4jHmTarTcVR__BdEZLm-Df7-1KWYSHQQhl4XL9YY"
+        },
+        "body": {},
+        "bodyType": "json"
+      }
+    },
+    "success": false,
+    "httpSuccess": false,
+    "status_code": 400,
+    "elapsedTime": "0.00s",
+    "error": "请求失败",
+    "errorType": "network",
+    "responseData": "<html>\r\n<head><title>400 The plain HTTP request was sent to HTTPS port</title></head>\r\n<body>\r\n<center><h1>400 Bad Request</h1></center>\r\n<center>The plain HTTP request was sent to HTTPS port</center>\r\n<hr><center>nginx/1.25.5</center>\r\n</body>\r\n</html>\r\n",
+    "assertionResult": null,
+    "responseHeaders": {
+      "server": "nginx/1.25.5",
+      "date": "Tue, 12 May 2026 01:31:19 GMT",
+      "content-type": "text/html; charset=utf-8",
+      "content-length": "255",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1778499510607_trf5wpwl4": {
+        "status_code": 400,
+        "status_text": "Bad Request",
+        "httpSuccess": false,
+        "success": false,
+        "data": "<html>\r\n<head><title>400 The plain HTTP request was sent to HTTPS port</title></head>\r\n<body>\r\n<center><h1>400 Bad Request</h1></center>\r\n<center>The plain HTTP request was sent to HTTPS port</center>\r\n<hr><center>nginx/1.25.5</center>\r\n</body>\r\n</html>\r\n",
+        "headers": {
+          "server": "nginx/1.25.5",
+          "date": "Tue, 12 May 2026 01:31:19 GMT",
+          "content-type": "text/html; charset=utf-8",
+          "content-length": "255",
+          "connection": "close"
+        },
+        "elapsedTime": "0.00s",
+        "responseSize": "255 B",
+        "assertionResult": null,
+        "error": "请求失败",
+        "errorType": "network",
+        "requestConfig": {
+          "url": "http://192.168.2.213:23200/lcgl-prj/order/item/infos",
+          "method": "GET",
+          "headers": {},
+          "params": {
+            "orderId": "2080156866160",
+            "findHistory": "true",
+            "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ3LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3Nzg0OTE0NDEsImlzcyI6IlF6In0.-TM4jHmTarTcVR__BdEZLm-Df7-1KWYSHQQhl4XL9YY"
+          },
+          "body": {},
+          "bodyType": "json"
+        }
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1778499510607_trf5wpwl4",
+        "name": "infos-订单项目列表",
+        "result": {
+          "status_code": 400,
+          "status_text": "Bad Request",
+          "httpSuccess": false,
+          "success": false,
+          "data": "<html>\r\n<head><title>400 The plain HTTP request was sent to HTTPS port</title></head>\r\n<body>\r\n<center><h1>400 Bad Request</h1></center>\r\n<center>The plain HTTP request was sent to HTTPS port</center>\r\n<hr><center>nginx/1.25.5</center>\r\n</body>\r\n</html>\r\n",
+          "headers": {
+            "server": "nginx/1.25.5",
+            "date": "Tue, 12 May 2026 01:31:19 GMT",
+            "content-type": "text/html; charset=utf-8",
+            "content-length": "255",
+            "connection": "close"
+          },
+          "elapsedTime": "0.00s",
+          "responseSize": "255 B",
+          "assertionResult": null,
+          "error": "请求失败",
+          "errorType": "network",
+          "requestConfig": {
+            "url": "http://192.168.2.213:23200/lcgl-prj/order/item/infos",
+            "method": "GET",
+            "headers": {},
+            "params": {
+              "orderId": "2080156866160",
+              "findHistory": "true",
+              "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ3LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3Nzg0OTE0NDEsImlzcyI6IlF6In0.-TM4jHmTarTcVR__BdEZLm-Df7-1KWYSHQQhl4XL9YY"
+            },
+            "body": {},
+            "bodyType": "json"
+          }
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1778549441064,
+    "apiId": "api_1778499510607_trf5wpwl4",
+    "apiName": "infos-订单项目列表",
+    "apiMethod": "GET",
+    "apiPath": "{domain}{lcgl-prj}/order/item/infos",
+    "timestamp": "2026/5/12 09:30:41",
+    "apiConfig": {
+      "name": "infos-订单项目列表",
+      "group": "default",
+      "api_path": "{domain}{lcgl-prj}/order/item/infos",
+      "method": "GET",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {
+        "orderId": {
+          "default": "2080156866160",
+          "description": "订单id",
+          "type": "string",
+          "enabled": true
+        },
+        "findHistory": {
+          "default": "true",
+          "description": "是否是查询历史",
+          "type": "boolean",
+          "enabled": true
+        },
+        "JID": {
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ3LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3Nzg0OTE0NDEsImlzcyI6IlF6In0.-TM4jHmTarTcVR__BdEZLm-Df7-1KWYSHQQhl4XL9YY",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        }
+      },
+      "body": {
+        "content": "{}",
+        "schema": {
+          "id": "node_1778549432144_7fbl1rgfa",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://192.168.2.213:23200/lcgl-prj/order/item/infos",
+      "method": "GET",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [
+        {
+          "key": "orderId",
+          "default": "2080156866160",
+          "description": "订单id",
+          "type": "string",
+          "enabled": true
+        },
+        {
+          "key": "findHistory",
+          "default": "true",
+          "description": "是否是查询历史",
+          "type": "boolean",
+          "enabled": true
+        },
+        {
+          "key": "JID",
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ3LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3Nzg0OTE0NDEsImlzcyI6IlF6In0.-TM4jHmTarTcVR__BdEZLm-Df7-1KWYSHQQhl4XL9YY",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        }
+      ],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1778549432144_7fbl1rgfa",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        }
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 400,
+      "status_text": "Bad Request",
+      "httpSuccess": false,
+      "success": false,
+      "data": "<html>\r\n<head><title>400 The plain HTTP request was sent to HTTPS port</title></head>\r\n<body>\r\n<center><h1>400 Bad Request</h1></center>\r\n<center>The plain HTTP request was sent to HTTPS port</center>\r\n<hr><center>nginx/1.25.5</center>\r\n</body>\r\n</html>\r\n",
+      "headers": {
+        "server": "nginx/1.25.5",
+        "date": "Tue, 12 May 2026 01:30:41 GMT",
+        "content-type": "text/html; charset=utf-8",
+        "content-length": "255",
+        "connection": "close"
+      },
+      "elapsedTime": "0.02s",
+      "responseSize": "255 B",
+      "assertionResult": null,
+      "error": "请求失败",
+      "errorType": "network",
+      "requestConfig": {
+        "url": "http://192.168.2.213:23200/lcgl-prj/order/item/infos",
+        "method": "GET",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "params": {
+          "orderId": "2080156866160",
+          "findHistory": "true",
+          "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ3LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3Nzg0OTE0NDEsImlzcyI6IlF6In0.-TM4jHmTarTcVR__BdEZLm-Df7-1KWYSHQQhl4XL9YY"
+        },
+        "body": "{}",
+        "bodyType": "raw"
+      }
+    },
+    "success": false,
+    "httpSuccess": false,
+    "status_code": 400,
+    "elapsedTime": "0.02s",
+    "error": "请求失败",
+    "errorType": "network",
+    "responseData": "<html>\r\n<head><title>400 The plain HTTP request was sent to HTTPS port</title></head>\r\n<body>\r\n<center><h1>400 Bad Request</h1></center>\r\n<center>The plain HTTP request was sent to HTTPS port</center>\r\n<hr><center>nginx/1.25.5</center>\r\n</body>\r\n</html>\r\n",
+    "assertionResult": null,
+    "responseHeaders": {
+      "server": "nginx/1.25.5",
+      "date": "Tue, 12 May 2026 01:30:41 GMT",
+      "content-type": "text/html; charset=utf-8",
+      "content-length": "255",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1778499510607_trf5wpwl4": {
+        "status_code": 400,
+        "status_text": "Bad Request",
+        "httpSuccess": false,
+        "success": false,
+        "data": "<html>\r\n<head><title>400 The plain HTTP request was sent to HTTPS port</title></head>\r\n<body>\r\n<center><h1>400 Bad Request</h1></center>\r\n<center>The plain HTTP request was sent to HTTPS port</center>\r\n<hr><center>nginx/1.25.5</center>\r\n</body>\r\n</html>\r\n",
+        "headers": {
+          "server": "nginx/1.25.5",
+          "date": "Tue, 12 May 2026 01:30:41 GMT",
+          "content-type": "text/html; charset=utf-8",
+          "content-length": "255",
+          "connection": "close"
+        },
+        "elapsedTime": "0.02s",
+        "responseSize": "255 B",
+        "assertionResult": null,
+        "error": "请求失败",
+        "errorType": "network",
+        "requestConfig": {
+          "url": "http://192.168.2.213:23200/lcgl-prj/order/item/infos",
+          "method": "GET",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "params": {
+            "orderId": "2080156866160",
+            "findHistory": "true",
+            "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ3LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3Nzg0OTE0NDEsImlzcyI6IlF6In0.-TM4jHmTarTcVR__BdEZLm-Df7-1KWYSHQQhl4XL9YY"
+          },
+          "body": "{}",
+          "bodyType": "raw"
+        }
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1778499510607_trf5wpwl4",
+        "name": "infos-订单项目列表",
+        "result": {
+          "status_code": 400,
+          "status_text": "Bad Request",
+          "httpSuccess": false,
+          "success": false,
+          "data": "<html>\r\n<head><title>400 The plain HTTP request was sent to HTTPS port</title></head>\r\n<body>\r\n<center><h1>400 Bad Request</h1></center>\r\n<center>The plain HTTP request was sent to HTTPS port</center>\r\n<hr><center>nginx/1.25.5</center>\r\n</body>\r\n</html>\r\n",
+          "headers": {
+            "server": "nginx/1.25.5",
+            "date": "Tue, 12 May 2026 01:30:41 GMT",
+            "content-type": "text/html; charset=utf-8",
+            "content-length": "255",
+            "connection": "close"
+          },
+          "elapsedTime": "0.02s",
+          "responseSize": "255 B",
+          "assertionResult": null,
+          "error": "请求失败",
+          "errorType": "network",
+          "requestConfig": {
+            "url": "http://192.168.2.213:23200/lcgl-prj/order/item/infos",
+            "method": "GET",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "params": {
+              "orderId": "2080156866160",
+              "findHistory": "true",
+              "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ3LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3Nzg0OTE0NDEsImlzcyI6IlF6In0.-TM4jHmTarTcVR__BdEZLm-Df7-1KWYSHQQhl4XL9YY"
+            },
+            "body": "{}",
+            "bodyType": "raw"
+          }
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
     "id": 1778499671304,
     "apiId": "api_1778499510607_trf5wpwl4",
     "apiName": "infos-订单项目列表",

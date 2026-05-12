@@ -296,7 +296,11 @@ class APIExecutor {
       // 解析 Body
       let body = mergedAPI.body;
       if (body !== undefined) {
-        body = this.resolveValue(body, this.apiResults);
+        if (typeof body === 'object' && body !== null && body.content !== undefined && 'type' in body && 'contentType' in body) {
+          body = this.resolveValue(body.content, this.apiResults);
+        } else {
+          body = this.resolveValue(body, this.apiResults);
+        }
         if (typeof body === 'object' && body !== null) {
           body = this.resolveDict(body, this.apiResults);
         }

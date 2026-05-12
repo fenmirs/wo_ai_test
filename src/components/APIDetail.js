@@ -19,6 +19,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const [localSaveError, setLocalSaveError] = useState(null);
   const fileInputRef = useRef(null);
   const executorRef = useRef(null);
+  const initializedApiIdRef = useRef(null);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -45,6 +46,10 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
   useEffect(() => {
     if (api) {
+      if (initializedApiIdRef.current === api.id) {
+        return;
+      }
+      initializedApiIdRef.current = api.id;
       console.log(`[APIDetail] useEffect(api) fired, api.id=${api.id}, api.name=${api.name}, api.param=`, JSON.stringify(api.param));
       initializeFromApi(api);
       setExecutionResult(null);
@@ -685,7 +690,16 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         }
       });
     } else if (formData.body.type === 'raw') {
-      body = formData.body.content || '';
+      if (formData.body.contentType === 'json' && formData.body.schema) {
+        body = {
+          content: formData.body.content || '',
+          schema: formData.body.schema,
+          type: formData.body.type,
+          contentType: formData.body.contentType
+        };
+      } else {
+        body = formData.body.content || '';
+      }
     }
 
     const successAssert = formData.assertions

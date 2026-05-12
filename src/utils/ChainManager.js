@@ -87,7 +87,11 @@ class ChainManager {
       if (typeof clonedAPI.body === 'string') {
         clonedAPI.body = this.resolveValue(clonedAPI.body);
       } else if (typeof clonedAPI.body === 'object') {
-        clonedAPI.body = this.resolveDict(clonedAPI.body);
+        if (clonedAPI.body.content !== undefined && 'type' in clonedAPI.body && 'contentType' in clonedAPI.body) {
+          clonedAPI.body = this.resolveValue(clonedAPI.body.content);
+        } else {
+          clonedAPI.body = this.resolveDict(clonedAPI.body);
+        }
       }
     }
     

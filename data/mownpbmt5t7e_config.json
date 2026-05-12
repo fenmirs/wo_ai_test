@@ -31,7 +31,35 @@
         "Content-Type": "application/json"
       },
       "param": {},
-      "body": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}",
+      "body": {
+        "content": "{\n  \"appId\": false,\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}",
+        "schema": {
+          "id": "node_1778549015269_rz2zjnywh",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1778549015269_inr2h5yf7",
+              "type": "boolean",
+              "key": "appId",
+              "value": false,
+              "description": "啦啦啦啦啦啦"
+            },
+            {
+              "id": "node_1778549015269_ck5ryg6dc",
+              "type": "string",
+              "key": "appSecret",
+              "value": "67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
       "chain": [],
       "successAssert": ""
     },

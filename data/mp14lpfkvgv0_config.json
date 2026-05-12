@@ -7,6 +7,13 @@
       "domain": "192.168.17.128",
       "api-prj": ":23210/api-prj",
       "lcgl-prj": ":23208/lcgl-prj"
+    },
+    {
+      "name": "公司测试",
+      "activate": false,
+      "domain": "192.168.2.213",
+      "api-prj": ":23200/api-prj",
+      "lcgl-prj": ":23200/lcgl-prj"
     }
   ],
   "groups": [],
@@ -17,9 +24,7 @@
       "group": "default",
       "api_path": "{domain}{lcgl-prj}/order/item/infos",
       "method": "GET",
-      "header": {
-        "Content-Type": "application/json"
-      },
+      "header": {},
       "param": {
         "orderId": {
           "default": "2080156866160",
@@ -40,7 +45,7 @@
           "enabled": true
         }
       },
-      "body": "{}",
+      "body": {},
       "chain": [],
       "successAssert": ""
     }
