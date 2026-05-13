@@ -275,8 +275,8 @@ function App() {
         setWorkspaceStatus('done');
         // 短暂延迟后自动进入
         setTimeout(() => {
+          projectManager.switchProject(projectManager.activeProjectId);
           setWorkspaceStatus('idle');
-          notificationManager.setCurrentProject(project.id);
           setSaveMessage('项目加载成功');
           setTimeout(() => setSaveMessage(''), 2000);
         }, 300);
@@ -329,10 +329,8 @@ function App() {
       } else {
         setWorkspaceStatus('done');
         setTimeout(() => {
+          projectManager.switchProject(projectManager.activeProjectId);
           setWorkspaceStatus('idle');
-          notificationManager.setCurrentProject(
-            projectManager.activeProjectId
-          );
           setSaveMessage('项目加载成功');
           setTimeout(() => setSaveMessage(''), 2000);
         }, 300);
