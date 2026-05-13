@@ -24,6 +24,36 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const executorRef = useRef(null);
   const initializedApiIdRef = useRef(null);
 
+  const createEmptyScenario = (id, name, description) => ({
+    id: id || `scn_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
+    name: name || '默认场景',
+    description: description || '',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    deleted: false,
+    method: 'GET',
+    apiPath: '',
+    header: [],
+    param: [],
+    body: {
+      type: 'none', formData: [], xwwwFormUrlencoded: [],
+      activeContentType: 'json',
+      contentType: 'json',
+      content: '',
+      schema: null,
+      contents: {
+        json: { content: '', schema: null },
+        xml: { content: '', schema: null },
+        text: { content: '', schema: null },
+        html: { content: '', schema: null }
+      }
+    },
+    assertions: [{ expression: '', enabled: true }],
+    refChain: []
+  });
+
+  const [scenarioList, setScenarioList] = useState([]);
+  const [currentScenarioId, setCurrentScenarioId] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     group: '默认',
@@ -31,7 +61,19 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     method: 'GET',
     header: [],
     param: [],
-    body: { type: 'none', formData: [], xwwwFormUrlencoded: [], contentType: 'text', content: '', schema: null },
+    body: {
+      type: 'none', formData: [], xwwwFormUrlencoded: [],
+      activeContentType: 'json',
+      contentType: 'json',
+      content: '',
+      schema: null,
+      contents: {
+        json: { content: '', schema: null },
+        xml: { content: '', schema: null },
+        text: { content: '', schema: null },
+        html: { content: '', schema: null }
+      }
+    },
     assertions: [{ expression: '', enabled: true }]
   });
 
@@ -131,8 +173,8 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   }, [executionResult]);
 
   useEffect(() => {
-    if (formData.body.contentType === 'json' && formData.body.type === 'raw') {
-      const content = formData.body.content || '';
+    if (formData.body.activeContentType === 'json' && formData.body.type === 'raw') {
+      const content = getBodyContent();
       if (content.trim()) {
         try { JSON.parse(content); setJsonParseError(null); }
         catch (e) { setJsonParseError(e.message); }
@@ -142,7 +184,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     } else {
       setJsonParseError(null);
     }
-  }, [formData.body.content, formData.body.contentType, formData.body.type]);
+  }, [formData.body.contents, formData.body.activeContentType, formData.body.type]);
 
   useEffect(() => {
     if (!isAdding) {
@@ -200,7 +242,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       });
     }
     if (formData.body.type === 'raw') {
-      scanValue(formData.body.content);
+      scanValue(getBodyContent());
     }
 
     return [...apiIds];
@@ -264,22 +306,46 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     const apiPath = apiData.api_path || '';
     const isFullUrl = apiPath.startsWith('http://') || apiPath.startsWith('https://');
 
-    const parsedParam = parseToArray(apiData.param);
-    const parsedHeader = parseToArray({ ...defaultHeader, ...apiData.header });
-    console.log(`[APIDetail] initializeFromApi - parsedParam:`, JSON.stringify(parsedParam));
-    console.log(`[APIDetail] initializeFromApi - parsedHeader:`, JSON.stringify(parsedHeader));
+    // Parse scenarios from API data
+    let scenarios = [];
+    let activeScenarioId = null;
 
+    if (apiData.scenarios && Object.keys(apiData.scenarios).length > 0) {
+      scenarios = Object.values(apiData.scenarios).filter(s => !s.deleted);
+      if (scenarios.length === 0) {
+        const firstKey = Object.keys(apiData.scenarios)[0];
+        scenarios = [apiData.scenarios[firstKey]];
+      }
+      activeScenarioId = scenarios[0].id;
+    } else {
+      // Legacy format: create default scenario from top-level fields
+      const parsedParam = parseToArray(apiData.param);
+      const parsedHeader = parseToArray({ ...defaultHeader, ...apiData.header });
+      const defaultScn = createEmptyScenario('scn_default', '默认场景', '首次自动创建');
+      defaultScn.method = apiData.method || 'GET';
+      defaultScn.apiPath = apiPath;
+      defaultScn.header = parsedHeader;
+      defaultScn.param = parsedParam;
+      defaultScn.body = parseBodyData(apiData.body, { ...defaultHeader, ...apiData.header });
+      defaultScn.assertions = parseAssertions(apiData.successAssert);
+      scenarios = [defaultScn];
+      activeScenarioId = defaultScn.id;
+    }
+
+    setScenarioList(scenarios);
+    setCurrentScenarioId(activeScenarioId);
+
+    const firstScenario = scenarios.find(s => s.id === activeScenarioId);
     const newFormData = {
       id: apiData.id,
       name: apiData.name || '',
       group: apiData.group || '默认',
-      api_path: apiData.api_path || '',
-      method: apiData.method || 'GET',
-      header: parsedHeader,
-      param: parsedParam,
-      body: parseBodyData(apiData.body, { ...defaultHeader, ...apiData.header }),
-
-      assertions: parseAssertions(apiData.successAssert)
+      api_path: firstScenario?.apiPath || apiPath,
+      method: firstScenario?.method || apiData.method || 'GET',
+      header: firstScenario?.header || parseToArray({ ...defaultHeader, ...apiData.header }),
+      param: firstScenario?.param || parseToArray(apiData.param),
+      body: firstScenario?.body || parseBodyData(apiData.body, { ...defaultHeader, ...apiData.header }),
+      assertions: firstScenario?.assertions || parseAssertions(apiData.successAssert)
     };
 
     setFormData(newFormData);
@@ -311,6 +377,18 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         .map(a => ({ expression: a, enabled: true }));
     };
 
+    // Create a restored scenario
+    const restoredScn = createEmptyScenario('scn_restored', '已恢复', `从历史记录恢复 - ${historyEntry.timestamp}`);
+    restoredScn.method = cfg.method || 'GET';
+    restoredScn.apiPath = cfg.api_path || '';
+    restoredScn.header = parseToArray({ ...defaultHeader, ...cfg.header });
+    restoredScn.param = parseToArray(cfg.param);
+    restoredScn.body = parseBodyData(cfg.body, { ...defaultHeader, ...cfg.header });
+    restoredScn.assertions = parseAssertions(cfg.successAssert);
+
+    setScenarioList(prev => [...prev, restoredScn]);
+    setCurrentScenarioId(restoredScn.id);
+
     setFormData({
       name: cfg.name || '',
       group: cfg.group || '默认',
@@ -319,7 +397,6 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       header: parseToArray({ ...defaultHeader, ...cfg.header }),
       param: parseToArray(cfg.param),
       body: parseBodyData(cfg.body, { ...defaultHeader, ...cfg.header }),
-
       assertions: parseAssertions(cfg.successAssert)
     });
 
@@ -347,18 +424,50 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   };
 
   const parseBodyData = (body, header) => {
-    if (!body) return { type: 'none', formData: [], xwwwFormUrlencoded: [], contentType: 'text', content: '', schema: null };
+    const emptyContents = () => ({
+      json: { content: '', schema: null },
+      xml: { content: '', schema: null },
+      text: { content: '', schema: null },
+      html: { content: '', schema: null }
+    });
+
+    const defaultResult = () => ({
+      type: 'none', formData: [], xwwwFormUrlencoded: [],
+      activeContentType: 'text', contentType: 'text', content: '', schema: null,
+      contents: emptyContents()
+    });
+
+    if (!body) return defaultResult();
     const contentType = header?.['Content-Type'] || '';
 
     if (typeof body === 'object' && !Array.isArray(body)) {
-      if (body.schema && (body.type === 'raw' || body.contentType === 'json' || body.contentType === 'xml')) {
+      if (body.contents && body.activeContentType) {
+        const ct = body.activeContentType;
         return {
           type: body.type || 'raw',
           formData: body.formData || [],
           xwwwFormUrlencoded: body.xwwwFormUrlencoded || [],
-          contentType: body.contentType || 'json',
-          content: body.content || '',
-          schema: body.schema
+          activeContentType: ct,
+          contentType: ct,
+          content: body.contents[ct]?.content || '',
+          schema: body.contents[ct]?.schema || null,
+          contents: body.contents
+        };
+      }
+
+      if (body.contentType && body.content !== undefined) {
+        const ct = body.contentType || 'text';
+        const contents = emptyContents();
+        contents[ct] = { content: body.content || '', schema: body.schema || null };
+        return {
+          type: body.type || 'raw',
+          formData: body.formData || [],
+          xwwwFormUrlencoded: body.xwwwFormUrlencoded || [],
+          activeContentType: ct,
+          contentType: ct,
+          content: contents[ct].content,
+          schema: contents[ct].schema,
+          contents
         };
       }
 
@@ -368,21 +477,14 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         try {
           const parsed = typeof body.content === 'string' ? JSON.parse(body.content) : body;
           schema = JSONSchemaConverter.jsonToSchema(parsed);
-        } catch (e) {
-          console.warn('[APIDetail] Failed to parse JSON for schema:', e);
-        }
-        return { 
-          type: 'raw', 
-          formData: [], 
-          xwwwFormUrlencoded: [], 
-          contentType: 'json', 
-          content,
-          schema
-        };
+        } catch (e) { console.warn('[APIDetail] Failed to parse JSON for schema:', e); }
+        const contents = emptyContents();
+        contents.json = { content, schema };
+        return { type: 'raw', formData: [], xwwwFormUrlencoded: [], activeContentType: 'json', contentType: 'json', content, schema, contents };
       } else if (contentType.includes('application/x-www-form-urlencoded')) {
-        return { type: 'x-www-form-urlencoded', formData: [], xwwwFormUrlencoded: parseToArray(body), contentType: 'text', content: '', schema: null };
+        return { type: 'x-www-form-urlencoded', formData: [], xwwwFormUrlencoded: parseToArray(body), activeContentType: 'text', contentType: 'text', content: '', schema: null, contents: emptyContents() };
       } else if (contentType.includes('multipart/form-data')) {
-        return { type: 'form-data', formData: parseToArray(body), xwwwFormUrlencoded: [], contentType: 'text', content: '', schema: null };
+        return { type: 'form-data', formData: parseToArray(body), xwwwFormUrlencoded: [], activeContentType: 'text', contentType: 'text', content: '', schema: null, contents: emptyContents() };
       }
     }
 
@@ -391,22 +493,117 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       let schema = null;
       if (contentType.includes('application/json') || contentType.includes('json')) {
         detectedContentType = 'json';
-        try {
-          schema = JSONSchemaConverter.jsonToSchema(body);
-        } catch (e) {
-          console.warn('[APIDetail] Failed to parse JSON for schema:', e);
-        }
-      } else if (contentType.includes('xml')) {
-        detectedContentType = 'xml';
-      } else if (contentType.includes('html')) {
-        detectedContentType = 'html';
-      } else if (contentType.includes('text/plain')) {
-        detectedContentType = 'text';
-      }
-      return { type: 'raw', formData: [], xwwwFormUrlencoded: [], contentType: detectedContentType, content: body, schema };
+        try { schema = JSONSchemaConverter.jsonToSchema(body); } catch (e) { console.warn('[APIDetail] Failed to parse JSON for schema:', e); }
+      } else if (contentType.includes('xml')) { detectedContentType = 'xml'; }
+      else if (contentType.includes('html')) { detectedContentType = 'html'; }
+      else if (contentType.includes('text/plain')) { detectedContentType = 'text'; }
+      const contents = emptyContents();
+      contents[detectedContentType] = { content: body, schema };
+      return { type: 'raw', formData: [], xwwwFormUrlencoded: [], activeContentType: detectedContentType, contentType: detectedContentType, content: body, schema, contents };
     }
 
-    return { type: 'raw', formData: [], xwwwFormUrlencoded: [], contentType: 'text', content: typeof body === 'string' ? body : JSON.stringify(body, null, 2), schema: null };
+    const contents = emptyContents();
+    const strContent = typeof body === 'string' ? body : JSON.stringify(body, null, 2);
+    contents.text = { content: strContent, schema: null };
+    return { type: 'raw', formData: [], xwwwFormUrlencoded: [], activeContentType: 'text', contentType: 'text', content: strContent, schema: null, contents };
+  };
+
+  const getBodyContent = () => {
+    if (formData.body.type !== 'raw') return '';
+    const ct = formData.body.activeContentType || formData.body.contentType || 'text';
+    return formData.body.contents?.[ct]?.content || formData.body.content || '';
+  };
+
+  const getBodySchema = () => {
+    if (formData.body.type !== 'raw') return null;
+    const ct = formData.body.activeContentType || formData.body.contentType || 'text';
+    return formData.body.contents?.[ct]?.schema || formData.body.schema || null;
+  };
+
+  const formToScenarioData = () => ({
+    method: formData.method,
+    apiPath: formData.api_path,
+    header: formData.header,
+    param: formData.param,
+    body: formData.body,
+    assertions: formData.assertions
+  });
+
+  const scenarioToForm = (scenario) => {
+    if (!scenario) return;
+    setFormData(prev => ({
+      ...prev,
+      method: scenario.method || 'GET',
+      api_path: scenario.apiPath || '',
+      header: scenario.header || [],
+      param: scenario.param || [],
+      body: scenario.body || {
+        type: 'none', formData: [], xwwwFormUrlencoded: [],
+        activeContentType: 'json', contentType: 'json',
+        content: '', schema: null,
+        contents: {
+          json: { content: '', schema: null },
+          xml: { content: '', schema: null },
+          text: { content: '', schema: null },
+          html: { content: '', schema: null }
+        }
+      },
+      assertions: scenario.assertions || [{ expression: '', enabled: true }]
+    }));
+  };
+
+  const switchScenario = (scenarioId) => {
+    const scenario = scenarioList.find(s => s.id === scenarioId);
+    if (!scenario) return;
+    const updatedList = scenarioList.map(s => {
+      if (s.id === currentScenarioId) {
+        return { ...s, ...formToScenarioData(), updatedAt: new Date().toISOString() };
+      }
+      return s;
+    });
+    setScenarioList(updatedList);
+    setCurrentScenarioId(scenarioId);
+    scenarioToForm(scenario);
+  };
+
+  const addScenario = () => {
+    const newId = `scn_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
+    const currentScenario = scenarioList.find(s => s.id === currentScenarioId);
+    const baseName = '新场景';
+    let name = baseName;
+    let counter = 1;
+    while (scenarioList.some(s => s.name === name)) {
+      name = `${baseName} ${counter}`;
+      counter++;
+    }
+    const newScenario = {
+      ...createEmptyScenario(newId, name, currentScenario?.description || ''),
+      ...formToScenarioData(),
+      id: newId,
+      name,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+    setScenarioList(prev => [...prev, newScenario]);
+    setCurrentScenarioId(newId);
+    // Form data already reflects current scenario, no change needed
+  };
+
+  const renameScenario = (scenarioId, newName) => {
+    setScenarioList(prev => prev.map(s =>
+      s.id === scenarioId ? { ...s, name: newName, updatedAt: new Date().toISOString() } : s
+    ));
+  };
+
+  const deleteScenario = (scenarioId) => {
+    if (scenarioList.length <= 1) return;
+    setScenarioList(prev => prev.filter(s => s.id !== scenarioId));
+    if (currentScenarioId === scenarioId) {
+      const remaining = scenarioList.filter(s => s.id !== scenarioId);
+      const next = remaining[0];
+      setCurrentScenarioId(next.id);
+      scenarioToForm(next);
+    }
   };
 
   const updateResolvedPath = () => {
@@ -456,7 +653,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       });
     }
     if (formData.body.type === 'raw') {
-      scanValue('Body', 'content', formData.body.content);
+      scanValue('Body', 'content', getBodyContent());
     }
 
     return refs;
@@ -494,7 +691,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       });
     }
     if (formData.body.type === 'raw') {
-      scanValue('Body', 'content', formData.body.content);
+      scanValue('Body', 'content', getBodyContent());
     }
 
     return refs;
@@ -638,10 +835,12 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       return;
     }
 
-    if (formData.body.type === 'raw' && formData.body.contentType === 'json') {
-      const rawContent = formData.body.content || '';
-      if (rawContent.trim()) {
-        try { JSON.parse(rawContent); }
+    const bodyCT = formData.body.activeContentType || formData.body.contentType;
+    const bodyContent = getBodyContent();
+
+    if (formData.body.type === 'raw' && bodyCT === 'json') {
+      if (bodyContent.trim()) {
+        try { JSON.parse(bodyContent); }
         catch (e) {
           toast.error('JSON 格式错误，请检查后重试');
           return;
@@ -649,15 +848,14 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       }
     }
 
-    if (formData.body.type === 'raw' && formData.body.contentType === 'xml') {
-      const rawContent = formData.body.content || '';
-      if (rawContent.trim()) {
-        const err = XMLSchemaConverter.validateXml(rawContent);
+    if (formData.body.type === 'raw' && bodyCT === 'xml') {
+      if (bodyContent.trim()) {
+        const err = XMLSchemaConverter.validateXml(bodyContent);
         if (err) {
           toast.error('XML 格式错误，请检查后重试');
           return;
         }
-        if (!xmlAllowMixed && XMLSchemaConverter.hasMixedContent(rawContent)) {
+        if (!xmlAllowMixed && XMLSchemaConverter.hasMixedContent(bodyContent)) {
           toast.error('存在混合内容，请允许混合内容或清理数据后再保存');
           return;
         }
@@ -763,15 +961,17 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         }
       });
     } else if (formData.body.type === 'raw') {
-      if (formData.body.schema) {
+      const currentContent = getBodyContent();
+      const currentSchema = getBodySchema();
+      if (currentSchema) {
         body = {
-          content: formData.body.content || '',
-          schema: formData.body.schema,
+          content: currentContent,
+          schema: currentSchema,
           type: formData.body.type,
-          contentType: formData.body.contentType
+          contentType: formData.body.activeContentType || formData.body.contentType
         };
       } else {
-        body = formData.body.content || '';
+        body = currentContent || '';
       }
     }
 
@@ -779,6 +979,25 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       .filter(a => a.enabled && a.expression.trim())
       .map(a => a.expression.trim())
       .join('; ');
+
+    // Build scenarios object from scenarioList
+    const scenarios = {};
+    const updatedList = scenarioList.map(s => {
+      if (s.id === currentScenarioId) {
+        return {
+          ...s,
+          method: formData.method,
+          apiPath: formData.api_path,
+          header: formData.header,
+          param: formData.param,
+          body: formData.body,
+          assertions: formData.assertions,
+          updatedAt: new Date().toISOString()
+        };
+      }
+      return s;
+    });
+    updatedList.forEach(s => { scenarios[s.id] = s; });
 
     return {
       id: formData.id,
@@ -790,7 +1009,8 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       param: paramObj,
       body,
       chain: extractRefApis(),
-      successAssert
+      successAssert,
+      scenarios
     };
   };
 
@@ -805,6 +1025,49 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
   const updateFormBody = (updates) => {
     const newBody = { ...formData.body, ...updates };
+
+    const oldCT = formData.body.activeContentType || formData.body.contentType;
+    const newCT = newBody.activeContentType || newBody.contentType;
+
+    if (newBody.type === 'raw') {
+      if (!newBody.contents) {
+        newBody.contents = {
+          json: { content: '', schema: null },
+          xml: { content: '', schema: null },
+          text: { content: '', schema: null },
+          html: { content: '', schema: null }
+        };
+      }
+
+      if (updates.activeContentType || (updates.contentType && oldCT !== newCT)) {
+        const actualOldCT = oldCT || 'text';
+        const actualNewCT = newCT || 'text';
+        const prevContent = formData.body.contents?.[actualOldCT]?.content;
+        const newContents = { ...newBody.contents };
+        if (prevContent !== undefined) {
+          newContents[actualOldCT] = {
+            content: formData.body.content || prevContent || '',
+            schema: formData.body.schema || null
+          };
+        }
+        const saved = newContents[actualNewCT] || { content: '', schema: null };
+        newBody.content = saved.content;
+        newBody.schema = saved.schema;
+        newBody.activeContentType = actualNewCT;
+        newBody.contentType = actualNewCT;
+        newBody.contents = newContents;
+      } else if (updates.content !== undefined || updates.schema !== undefined) {
+        const ct = newBody.activeContentType || newBody.contentType || 'text';
+        const newContents = { ...(newBody.contents) };
+        if (!newContents[ct]) newContents[ct] = { content: '', schema: null };
+        newContents[ct] = {
+          content: updates.content !== undefined ? updates.content : (newBody.content || ''),
+          schema: updates.schema !== undefined ? updates.schema : (newBody.schema || null)
+        };
+        newBody.contents = newContents;
+      }
+    }
+
     let newHeader = [...formData.header];
     const contentTypeIndex = newHeader.findIndex(h => h.key.toLowerCase() === 'content-type');
 
@@ -820,17 +1083,17 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
             'html': 'text/html',
             'text': 'text/plain'
           };
-          return rawContentTypes[newBody.contentType] || 'text/plain';
+          return rawContentTypes[newBody.activeContentType || newBody.contentType] || 'text/plain';
         default: return null;
       }
     };
 
-    const newContentType = getContentType(newBody.type);
-    if (newContentType) {
+    const ctHeader = getContentType(newBody.type);
+    if (ctHeader) {
       if (contentTypeIndex >= 0) {
-        newHeader[contentTypeIndex] = { ...newHeader[contentTypeIndex], default: newContentType };
+        newHeader[contentTypeIndex] = { ...newHeader[contentTypeIndex], default: ctHeader };
       } else {
-        newHeader.push({ key: 'Content-Type', default: newContentType, type: 'string', description: '', enabled: true });
+        newHeader.push({ key: 'Content-Type', default: ctHeader, type: 'string', description: '', enabled: true });
       }
     } else {
       if (contentTypeIndex >= 0) {
@@ -1019,6 +1282,34 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
             生成文档
           </button>
         </div>
+      </div>
+
+      <div className="scenario-bar">
+        <span className="scenario-label">场景:</span>
+        <div className="scenario-tabs">
+          {scenarioList.filter(s => !s.deleted).map(scn => (
+            <div
+              key={scn.id}
+              className={`scenario-tab ${scn.id === currentScenarioId ? 'active' : ''}`}
+              onClick={() => { if (scn.id !== currentScenarioId) switchScenario(scn.id); }}
+            >
+              <input
+                className="scenario-name-input"
+                value={scn.name}
+                onClick={(e) => e.stopPropagation()}
+                onChange={(e) => renameScenario(scn.id, e.target.value)}
+              />
+            </div>
+          ))}
+        </div>
+        <button className="scenario-add-btn" onClick={addScenario} title="新建场景">
+          <Plus size={14} />
+        </button>
+        {scenarioList.length > 1 && currentScenarioId && (
+          <button className="scenario-del-btn" onClick={() => deleteScenario(currentScenarioId)} title="删除当前场景">
+            <Trash2 size={12} />
+          </button>
+        )}
       </div>
 
       <div className="url-bar">
@@ -1213,11 +1504,12 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                   <span>{type === 'none' ? 'none' : type === 'form-data' ? 'form-data' : type === 'x-www-form-urlencoded' ? 'x-www-form-urlencoded' : 'raw'}</span>
                   {type === 'raw' && formData.body.type === 'raw' && (
                     <select
-                      value={formData.body.contentType || 'text'}
+                      value={formData.body.activeContentType || formData.body.contentType || 'text'}
                       onChange={(e) => {
                         const newType = e.target.value;
-                        const updates = { contentType: newType, schema: null };
-                        if (!formData.body.content) {
+                        const currentContent = getBodyContent();
+                        const updates = { activeContentType: newType, contentType: newType };
+                        if (!currentContent && !formData.body.contents?.[newType]?.content) {
                           switch (newType) {
                             case 'json': updates.content = '{\n  \n}'; break;
                             case 'xml':  updates.content = '<root></root>'; break;
@@ -1263,18 +1555,18 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
              {formData.body.type === 'raw' && (
                <div className="body-raw">
-                  {formData.body.contentType === 'json' && (
+                  {(formData.body.activeContentType === 'json' || formData.body.contentType === 'json') && (
                     <div className="json-mode-switcher">
                       <button
                         className={`json-mode-btn${jsonParseError ? ' disabled' : ''}`}
                         disabled={!!jsonParseError}
                         onClick={() => {
                           if (jsonEditMode === 'code') {
-                            const currentContent = formData.body.content || '{}';
+                            const currentContent = getBodyContent() || '{}';
                             if (!currentContent.trim()) return;
                             try { JSON.parse(currentContent); } catch (_) { return; }
                             try {
-                              const existingSchema = formData.body.schema;
+                              const existingSchema = getBodySchema();
                               const newSchema = JSONSchemaConverter.jsonToSchema(currentContent, existingSchema);
                               if (newSchema) {
                                 updateFormBody({ schema: newSchema });
@@ -1295,20 +1587,20 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                     </div>
                   )}
 
-                  {formData.body.contentType === 'xml' && (
+                  {(formData.body.activeContentType === 'xml' || formData.body.contentType === 'xml') && (
                     <div className="json-mode-switcher">
                       <button
                         className={`json-mode-btn${xmlParseError ? ' disabled' : ''}`}
                         disabled={!!xmlParseError}
                         onClick={() => {
                           if (xmlEditMode === 'code') {
-                            const currentContent = formData.body.content || '<root></root>';
+                            const currentContent = getBodyContent() || '<root></root>';
                             if (!currentContent.trim()) return;
                             const err = XMLSchemaConverter.validateXml(currentContent);
                             if (err) return;
                             if (!xmlAllowMixed && XMLSchemaConverter.hasMixedContent(currentContent)) return;
                             try {
-                              const existingSchema = formData.body.schema;
+                              const existingSchema = getBodySchema();
                               const newSchema = XMLSchemaConverter.xmlToSchema(currentContent, existingSchema);
                               if (newSchema) {
                                 updateFormBody({ schema: newSchema });
@@ -1360,11 +1652,11 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                     </div>
                   )}
 
-                  {formData.body.contentType === 'json' && jsonEditMode === 'ui' ? (
+                  {(formData.body.activeContentType === 'json' || formData.body.contentType === 'json') && jsonEditMode === 'ui' ? (
                     <div className="json-editor-wrapper">
-                      {formData.body.schema ? (
+                      {getBodySchema() ? (
                         <BodyTreeEditor
-                          schema={formData.body.schema}
+                          schema={getBodySchema()}
                           onChange={(newSchema) => {
                             const newContent = JSONSchemaConverter.schemaToJson(newSchema, true);
                             updateFormBody({ schema: newSchema, content: newContent });
@@ -1378,12 +1670,12 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                         </div>
                       )}
                     </div>
-                  ) : formData.body.contentType === 'xml' && xmlEditMode === 'ui' ? (
+                  ) : (formData.body.activeContentType === 'xml' || formData.body.contentType === 'xml') && xmlEditMode === 'ui' ? (
                     <div className="json-editor-wrapper">
-                      {formData.body.schema ? (
+                      {getBodySchema() ? (
                         <BodyTreeEditor
                           mode="xml"
-                          schema={formData.body.schema}
+                          schema={getBodySchema()}
                           onChange={(newSchema) => {
                             const newContent = XMLSchemaConverter.schemaToXml(newSchema, true);
                             updateFormBody({ schema: newSchema, content: newContent });
@@ -1399,11 +1691,12 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                     </div>
                   ) : (
                     <CodeEditor
-                      value={formData.body.content || ''}
+                      value={getBodyContent()}
                       onChange={(content) => {
+                        const bodyCT = formData.body.activeContentType || formData.body.contentType;
                         const updates = { content };
                         
-                         if (formData.body.contentType === 'json' && jsonEditMode === 'code') {
+                         if (bodyCT === 'json' && jsonEditMode === 'code') {
                             let isJsonValid = true;
                             if (content && content.trim()) {
                               try {
@@ -1418,7 +1711,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                             }
                             if (isJsonValid) {
                               try {
-                                const existingSchema = formData.body.schema;
+                                const existingSchema = getBodySchema();
                                 const newSchema = JSONSchemaConverter.jsonToSchema(content, existingSchema);
                                 if (newSchema) {
                                   updates.schema = newSchema;
@@ -1429,7 +1722,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                             }
                           }
 
-                          if (formData.body.contentType === 'xml' && xmlEditMode === 'code') {
+                          if (bodyCT === 'xml' && xmlEditMode === 'code') {
                             let isXmlValid = true;
                             if (content && content.trim()) {
                               const err = XMLSchemaConverter.validateXml(content);
@@ -1447,7 +1740,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                             }
                             if (isXmlValid) {
                               try {
-                                const existingSchema = formData.body.schema;
+                                const existingSchema = getBodySchema();
                                 const newSchema = XMLSchemaConverter.xmlToSchema(content, existingSchema);
                                 if (newSchema) {
                                   updates.schema = newSchema;
@@ -1460,13 +1753,13 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
                          updateFormBody(updates);
                       }}
-                      contentType={formData.body.contentType || 'text'}
-                      onTypeChange={(contentType) => {
-                        updateFormBody({ contentType });
-                        if (contentType !== 'json') {
+                      contentType={formData.body.activeContentType || formData.body.contentType || 'text'}
+                      onTypeChange={(newType) => {
+                        updateFormBody({ activeContentType: newType, contentType: newType });
+                        if (newType !== 'json') {
                           setJsonEditMode('code');
                         }
-                        if (contentType !== 'xml') {
+                        if (newType !== 'xml') {
                           setXmlEditMode('code');
                           setXmlAllowMixed(false);
                         }

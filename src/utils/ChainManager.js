@@ -101,13 +101,25 @@ class ChainManager {
   resolveValue(value) {
     if (typeof value !== 'string') return value;
 
-    // 修复：使用 [1] 而不是 group(1)
     const refMatch = value.match(/\{\{ref:([^}]+)\}\}/);
     if (refMatch) {
-      const refPath = refMatch[1];
-      const parts = refPath.split('.');
-      const apiId = parts[0];
-      const fieldPath = parts.slice(1).join('.');
+      const refContent = refMatch[1];
+      let apiId = refContent;
+      let fieldPath = '';
+
+      const atIdx = refContent.indexOf('@');
+      if (atIdx >= 0) {
+        apiId = refContent.substring(0, atIdx);
+        const afterAt = refContent.substring(atIdx + 1);
+        const dotIdx = afterAt.indexOf('.');
+        if (dotIdx >= 0) {
+          fieldPath = afterAt.substring(dotIdx + 1);
+        }
+      } else {
+        const parts = refContent.split('.');
+        apiId = parts[0];
+        fieldPath = parts.slice(1).join('.');
+      }
 
       const resultData = this.chainResults[apiId];
       
@@ -117,18 +129,26 @@ class ChainManager {
           const keys = fieldPath.split('.');
           for (const key of keys) {
             if (typeof resolved === 'object' && resolved !== null) {
-              resolved = resolved[key];
+              const arrayMatch = key.match(/^(\w+)\[(\d+)\]$/);
+              if (arrayMatch) {
+                resolved = resolved[arrayMatch[1]];
+                if (Array.isArray(resolved)) {
+                  resolved = resolved[parseInt(arrayMatch[2])];
+                }
+              } else {
+                resolved = resolved[key];
+              }
             } else {
-              console.error(`[ChainManager]   ❌ 引用解析失败: {{ref:${refPath}}} -> 路径 ${key} 不存在`);
-              throw new Error(`引用变量解析失败: {{ref:${refPath}}}，路径 ${key} 不存在于 API ${apiId} 的响应中`);
+              console.error(`[ChainManager]   ❌ 引用解析失败: {{ref:${refContent}}} -> 路径 ${key} 不存在`);
+              throw new Error(`引用变量解析失败: {{ref:${refContent}}}，路径 ${key} 不存在于 API ${apiId} 的响应中`);
             }
           }
         }
-        console.log(`[ChainManager]   ✓ 引用解析: {{ref:${refPath}}} -> ${JSON.stringify(resolved).substring(0, 100)}${JSON.stringify(resolved).length > 100 ? '...' : ''}`);
+        console.log(`[ChainManager]   ✓ 引用解析: {{ref:${refContent}}} -> ${JSON.stringify(resolved).substring(0, 100)}${JSON.stringify(resolved).length > 100 ? '...' : ''}`);
         return resolved;
       }
-      console.error(`[ChainManager]   ❌ 引用解析失败: {{ref:${refPath}}} -> 找不到 API ${apiId} 的结果`);
-      throw new Error(`引用变量解析失败: {{ref:${refPath}}}，找不到 API ${apiId} 的执行结果`);
+      console.error(`[ChainManager]   ❌ 引用解析失败: {{ref:${refContent}}} -> 找不到 API ${apiId} 的结果`);
+      throw new Error(`引用变量解析失败: {{ref:${refContent}}}，找不到 API ${apiId} 的执行结果`);
     }
 
     // 解析 {{readFile:filename}}

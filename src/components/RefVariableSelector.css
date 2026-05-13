@@ -101,6 +101,18 @@
   color: var(--text-muted);
 }
 
+.ref-scenario-select {
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 11px;
+  border-radius: 3px;
+  padding: 1px 4px;
+  margin: 0 4px;
+  max-width: 100px;
+  cursor: pointer;
+}
+
 .ref-dropdown {
   position: absolute;
   top: 100%;

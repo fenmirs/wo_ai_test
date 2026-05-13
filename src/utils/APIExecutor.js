@@ -32,13 +32,28 @@ class APIExecutor {
       return value;
     }
 
-    // 解析 {{ref:API名称或ID.字段路径}}
+    // 解析 {{ref:apiId@scenarioId.fieldPath}} 或 {{ref:apiId.fieldPath}}
     const refMatch = value.match(/\{\{ref:([^}]+)\}\}/);
     if (refMatch) {
-      const refPath = refMatch[1];
-      const parts = refPath.split('.');
-      const apiRef = parts[0]; // 可能是 id 或 name
-      const fieldPath = parts.slice(1).join('.');
+      const refContent = refMatch[1];
+      let apiRef = refContent;
+      let fieldPath = '';
+
+      // Check for @scenarioId format
+      const atIdx = refContent.indexOf('@');
+      if (atIdx >= 0) {
+        apiRef = refContent.substring(0, atIdx);
+        const afterAt = refContent.substring(atIdx + 1);
+        const dotIdx = afterAt.indexOf('.');
+        if (dotIdx >= 0) {
+          fieldPath = afterAt.substring(dotIdx + 1);
+        }
+      } else {
+        // Old format: apiId.fieldPath
+        const parts = refContent.split('.');
+        apiRef = parts[0];
+        fieldPath = parts.slice(1).join('.');
+      }
 
       // 优先从 apiResults 中查找（key 可能是 id 或 name）
       let resultData = apiResults[apiRef];
@@ -58,7 +73,16 @@ class APIExecutor {
           const keys = fieldPath.split('.');
           for (const key of keys) {
             if (typeof result === 'object' && result !== null) {
-              result = result[key];
+              // Handle array index in path: data.list[0].id
+              const arrayMatch = key.match(/^(\w+)\[(\d+)\]$/);
+              if (arrayMatch) {
+                result = result[arrayMatch[1]];
+                if (Array.isArray(result)) {
+                  result = result[parseInt(arrayMatch[2])];
+                }
+              } else {
+                result = result[key];
+              }
             } else {
               return null;
             }

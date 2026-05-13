@@ -28,7 +28,7 @@ function App() {
   const [temporaryAPI, setTemporaryAPI] = useState(null);
   const [activeGroup, setActiveGroup] = useState('默认');
   const [showEnvVarConfig, setShowEnvVarConfig] = useState(false);
-  const [executionHistory, setExecutionHistory] = useState([]);
+  const [apiHistory, setApiHistory] = useState([]);
   const [restoringHistoryEntry, setRestoringHistoryEntry] = useState(null);
   const [viewingHistoryEntry, setViewingHistoryEntry] = useState(null);
   const [projectList, setProjectList] = useState([]);
@@ -253,7 +253,7 @@ function App() {
         notificationManager.setCurrentProject(project.id);
         const listResult = await window.electron.readDirectoryProjectList(dirPath);
         setProjectList(listResult.data || []);
-        setExecutionHistory(projectManager.getHistory());
+        setApiHistory([]);
         setSaveMessage('项目切换成功');
         setTimeout(() => setSaveMessage(''), 2000);
       } else {
@@ -362,12 +362,18 @@ function App() {
     setCurrentExecutionResult(result);
   }, []);
 
-  // 选择 API
-  const handleAPISelect = (api) => {
-    checkDraftThen(() => {
-      setSelectedAPI(api);
-      // api.group 现在是 id，需要找到对应的 group
-      const groupId = api.group || null;
+  // 选择 API（加载完整数据 + 历史）
+  const handleAPISelect = async (api) => {
+    checkDraftThen(async () => {
+      let fullData = api;
+      if (api.id && !api.api_path && !api.method) {
+        const loaded = await projectManager.loadAPIData(api.id);
+        if (loaded) fullData = loaded;
+      }
+      const hist = projectManager._apiHistoryCache[api.id] || await projectManager.loadAPIHistory(api.id);
+      setSelectedAPI(fullData);
+      setApiHistory(hist || []);
+      const groupId = fullData.group || null;
       setActiveGroup(groupId);
       setEditingAPI(null);
       setIsAddingAPI(false);
@@ -556,21 +562,19 @@ function App() {
     });
   };
 
-  // 保存 API 编辑
+  // 保存 API 编辑（v2：per-API 文件）
   const handleSaveAPI = async (formData) => {
     if (!formData) return;
     
     const isTemporary = temporaryAPI !== null;
     
     if (isTemporary || isAddingAPI) {
-      // 检查 API 名称是否重复（同一分组下）
       const exists = projectData.apis.find(api => 
         api.name === formData.name && api.group === formData.group
       );
       if (exists && !isTemporary) {
         throw new Error('当前分组下已存在同名 API');
       }
-      // 添加新 API（确保有 id）
       if (!formData.id) {
         formData.id = `api_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
       }
@@ -578,7 +582,6 @@ function App() {
       setSelectedAPI(formData);
       setTemporaryAPI(null);
     } else {
-      // 更新现有 API（通过 id）
       if (formData.id !== selectedAPI.id) {
         throw new Error('API ID 不匹配');
       }
@@ -600,27 +603,33 @@ function App() {
     }
   };
 
-  // 清空历史记录
-  const handleClearHistory = () => {
-    projectManager.clearHistory();
-    setExecutionHistory([]);
+  // 清空历史记录（per-API）
+  const handleClearHistory = async () => {
+    if (!selectedAPI?.id) return;
+    await projectManager.saveAPIHistory(selectedAPI.id, []);
+    setApiHistory([]);
     setSaveMessage('历史记录已清空');
     setTimeout(() => setSaveMessage(''), 2000);
   };
 
-  // 删除单条历史记录
-  const handleDeleteHistory = (entryId) => {
-    projectManager.deleteHistory(entryId);
-    setExecutionHistory(projectManager.getHistory());
+  // 删除单条历史记录（per-API）
+  const handleDeleteHistory = async (entryId) => {
+    if (!selectedAPI?.id) return;
+    const history = await projectManager.loadAPIHistory(selectedAPI.id);
+    const filtered = history.filter(h => h.id !== entryId);
+    await projectManager.saveAPIHistory(selectedAPI.id, filtered);
+    setApiHistory(filtered);
   };
 
-  // 执行 API 完成，保存到历史记录
-  const handleExecute = (api, result) => {
+  // 执行 API 完成，保存到 per-API 历史
+  const handleExecute = async (api, result) => {
     if (!result) return;
     setCurrentExecutionResult(result);
     
     const historyEntry = {
       id: Date.now(),
+      scenarioId: null,
+      scenarioName: null,
       apiId: api.id || null,
       apiName: api.name,
       apiMethod: api.method,
@@ -652,9 +661,13 @@ function App() {
       resultCards: result.resultCards || null
     };
     
-    // 保存到 ProjectManager
-    projectManager.addHistory(historyEntry);
-    setExecutionHistory(projectManager.getHistory());
+    if (api.id) {
+      const existing = await projectManager.loadAPIHistory(api.id);
+      existing.unshift(historyEntry);
+      if (existing.length > 100) existing.length = 100;
+      await projectManager.saveAPIHistory(api.id, existing);
+      setApiHistory(existing);
+    }
   };
 
   // 渲染空状态
@@ -813,28 +826,20 @@ function App() {
                         setViewMode('api_detail');
                       });
                     }}
-                   onDelete={(api) => {
-                     setConfirmDialogConfig({
-                       title: '删除 API',
-                       message: `确定要删除 API "${api.name}" 吗？`,
-                       options: [],
-                       onConfirm: () => {
-                         projectManager.deleteAPI(api.id);
-                         
-                         if (selectedAPI?.id === api.id) {
-                           setSelectedAPI(null);
-                           setEditingAPI(null);
-                           setIsAddingAPI(false);
-                           setViewMode('api');
-                         }
-                         setShowConfirmDialog(false);
-                       },
-                       onCancel: () => {
-                         setShowConfirmDialog(false);
-                       }
-                     });
-                     setShowConfirmDialog(true);
-                   }}
+                    onDelete={async (api) => {
+                      // 逻辑删除：标记 deleted，UI 隐藏
+                      await projectManager.softDeleteAPI(api.id);
+                      if (selectedAPI?.id === api.id) {
+                        setSelectedAPI(null);
+                        setEditingAPI(null);
+                        setIsAddingAPI(false);
+                        // 显示撤销提示
+                        setSaveMessage(`"${api.name}" 已删除 (可恢复)`);
+                        setTimeout(() => setSaveMessage(''), 5000);
+                      }
+                      setTimeout(() => setSaveMessage(''), 5000);
+                      setViewMode('api');
+                    }}
                  />
               </div>
             </div>
@@ -850,7 +855,7 @@ function App() {
             <div className="center-panel">
               {viewMode === 'history' ? (
                 <ExecutionHistory 
-                  history={executionHistory}
+                  history={apiHistory}
                   onSelect={handleRestoreFromHistory}
                   onClear={handleClearHistory}
                   onViewDetail={(entry) => setViewingHistoryEntry(entry)}
@@ -873,7 +878,7 @@ function App() {
                   config={projectData}
                   projectPath={projectManager.getProjectPath()}
                   onExecute={handleExecute}
-                  history={executionHistory}
+                  history={apiHistory}
                   restoringHistoryEntry={restoringHistoryEntry}
                   onRestored={() => setRestoringHistoryEntry(null)}
                   onSaveAPI={handleSaveAPI}

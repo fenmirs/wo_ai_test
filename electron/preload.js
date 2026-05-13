@@ -18,16 +18,19 @@ contextBridge.exposeInMainWorld('electron', {
   createNewProject: (dirPath, projectName) => ipcRenderer.invoke('create-new-project', dirPath, projectName),
   readProjectConfig: (dirPath, projectId) => ipcRenderer.invoke('read-project-config', dirPath, projectId),
   saveProjectConfig: (dirPath, projectId, config) => ipcRenderer.invoke('save-project-config', dirPath, projectId, config),
-  readProjectHistory: (dirPath, projectId) => ipcRenderer.invoke('read-project-history', dirPath, projectId),
-  saveProjectHistory: (dirPath, projectId, history) => ipcRenderer.invoke('save-project-history', dirPath, projectId, history),
+  
+  // Per-API 文件操作（新版 v2 格式）
+  readAPIConfig: (dirPath, projectId, apiId) => ipcRenderer.invoke('read-api-config', dirPath, projectId, apiId),
+  writeAPIConfig: (dirPath, projectId, apiId, data) => ipcRenderer.invoke('write-api-config', dirPath, projectId, apiId, data),
+  readAPIHistory: (dirPath, projectId, apiId) => ipcRenderer.invoke('read-api-history', dirPath, projectId, apiId),
+  writeAPIHistory: (dirPath, projectId, apiId, data) => ipcRenderer.invoke('write-api-history', dirPath, projectId, apiId, data),
+  deleteAPIFile: (dirPath, projectId, apiId) => ipcRenderer.invoke('delete-api-file', dirPath, projectId, apiId),
+  moveAPIFileToTrashed: (dirPath, projectId, apiId) => ipcRenderer.invoke('move-api-file-to-trashed', dirPath, projectId, apiId),
   
   // 对话框
   selectDirectory: () => ipcRenderer.invoke('select-directory'),
   selectFile: () => ipcRenderer.invoke('select-file'),
   saveFile: (options) => ipcRenderer.invoke('save-file', options),
-  
-  // 历史记录
-  getHistoryPath: () => ipcRenderer.invoke('get-history-path'),
   
   // HTTP 请求（通过 Electron 主进程，不受 CORS 限制）
   httpRequestWithCancel: (config) => ipcRenderer.invoke('http-request-with-cancel', config),

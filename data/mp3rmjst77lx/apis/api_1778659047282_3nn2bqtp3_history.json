@@ -1,0 +1,152 @@
+[
+  {
+    "id": 1778659409386,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1778659047282_3nn2bqtp3",
+    "apiName": "获取lims Token",
+    "apiMethod": "GET",
+    "apiPath": "{domain}{api-prj}11212",
+    "timestamp": "2026/5/13 16:03:29",
+    "apiConfig": {
+      "name": "获取lims Token",
+      "group": "group_mp3rn6iphecem",
+      "api_path": "{domain}{api-prj}11212",
+      "method": "GET",
+      "header": {},
+      "param": {},
+      "body": {},
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:8080/api11212",
+      "method": "GET",
+      "header": [],
+      "param": [],
+      "body": {
+        "type": "none",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1778659003460_rl6snjjed",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1778659003460_rl6snjjed",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": {
+              "id": "xml_1778659039684_cpsdcaksq",
+              "type": "string",
+              "key": "root",
+              "value": "",
+              "description": "",
+              "children": []
+            }
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "none",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "NETWORK",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "0.03s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "连接被拒绝，请检查服务器是否启动",
+      "errorType": "network",
+      "requestConfig": {
+        "url": "http://localhost:8080/api11212",
+        "method": "GET",
+        "headers": {},
+        "params": {},
+        "body": {},
+        "bodyType": "json"
+      }
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "0.03s",
+    "error": "连接被拒绝，请检查服务器是否启动",
+    "errorType": "network",
+    "assertionResult": null,
+    "responseHeaders": {},
+    "allResults": {
+      "api_1778659047282_3nn2bqtp3": {
+        "status_text": "NETWORK",
+        "httpSuccess": false,
+        "success": false,
+        "headers": {},
+        "elapsedTime": "0.03s",
+        "responseSize": "0 B",
+        "assertionResult": null,
+        "error": "连接被拒绝，请检查服务器是否启动",
+        "errorType": "network",
+        "requestConfig": {
+          "url": "http://localhost:8080/api11212",
+          "method": "GET",
+          "headers": {},
+          "params": {},
+          "body": {},
+          "bodyType": "json"
+        }
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1778659047282_3nn2bqtp3",
+        "name": "获取lims Token",
+        "result": {
+          "status_text": "NETWORK",
+          "httpSuccess": false,
+          "success": false,
+          "headers": {},
+          "elapsedTime": "0.03s",
+          "responseSize": "0 B",
+          "assertionResult": null,
+          "error": "连接被拒绝，请检查服务器是否启动",
+          "errorType": "network",
+          "requestConfig": {
+            "url": "http://localhost:8080/api11212",
+            "method": "GET",
+            "headers": {},
+            "params": {},
+            "body": {},
+            "bodyType": "json"
+          }
+        },
+        "isTarget": true
+      }
+    ]
+  }
+]

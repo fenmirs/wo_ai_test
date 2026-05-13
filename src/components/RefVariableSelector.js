@@ -6,12 +6,13 @@ import './RefVariableSelector.css';
 function RefVariableSelector({ value, onChange, excludeApiId, theme = 'dark' }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedApiId, setSelectedApiId] = useState(null);
+  const [selectedScenarioId, setSelectedScenarioId] = useState(null);
   const [fieldPath, setFieldPath] = useState('');
+  const [apiScenarios, setApiScenarios] = useState([]);
   const containerRef = useRef(null);
   const dropdownRef = useRef(null);
 
   useEffect(() => {
-    console.log(`[RefVar] value prop changed:`, JSON.stringify(value));
     parseRefValue(value);
   }, [value]);
 
@@ -26,14 +27,56 @@ function RefVariableSelector({ value, onChange, excludeApiId, theme = 'dark' }) 
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    if (selectedApiId) {
+      loadApiScenarios(selectedApiId);
+    }
+  }, [selectedApiId]);
+
+  const loadApiScenarios = async (apiId) => {
+    try {
+      const data = await projectManager.loadAPIData(apiId);
+      if (data && data.scenarios) {
+        const list = Object.values(data.scenarios).filter(s => !s.deleted);
+        setApiScenarios(list);
+        if (!selectedScenarioId && list.length > 0) {
+          setSelectedScenarioId(list[0].id);
+        }
+      } else {
+        setApiScenarios([]);
+      }
+    } catch {
+      setApiScenarios([]);
+    }
+  };
+
   const parseRefValue = (val) => {
     const match = val?.match(/\{\{ref:([^}]+)\}\}/);
     if (match) {
-      const parts = match[1].split('.');
-      setSelectedApiId(parts[0]);
-      setFieldPath(parts.slice(1).join('.'));
+      const refContent = match[1];
+      const atIdx = refContent.indexOf('@');
+      if (atIdx >= 0) {
+        const apiId = refContent.substring(0, atIdx);
+        const afterAt = refContent.substring(atIdx + 1);
+        const dotIdx = afterAt.indexOf('.');
+        if (dotIdx >= 0) {
+          setSelectedApiId(apiId);
+          setSelectedScenarioId(afterAt.substring(0, dotIdx));
+          setFieldPath(afterAt.substring(dotIdx + 1));
+        } else {
+          setSelectedApiId(apiId);
+          setSelectedScenarioId(afterAt);
+          setFieldPath('');
+        }
+      } else {
+        const parts = refContent.split('.');
+        setSelectedApiId(parts[0]);
+        setSelectedScenarioId(null);
+        setFieldPath(parts.slice(1).join('.'));
+      }
     } else {
       setSelectedApiId(null);
+      setSelectedScenarioId(null);
       setFieldPath(val || '');
     }
   };
@@ -41,6 +84,7 @@ function RefVariableSelector({ value, onChange, excludeApiId, theme = 'dark' }) 
   const handleModeChange = (mode) => {
     if (mode === 'static') {
       setSelectedApiId(null);
+      setSelectedScenarioId(null);
       setFieldPath('');
       onChange('');
     } else {
@@ -50,25 +94,35 @@ function RefVariableSelector({ value, onChange, excludeApiId, theme = 'dark' }) 
 
   const handleApiSelect = (apiId) => {
     setSelectedApiId(apiId);
+    setSelectedScenarioId(null);
+    setFieldPath('');
     setIsDropdownOpen(false);
-    updateRefValue(apiId, fieldPath);
+    loadApiScenarios(apiId);
+  };
+
+  const handleScenarioSelect = (scenarioId) => {
+    setSelectedScenarioId(scenarioId);
+    updateRefValue(selectedApiId, scenarioId, fieldPath);
   };
 
   const handleFieldPathChange = (e) => {
     const newPath = e.target.value;
     setFieldPath(newPath);
-    updateRefValue(selectedApiId, newPath);
+    updateRefValue(selectedApiId, selectedScenarioId, newPath);
   };
 
-  const updateRefValue = (apiId, path) => {
+  const updateRefValue = (apiId, scenarioId, path) => {
     if (!apiId) return;
-    const refValue = `{{ref:${apiId}.${path}}}`;
+    const scenarioPart = scenarioId ? `@${scenarioId}` : '';
+    const refValue = `{{ref:${apiId}${scenarioPart}.${path}}}`;
     onChange(refValue);
   };
 
   const handleClearSelection = () => {
     setSelectedApiId(null);
+    setSelectedScenarioId(null);
     setFieldPath('');
+    setApiScenarios([]);
     onChange('');
   };
 
@@ -77,15 +131,15 @@ function RefVariableSelector({ value, onChange, excludeApiId, theme = 'dark' }) 
   const projectData = projectManager.getData();
   const allApis = projectData?.apis || [];
   const groups = projectData?.groups || [];
-  
+
   const availableApis = allApis.filter(a => {
     if (excludeApiId && a.id === excludeApiId) return false;
     return true;
   });
-  
+
   const groupMap = {};
   groups.forEach(g => { groupMap[g.id] = g; });
-  
+
   const getGroupPath = (groupId) => {
     const path = [];
     let current = groupMap[groupId];
@@ -95,7 +149,7 @@ function RefVariableSelector({ value, onChange, excludeApiId, theme = 'dark' }) 
     }
     return path.join(' / ');
   };
-  
+
   const groupedApis = {};
   availableApis.forEach(api => {
     const groupId = api.group || 'default';
@@ -112,7 +166,7 @@ function RefVariableSelector({ value, onChange, excludeApiId, theme = 'dark' }) 
     <div className="ref-selector" ref={containerRef}>
       <div className="ref-selector-header">
         {!isRefMode && !value && (
-          <button 
+          <button
             className="ref-mode-btn"
             onClick={() => setIsDropdownOpen(true)}
             title="选择引用变量"
@@ -120,7 +174,7 @@ function RefVariableSelector({ value, onChange, excludeApiId, theme = 'dark' }) 
             <Zap size={12} />
           </button>
         )}
-        
+
         <div className={`ref-selector-input ${isRefMode ? 'ref-mode' : ''}`}>
           {isRefMode ? (
             <>
@@ -131,6 +185,18 @@ function RefVariableSelector({ value, onChange, excludeApiId, theme = 'dark' }) 
                   handleClearSelection();
                 }} />
               </span>
+              {selectedScenarioId && apiScenarios.length > 0 && (
+                <select
+                  className="ref-scenario-select"
+                  value={selectedScenarioId}
+                  onChange={(e) => handleScenarioSelect(e.target.value)}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {apiScenarios.map(scn => (
+                    <option key={scn.id} value={scn.id}>{scn.name}</option>
+                  ))}
+                </select>
+              )}
               <input
                 type="text"
                 className="ref-field-input"
@@ -144,10 +210,7 @@ function RefVariableSelector({ value, onChange, excludeApiId, theme = 'dark' }) 
               type="text"
               className="static-value-input"
               value={value || ''}
-              onChange={(e) => {
-                console.log(`[RefVar] static input onChange:`, e.target.value);
-                onChange(e.target.value);
-              }}
+              onChange={(e) => onChange(e.target.value)}
               placeholder="输入值或选择引用"
             />
           )}

@@ -197,13 +197,206 @@ function generateProjectId() {
   return timestamp + random;
 }
 
-// 扫描目录下的所有项目配置
+// 生成简短ID
+function generateShortId(prefix) {
+  const ts = Date.now().toString(36);
+  const rand = Math.random().toString(36).substring(2, 7);
+  return `${prefix}_${ts}${rand}`;
+}
+
+// 创建新项目（新版格式：v2 + 目录结构）
+ipcMain.handle('create-new-project', async (event, dirPath, projectName) => {
+  try {
+    const projectId = generateProjectId();
+    const projectDir = path.join(dirPath, projectId);
+    
+    // 创建项目目录和 apis 子目录
+    fs.mkdirSync(projectDir, { recursive: true });
+    const apisDir = path.join(projectDir, 'apis');
+    fs.mkdirSync(apisDir, { recursive: true });
+    
+    const configData = {
+      version: 2,
+      projectName: projectName,
+      profile: [
+        {
+          activate: true,
+          name: 'dev',
+          domain: 'localhost',
+          'api-prj': ':8080/api'
+        }
+      ],
+      groups: [],
+      apis: []
+    };
+    
+    // 写入 config.json
+    const configPath = path.join(projectDir, 'config.json');
+    fs.writeFileSync(configPath, JSON.stringify(configData, null, 2), 'utf-8');
+    
+    return {
+      success: true,
+      projectId: projectId,
+      projectName: projectName,
+      configFile: 'config.json',
+      projectDir: projectDir
+    };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+// 新版：读取项目配置（v2 格式，从项目目录读取 config.json）
+ipcMain.handle('read-project-config', async (event, dirPath, projectId) => {
+  try {
+    const projectDir = path.join(dirPath, projectId);
+    const configPath = path.join(projectDir, 'config.json');
+    const content = fs.readFileSync(configPath, 'utf-8');
+    const config = JSON.parse(content);
+    return { success: true, data: config };
+  } catch (error) {
+    // 兼容旧版（v1 格式，直接读取 projectId_config.json）
+    try {
+      const oldConfigPath = path.join(dirPath, projectId + '_config.json');
+      const content = fs.readFileSync(oldConfigPath, 'utf-8');
+      const config = JSON.parse(content);
+      return { success: true, data: config };
+    } catch (oldError) {
+      console.error('[Electron] 读取项目配置失败:', error);
+      return { success: false, error: error.message };
+    }
+  }
+});
+
+// 新版：保存项目配置（v2 格式）
+ipcMain.handle('save-project-config', async (event, dirPath, projectId, config) => {
+  try {
+    const projectDir = path.join(dirPath, projectId);
+    const configPath = path.join(projectDir, 'config.json');
+    fs.mkdirSync(projectDir, { recursive: true });
+    fs.writeFileSync(configPath, JSON.stringify(config, null, 2), 'utf-8');
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+// 新版：读取 API 配置（per-API 文件）
+ipcMain.handle('read-api-config', async (event, dirPath, projectId, apiId) => {
+  try {
+    const apiFilePath = path.join(dirPath, projectId, 'apis', `${apiId}_config.json`);
+    if (!fs.existsSync(apiFilePath)) {
+      return { success: false, error: `API 配置文件不存在: ${apiId}` };
+    }
+    const content = fs.readFileSync(apiFilePath, 'utf-8');
+    return { success: true, data: JSON.parse(content) };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+// 新版：写入 API 配置
+ipcMain.handle('write-api-config', async (event, dirPath, projectId, apiId, data) => {
+  try {
+    const apisDir = path.join(dirPath, projectId, 'apis');
+    fs.mkdirSync(apisDir, { recursive: true });
+    const apiFilePath = path.join(apisDir, `${apiId}_config.json`);
+    fs.writeFileSync(apiFilePath, JSON.stringify(data, null, 2), 'utf-8');
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+// 新版：读取 API 历史记录
+ipcMain.handle('read-api-history', async (event, dirPath, projectId, apiId) => {
+  try {
+    const historyFilePath = path.join(dirPath, projectId, 'apis', `${apiId}_history.json`);
+    if (!fs.existsSync(historyFilePath)) {
+      return { success: true, data: [] };
+    }
+    const content = fs.readFileSync(historyFilePath, 'utf-8');
+    return { success: true, data: JSON.parse(content) };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+// 新版：写入 API 历史记录
+ipcMain.handle('write-api-history', async (event, dirPath, projectId, apiId, data) => {
+  try {
+    const apisDir = path.join(dirPath, projectId, 'apis');
+    fs.mkdirSync(apisDir, { recursive: true });
+    const historyFilePath = path.join(apisDir, `${apiId}_history.json`);
+    fs.writeFileSync(historyFilePath, JSON.stringify(data, null, 2), 'utf-8');
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+// 新版：删除 API 文件（物理删除）
+ipcMain.handle('delete-api-file', async (event, dirPath, projectId, apiId) => {
+  try {
+    const apisDir = path.join(dirPath, projectId, 'apis');
+    const configFile = path.join(apisDir, `${apiId}_config.json`);
+    const historyFile = path.join(apisDir, `${apiId}_history.json`);
+    let deleted = 0;
+    if (fs.existsSync(configFile)) { fs.unlinkSync(configFile); deleted++; }
+    if (fs.existsSync(historyFile)) { fs.unlinkSync(historyFile); deleted++; }
+    return { success: true, deleted };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+// 移动 API 文件到回收目录/恢复
+ipcMain.handle('move-api-file-to-trashed', async (event, dirPath, projectId, apiId) => {
+  try {
+    const projectDir = path.join(dirPath, projectId);
+    const apisDir = path.join(projectDir, 'apis');
+    const trashedDir = path.join(projectDir, 'trashed');
+    fs.mkdirSync(trashedDir, { recursive: true });
+    
+    const configPath = path.join(apisDir, `${apiId}_config.json`);
+    const historyPath = path.join(apisDir, `${apiId}_history.json`);
+    const trashedConfigPath = path.join(trashedDir, `${apiId}_config.json`);
+    const trashedHistoryPath = path.join(trashedDir, `${apiId}_history.json`);
+    
+    if (fs.existsSync(configPath)) { fs.renameSync(configPath, trashedConfigPath); }
+    if (fs.existsSync(historyPath)) { fs.renameSync(historyPath, trashedHistoryPath); }
+    
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
+// 扫描目录下的项目（新版格式：按子目录扫描，兼容旧版）
 function scanProjectsInDirectory(dirPath) {
   const projects = [];
   try {
     const entries = fs.readdirSync(dirPath, { withFileTypes: true });
     for (const entry of entries) {
-      if (entry.isFile() && entry.name.endsWith('_config.json')) {
+      if (entry.isDirectory()) {
+        // 新版：项目是子目录，里面包含 config.json
+        const configPath = path.join(dirPath, entry.name, 'config.json');
+        try {
+          const content = fs.readFileSync(configPath, 'utf-8');
+          const config = JSON.parse(content);
+          projects.push({
+            id: entry.name,
+            name: config.projectName || entry.name,
+            path: dirPath,
+            configFile: 'config.json',
+            historyFile: null,
+            version: config.version || 1
+          });
+        } catch {
+          // 不是有效的项目目录，跳过
+        }
+      } else if (entry.isFile() && entry.name.endsWith('_config.json')) {
+        // 旧版：直接是 projectId_config.json 文件
         const projectId = entry.name.replace('_config.json', '');
         const configPath = path.join(dirPath, entry.name);
         try {
@@ -214,10 +407,11 @@ function scanProjectsInDirectory(dirPath) {
             name: config.projectName || projectId,
             path: dirPath,
             configFile: entry.name,
-            historyFile: projectId + '_history.json'
+            historyFile: projectId + '_history.json',
+            version: config.version || 1
           });
         } catch {
-          // 跳过无效的配置文件
+          // 跳过无效文件
         }
       }
     }
@@ -227,6 +421,7 @@ function scanProjectsInDirectory(dirPath) {
   return projects;
 }
 
+// (保留旧版向后兼容的 handlers)
 ipcMain.handle('read-project-list', async () => {
   return { success: true, data: [] };
 });
@@ -249,118 +444,17 @@ ipcMain.handle('read-directory-project-list', async (event, dirPath) => {
   }
 });
 
-// 创建新项目
-ipcMain.handle('create-new-project', async (event, dirPath, projectName) => {
-  try {
-    const projectId = generateProjectId();
-    const configFile = projectId + '_config.json';
-    const historyFile = projectId + '_history.json';
-    
-    const configData = {
-      projectName: projectName,
-      profile: [
-        {
-          activate: true,
-          name: 'dev',
-          domain: 'localhost',
-          'api-prj': ':8080/api'
-        }
-      ],
-      groups: [],
-      apis: []
-    };
-    
-    const historyData = [];
-    
-    // 写入配置文件
-    const configPath = path.join(dirPath, configFile);
-    fs.writeFileSync(configPath, JSON.stringify(configData, null, 2), 'utf-8');
-    
-    // 写入历史记录文件
-    const historyPath = path.join(dirPath, historyFile);
-    fs.writeFileSync(historyPath, JSON.stringify(historyData, null, 2), 'utf-8');
-    
-    return {
-      success: true,
-      projectId: projectId,
-      projectName: projectName,
-      configFile: configFile,
-      historyFile: historyFile
-    };
-  } catch (error) {
-    return { success: false, error: error.message };
-  }
-});
-
-// 读取项目配置
-ipcMain.handle('read-project-config', async (event, dirPath, projectId) => {
-  try {
-    const configFile = projectId + '_config.json';
-    const configPath = path.join(dirPath, configFile);
-    const content = fs.readFileSync(configPath, 'utf-8');
-    const config = JSON.parse(content);
-    return { success: true, data: config };
-  } catch (error) {
-    console.error('[Electron] 读取项目配置失败:', error);
-    return { success: false, error: error.message };
-  }
-});
-
-// 保存项目配置
-ipcMain.handle('save-project-config', async (event, dirPath, projectId, config) => {
-  try {
-    const configFile = projectId + '_config.json';
-    const configPath = path.join(dirPath, configFile);
-    fs.writeFileSync(configPath, JSON.stringify(config, null, 2), 'utf-8');
-    return { success: true };
-  } catch (error) {
-    return { success: false, error: error.message };
-  }
-});
-
-// 读取历史记录
-ipcMain.handle('read-project-history', async (event, dirPath, projectId) => {
-  try {
-    const historyFile = projectId + '_history.json';
-    const historyPath = path.join(dirPath, historyFile);
-    if (fs.existsSync(historyPath)) {
-      const content = fs.readFileSync(historyPath, 'utf-8');
-      return { success: true, data: JSON.parse(content) };
-    }
-    return { success: true, data: [] };
-  } catch (error) {
-    return { success: false, error: error.message };
-  }
-});
-
-// 保存历史记录
-ipcMain.handle('save-project-history', async (event, dirPath, projectId, history) => {
-  try {
-    const historyFile = projectId + '_history.json';
-    const historyPath = path.join(dirPath, historyFile);
-    fs.writeFileSync(historyPath, JSON.stringify(history, null, 2), 'utf-8');
-    return { success: true };
-  } catch (error) {
-    return { success: false, error: error.message };
-  }
-});
-
-// 扫描目录下的项目
+// 扫描目录下的项目（兼容新版子目录格式和旧版文件格式）
 ipcMain.handle('scan-directory-projects', async (event, dirPath) => {
   try {
     const projects = scanProjectsInDirectory(dirPath);
     
-    // 检查是否存在 project.json
+    // 更新/创建 project.json
     const projectJsonPath = path.join(dirPath, 'project.json');
     if (!fs.existsSync(projectJsonPath)) {
-      // 创建 project.json
-      const projectListData = {
-        projects: projects,
-        lastOpened: null
-      };
+      const projectListData = { projects: projects, lastOpened: null };
       fs.writeFileSync(projectJsonPath, JSON.stringify(projectListData, null, 2), 'utf-8');
     } else {
-      // 更新 project.json 中的项目列表
       const content = fs.readFileSync(projectJsonPath, 'utf-8');
       const projectListData = JSON.parse(content);
       projectListData.projects = projects;

@@ -1,5 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Search, Folder, FolderOpen, Plus, Trash2, FolderPlus, ChevronRight, ChevronDown, MoreHorizontal, Copy, Edit } from 'lucide-react';
+import { projectManager } from '../utils/ProjectManager';
 import './APIMain.css';
 
 function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, onEdit, onDelete, onAddGroup, onDeleteGroup, onGroupSelect, onMoveToGroup, onRenameGroup, onMoveGroup, onCopyAPI, onCopyGroup }) {
@@ -11,8 +12,11 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
   const [newGroupName, setNewGroupName] = useState('');
   const [expandedGroups, setExpandedGroups] = useState(new Set());
   const [operationMenu, setOperationMenu] = useState({ visible: false, type: null, data: null, buttonRef: null });
+  const [scenarioNames, setScenarioNames] = useState({});
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
   const editInputRef = useRef(null);
   const operationMenuRef = useRef(null);
+  const searchLoadingRef = useRef(null);
 
   const currentActiveGroup = activeGroup || null;
 
@@ -30,6 +34,64 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  // 搜索防抖：延迟触发场景名称加载
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
+  // 异步加载场景名称到 scenarioNames（仅加载未匹配的 API）
+  useEffect(() => {
+    if (!debouncedSearchQuery || !apis) {
+      setScenarioNames({});
+      return;
+    }
+
+    let cancelled = false;
+    const lowerQuery = debouncedSearchQuery.toLowerCase();
+
+    const apisToCheck = (apis || []).filter(api => {
+      if (!api.id) return false;
+      const nameMatch = api.name && api.name.toLowerCase().includes(lowerQuery);
+      const idMatch = api.id.toLowerCase().includes(lowerQuery);
+      const groupMatch = groupsData?.some(g =>
+        g.name && g.name.toLowerCase().includes(lowerQuery) && g.id === api.group
+      );
+      return !nameMatch && !idMatch && !groupMatch;
+    });
+
+    if (apisToCheck.length === 0) {
+      setScenarioNames({});
+      return;
+    }
+
+    (async () => {
+      const namesMap = {};
+      for (const api of apisToCheck) {
+        if (cancelled) return;
+        const config = await projectManager.loadAPIConfig(api.id);
+        if (cancelled) return;
+        if (config?.scenarios) {
+          const scNames = Object.values(config.scenarios)
+            .filter(s => s?.name)
+            .map(s => s.name);
+          if (scNames.length > 0) {
+            namesMap[api.id] = scNames;
+          }
+        }
+      }
+      if (!cancelled) {
+        setScenarioNames(namesMap);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [debouncedSearchQuery, apis, groupsData]);
 
   // 处理操作菜单显示/隐藏
   const toggleOperationMenu = (e, type, data) => {
@@ -158,13 +220,14 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
 
   // 获取单个分组中的 API（不含子分组）
   const getAPIsInGroup = (groupId) => {
+    const filterDeleted = list => (list || []).filter(a => !a.deleted);
     if (groupId === 'default') {
-      return apis?.filter(api => api.group === 'default') || [];
+      return filterDeleted(apis?.filter(api => api.group === 'default'));
     }
     if (groupId === null) {
-      return apis?.filter(api => !api.group || api.group === null) || [];
+      return filterDeleted(apis?.filter(api => !api.group || api.group === null));
     }
-    return apis?.filter(api => api.group === groupId) || [];
+    return filterDeleted(apis?.filter(api => api.group === groupId));
   };
 
   // 递归计算分组（含所有子分组）的 API 数量
@@ -347,18 +410,27 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
     return suffix && suffix !== id ? `#${suffix}` : '';
   };
 
-  // 搜索过滤
+  // 搜索过滤：按 api id、场景 id、api 名称、场景名称、组名称模糊搜索
   const getFilteredAPIs = (groupId) => {
     const groupAPIs = getAPIsInGroup(groupId);
     if (!searchQuery) return groupAPIs;
     
     const lowerQuery = searchQuery.toLowerCase();
+    const matchedGroupIds = new Set();
+    (groupsData || []).forEach(g => {
+      if (g.name && g.name.toLowerCase().includes(lowerQuery)) {
+        matchedGroupIds.add(g.id);
+      }
+    });
+
     return groupAPIs.filter(api => {
-      const name = api.name.toLowerCase();
-      const id = (api.id || '').toLowerCase();
-      return name.includes(lowerQuery) || 
-             api.api_path.toLowerCase().includes(lowerQuery) ||
-             id.includes(lowerQuery);
+      const nameMatch = api.name && api.name.toLowerCase().includes(lowerQuery);
+      const idMatch = api.id && api.id.toLowerCase().includes(lowerQuery);
+      const groupMatch = matchedGroupIds.has(api.group);
+      const scenarioMatch = api.id && scenarioNames[api.id]?.some(
+        scName => scName.toLowerCase().includes(lowerQuery)
+      );
+      return nameMatch || idMatch || groupMatch || scenarioMatch;
     });
   };
 
@@ -555,6 +627,7 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
             placeholder="搜索 API..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()}
             className="search-input"
           />
         </div>
