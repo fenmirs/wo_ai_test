@@ -1,30 +1,76 @@
+import { XMLParser, XMLValidator } from 'fast-xml-parser';
+
 const generateId = () => `xml_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+const parserOptions = {
+  ignoreAttributes: false,
+  attributeNamePrefix: '@_',
+  textNodeName: '#text',
+  parseTagValue: false,
+  parseAttributeValue: false,
+  trimValues: true,
+  processEntities: true,
+  htmlEntities: false,
+};
+
+const createEmptySchema = () => ({
+  id: generateId(),
+  type: 'object',
+  key: null,
+  value: null,
+  description: '',
+  children: []
+});
+
+const hasMixedContent = (xmlString) => {
+  if (!xmlString || !xmlString.trim()) return false;
+  try {
+    const parser = new XMLParser({
+      ...parserOptions,
+      preserveOrder: true,
+    });
+    const result = parser.parse(xmlString);
+    return checkMixedContent(Object.values(result));
+  } catch (e) {
+    return false;
+  }
+};
+
+const checkMixedContent = (arr) => {
+  if (!Array.isArray(arr)) return false;
+  const hasNonWhitespaceText = arr.some(item => {
+    if ('#text' in item) return item['#text'].trim().length > 0;
+    return false;
+  });
+  const hasElements = arr.some(item => {
+    const keys = Object.keys(item);
+    return keys.length > 0 && keys[0] !== '#text';
+  });
+  if (hasNonWhitespaceText && hasElements) return true;
+  for (const item of arr) {
+    const entryKey = Object.keys(item)[0];
+    if (entryKey === '#text') continue;
+    if (checkMixedContent(item[entryKey])) return true;
+  }
+  return false;
+};
 
 const xmlToSchema = (xmlString, existingSchema = null) => {
   if (!xmlString || !xmlString.trim()) {
-    return {
-      id: generateId(),
-      type: 'object',
-      key: null,
-      value: null,
-      description: '',
-      children: []
-    };
+    return createEmptySchema();
   }
 
   try {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(xmlString, 'text/xml');
-    const parseError = doc.querySelector('parsererror');
-    if (parseError) {
-      console.error('[XMLSchemaConverter] XML parse error:', parseError.textContent);
-      return null;
-    }
+    const parser = new XMLParser(parserOptions);
+    const result = parser.parse(xmlString);
 
-    const root = doc.documentElement;
-    if (!root) return null;
+    const keys = Object.keys(result);
+    if (keys.length === 0) return createEmptySchema();
 
-    let schema = elementToSchema(root);
+    const rootKey = keys.find(k => !k.startsWith('?')) || keys[0];
+    const rootValue = result[rootKey];
+
+    const schema = buildSchemaFromValue(rootValue, rootKey);
 
     if (existingSchema && typeof existingSchema === 'object') {
       const descriptionMap = buildDescriptionMap(existingSchema);
@@ -38,101 +84,81 @@ const xmlToSchema = (xmlString, existingSchema = null) => {
   }
 };
 
-const elementToSchema = (element) => {
-  const node = {
+const buildSchemaFromValue = (value, key) => {
+  if (typeof value === 'string') {
+    return {
+      id: generateId(),
+      type: 'string',
+      key,
+      value,
+      description: '',
+      children: []
+    };
+  }
+
+  if (Array.isArray(value)) {
+    const children = value.map((item, idx) => {
+      const itemSchema = buildSchemaFromValue(item, idx);
+      itemSchema._originalKey = key;
+      return itemSchema;
+    });
+    return {
+      id: generateId(),
+      type: 'array',
+      key,
+      value: null,
+      description: '',
+      children
+    };
+  }
+
+  if (typeof value === 'object' && value !== null) {
+    const children = [];
+
+    for (const [propKey, propValue] of Object.entries(value)) {
+      if (propKey === '#text') {
+        children.push({
+          id: generateId(),
+          type: 'string',
+          key: '#text',
+          value: String(propValue ?? ''),
+          description: '',
+          children: []
+        });
+      } else if (propKey.startsWith('@_')) {
+        const attrName = '@' + propKey.substring(2);
+        children.push({
+          id: generateId(),
+          type: 'string',
+          key: attrName,
+          value: String(propValue ?? ''),
+          description: '',
+          children: []
+        });
+      } else {
+        const childSchema = buildSchemaFromValue(propValue, propKey);
+        children.push(childSchema);
+      }
+    }
+
+    return {
+      id: generateId(),
+      type: 'object',
+      key,
+      value: null,
+      description: '',
+      children
+    };
+  }
+
+  return {
     id: generateId(),
-    type: 'object',
-    key: element.tagName,
-    value: null,
+    type: 'string',
+    key,
+    value: String(value ?? ''),
     description: '',
     children: []
   };
-
-  const hasAttributes = element.attributes && element.attributes.length > 0;
-  const hasChildElements = element.children && element.children.length > 0;
-  const hasTextContent = element.textContent && element.textContent.trim().length > 0;
-
-  if (hasAttributes) {
-    for (const attr of element.attributes) {
-      node.children.push({
-        id: generateId(),
-        type: 'string',
-        key: `@${attr.name}`,
-        value: attr.value,
-        description: '',
-        children: []
-      });
-    }
-  }
-
-  if (hasChildElements) {
-    const childTagCounts = {};
-    for (const child of element.children) {
-      if (!childTagCounts[child.tagName]) childTagCounts[child.tagName] = 0;
-      childTagCounts[child.tagName]++;
-    }
-
-    const grouped = {};
-    for (const child of element.children) {
-      const tag = child.tagName;
-      if (childTagCounts[tag] > 1) {
-        if (!grouped[tag]) grouped[tag] = [];
-        grouped[tag].push(child);
-      } else {
-        if (!grouped[tag]) grouped[tag] = [];
-        grouped[tag].push(child);
-      }
-    }
-
-    for (const [tag, children] of Object.entries(grouped)) {
-      if (children.length > 1) {
-        const arrayNode = {
-          id: generateId(),
-          type: 'array',
-          key: tag,
-          value: null,
-          description: '',
-          children: children.map((child, idx) => ({
-            ...elementToSchema(child),
-            key: idx
-          }))
-        };
-        node.children.push(arrayNode);
-      } else {
-        const childSchema = elementToSchema(children[0]);
-        const onlyWhitespace = children[0].children.length === 0 &&
-          children[0].textContent.trim().length === 0;
-        if (onlyWhitespace) {
-          node.children.push({
-            id: generateId(),
-            type: 'string',
-            key: tag,
-            value: '',
-            description: '',
-            children: []
-          });
-        } else {
-          const singleChild = elementToSchema(children[0]);
-          if (singleChild.type === 'object' && singleChild.children.length === 0 && !hasTextContent) {
-            singleChild.type = 'string';
-            singleChild.value = children[0].textContent || '';
-          }
-          node.children.push(singleChild);
-        }
-      }
-    }
-  } else if (hasTextContent) {
-    node.children.push({
-      id: generateId(),
-      type: 'string',
-      key: '#text',
-      value: element.textContent.trim(),
-      description: '',
-      children: []
-    });
-  }
-
-  return node;
 };
 
 const buildDescriptionMap = (schema, map = {}) => {
@@ -168,6 +194,16 @@ const applyDescriptions = (schema, descriptionMap) => {
   }
 };
 
+const escapeXml = (str) => {
+  if (typeof str !== 'string') return String(str);
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+};
+
 const schemaToXml = (schema, pretty = true) => {
   if (!schema) return '';
 
@@ -181,22 +217,25 @@ const schemaToXml = (schema, pretty = true) => {
       return escapeXml(String(node.value ?? ''));
     }
 
-    if (node.type === 'string' || (node.type === 'number' || node.type === 'boolean')) {
+    if (node.type === 'string' || node.type === 'number' || node.type === 'boolean') {
       if (node.key && String(node.key).startsWith('@')) {
         return null;
       }
       const tagName = node.key;
+      if (tagName === null || tagName === undefined) {
+        return escapeXml(String(node.value ?? ''));
+      }
       const val = escapeXml(String(node.value ?? ''));
-      if (node.key === null || node.key === undefined) return val;
       const padding = indent.repeat(depth);
       return `${padding}<${tagName}>${val}</${tagName}>${newline}`;
     }
 
     if (node.type === 'array') {
       let result = '';
+      const tagName = node._originalKey || node.key;
       if (node.children) {
         node.children.forEach(child => {
-          result += buildXml({ ...child, key: node.key }, depth);
+          result += buildXml({ ...child, key: tagName }, depth);
         });
       }
       return result;
@@ -236,11 +275,12 @@ const schemaToXml = (schema, pretty = true) => {
       return `${padding}<${tagName}${attrStr}/>${newline}`;
     }
 
-    const hasTextChild = childNodes.length === 1 &&
-      childNodes[0].key === '#text';
-    if (hasTextChild) {
+    const textChildren = childNodes.filter(c => c.key === '#text');
+    const elemChildren = childNodes.filter(c => c.key !== '#text');
+
+    if (elemChildren.length === 0 && textChildren.length > 0) {
       const padding = indent.repeat(depth);
-      const text = escapeXml(String(childNodes[0].value ?? ''));
+      const text = textChildren.map(c => escapeXml(String(c.value ?? ''))).join('');
       return `${padding}<${tagName}${attrStr}>${text}</${tagName}>${newline}`;
     }
 
@@ -260,14 +300,11 @@ const schemaToXml = (schema, pretty = true) => {
   return xml;
 };
 
-const escapeXml = (str) => {
-  if (typeof str !== 'string') return String(str);
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
+const validateXml = (xmlString) => {
+  if (!xmlString || !xmlString.trim()) return null;
+  const result = XMLValidator.validate(xmlString);
+  if (result === true) return null;
+  return result.err;
 };
 
 const cloneSchema = (schema) => {
@@ -332,6 +369,8 @@ const updateNode = (schema, nodeId, updates) => {
 const XMLSchemaConverter = {
   xmlToSchema,
   schemaToXml,
+  validateXml,
+  hasMixedContent,
   cloneSchema,
   findNodeById,
   findParentNode,

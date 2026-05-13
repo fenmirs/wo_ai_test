@@ -9,7 +9,7 @@ import JSONSchemaConverter from '../utils/JSONSchemaConverter';
 import XMLSchemaConverter from '../utils/XMLSchemaConverter';
 import CodeEditor from './CodeEditor';
 import RefVariableSelector from './RefVariableSelector';
-import JSONTreeEditor from './JSONTreeEditor';
+import BodyTreeEditor from './BodyTreeEditor';
 import { toast } from './Toast';
 
 function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, groups = [], isAdding = false, isTemporary = false, onViewDetail, onRestoreHistory, onDeleteHistory, theme = 'dark', onResultChange }) {
@@ -42,6 +42,10 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const [jsonEditMode, setJsonEditMode] = useState('code');
   const [xmlEditMode, setXmlEditMode] = useState('code');
   const [jsonParseError, setJsonParseError] = useState(null);
+  const [xmlParseError, setXmlParseError] = useState(null);
+  const [xmlAllowMixed, setXmlAllowMixed] = useState(false);
+  const [isXmlModeSwitching, setIsXmlModeSwitching] = useState(false);
+  const [showCodeSwitchConfirm, setShowCodeSwitchConfirm] = useState(false);
 
   const apiHistory = history.filter(h =>
     (h.apiId && h.apiId === formData.id) ||
@@ -616,6 +620,21 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         try { JSON.parse(rawContent); }
         catch (e) {
           toast.error('JSON 格式错误，请检查后重试');
+          return;
+        }
+      }
+    }
+
+    if (formData.body.type === 'raw' && formData.body.contentType === 'xml') {
+      const rawContent = formData.body.content || '';
+      if (rawContent.trim()) {
+        const err = XMLSchemaConverter.validateXml(rawContent);
+        if (err) {
+          toast.error('XML 格式错误，请检查后重试');
+          return;
+        }
+        if (!xmlAllowMixed && XMLSchemaConverter.hasMixedContent(rawContent)) {
+          toast.error('存在混合内容，请允许混合内容或清理数据后再保存');
           return;
         }
       }
@@ -1262,21 +1281,35 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                           name="xmlEditMode" 
                           value="code"
                           checked={xmlEditMode === 'code'}
-                          onChange={() => setXmlEditMode('code')}
+                          onChange={() => {
+                            if (xmlEditMode === 'ui') {
+                              setIsXmlModeSwitching(true);
+                              setTimeout(() => {
+                                setXmlEditMode('code');
+                              }, 16);
+                            } else {
+                              setXmlEditMode('code');
+                            }
+                          }}
                         />
                         <Code size={12} />
                         代码
                       </label>
-                      <label className={`json-mode-btn ${xmlEditMode === 'ui' ? 'active' : ''}`}>
+                      <label className={`json-mode-btn ${xmlEditMode === 'ui' ? 'active' : ''}${xmlParseError ? ' disabled' : ''}`}>
                         <input 
                           type="radio" 
                           name="xmlEditMode" 
                           value="ui"
                           checked={xmlEditMode === 'ui'}
+                          disabled={!!xmlParseError}
                           onChange={(e) => {
+                            const currentContent = formData.body.content || '<root></root>';
+                            if (!currentContent.trim()) return;
+                            const err = XMLSchemaConverter.validateXml(currentContent);
+                            if (err) return;
+                            if (!xmlAllowMixed && XMLSchemaConverter.hasMixedContent(currentContent)) return;
                             setXmlEditMode('ui');
                             try {
-                              const currentContent = formData.body.content || '<root></root>';
                               const existingSchema = formData.body.schema;
                               const newSchema = XMLSchemaConverter.xmlToSchema(currentContent, existingSchema);
                               if (newSchema) {
@@ -1289,14 +1322,43 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                         />
                         <Layout size={12} />
                         UI
+                        {xmlParseError && <span className="parse-error-badge" title={xmlParseError}>!</span>}
                       </label>
+                      <button
+                        className={`json-mode-btn ${xmlAllowMixed ? 'active' : ''}`}
+                        onClick={() => {
+                          const newVal = !xmlAllowMixed;
+                          setXmlAllowMixed(newVal);
+                          const content = formData.body.content || '';
+                          if (content.trim()) {
+                            const parseErr = XMLSchemaConverter.validateXml(content);
+                            if (parseErr) {
+                              setXmlParseError(parseErr);
+                            } else if (!newVal && XMLSchemaConverter.hasMixedContent(content)) {
+                              setXmlParseError('存在混合内容 (文本与标签不能混写)');
+                            } else {
+                              setXmlParseError(null);
+                            }
+                          }
+                        }}
+                        title={xmlAllowMixed ? '允许混合内容中' : '不允许混合内容 (推荐)'}
+                      >
+                        <FileText size={12} />
+                      </button>
                     </div>
                   )}
-                  
+
+                  {isXmlModeSwitching && (
+                    <div className="mode-switch-overlay">
+                      <RefreshCw size={24} className="spin" />
+                      <span>正在处理...</span>
+                    </div>
+                  )}
+
                   {formData.body.contentType === 'json' && jsonEditMode === 'ui' ? (
                     <div className="json-editor-wrapper">
                       {formData.body.schema ? (
-                        <JSONTreeEditor
+                        <BodyTreeEditor
                           schema={formData.body.schema}
                           onChange={(newSchema) => {
                             const newContent = JSONSchemaConverter.schemaToJson(newSchema, true);
@@ -1314,7 +1376,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                   ) : formData.body.contentType === 'xml' && xmlEditMode === 'ui' ? (
                     <div className="json-editor-wrapper">
                       {formData.body.schema ? (
-                        <JSONTreeEditor
+                        <BodyTreeEditor
                           mode="xml"
                           schema={formData.body.schema}
                           onChange={(newSchema) => {
@@ -1362,17 +1424,34 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                             }
                           }
 
-                         if (formData.body.contentType === 'xml' && xmlEditMode === 'code') {
-                           try {
-                             const existingSchema = formData.body.schema;
-                             const newSchema = XMLSchemaConverter.xmlToSchema(content, existingSchema);
-                             if (newSchema) {
-                               updates.schema = newSchema;
-                             }
-                           } catch (err) {
-                             // Ignore parse errors when typing
-                           }
-                         }
+                          if (formData.body.contentType === 'xml' && xmlEditMode === 'code') {
+                            let isXmlValid = true;
+                            if (content && content.trim()) {
+                              const err = XMLSchemaConverter.validateXml(content);
+                              if (err) {
+                                setXmlParseError(err);
+                                isXmlValid = false;
+                              } else if (!xmlAllowMixed && XMLSchemaConverter.hasMixedContent(content)) {
+                                setXmlParseError('存在混合内容 (文本与标签不能混写)');
+                                isXmlValid = false;
+                              } else {
+                                setXmlParseError(null);
+                              }
+                            } else {
+                              setXmlParseError(null);
+                            }
+                            if (isXmlValid) {
+                              try {
+                                const existingSchema = formData.body.schema;
+                                const newSchema = XMLSchemaConverter.xmlToSchema(content, existingSchema);
+                                if (newSchema) {
+                                  updates.schema = newSchema;
+                                }
+                              } catch (err) {
+                                // Ignore parse errors when typing
+                              }
+                            }
+                          }
 
                          updateFormBody(updates);
                       }}
@@ -1384,6 +1463,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                         }
                         if (contentType !== 'xml') {
                           setXmlEditMode('code');
+                          setXmlAllowMixed(false);
                         }
                       }}
                       theme={theme}

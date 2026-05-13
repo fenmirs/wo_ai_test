@@ -1,9 +1,9 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { ChevronRight, ChevronDown, Plus, Minus, ArrowRight, X, Settings } from 'lucide-react';
 import JSONSchemaConverter from '../utils/JSONSchemaConverter';
 import XMLSchemaConverter from '../utils/XMLSchemaConverter';
 import RefVariableSelector from './RefVariableSelector';
-import './JSONTreeEditor.css';
+import './BodyTreeEditor.css';
 
 const VALUE_TYPES = [
   { value: 'string', label: 'String' },
@@ -14,7 +14,7 @@ const VALUE_TYPES = [
   { value: 'array', label: 'Array' },
 ];
 
-function JSONTreeNode({
+function BodyTreeNode({
   node,
   level,
   selectedId,
@@ -318,7 +318,7 @@ function JSONTreeNode({
   const levelIndent = level * 24;
 
   return (
-    <div className="tree-node">
+    <div className="tree-node" data-node-id={node.id}>
       <div
         className={`tree-node-row ${isSelected ? 'selected' : ''}`}
         style={{ paddingLeft: `${levelIndent}px` }}
@@ -357,7 +357,7 @@ function JSONTreeNode({
       {isContainer && isExpanded && visibleChildren && visibleChildren.length > 0 && (
         <div className="tree-children">
           {visibleChildren.map((child) => (
-            <JSONTreeNode
+            <BodyTreeNode
               key={child.id}
               node={child}
               level={level + 1}
@@ -477,7 +477,7 @@ function AttributeDialog({ node, onClose, onUpdate }) {
   );
 }
 
-function JSONTreeEditor({
+function BodyTreeEditor({
   schema,
   onChange,
   excludeApiId,
@@ -487,6 +487,8 @@ function JSONTreeEditor({
   const [expandedIds, setExpandedIds] = useState(new Set());
   const [selectedId, setSelectedId] = useState(null);
   const [attrDialogNodeId, setAttrDialogNodeId] = useState(null);
+  const [scrollToId, setScrollToId] = useState(null);
+  const treeBodyRef = useRef(null);
 
   const isXmlMode = mode === 'xml';
 
@@ -498,6 +500,16 @@ function JSONTreeEditor({
       setSelectedId(schema.id);
     }
   }, [schema?.id]);
+
+  React.useEffect(() => {
+    if (scrollToId && treeBodyRef.current) {
+      const el = treeBodyRef.current.querySelector(`[data-node-id="${scrollToId}"]`);
+      if (el) {
+        el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }
+      setScrollToId(null);
+    }
+  }, [scrollToId]);
 
   const collectExpandableIds = (node, ids) => {
     if (!node) return;
@@ -586,13 +598,14 @@ function JSONTreeEditor({
           key: `newElement_${Date.now()}`,
           value: null,
           description: '',
-          children: isXmlMode ? [] : undefined
+          children: isXmlMode ? [{ id: converter.generateId(), type: 'string', key: '#text', value: '', description: '', children: [] }] : undefined
         };
         clonedParent.children.splice(index + 1, 0, newNode);
       }
 
       setExpandedIds(prev => new Set([...prev, clonedParent.id]));
       setSelectedId(newNode.id);
+      setScrollToId(newNode.id);
       onChange(cloned);
     }
   };
@@ -624,13 +637,14 @@ function JSONTreeEditor({
           key: `newElement_${Date.now()}`,
           value: null,
           description: '',
-          children: isXmlMode ? [] : undefined
+          children: isXmlMode ? [{ id: converter.generateId(), type: 'string', key: '#text', value: '', description: '', children: [] }] : undefined
         };
       }
 
       clonedNode.children.push(newNode);
       setExpandedIds(prev => new Set([...prev, clonedNode.id]));
       setSelectedId(newNode.id);
+      setScrollToId(newNode.id);
       onChange(cloned);
     }
   };
@@ -723,8 +737,8 @@ function JSONTreeEditor({
         )}
       </div>
 
-      <div className="tree-body">
-        <JSONTreeNode
+      <div className="tree-body" ref={treeBodyRef}>
+        <BodyTreeNode
           node={schema}
           level={0}
           selectedId={selectedId}
@@ -750,4 +764,4 @@ function JSONTreeEditor({
   );
 }
 
-export default JSONTreeEditor;
+export default BodyTreeEditor;

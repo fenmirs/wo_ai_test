@@ -11,7 +11,7 @@
 - ✅ **API 编辑** - 完整的 API 配置编辑，支持 Params/Headers/Body/断言
 - ✅ **URL 构建器** - 可视化片段编辑，支持环境变量注入
 - ✅ **调用链** - 自动检测 `{{ref:...}}` 依赖，按顺序执行
-- ✅ **JSON 可视化编辑** - JSON 支持代码模式和 UI 树模式双编辑
+- ✅ **JSON/XML 可视化编辑** - JSON 和 XML 均支持代码模式和 UI 树模式双编辑
 - ✅ **变量引用** - 可视化选择器配置 `{{ref:apiId.fieldPath}}`
 - ✅ **断言验证** - JSONPath 表达式，支持多条断言
 - ✅ **Body 类型** - none / form-data / x-www-form-urlencoded / raw
@@ -54,7 +54,7 @@ api_test_ui/
 │   │   ├── ResponsePanel.js      # 响应展示面板
 │   │   ├── MonacoView.js         # Monaco 编辑器统一封装
 │   │   ├── CodeEditor.js         # 代码编辑器（关联语言类型）
-│   │   ├── JSONTreeEditor.js     # JSON 可视化树编辑器
+│   │   ├── BodyTreeEditor.js        # JSON/XML 可视化树编辑器
 │   │   ├── RefVariableSelector.js # 变量引用可视化选择器
 │   │   ├── EnvVarManager.js      # 环境变量矩阵管理
 │   │   ├── ExecutionHistory.js   # 执行历史记录列表
@@ -72,6 +72,7 @@ api_test_ui/
 │   │   ├── NotificationManager.js # 通知管理器（按项目隔离）
 │   │   ├── APIDocGenerator.js     # API 文档生成器
 │   │   └── JSONSchemaConverter.js # JSON/Schema 互转
+│   │   └── XMLSchemaConverter.js  # XML/Schema 互转（基于 fast-xml-parser）
 │   ├── App.js           # 主应用组件（三栏布局 + 状态管理）
 │   ├── App.css          # 应用布局样式
 │   ├── index.js         # 入口文件
@@ -187,9 +188,20 @@ npm run electron-build
 | **Params** | URL 查询参数（Key-Value 表格） |
 | **Headers** | 请求头（Content-Type 自动管理） |
 | **Body** | none / form-data / x-www-form-urlencoded / raw |
+| **Raw 内容** | 支持 Text / JSON / XML / HTML，JSON 和 XML 均有代码和 UI 树双模式 |
 | **断言** | JSONPath 断言表达式，支持多条 |
 
-### 5. 引用其他 API 的返回值
+### 5. JSON/XML 可视化编辑器
+
+JSON 和 XML 均支持代码模式与 UI 树模式双向编辑：
+
+- **代码模式** - Monaco 编辑器语法高亮，实时校验
+- **UI 树模式** - 树形结构展示，支持添加/删除/修改节点
+- **类型切换** - JSON 支持 string/number/boolean/null/object/array
+- **XML 特性** - 支持属性管理、混合内容检测（可开关）
+- **格式校验** - JSON 和 XML 均实时校验，格式错误时 UI 按钮自动禁用并显示错误角标
+- **数据同步** - 代码与 UI 模式之间双向同步，自动转换
+- **值引用** - 单元格可使用 `{{ref:apiId.fieldPath}}` 引用其他 API 返回值
 
 使用 `{{ref:apiId.字段路径}}` 格式引用其他 API 的响应结果：
 
@@ -275,6 +287,7 @@ $.success == true
 - **Monaco Editor** - 代码编辑器（@monaco-editor/react）
 - **Axios** - HTTP 请求库（Electron 主进程执行）
 - **Lucide React** - 图标库
+- **fast-xml-parser** - XML 解析与校验
 - **react-syntax-highlighter** - 代码高亮
 - **CSS Custom Properties** - 主题变量驱动样式
 
@@ -297,6 +310,31 @@ $.success == true
 7. **SSL** - Electron 全局忽略自签名证书错误（`rejectUnauthorized: false`）
 8. **CORS** - HTTP 请求通过 Electron 主进程发出，不受浏览器 CORS 限制
 9. **面板** - 至少保持一栏可见，宽度可拖拽调整（左 200-600px，右 300-800px）
+
+## 变更记录
+
+### 2026-05-13
+
+#### XML 解析引擎替换
+- 用 `fast-xml-parser` 替换 `DOMParser`，不再依赖浏览器原生 DOM API
+- 新增 `validateXml()` 基于 `XMLValidator.validate()` 做 well-formedness 校验
+- 新增 `hasMixedContent()` 基于 `preserveOrder` 模式检测混合内容（文本与标签混写）
+
+#### XML 编辑器流程对齐 JSON
+- 新增 `xmlParseError` 状态，代码模式实时校验 XML 格式
+- 格式错误时 UI 按钮自动禁用 + 红色 `!` 角标
+- 保存时校验 XML 格式，不合法弹 Toast 阻止保存
+
+#### 混合内容开关
+- 模式切换栏新增 `FileText` 图标按钮，控制混合内容是否允许
+- 默认关闭：检测到混合内容 → UI 按钮禁用 + 保存拦截
+- 开启后：混合内容不报错，数据直接透传
+
+#### 树编辑器重命名 + 增强
+- `JSONTreeEditor` → `BodyTreeEditor`，同时处理 JSON 和 XML
+- XML 新建子元素自动附带 `#text` 节点，UI↔Code 切换数据不丢失
+- 新增 `data-node-id` + `scrollToId`，添加子元素后自动滚动到新节点
+- 模式切换遮罩：UI→Code 切换时显示进度蒙层，防止待处理变更未同步
 
 ## 许可证
 
