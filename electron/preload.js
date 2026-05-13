@@ -26,6 +26,7 @@ contextBridge.exposeInMainWorld('electron', {
   writeAPIHistory: (dirPath, projectId, apiId, data) => ipcRenderer.invoke('write-api-history', dirPath, projectId, apiId, data),
   deleteAPIFile: (dirPath, projectId, apiId) => ipcRenderer.invoke('delete-api-file', dirPath, projectId, apiId),
   moveAPIFileToTrashed: (dirPath, projectId, apiId) => ipcRenderer.invoke('move-api-file-to-trashed', dirPath, projectId, apiId),
+  listAPIFiles: (dirPath, projectId) => ipcRenderer.invoke('list-api-files', dirPath, projectId),
   
   // 对话框
   selectDirectory: () => ipcRenderer.invoke('select-directory'),

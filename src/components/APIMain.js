@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { Search, Folder, FolderOpen, Plus, Trash2, FolderPlus, ChevronRight, ChevronDown, MoreHorizontal, Copy, Edit } from 'lucide-react';
+import { Search, Folder, FolderOpen, Plus, Trash2, FolderPlus, ChevronRight, ChevronDown, MoreHorizontal, Copy, Edit, X } from 'lucide-react';
 import { projectManager } from '../utils/ProjectManager';
 import './APIMain.css';
 
@@ -12,20 +12,23 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
   const [newGroupName, setNewGroupName] = useState('');
   const [expandedGroups, setExpandedGroups] = useState(new Set());
   const [operationMenu, setOperationMenu] = useState({ visible: false, type: null, data: null, buttonRef: null });
-  const [scenarioNames, setScenarioNames] = useState({});
-  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
+  const [refPopup, setRefPopup] = useState({ visible: false, api: null, data: null, loading: false });
   const editInputRef = useRef(null);
   const operationMenuRef = useRef(null);
-  const searchLoadingRef = useRef(null);
+  const refPopupRef = useRef(null);
 
   const currentActiveGroup = activeGroup || null;
 
-  // 点击外部关闭菜单
+  // 点击外部关闭菜单和引用弹窗
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (operationMenuRef.current && !operationMenuRef.current.contains(event.target) &&
           !event.target.closest('.operation-trigger')) {
         setOperationMenu({ visible: false, type: null, data: null, buttonRef: null });
+      }
+      if (refPopupRef.current && !refPopupRef.current.contains(event.target) &&
+          !event.target.closest('.operation-trigger')) {
+        setRefPopup({ visible: false, api: null, data: null, loading: false });
       }
     };
 
@@ -34,64 +37,6 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-
-  // 搜索防抖：延迟触发场景名称加载
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedSearchQuery(searchQuery);
-    }, 300);
-    return () => clearTimeout(timer);
-  }, [searchQuery]);
-
-  // 异步加载场景名称到 scenarioNames（仅加载未匹配的 API）
-  useEffect(() => {
-    if (!debouncedSearchQuery || !apis) {
-      setScenarioNames({});
-      return;
-    }
-
-    let cancelled = false;
-    const lowerQuery = debouncedSearchQuery.toLowerCase();
-
-    const apisToCheck = (apis || []).filter(api => {
-      if (!api.id) return false;
-      const nameMatch = api.name && api.name.toLowerCase().includes(lowerQuery);
-      const idMatch = api.id.toLowerCase().includes(lowerQuery);
-      const groupMatch = groupsData?.some(g =>
-        g.name && g.name.toLowerCase().includes(lowerQuery) && g.id === api.group
-      );
-      return !nameMatch && !idMatch && !groupMatch;
-    });
-
-    if (apisToCheck.length === 0) {
-      setScenarioNames({});
-      return;
-    }
-
-    (async () => {
-      const namesMap = {};
-      for (const api of apisToCheck) {
-        if (cancelled) return;
-        const config = await projectManager.loadAPIConfig(api.id);
-        if (cancelled) return;
-        if (config?.scenarios) {
-          const scNames = Object.values(config.scenarios)
-            .filter(s => s?.name)
-            .map(s => s.name);
-          if (scNames.length > 0) {
-            namesMap[api.id] = scNames;
-          }
-        }
-      }
-      if (!cancelled) {
-        setScenarioNames(namesMap);
-      }
-    })();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [debouncedSearchQuery, apis, groupsData]);
 
   // 处理操作菜单显示/隐藏
   const toggleOperationMenu = (e, type, data) => {
@@ -154,6 +99,9 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
           if (api.id) {
             navigator.clipboard.writeText(api.id);
           }
+          break;
+        case 'viewRefs':
+          findReferences(api);
           break;
         default:
           break;
@@ -410,7 +358,7 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
     return suffix && suffix !== id ? `#${suffix}` : '';
   };
 
-  // 搜索过滤：按 api id、场景 id、api 名称、场景名称、组名称模糊搜索
+  // 搜索过滤：按名称、ID、组名、路径、场景名全内存搜索
   const getFilteredAPIs = (groupId) => {
     const groupAPIs = getAPIsInGroup(groupId);
     if (!searchQuery) return groupAPIs;
@@ -427,10 +375,32 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
       const nameMatch = api.name && api.name.toLowerCase().includes(lowerQuery);
       const idMatch = api.id && api.id.toLowerCase().includes(lowerQuery);
       const groupMatch = matchedGroupIds.has(api.group);
-      const scenarioMatch = api.id && scenarioNames[api.id]?.some(
-        scName => scName.toLowerCase().includes(lowerQuery)
-      );
-      return nameMatch || idMatch || groupMatch || scenarioMatch;
+
+      // 路径和场景名搜索：直接从预加载的缓存中读取
+      let pathMatch = false;
+      let scenarioMatch = false;
+      if (api.id) {
+        const config = projectManager._apiDataCache[api.id];
+        if (config) {
+          if (config.api_path && config.api_path.toLowerCase().includes(lowerQuery)) {
+            pathMatch = true;
+          }
+          if (config.scenarios) {
+            for (const scn of Object.values(config.scenarios)) {
+              if (scn) {
+                if (scn.apiPath && scn.apiPath.toLowerCase().includes(lowerQuery)) {
+                  pathMatch = true;
+                }
+                if (scn.name && scn.name.toLowerCase().includes(lowerQuery)) {
+                  scenarioMatch = true;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      return nameMatch || idMatch || groupMatch || pathMatch || scenarioMatch;
     });
   };
 
@@ -616,6 +586,85 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
     );
   };
 
+  const escapeRegex = (str) => {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  };
+
+  // 扫描场景数据中的引用
+  const scanRefInScenario = (scn, targetApiId) => {
+    const refPattern = new RegExp(`\\{\\{ref:${escapeRegex(targetApiId)}(?:@|\\}|\\.)`, 'i');
+
+    // 扫描 header
+    if (Array.isArray(scn.header)) {
+      for (const h of scn.header) {
+        if (h.default && typeof h.default === 'string' && refPattern.test(h.default)) return true;
+      }
+    } else if (scn.header && typeof scn.header === 'object') {
+      for (const val of Object.values(scn.header)) {
+        if (val && typeof val === 'object' && val.default && typeof val.default === 'string' && refPattern.test(val.default)) return true;
+      }
+    }
+
+    // 扫描 param
+    if (Array.isArray(scn.param)) {
+      for (const p of scn.param) {
+        if (p.default && typeof p.default === 'string' && refPattern.test(p.default)) return true;
+      }
+    } else if (scn.param && typeof scn.param === 'object') {
+      for (const val of Object.values(scn.param)) {
+        if (val && typeof val === 'object' && val.default && typeof val.default === 'string' && refPattern.test(val.default)) return true;
+      }
+    }
+
+    // 扫描 body
+    if (scn.body) {
+      if (typeof scn.body === 'string' && refPattern.test(scn.body)) return true;
+      if (scn.body.contents) {
+        for (const contentType of Object.values(scn.body.contents)) {
+          if (contentType?.content && typeof contentType.content === 'string' && refPattern.test(contentType.content)) return true;
+        }
+      }
+    }
+
+    return false;
+  };
+
+  // 查找引用：遍历所有已缓存的 API 配置，匹配 {{ref:targetApiId...}}
+  const findReferences = (targetApi) => {
+    if (!targetApi?.id || !projectManager._activeProject) return;
+
+    setRefPopup({ visible: true, api: targetApi, data: null, loading: true });
+
+    const refs = [];
+    const cache = projectManager._activeProject.apiDataCache;
+    const apis = projectManager._activeProject.config?.apis || [];
+
+    for (const apiEntry of apis) {
+      if (apiEntry.id === targetApi.id) continue;
+      const config = cache[apiEntry.id];
+      if (!config?.scenarios) continue;
+
+      const scenarioMatches = [];
+      for (const scn of Object.values(config.scenarios)) {
+        if (!scn) continue;
+        const found = scanRefInScenario(scn, targetApi.id);
+        if (found) {
+          scenarioMatches.push({ scnId: scn.id, scnName: scn.name || scn.id });
+        }
+      }
+
+      if (scenarioMatches.length > 0) {
+        refs.push({
+          apiId: apiEntry.id,
+          apiName: apiEntry.name || apiEntry.id,
+          scenarios: scenarioMatches
+        });
+      }
+    }
+
+    setRefPopup({ visible: true, api: targetApi, data: refs, loading: false });
+  };
+
   return (
     <div className="api-main">
       {/* 搜索框 */}
@@ -687,12 +736,59 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
                 <Copy size={14} />
                 <span>复制 ID</span>
               </div>
+              <div className="operation-menu-item" onClick={() => handleOperationMenuAction('viewRefs')}>
+                <Search size={14} />
+                <span>查看引用</span>
+              </div>
               <div className="operation-menu-item danger" onClick={() => handleOperationMenuAction('delete')}>
                 <Trash2 size={14} />
                 <span>删除</span>
               </div>
             </>
           )}
+        </div>
+      )}
+
+      {/* 引用弹窗 */}
+      {refPopup.visible && (
+        <div className="ref-popup-overlay" onClick={() => setRefPopup({ visible: false, api: null, data: null, loading: false })}>
+          <div className="ref-popup" ref={refPopupRef} onClick={(e) => e.stopPropagation()}>
+            <div className="ref-popup-header">
+              <h3>引用查看: {refPopup.api?.name}</h3>
+              <button className="icon-btn" onClick={() => setRefPopup({ visible: false, api: null, data: null, loading: false })}>
+                <X size={16} />
+              </button>
+            </div>
+            <div className="ref-popup-body">
+              {refPopup.loading ? (
+                <div className="ref-popup-loading">正在查找引用...</div>
+              ) : refPopup.data && refPopup.data.length > 0 ? (
+                <div className="ref-popup-list">
+                  {refPopup.data.map((ref, idx) => (
+                    <div key={idx} className="ref-popup-group">
+                      <div
+                        className="ref-popup-api-name"
+                        onClick={() => {
+                          const apiEntry = apis.find(a => a.id === ref.apiId);
+                          if (apiEntry && onSelect) onSelect(apiEntry);
+                          setRefPopup({ visible: false, api: null, data: null, loading: false });
+                        }}
+                      >
+                        {ref.apiName}
+                      </div>
+                      <div className="ref-popup-scenarios">
+                        {ref.scenarios.map((scn, sci) => (
+                          <span key={sci} className="ref-popup-scenario-tag">{scn.scnName}</span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="ref-popup-empty">该 API 未被任何其他 API 引用</div>
+              )}
+            </div>
+          </div>
         </div>
       )}
     </div>

@@ -308,6 +308,23 @@ ipcMain.handle('write-api-config', async (event, dirPath, projectId, apiId, data
   }
 });
 
+// 新版：列出 apis/ 目录下所有 *_config.json 文件（用于孤儿文件检测）
+ipcMain.handle('list-api-files', async (event, dirPath, projectId) => {
+  try {
+    const apisDir = path.join(dirPath, projectId, 'apis');
+    if (!fs.existsSync(apisDir)) {
+      return { success: true, data: [] };
+    }
+    const entries = fs.readdirSync(apisDir, { withFileTypes: true });
+    const files = entries
+      .filter(e => e.isFile() && e.name.endsWith('_config.json'))
+      .map(e => e.name);
+    return { success: true, data: files };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
 // 新版：读取 API 历史记录
 ipcMain.handle('read-api-history', async (event, dirPath, projectId, apiId) => {
   try {

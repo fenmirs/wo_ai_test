@@ -6,6 +6,7 @@ import BottomBar from './components/BottomBar';
 import EnvVarManager from './components/EnvVarManager';
 import ExecutionHistory from './components/ExecutionHistory';
 import EmptyState from './components/EmptyState';
+import EmbeddedProgress from './components/EmbeddedProgress';
 import InputDialog from './components/InputDialog';
 import ConfirmDialog from './components/ConfirmDialog';
 import HistoryDetailDialog from './components/HistoryDetailDialog';
@@ -33,6 +34,12 @@ function App() {
   const [viewingHistoryEntry, setViewingHistoryEntry] = useState(null);
   const [projectList, setProjectList] = useState([]);
   const [currentProjectDir, setCurrentProjectDir] = useState(null);
+
+  // 工作空间加载状态
+  const [workspaceStatus, setWorkspaceStatus] = useState('idle'); // idle | loading | issues | done | error
+  const [workspaceProgress, setWorkspaceProgress] = useState({ current: 0, total: 0 });
+  const [workspaceIssues, setWorkspaceIssues] = useState([]);
+  const [workspaceError, setWorkspaceError] = useState('');
   
   // 当前执行结果（供右侧 ResponsePanel 使用）
   const [currentExecutionResult, setCurrentExecutionResult] = useState(null);
@@ -243,25 +250,138 @@ function App() {
     }
   }, []);
 
-  // 选择项目（从目录项目列表中选择）
+  // 选择项目（从目录项目列表中选择）— 加载整个工作空间
   const handleProjectSelect = useCallback(async (project) => {
     const dirPath = project.dirPath || project.path;
-    const doSelect = async () => {
-      const loadResult = await projectManager.loadProject(dirPath, project.id);
-      if (loadResult.success) {
-        setCurrentProjectDir(dirPath);
-        notificationManager.setCurrentProject(project.id);
-        const listResult = await window.electron.readDirectoryProjectList(dirPath);
-        setProjectList(listResult.data || []);
-        setApiHistory([]);
-        setSaveMessage('项目切换成功');
-        setTimeout(() => setSaveMessage(''), 2000);
+    setWorkspaceStatus('loading');
+    setWorkspaceProgress({ current: 0, total: 0 });
+    setWorkspaceIssues([]);
+    setWorkspaceError('');
+
+    const result = await projectManager.loadWorkspace(dirPath, (current, total) => {
+      setWorkspaceProgress({ current, total });
+    });
+
+    if (result.success) {
+      setCurrentProjectDir(dirPath);
+      const listResult = await window.electron.readDirectoryProjectList(dirPath);
+      setProjectList(listResult.data || []);
+      setApiHistory([]);
+
+      if (result.issues && result.issues.length > 0) {
+        setWorkspaceIssues(result.issues);
+        setWorkspaceStatus('issues');
       } else {
-        alert(`加载项目失败: ${loadResult.error}`);
+        setWorkspaceStatus('done');
+        // 短暂延迟后自动进入
+        setTimeout(() => {
+          setWorkspaceStatus('idle');
+          notificationManager.setCurrentProject(project.id);
+          setSaveMessage('项目加载成功');
+          setTimeout(() => setSaveMessage(''), 2000);
+        }, 300);
       }
+    } else {
+      setWorkspaceError(result.error || '加载失败');
+      setWorkspaceStatus('error');
+    }
+  }, []);
+
+  // 工作空间加载完成后进入项目（忽略问题）
+  const handleEnterProject = useCallback(async () => {
+    const projId = projectManager.activeProjectId;
+    if (!projId) return;
+
+    // 触发监听器（hasProject → true，主界面渲染）
+    projectManager.switchProject(projId);
+
+    // 添加到最近项目
+    const proj = projectManager._activeProject;
+    if (proj) {
+      await projectManager.addToRecentProjects(proj.dirPath, projId, proj.projectName);
+    }
+
+    setWorkspaceStatus('idle');
+    setApiHistory([]);
+    setSaveMessage('项目加载成功');
+    setTimeout(() => setSaveMessage(''), 2000);
+  }, []);
+
+  // 重试加载工作空间
+  const handleRetryWorkspace = useCallback(async () => {
+    if (!currentProjectDir) return;
+    setWorkspaceStatus('loading');
+    setWorkspaceProgress({ current: 0, total: 0 });
+    setWorkspaceIssues([]);
+    setWorkspaceError('');
+
+    const result = await projectManager.loadWorkspace(currentProjectDir, (current, total) => {
+      setWorkspaceProgress({ current, total });
+    });
+
+    if (result.success) {
+      const listResult = await window.electron.readDirectoryProjectList(currentProjectDir);
+      setProjectList(listResult.data || []);
+
+      if (result.issues && result.issues.length > 0) {
+        setWorkspaceIssues(result.issues);
+        setWorkspaceStatus('issues');
+      } else {
+        setWorkspaceStatus('done');
+        setTimeout(() => {
+          setWorkspaceStatus('idle');
+          notificationManager.setCurrentProject(
+            projectManager.activeProjectId
+          );
+          setSaveMessage('项目加载成功');
+          setTimeout(() => setSaveMessage(''), 2000);
+        }, 300);
+      }
+    } else {
+      setWorkspaceError(result.error || '加载失败');
+      setWorkspaceStatus('error');
+    }
+  }, [currentProjectDir]);
+
+  // 底部栏项目切换（纯内存操作，需检查脏数据）
+  const handleProjectSwitch = useCallback((project) => {
+    const targetId = project.id;
+    if (targetId === projectManager.activeProjectId) return;
+
+    const doSwitch = () => {
+      projectManager.switchProject(targetId);
+      setApiHistory([]);
+      setSelectedAPI(null);
+      setEditingAPI(null);
+      setIsAddingAPI(false);
+      setTemporaryAPI(null);
+      setViewMode('api');
     };
-    checkDraftThen(doSelect);
-  }, [checkDraftThen]);
+
+    if (projectManager.isDirty) {
+      setConfirmDialogConfig({
+        title: '未保存的更改',
+        message: '当前项目有未保存的更改，是否保存后再切换？',
+        options: [
+          { value: 'save', label: '保存并切换' },
+          { value: 'discard', label: '放弃并切换' },
+          { value: 'cancel', label: '取消' }
+        ],
+        onConfirm: (option) => {
+          setShowConfirmDialog(false);
+          if (option === 'save') {
+            projectManager.saveProject().then(doSwitch);
+          } else if (option === 'discard') {
+            doSwitch();
+          }
+        },
+        onCancel: () => setShowConfirmDialog(false)
+      });
+      setShowConfirmDialog(true);
+    } else {
+      doSwitch();
+    }
+  }, []);
 
   // 创建新项目
   const handleNewProject = useCallback(async () => {
@@ -670,7 +790,7 @@ function App() {
     }
   };
 
-  // 渲染空状态
+  // 渲染空状态 / 工作空间加载
   if (!hasProject) {
     return (
       <div className="app">
@@ -683,12 +803,36 @@ function App() {
           {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
         </button>
         <main className="app-main">
-          <EmptyState 
-            onImportProject={handleImportProject}
-            onNewProject={handleNewProject}
-            projectList={projectList}
-            onProjectSelect={handleProjectSelect}
-          />
+          {workspaceStatus !== 'idle' ? (
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+              <EmbeddedProgress
+                status={workspaceStatus}
+                current={workspaceProgress.current}
+                total={workspaceProgress.total}
+                message={
+                  workspaceStatus === 'loading' ? '正在加载 API 配置...' :
+                  workspaceStatus === 'issues' ? '加载完成，发现以下问题' :
+                  workspaceStatus === 'error' ? workspaceError :
+                  '加载完成'
+                }
+                issues={workspaceIssues}
+                actions={
+                  workspaceStatus === 'issues' ? [
+                    { label: '忽略并进入项目', onClick: handleEnterProject, primary: true }
+                  ] : workspaceStatus === 'error' ? [
+                    { label: '重试', onClick: handleRetryWorkspace, primary: true }
+                  ] : []
+                }
+              />
+            </div>
+          ) : (
+            <EmptyState 
+              onImportProject={handleImportProject}
+              onNewProject={handleNewProject}
+              projectList={projectList}
+              onProjectSelect={handleProjectSelect}
+            />
+          )}
         </main>
         
         {/* 输入对话框 */}
@@ -955,7 +1099,7 @@ function App() {
           onBackToApi={() => setViewMode('api')}
           viewModeValue={viewMode}
           projectList={projectList}
-          onProjectSelect={handleProjectSelect}
+          onProjectSelect={handleProjectSwitch}
           showLeftPanel={showLeftPanel}
           onToggleLeftPanel={toggleLeftPanel}
           showCenterPanel={showCenterPanel}

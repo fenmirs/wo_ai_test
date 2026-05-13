@@ -1,11 +1,3 @@
-/**
- * 项目数据管理器 (v2)
- * - config.json 只存索引，完整 API 数据在 apis/{apiId}_config.json
- * - 历史记录在 apis/{apiId}_history.json
- * - 支持逻辑删除
- * - 版本号兼容
- */
-
 function generateId(prefix) {
   const ts = Date.now().toString(36);
   const rand = Math.random().toString(36).substring(2, 7);
@@ -18,19 +10,49 @@ function deepClone(obj) {
 
 class ProjectManager {
   constructor() {
-    this.projectData = null;
-    this.dirPath = null;
-    this.projectId = null;
-    this.projectName = null;
-    this.isDirty = false;
+    // 工作空间（多项目）
+    this.workspaceDir = null;
+    this.projects = {};
+    this.activeProjectId = null;
+
+    // 以下字段通过 getter/setter 代理到当前活跃项目
+    // 保持向后兼容
+
     this.listeners = [];
     this.autoSaveTimer = null;
     this.dirProjects = [];
     this.recentProjects = [];
     this.maxRecentProjects = 10;
-    this._apiDataCache = {};
-    this._apiHistoryCache = {};
   }
+
+  // ── 代理到当前活跃项目 ──
+
+  get _activeProject() {
+    return this.activeProjectId ? this.projects[this.activeProjectId] : null;
+  }
+
+  get projectData() { return this._activeProject?.config ?? null; }
+  set projectData(val) { if (this._activeProject) this._activeProject.config = val; }
+
+  get dirPath() { return this._activeProject?.dirPath ?? null; }
+  set dirPath(val) { if (this._activeProject) this._activeProject.dirPath = val; }
+
+  get projectId() { return this.activeProjectId; }
+  set projectId(val) { this.activeProjectId = val; }
+
+  get projectName() { return this._activeProject?.projectName ?? ''; }
+  set projectName(val) { if (this._activeProject) this._activeProject.projectName = val; }
+
+  get isDirty() { return this._activeProject?.isDirty ?? false; }
+  set isDirty(val) { if (this._activeProject) this._activeProject.isDirty = val; }
+
+  get _apiDataCache() { return this._activeProject?.apiDataCache ?? {}; }
+  set _apiDataCache(val) { if (this._activeProject) this._activeProject.apiDataCache = val; }
+
+  get _apiHistoryCache() { return this._activeProject?.apiHistoryCache ?? {}; }
+  set _apiHistoryCache(val) { if (this._activeProject) this._activeProject.apiHistoryCache = val; }
+
+  // ── 目录扫描 ──
 
   async scanDirectory(dirPath) {
     try {
@@ -47,6 +69,8 @@ class ProjectManager {
   getDirProjects() {
     return this.dirProjects;
   }
+
+  // ── 最近项目 ──
 
   async loadRecentProjects() {
     try {
@@ -85,6 +109,8 @@ class ProjectManager {
     return this.recentProjects;
   }
 
+  // ── 创建项目 ──
+
   async createProject(dirPath, projectName) {
     try {
       const result = await window.electron.createNewProject(dirPath, projectName);
@@ -99,10 +125,149 @@ class ProjectManager {
     }
   }
 
-  async loadProject(dirPath, projectId) {
+  // ── 加载工作空间（配置目录，包含多个项目） ──
+
+  async loadWorkspace(dirPath, onProgress) {
     try {
       this._apiDataCache = {};
       this._apiHistoryCache = {};
+
+      const projects = await this.scanDirectory(dirPath);
+      this.workspaceDir = dirPath;
+      this.projects = {};
+      this.activeProjectId = null;
+
+      const issues = [];
+      let totalApis = 0;
+      let loadedApis = 0;
+
+      // 第一遍：统计总 API 数
+      for (const proj of projects) {
+        const configResult = await window.electron.readProjectConfig(dirPath, proj.id);
+        if (configResult.success) {
+          totalApis += (configResult.data.apis || []).length;
+        }
+      }
+
+      // 第二遍：加载每个项目
+      for (const proj of projects) {
+        const configResult = await window.electron.readProjectConfig(dirPath, proj.id);
+        if (!configResult.success) continue;
+
+        const configData = configResult.data;
+
+        if (!configData.version || configData.version < 2) {
+          await this._migrateToV2(configData, dirPath, proj.id);
+        }
+
+        const apiDataCache = {};
+        const apiHistoryCache = {};
+        const apis = configData.apis || [];
+        let projectFixed = false;
+
+        for (const api of apis) {
+          // 检查 ①：索引中有条目但文件缺失
+          const fileResult = await window.electron.readAPIConfig(dirPath, proj.id, api.id);
+          if (!fileResult.success) {
+            issues.push({
+              type: 'missing_file',
+              apiId: api.id,
+              name: api.name,
+              message: `索引中存在但文件缺失: ${api.name} (${api.id})`
+            });
+            projectFixed = true;
+          } else {
+            // 检查 ③：文件内 id 一致性
+            if (fileResult.data.id && fileResult.data.id !== api.id) {
+              issues.push({
+                type: 'id_mismatch',
+                apiId: api.id,
+                fileName: `${api.id}_config.json`,
+                message: `文件内 id 不一致: 期望 ${api.id}，实际 ${fileResult.data.id}`
+              });
+            }
+            apiDataCache[api.id] = fileResult.data;
+            loadedApis++;
+          }
+
+          if (onProgress) onProgress(loadedApis, totalApis);
+        }
+
+        // 检查 ②：孤儿文件 — 需要 window.electron.listAPIFiles
+        // 如果 IPC 存在则执行，否则跳过
+        if (typeof window.electron.listAPIFiles === 'function') {
+          try {
+            const dirResult = await window.electron.listAPIFiles(dirPath, proj.id);
+            const knownIds = new Set(apis.map(a => a.id));
+            for (const fileName of (dirResult.data || [])) {
+              const match = fileName.match(/^(.+)_config\.json$/);
+              if (match && !knownIds.has(match[1])) {
+                issues.push({
+                  type: 'orphan_file',
+                  fileName,
+                  message: `文件在 apis/ 目录中存在但不在索引中: ${fileName}`
+                });
+              }
+            }
+          } catch (e) {
+            console.warn('孤儿文件检查失败:', e);
+          }
+        }
+
+        // 自动修复：从索引移除文件缺失的条目
+        if (projectFixed) {
+          const missingIds = new Set(
+            issues.filter(i => i.type === 'missing_file').map(i => i.apiId)
+          );
+          configData.apis = apis.filter(a => !missingIds.has(a.id));
+        }
+
+        this.projects[proj.id] = {
+          config: configData,
+          dirPath,
+          projectName: configData.projectName || proj.id,
+          apiDataCache,
+          apiHistoryCache,
+          isDirty: projectFixed,
+          dirtyApiConfigs: new Set()
+        };
+      }
+
+      // 设置第一个项目为活跃（但不通知监听器，由 App.js 在适当时机触发）
+      if (projects.length > 0) {
+        this.activeProjectId = projects[0].id;
+      }
+
+      return {
+        success: true,
+        issues,
+        fixedCount: issues.filter(i => i.type === 'missing_file').length
+      };
+    } catch (error) {
+      console.error('加载工作空间失败:', error);
+      return { success: false, error: error.message, issues: [], fixedCount: 0 };
+    }
+  }
+
+  // ── 加载单个项目（向后兼容） ──
+
+  async loadProject(dirPath, projectId) {
+    try {
+      // 先创建项目槽位，使 getter/setter 可正确代理
+      if (!this.projects[projectId]) {
+        this.projects[projectId] = {
+          config: null,
+          dirPath,
+          projectName: '',
+          apiDataCache: {},
+          apiHistoryCache: {},
+          isDirty: false,
+          dirtyApiConfigs: new Set()
+        };
+      }
+      const p = this.projects[projectId];
+      p.apiDataCache = {};
+      p.apiHistoryCache = {};
 
       const configResult = await window.electron.readProjectConfig(dirPath, projectId);
       if (!configResult.success) {
@@ -111,16 +276,18 @@ class ProjectManager {
       const configData = configResult.data;
 
       if (!configData.version || configData.version < 2) {
-        this._migrateToV2(configData, dirPath, projectId);
+        await this._migrateToV2(configData, dirPath, projectId);
       }
 
-      this.projectData = deepClone(configData);
-      this.dirPath = dirPath;
-      this.projectId = projectId;
-      this.projectName = configData.projectName || projectId;
-      this.isDirty = false;
+      p.config = deepClone(configData);
+      p.dirPath = dirPath;
+      p.projectName = configData.projectName || projectId;
+      p.isDirty = false;
 
-      await this.addToRecentProjects(dirPath, projectId, this.projectName);
+      this.activeProjectId = projectId;
+      this.workspaceDir = dirPath;
+
+      await this.addToRecentProjects(dirPath, projectId, p.projectName);
       this._notifyListeners();
 
       return { success: true };
@@ -129,6 +296,17 @@ class ProjectManager {
       return { success: false, error: error.message };
     }
   }
+
+  // ── 切换项目（纯内存，无 I/O） ──
+
+  switchProject(projectId) {
+    if (!this.projects[projectId]) return false;
+    this.activeProjectId = projectId;
+    this._notifyListeners();
+    return true;
+  }
+
+  // ── v2 迁移 ──
 
   async _migrateToV2(configData, dirPath, projectId) {
     console.log('[ProjectManager] 迁移到 v2 格式...');
@@ -205,14 +383,24 @@ class ProjectManager {
     }
   }
 
+  // ── API 配置读写（缓存优先 + 脏标记） ──
+
   async loadAPIConfig(apiId) {
     if (!this.dirPath || !this.projectId || !apiId) return null;
-    if (this._apiDataCache[apiId]) return deepClone(this._apiDataCache[apiId]);
 
+    // 优先从工作空间缓存返回
+    const cache = this._activeProject?.apiDataCache;
+    if (cache && cache[apiId]) {
+      return deepClone(cache[apiId]);
+    }
+
+    // 缓存未命中，从磁盘读取
     try {
       const result = await window.electron.readAPIConfig(this.dirPath, this.projectId, apiId);
       if (result.success) {
-        this._apiDataCache[apiId] = result.data;
+        if (this._activeProject) {
+          this._activeProject.apiDataCache[apiId] = result.data;
+        }
         return deepClone(result.data);
       }
       return null;
@@ -223,28 +411,30 @@ class ProjectManager {
   }
 
   async saveAPIConfig(apiId, data) {
-    if (!this.dirPath || !this.projectId || !apiId) return { success: false, error: '无项目数据' };
+    const proj = this._activeProject;
+    if (!proj || !apiId) return { success: false, error: '无项目数据' };
 
-    try {
-      const result = await window.electron.writeAPIConfig(this.dirPath, this.projectId, apiId, data);
-      if (result.success) {
-        this._apiDataCache[apiId] = deepClone(data);
-      }
-      return result;
-    } catch (error) {
-      console.error(`保存 API 配置失败 ${apiId}:`, error);
-      return { success: false, error: error.message };
-    }
+    // 只更新缓存 + 标记脏
+    proj.apiDataCache[apiId] = deepClone(data);
+    proj.dirtyApiConfigs.add(apiId);
+    this.markDirty();
+    return { success: true };
   }
 
   async loadAPIHistory(apiId) {
     if (!this.dirPath || !this.projectId || !apiId) return [];
-    if (this._apiHistoryCache[apiId]) return deepClone(this._apiHistoryCache[apiId]);
+
+    const cache = this._activeProject?.apiHistoryCache;
+    if (cache && cache[apiId]) {
+      return deepClone(cache[apiId]);
+    }
 
     try {
       const result = await window.electron.readAPIHistory(this.dirPath, this.projectId, apiId);
       const history = result.success ? (result.data || []) : [];
-      this._apiHistoryCache[apiId] = history;
+      if (this._activeProject) {
+        this._activeProject.apiHistoryCache[apiId] = history;
+      }
       return deepClone(history);
     } catch (error) {
       console.error(`加载 API 历史失败 ${apiId}:`, error);
@@ -255,11 +445,12 @@ class ProjectManager {
   async saveAPIHistory(apiId, history) {
     if (!this.dirPath || !this.projectId || !apiId) return { success: false, error: '无项目数据' };
 
+    if (this._activeProject) {
+      this._activeProject.apiHistoryCache[apiId] = deepClone(history);
+    }
+
     try {
       const result = await window.electron.writeAPIHistory(this.dirPath, this.projectId, apiId, history);
-      if (result.success) {
-        this._apiHistoryCache[apiId] = deepClone(history);
-      }
       return result;
     } catch (error) {
       console.error(`保存 API 历史失败 ${apiId}:`, error);
@@ -267,21 +458,37 @@ class ProjectManager {
     }
   }
 
+  async loadAPIData(apiId) {
+    return await this.loadAPIConfig(apiId);
+  }
+
+  // ── 保存项目（落盘） ──
+
   async saveProject() {
-    if (!this.dirPath || !this.projectId || !this.projectData) {
+    const proj = this._activeProject;
+    if (!proj || !this.dirPath || !this.projectId) {
       return { success: false, error: '没有项目数据可保存' };
     }
 
     try {
-      this.projectData.projectName = this.projectName;
-      const { success, error } = await window.electron.saveProjectConfig(
-        this.dirPath,
-        this.projectId,
-        this.projectData
-      );
-      if (!success) return { success: false, error };
+      // 写所有脏 API 文件
+      for (const apiId of proj.dirtyApiConfigs) {
+        const data = proj.apiDataCache[apiId];
+        if (data) {
+          try {
+            await window.electron.writeAPIConfig(this.dirPath, this.projectId, apiId, data);
+          } catch (e) {
+            console.error(`保存 API 文件失败 ${apiId}:`, e);
+          }
+        }
+      }
+      proj.dirtyApiConfigs.clear();
 
-      this.isDirty = false;
+      // 写 config.json
+      proj.config.projectName = proj.projectName;
+      await window.electron.saveProjectConfig(this.dirPath, this.projectId, proj.config);
+
+      proj.isDirty = false;
       this._notifyListeners();
       return { success: true };
     } catch (error) {
@@ -289,6 +496,8 @@ class ProjectManager {
       return { success: false, error: error.message };
     }
   }
+
+  // ── 自动保存 ──
 
   enableAutoSave(interval = 5000) {
     this.disableAutoSave();
@@ -312,6 +521,8 @@ class ProjectManager {
     }
   }
 
+  // ── 环境选择 ──
+
   getSelectedProfileName() {
     if (!this.dirPath || !this.projectId) return null;
     const key = `profile_${this.dirPath}_${this.projectId}`;
@@ -329,79 +540,91 @@ class ProjectManager {
     } catch (e) { console.error('保存环境选择失败:', e); }
   }
 
+  // ── 获取器 ──
+
   getProjectPath() { return this.dirPath || ''; }
   getProjectId() { return this.projectId || ''; }
-  getProjectName() { return this.projectName || ''; }
+  getProjectName() { return this._activeProject?.projectName || ''; }
 
-  getData() { return this.projectData; }
+  getData() {
+    const proj = this._activeProject;
+    return proj?.config || null;
+  }
+
   getIsDirty() { return this.isDirty; }
 
+  // ── Profile ──
+
   updateProfile(profileName, newProfile) {
-    if (!this.projectData) return;
-    const index = this.projectData.profile.findIndex(p => p.name === profileName);
+    const proj = this._activeProject;
+    if (!proj?.config) return;
+    const index = proj.config.profile.findIndex(p => p.name === profileName);
     if (index !== -1) {
-      this.projectData.profile[index] = { ...this.projectData.profile[index], ...newProfile };
+      proj.config.profile[index] = { ...proj.config.profile[index], ...newProfile };
       this.markDirty();
     }
   }
 
   removeProfileField(profileName, fieldName) {
-    if (!this.projectData) return;
-    const index = this.projectData.profile.findIndex(p => p.name === profileName);
+    const proj = this._activeProject;
+    if (!proj?.config) return;
+    const index = proj.config.profile.findIndex(p => p.name === profileName);
     if (index !== -1) {
-      delete this.projectData.profile[index][fieldName];
+      delete proj.config.profile[index][fieldName];
       this.markDirty();
     }
   }
 
   resetProfile(newProfile) {
-    if (!this.projectData) return;
-    this.projectData.profile = newProfile;
+    const proj = this._activeProject;
+    if (!proj?.config) return;
+    proj.config.profile = newProfile;
     this.markDirty();
   }
 
   addProfile(profile) {
-    if (!this.projectData) return;
-    this.projectData.profile.push(profile);
+    const proj = this._activeProject;
+    if (!proj?.config) return;
+    if (!proj.config.profile) proj.config.profile = [];
+    proj.config.profile.push(profile);
     this.markDirty();
   }
 
   deleteProfile(profileName) {
-    if (!this.projectData) return;
-    this.projectData.profile = this.projectData.profile.filter(p => p.name !== profileName);
+    const proj = this._activeProject;
+    if (!proj?.config) return;
+    proj.config.profile = proj.config.profile.filter(p => p.name !== profileName);
     this.markDirty();
   }
 
-  async loadAPIData(apiId) {
-    return await this.loadAPIConfig(apiId);
-  }
+  // ── API CRUD ──
 
   async updateAPI(apiId, newData) {
-    if (!this.projectData) return;
-    const index = this.projectData.apis.findIndex(api => api.id === apiId);
+    const proj = this._activeProject;
+    if (!proj?.config) return;
+
+    const index = proj.config.apis.findIndex(api => api.id === apiId);
     if (index === -1) return;
 
-    const oldEntry = this.projectData.apis[index];
+    const oldEntry = proj.config.apis[index];
     const updatedEntry = {
       id: oldEntry.id,
       name: newData.name !== undefined ? newData.name : oldEntry.name,
       group: newData.group !== undefined ? newData.group : oldEntry.group,
       deleted: oldEntry.deleted || false
     };
-    this.projectData.apis[index] = updatedEntry;
+    proj.config.apis[index] = updatedEntry;
 
-    this._apiDataCache[apiId] = deepClone(newData);
-    try {
-      await window.electron.writeAPIConfig(this.dirPath, this.projectId, apiId, newData);
-    } catch (e) {
-      console.error(`保存 API 数据失败 ${apiId}:`, e);
-    }
-
+    // 只更新缓存 + 标记脏
+    proj.apiDataCache[apiId] = deepClone(newData);
+    proj.dirtyApiConfigs.add(apiId);
     this.markDirty();
   }
 
   async addAPI(api) {
-    if (!this.projectData) return;
+    const proj = this._activeProject;
+    if (!proj?.config) return;
+
     if (!api.id) api.id = generateId('api');
 
     const indexEntry = {
@@ -411,21 +634,17 @@ class ProjectManager {
       deleted: false
     };
 
-    this.projectData.apis.push(indexEntry);
-    this._apiDataCache[api.id] = deepClone(api);
-
-    try {
-      await window.electron.writeAPIConfig(this.dirPath, this.projectId, api.id, api);
-    } catch (e) {
-      console.error(`保存新 API 数据失败 ${api.id}:`, e);
-    }
-
+    proj.config.apis.push(indexEntry);
+    proj.apiDataCache[api.id] = deepClone(api);
+    proj.dirtyApiConfigs.add(api.id);
     this.markDirty();
   }
 
   async softDeleteAPI(apiId) {
-    if (!this.projectData) return;
-    const api = this.projectData.apis.find(a => a.id === apiId);
+    const proj = this._activeProject;
+    if (!proj?.config) return;
+
+    const api = proj.config.apis.find(a => a.id === apiId);
     if (api) {
       api.deleted = true;
       this.markDirty();
@@ -433,8 +652,10 @@ class ProjectManager {
   }
 
   async restoreAPI(apiId) {
-    if (!this.projectData) return;
-    const api = this.projectData.apis.find(a => a.id === apiId);
+    const proj = this._activeProject;
+    if (!proj?.config) return;
+
+    const api = proj.config.apis.find(a => a.id === apiId);
     if (api) {
       api.deleted = false;
       this.markDirty();
@@ -442,20 +663,24 @@ class ProjectManager {
   }
 
   async deleteAPI(apiId) {
-    if (!this.projectData) return;
+    const proj = this._activeProject;
+    if (!proj?.config) return;
 
-    this.projectData.apis = this.projectData.apis.filter(api => api.id !== apiId);
-    delete this._apiDataCache[apiId];
-    delete this._apiHistoryCache[apiId];
+    proj.config.apis = proj.config.apis.filter(api => api.id !== apiId);
+    delete proj.apiDataCache[apiId];
+    delete proj.apiHistoryCache[apiId];
+    proj.dirtyApiConfigs.delete(apiId);
 
+    // 从磁盘删除文件（立即执行）
     try {
       await window.electron.deleteAPIFile(this.dirPath, this.projectId, apiId);
     } catch (e) {
       console.error(`删除 API 文件失败 ${apiId}:`, e);
     }
 
-    for (const api of this.projectData.apis) {
-      const cached = this._apiDataCache[api.id];
+    // 清理其他 API 中对该 API 的引用
+    for (const api of proj.config.apis) {
+      const cached = proj.apiDataCache[api.id];
       if (cached && cached.scenarios) {
         for (const scnKey of Object.keys(cached.scenarios)) {
           const scn = cached.scenarios[scnKey];
@@ -469,24 +694,11 @@ class ProjectManager {
     this.markDirty();
   }
 
-  addGroup(groupName, parentId = null) {
-    if (!this.projectData) return;
-    if (!this.projectData.groups) this.projectData.groups = [];
-
-    const exists = this.projectData.groups.find(g => g.name === groupName && g.parentId === parentId);
-    if (!exists) {
-      this.projectData.groups.push({
-        id: generateId('group'),
-        name: groupName,
-        parentId: parentId
-      });
-      this.markDirty();
-    }
-  }
-
   async copyAPI(apiId) {
-    if (!this.projectData) return null;
-    const sourceAPI = this._apiDataCache[apiId];
+    const proj = this._activeProject;
+    if (!proj?.config) return null;
+
+    const sourceAPI = proj.apiDataCache[apiId];
     if (!sourceAPI) return null;
 
     const newAPI = deepClone(sourceAPI);
@@ -497,36 +709,57 @@ class ProjectManager {
     return newAPI;
   }
 
+  // ── 分组操作 ──
+
+  addGroup(groupName, parentId = null) {
+    const proj = this._activeProject;
+    if (!proj?.config) return;
+
+    if (!proj.config.groups) proj.config.groups = [];
+
+    const exists = proj.config.groups.find(g => g.name === groupName && g.parentId === parentId);
+    if (!exists) {
+      proj.config.groups.push({
+        id: generateId('group'),
+        name: groupName,
+        parentId: parentId
+      });
+      this.markDirty();
+    }
+  }
+
   copyGroup(groupId, newParentId = null) {
-    if (!this.projectData) return null;
-    const sourceGroup = this.projectData.groups?.find(g => g.id === groupId);
+    const proj = this._activeProject;
+    if (!proj?.config) return null;
+
+    const sourceGroup = proj.config.groups?.find(g => g.id === groupId);
     if (!sourceGroup) return null;
 
     const groupIdMap = {};
 
     const copyGroupRecursive = (sourceGroupId, parentId) => {
-      const group = this.projectData.groups.find(g => g.id === sourceGroupId);
+      const group = proj.config.groups.find(g => g.id === sourceGroupId);
       if (!group) return null;
 
       const newGroupId = generateId('group');
       groupIdMap[sourceGroupId] = newGroupId;
 
-      this.projectData.groups.push({
+      proj.config.groups.push({
         id: newGroupId,
         name: group.id === groupId ? `${group.name}(复制)` : group.name,
         parentId: parentId
       });
 
-      this.projectData.apis?.forEach(api => {
+      proj.config.apis?.forEach(api => {
         if (api.group === sourceGroupId) {
           const newAPI = deepClone(api);
           newAPI.id = generateId('api');
           newAPI.group = newGroupId;
-          this.projectData.apis.push(newAPI);
+          proj.config.apis.push(newAPI);
         }
       });
 
-      const children = this.projectData.groups.filter(g => g.parentId === sourceGroupId);
+      const children = proj.config.groups.filter(g => g.parentId === sourceGroupId);
       children.forEach(child => copyGroupRecursive(child.id, newGroupId));
 
       return newGroupId;
@@ -538,28 +771,34 @@ class ProjectManager {
   }
 
   deleteGroup(groupId) {
-    if (!this.projectData || !this.projectData.groups) return;
+    const proj = this._activeProject;
+    if (!proj?.config || !proj.config.groups) return;
+
     const groupsToDelete = this._getChildGroupIds(groupId);
     groupsToDelete.push(groupId);
-    this.projectData.groups = this.projectData.groups.filter(g => !groupsToDelete.includes(g.id));
-    this.projectData.apis?.forEach(api => {
+    proj.config.groups = proj.config.groups.filter(g => !groupsToDelete.includes(g.id));
+    proj.config.apis?.forEach(api => {
       if (groupsToDelete.includes(api.group)) api.group = 'default';
     });
     this.markDirty();
   }
 
   updateGroup(groupId, updates) {
-    if (!this.projectData || !this.projectData.groups) return;
-    const index = this.projectData.groups.findIndex(g => g.id === groupId);
+    const proj = this._activeProject;
+    if (!proj?.config || !proj.config.groups) return;
+
+    const index = proj.config.groups.findIndex(g => g.id === groupId);
     if (index !== -1) {
-      this.projectData.groups[index] = { ...this.projectData.groups[index], ...updates };
+      proj.config.groups[index] = { ...proj.config.groups[index], ...updates };
       this.markDirty();
     }
   }
 
   _getChildGroupIds(parentId) {
-    if (!this.projectData?.groups) return [];
-    const children = this.projectData.groups.filter(g => g.parentId === parentId);
+    const proj = this._activeProject;
+    if (!proj?.config?.groups) return [];
+
+    const children = proj.config.groups.filter(g => g.parentId === parentId);
     let allIds = children.map(g => g.id);
     children.forEach(child => {
       allIds = [...allIds, ...this._getChildGroupIds(child.id)];
@@ -568,12 +807,14 @@ class ProjectManager {
   }
 
   getGroupTree() {
-    if (!this.projectData?.groups) {
+    const proj = this._activeProject;
+    if (!proj?.config?.groups) {
       return [{ id: 'default', name: '默认', parentId: null, children: [] }];
     }
-    const rootGroups = this.projectData.groups.filter(g => !g.parentId);
+
+    const rootGroups = proj.config.groups.filter(g => !g.parentId);
     const buildTree = (parentId) => {
-      return this.projectData.groups.filter(g => g.parentId === parentId).map(g => ({
+      return proj.config.groups.filter(g => g.parentId === parentId).map(g => ({
         ...g,
         children: buildTree(g.id)
       }));
@@ -582,12 +823,14 @@ class ProjectManager {
   }
 
   getFlatGroupsWithLevel() {
-    if (!this.projectData?.groups) {
+    const proj = this._activeProject;
+    if (!proj?.config?.groups) {
       return [{ id: 'default', name: '默认', parentId: null, level: 0 }];
     }
+
     const result = [{ id: 'default', name: '默认', parentId: null, level: 0 }];
     const addGroupsRecursive = (parentId, level) => {
-      this.projectData.groups.filter(g => g.parentId === parentId).forEach(g => {
+      proj.config.groups.filter(g => g.parentId === parentId).forEach(g => {
         result.push({ ...g, level });
         addGroupsRecursive(g.id, level + 1);
       });
@@ -597,39 +840,46 @@ class ProjectManager {
   }
 
   updateGroups(groups) {
-    if (!this.projectData) return;
-    this.projectData.groups = groups;
+    const proj = this._activeProject;
+    if (!proj?.config) return;
+
+    proj.config.groups = groups;
     this.markDirty();
   }
 
   getGroups() {
-    if (!this.projectData) return ['默认'];
+    const proj = this._activeProject;
+    if (!proj?.config) return ['默认'];
+
     const groups = new Set(['默认']);
-    this.projectData.apis?.forEach(api => {
+    proj.config.apis?.forEach(api => {
       if (api.group && api.group !== '默认') groups.add(api.group);
     });
-    this.projectData.groups?.forEach(g => groups.add(g.id));
+    proj.config.groups?.forEach(g => groups.add(g.id));
     return Array.from(groups);
   }
 
+  // ── 脏标记 ──
+
   markDirty() {
-    if (!this.isDirty) {
-      this.isDirty = true;
+    const proj = this._activeProject;
+    if (proj && !proj.isDirty) {
+      proj.isDirty = true;
       this._notifyListeners();
     }
   }
 
+  // ── 清除 ──
+
   clear() {
-    this.projectData = null;
-    this.dirPath = null;
-    this.projectId = null;
-    this.projectName = null;
-    this.isDirty = false;
-    this._apiDataCache = {};
-    this._apiHistoryCache = {};
+    this.workspaceDir = null;
+    this.projects = {};
+    this.activeProjectId = null;
     this.disableAutoSave();
     this._notifyListeners();
   }
+
+  // ── 监听器 ──
 
   addListener(callback) {
     this.listeners.push(callback);
@@ -641,8 +891,12 @@ class ProjectManager {
   }
 
   _notifyListeners() {
+    const proj = this._activeProject;
     this.listeners.forEach(callback => {
-      callback({ projectData: this.projectData, isDirty: this.isDirty });
+      callback({
+        projectData: proj?.config || null,
+        isDirty: proj?.isDirty || false
+      });
     });
   }
 }
