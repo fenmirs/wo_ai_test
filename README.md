@@ -336,6 +336,19 @@ $.success == true
 - 新增 `data-node-id` + `scrollToId`，添加子元素后自动滚动到新节点
 - 模式切换遮罩：UI→Code 切换时显示进度蒙层，防止待处理变更未同步
 
+#### 新建 API 草稿丢弃确认
+- 新建 API 时，在 `initializeFromApi` 中捕获初始状态的 JSON 快照
+- 每次 `formData` 变化时，通过 `JSON.stringify` 与快照比对，设置 `draftDirty` 状态
+- 通过 `onDraftChange` 回调通知父组件 `App.js`，触发草稿确认逻辑
+- 切换 API、编辑其他 API、关闭项目时，若有未保存草稿则弹出 `window.confirm` 确认
+
+#### 全局进度覆盖层（ProgressOverlay）
+- 新建 `ProgressProvider` + `useProgress` hook，通过 Context 全局管理进度状态
+- 使用 `ReactDOM.createPortal` 渲染到 `document.body`，覆盖所有面板和弹窗
+- **延迟展示**：`showProgress()` 后等待 100ms 再显示 overlay，100ms 内完成的操作不出现闪烁
+- **最短展示时间**：一旦展示，至少持续 300ms 才消失，避免一闪而过
+- **重入安全**：连续调用 `showProgress`/`hideProgress` 正确取消待执行定时器
+
 ## 许可证
 
 MIT

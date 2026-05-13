@@ -11,8 +11,9 @@ import CodeEditor from './CodeEditor';
 import RefVariableSelector from './RefVariableSelector';
 import BodyTreeEditor from './BodyTreeEditor';
 import { toast } from './Toast';
+import { useProgress } from './ProgressOverlay';
 
-function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, groups = [], isAdding = false, isTemporary = false, onViewDetail, onRestoreHistory, onDeleteHistory, theme = 'dark', onResultChange }) {
+function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, groups = [], isAdding = false, isTemporary = false, onViewDetail, onRestoreHistory, onDeleteHistory, theme = 'dark', onResultChange, onDraftChange }) {
   const [resolvedPath, setResolvedPath] = useState('');
   const [executionResult, setExecutionResult] = useState(null);
   const [isExecuting, setIsExecuting] = useState(false);
@@ -44,8 +45,10 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const [jsonParseError, setJsonParseError] = useState(null);
   const [xmlParseError, setXmlParseError] = useState(null);
   const [xmlAllowMixed, setXmlAllowMixed] = useState(false);
-  const [isXmlModeSwitching, setIsXmlModeSwitching] = useState(false);
+  const { showProgress, hideProgress } = useProgress();
   const [showCodeSwitchConfirm, setShowCodeSwitchConfirm] = useState(false);
+  const [draftDirty, setDraftDirty] = useState(false);
+  const cleanSnapshotRef = useRef(null);
 
   const apiHistory = history.filter(h =>
     (h.apiId && h.apiId === formData.id) ||
@@ -140,6 +143,20 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       setJsonParseError(null);
     }
   }, [formData.body.content, formData.body.contentType, formData.body.type]);
+
+  useEffect(() => {
+    if (!isAdding) {
+      cleanSnapshotRef.current = null;
+      setDraftDirty(false);
+      return;
+    }
+    if (cleanSnapshotRef.current === null) return;
+    setDraftDirty(JSON.stringify(formData) !== cleanSnapshotRef.current);
+  }, [formData, isAdding]);
+
+  useEffect(() => {
+    onDraftChange?.(draftDirty);
+  }, [draftDirty, onDraftChange]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -252,7 +269,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     console.log(`[APIDetail] initializeFromApi - parsedParam:`, JSON.stringify(parsedParam));
     console.log(`[APIDetail] initializeFromApi - parsedHeader:`, JSON.stringify(parsedHeader));
 
-    setFormData({
+    const newFormData = {
       id: apiData.id,
       name: apiData.name || '',
       group: apiData.group || '默认',
@@ -263,7 +280,14 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       body: parseBodyData(apiData.body, { ...defaultHeader, ...apiData.header }),
 
       assertions: parseAssertions(apiData.successAssert)
-    });
+    };
+
+    setFormData(newFormData);
+
+    if (isAdding) {
+      cleanSnapshotRef.current = JSON.stringify(newFormData);
+      setDraftDirty(false);
+    }
 
     if (isFullUrl) {
       setUrlSegments([{ type: 'text', value: apiPath }]);
@@ -1190,7 +1214,23 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                   {type === 'raw' && formData.body.type === 'raw' && (
                     <select
                       value={formData.body.contentType || 'text'}
-                      onChange={(e) => updateFormBody({ contentType: e.target.value })}
+                      onChange={(e) => {
+                        const newType = e.target.value;
+                        const updates = { contentType: newType, schema: null };
+                        if (!formData.body.content) {
+                          switch (newType) {
+                            case 'json': updates.content = '{\n  \n}'; break;
+                            case 'xml':  updates.content = '<root></root>'; break;
+                            default:     updates.content = '';
+                          }
+                        }
+                        updateFormBody(updates);
+                        setJsonEditMode('code');
+                        setXmlEditMode('code');
+                        setJsonParseError(null);
+                        setXmlParseError(null);
+                        if (newType !== 'xml') setXmlAllowMixed(false);
+                      }}
                       className="raw-type-select"
                       onClick={(e) => e.stopPropagation()}
                     >
@@ -1225,90 +1265,48 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                <div className="body-raw">
                   {formData.body.contentType === 'json' && (
                     <div className="json-mode-switcher">
-                      <label className={`json-mode-btn ${jsonEditMode === 'code' ? 'active' : ''}`}>
-                          <input 
-                            type="radio" 
-                            name="jsonEditMode" 
-                            value="code"
-                            checked={jsonEditMode === 'code'}
-                            onChange={() => {
-                              setJsonEditMode('code');
-                              setJsonParseError(null);
-                            }}
-                          />
-                          <Code size={12} />
-                          代码
-                        </label>
-                      <label className={`json-mode-btn ${jsonEditMode === 'ui' ? 'active' : ''}${jsonParseError ? ' disabled' : ''}`}>
-                          <input 
-                            type="radio" 
-                            name="jsonEditMode" 
-                            value="ui"
-                            checked={jsonEditMode === 'ui'}
-                            disabled={!!jsonParseError}
-                            onChange={(e) => {
-                              const currentContent = formData.body.content || '{}';
-                              if (!currentContent.trim()) return;
-                              try {
-                                JSON.parse(currentContent);
-                              } catch (_) {
-                                return;
+                      <button
+                        className={`json-mode-btn${jsonParseError ? ' disabled' : ''}`}
+                        disabled={!!jsonParseError}
+                        onClick={() => {
+                          if (jsonEditMode === 'code') {
+                            const currentContent = formData.body.content || '{}';
+                            if (!currentContent.trim()) return;
+                            try { JSON.parse(currentContent); } catch (_) { return; }
+                            try {
+                              const existingSchema = formData.body.schema;
+                              const newSchema = JSONSchemaConverter.jsonToSchema(currentContent, existingSchema);
+                              if (newSchema) {
+                                updateFormBody({ schema: newSchema });
+                                setJsonEditMode('ui');
                               }
-                              try {
-                                const existingSchema = formData.body.schema;
-                                const newSchema = JSONSchemaConverter.jsonToSchema(currentContent, existingSchema);
-                                if (newSchema) {
-                                  updateFormBody({ schema: newSchema });
-                                  setJsonEditMode('ui');
-                                }
-                              } catch (err) {
-                                console.warn('[APIDetail] Failed to convert JSON to schema:', err);
-                              }
-                            }}
-                          />
-                          <Layout size={12} />
-                          UI
-                          {jsonParseError && <span className="parse-error-badge" title={jsonParseError}>!</span>}
-                        </label>
+                            } catch (err) {
+                              console.warn('[APIDetail] Failed to convert JSON to schema:', err);
+                            }
+                          } else {
+                            setJsonEditMode('code');
+                            setJsonParseError(null);
+                          }
+                        }}
+                      >
+                        {jsonEditMode === 'code' ? <><Layout size={12} /> UI</> : <><Code size={12} /> 代码</>}
+                        {jsonParseError && <span className="parse-error-badge" title={jsonParseError}>!</span>}
+                      </button>
                     </div>
                   )}
 
                   {formData.body.contentType === 'xml' && (
                     <div className="json-mode-switcher">
-                      <label className={`json-mode-btn ${xmlEditMode === 'code' ? 'active' : ''}`}>
-                        <input 
-                          type="radio" 
-                          name="xmlEditMode" 
-                          value="code"
-                          checked={xmlEditMode === 'code'}
-                          onChange={() => {
-                            if (xmlEditMode === 'ui') {
-                              setIsXmlModeSwitching(true);
-                              setTimeout(() => {
-                                setXmlEditMode('code');
-                              }, 16);
-                            } else {
-                              setXmlEditMode('code');
-                            }
-                          }}
-                        />
-                        <Code size={12} />
-                        代码
-                      </label>
-                      <label className={`json-mode-btn ${xmlEditMode === 'ui' ? 'active' : ''}${xmlParseError ? ' disabled' : ''}`}>
-                        <input 
-                          type="radio" 
-                          name="xmlEditMode" 
-                          value="ui"
-                          checked={xmlEditMode === 'ui'}
-                          disabled={!!xmlParseError}
-                          onChange={(e) => {
+                      <button
+                        className={`json-mode-btn${xmlParseError ? ' disabled' : ''}`}
+                        disabled={!!xmlParseError}
+                        onClick={() => {
+                          if (xmlEditMode === 'code') {
                             const currentContent = formData.body.content || '<root></root>';
                             if (!currentContent.trim()) return;
                             const err = XMLSchemaConverter.validateXml(currentContent);
                             if (err) return;
                             if (!xmlAllowMixed && XMLSchemaConverter.hasMixedContent(currentContent)) return;
-                            setXmlEditMode('ui');
                             try {
                               const existingSchema = formData.body.schema;
                               const newSchema = XMLSchemaConverter.xmlToSchema(currentContent, existingSchema);
@@ -1318,40 +1316,47 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                             } catch (err) {
                               console.warn('[APIDetail] Failed to convert XML to schema:', err);
                             }
-                          }}
-                        />
-                        <Layout size={12} />
-                        UI
-                        {xmlParseError && <span className="parse-error-badge" title={xmlParseError}>!</span>}
-                      </label>
-                      <button
-                        className={`json-mode-btn ${xmlAllowMixed ? 'active' : ''}`}
-                        onClick={() => {
-                          const newVal = !xmlAllowMixed;
-                          setXmlAllowMixed(newVal);
-                          const content = formData.body.content || '';
-                          if (content.trim()) {
-                            const parseErr = XMLSchemaConverter.validateXml(content);
-                            if (parseErr) {
-                              setXmlParseError(parseErr);
-                            } else if (!newVal && XMLSchemaConverter.hasMixedContent(content)) {
-                              setXmlParseError('存在混合内容 (文本与标签不能混写)');
-                            } else {
-                              setXmlParseError(null);
-                            }
+                            setXmlEditMode('ui');
+                          } else {
+                            showProgress();
+                            setTimeout(() => {
+                              setXmlEditMode('code');
+                              hideProgress();
+                            }, 16);
                           }
                         }}
+                      >
+                        {xmlEditMode === 'code' ? <><Layout size={12} /> UI</> : <><Code size={12} /> 代码</>}
+                        {xmlParseError && <span className="parse-error-badge" title={xmlParseError}>!</span>}
+                      </button>
+                      <label
+                        className="mixed-toggle"
                         title={xmlAllowMixed ? '允许混合内容中' : '不允许混合内容 (推荐)'}
                       >
-                        <FileText size={12} />
-                      </button>
-                    </div>
-                  )}
-
-                  {isXmlModeSwitching && (
-                    <div className="mode-switch-overlay">
-                      <RefreshCw size={24} className="spin" />
-                      <span>正在处理...</span>
+                        <input
+                          type="checkbox"
+                          checked={xmlAllowMixed}
+                          onChange={() => {
+                            const newVal = !xmlAllowMixed;
+                            setXmlAllowMixed(newVal);
+                            const content = formData.body.content || '';
+                            if (content.trim()) {
+                              const parseErr = XMLSchemaConverter.validateXml(content);
+                              if (parseErr) {
+                                setXmlParseError(parseErr);
+                              } else if (!newVal && XMLSchemaConverter.hasMixedContent(content)) {
+                                setXmlParseError('存在混合内容 (文本与标签不能混写)');
+                              } else {
+                                setXmlParseError(null);
+                              }
+                            }
+                          }}
+                        />
+                        <span className="mixed-toggle-track">
+                          <span className="mixed-toggle-thumb" />
+                        </span>
+                        <span className="mixed-toggle-label">混合</span>
+                      </label>
                     </div>
                   )}
 

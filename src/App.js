@@ -11,6 +11,7 @@ import ConfirmDialog from './components/ConfirmDialog';
 import HistoryDetailDialog from './components/HistoryDetailDialog';
 import ResponsePanel from './components/ResponsePanel';
 import { ToastContainer } from './components/Toast';
+import { ProgressProvider } from './components/ProgressOverlay';
 import { projectManager } from './utils/ProjectManager';
 import { notificationManager } from './utils/NotificationManager';
 import './App.css';
@@ -94,6 +95,26 @@ function App() {
   // 编辑状态
   const [editingAPI, setEditingAPI] = useState(null);
   const [isAddingAPI, setIsAddingAPI] = useState(false);
+  const [draftDirty, setDraftDirty] = useState(false);
+  const checkDraftThen = useCallback((action) => {
+    if (isAddingAPI && draftDirty) {
+      setConfirmDialogConfig({
+        title: '丢弃草稿',
+        message: '当前 API 尚未保存，确定要丢弃所有更改吗？',
+        options: [],
+        onConfirm: () => {
+          setShowConfirmDialog(false);
+          setIsAddingAPI(false);
+          setDraftDirty(false);
+          action();
+        },
+        onCancel: () => setShowConfirmDialog(false)
+      });
+      setShowConfirmDialog(true);
+    } else {
+      action();
+    }
+  }, [isAddingAPI, draftDirty]);
   
   // 输入对话框状态
   const [showInputDialog, setShowInputDialog] = useState(false);
@@ -225,21 +246,22 @@ function App() {
   // 选择项目（从目录项目列表中选择）
   const handleProjectSelect = useCallback(async (project) => {
     const dirPath = project.dirPath || project.path;
-    const loadResult = await projectManager.loadProject(dirPath, project.id);
-    if (loadResult.success) {
-      setCurrentProjectDir(dirPath);
-      // 设置通知管理器的当前项目
-      notificationManager.setCurrentProject(project.id);
-      
-      const listResult = await window.electron.readDirectoryProjectList(dirPath);
-      setProjectList(listResult.data || []);
-      setExecutionHistory(projectManager.getHistory());
-      setSaveMessage('项目切换成功');
-      setTimeout(() => setSaveMessage(''), 2000);
-    } else {
-      alert(`加载项目失败: ${loadResult.error}`);
-    }
-  }, []);
+    const doSelect = async () => {
+      const loadResult = await projectManager.loadProject(dirPath, project.id);
+      if (loadResult.success) {
+        setCurrentProjectDir(dirPath);
+        notificationManager.setCurrentProject(project.id);
+        const listResult = await window.electron.readDirectoryProjectList(dirPath);
+        setProjectList(listResult.data || []);
+        setExecutionHistory(projectManager.getHistory());
+        setSaveMessage('项目切换成功');
+        setTimeout(() => setSaveMessage(''), 2000);
+      } else {
+        alert(`加载项目失败: ${loadResult.error}`);
+      }
+    };
+    checkDraftThen(doSelect);
+  }, [checkDraftThen]);
 
   // 创建新项目
   const handleNewProject = useCallback(async () => {
@@ -304,14 +326,16 @@ function App() {
       const confirmed = window.confirm('有未保存的修改，确定要关闭项目吗？');
       if (!confirmed) return;
     }
-    projectManager.clear();
-    setHasProject(false);
-    setCurrentProfile(null);
-    setSelectedAPI(null);
-    setEditingAPI(null);
-    setIsAddingAPI(false);
-    setViewMode('api');
-  }, [isDirty]);
+    checkDraftThen(() => {
+      projectManager.clear();
+      setHasProject(false);
+      setCurrentProfile(null);
+      setSelectedAPI(null);
+      setEditingAPI(null);
+      setIsAddingAPI(false);
+      setViewMode('api');
+    });
+  }, [isDirty, isAddingAPI, draftDirty]);
 
   // 选择环境
   const handleProfileSelect = (profile) => {
@@ -340,15 +364,17 @@ function App() {
 
   // 选择 API
   const handleAPISelect = (api) => {
-    setSelectedAPI(api);
-    // api.group 现在是 id，需要找到对应的 group
-    const groupId = api.group || null;
-    setActiveGroup(groupId);
-    setEditingAPI(null);
-    setIsAddingAPI(false);
-    setTemporaryAPI(null);
-    setRestoringHistoryEntry(null);
-    setViewMode('api_detail');
+    checkDraftThen(() => {
+      setSelectedAPI(api);
+      // api.group 现在是 id，需要找到对应的 group
+      const groupId = api.group || null;
+      setActiveGroup(groupId);
+      setEditingAPI(null);
+      setIsAddingAPI(false);
+      setTemporaryAPI(null);
+      setRestoringHistoryEntry(null);
+      setViewMode('api_detail');
+    });
   };
 
   // 选择分组
@@ -522,10 +548,12 @@ function App() {
 
   // 编辑 API
   const handleEditAPI = () => {
-    if (selectedAPI) {
-      setEditingAPI({ ...selectedAPI });
-      setIsAddingAPI(false);
-    }
+    checkDraftThen(() => {
+      if (selectedAPI) {
+        setEditingAPI({ ...selectedAPI });
+        setIsAddingAPI(false);
+      }
+    });
   };
 
   // 保存 API 编辑
@@ -682,6 +710,7 @@ function App() {
   return (
     <div className="app">
       <ToastContainer />
+      <ProgressProvider>
       {/* 主内容区 */}
       <main className="app-main">
         <div className="content-area">
@@ -776,12 +805,14 @@ function App() {
                        setShowConfirmDialog(true);
                      }
                    }}
-                   onEdit={(api) => {
-                     setEditingAPI({ ...api });
-                     setIsAddingAPI(false);
-                     setSelectedAPI(api);
-                     setViewMode('api_detail');
-                   }}
+                    onEdit={(api) => {
+                      checkDraftThen(() => {
+                        setEditingAPI({ ...api });
+                        setIsAddingAPI(false);
+                        setSelectedAPI(api);
+                        setViewMode('api_detail');
+                      });
+                    }}
                    onDelete={(api) => {
                      setConfirmDialogConfig({
                        title: '删除 API',
@@ -849,6 +880,7 @@ function App() {
                   groups={projectManager.getGroups()}
                   isAdding={isAddingAPI}
                   isTemporary={temporaryAPI !== null}
+                  onDraftChange={setDraftDirty}
                   onViewDetail={(entry) => setViewingHistoryEntry(entry)}
                   onRestoreHistory={handleRestoreFromHistory}
                   onDeleteHistory={handleDeleteHistory}
@@ -902,8 +934,10 @@ function App() {
           allProfiles={projectData?.profile || []}
           onProfileSelect={handleProfileSelect}
           onEditVariables={() => {
-            setSelectedAPI(null);
-            setViewMode('env_var_manager');
+            checkDraftThen(() => {
+              setSelectedAPI(null);
+              setViewMode('env_var_manager');
+            });
           }}
           projectName={projectManager.getProjectName()}
           isDirty={isDirty}
@@ -912,7 +946,7 @@ function App() {
           toggleTheme={toggleTheme}
           theme={theme}
           isSaving={isSaving}
-          onShowHistory={()=>{setViewMode('history')}}
+          onShowHistory={() => { checkDraftThen(() => setViewMode('history')); }}
           onBackToApi={() => setViewMode('api')}
           viewModeValue={viewMode}
           projectList={projectList}
@@ -958,6 +992,7 @@ function App() {
           onClose={() => setViewingHistoryEntry(null)} 
         />
       )}
+      </ProgressProvider>
     </div>
   );
 }
