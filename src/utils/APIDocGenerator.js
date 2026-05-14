@@ -137,7 +137,9 @@ class APIDocGenerator {
       refRegex.lastIndex = 0;
       let match;
       while ((match = refRegex.exec(value)) !== null) {
-        refApiIds.add(match[1].split('.')[0]);
+        const refContent = match[1];
+        const atIdx = refContent.indexOf('@');
+        refApiIds.add(atIdx >= 0 ? refContent.substring(0, atIdx) : refContent.split('.')[0]);
       }
     };
 

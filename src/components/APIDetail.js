@@ -209,6 +209,11 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  const extractApiIdFromRef = (refContent) => {
+    const atIdx = refContent.indexOf('@');
+    return atIdx >= 0 ? refContent.substring(0, atIdx) : refContent.split('.')[0];
+  };
+
   const extractRefApis = () => {
     const refRegex = /\{\{ref:([^}]+)\}\}/g;
     const apiIds = new Set();
@@ -218,7 +223,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       refRegex.lastIndex = 0;
       let match;
       while ((match = refRegex.exec(value)) !== null) {
-        const apiId = match[1].split('.')[0];
+        const apiId = extractApiIdFromRef(match[1]);
         if (apiId) apiIds.add(apiId);
       }
     };
@@ -624,7 +629,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       refRegex.lastIndex = 0;
       let match;
       while ((match = refRegex.exec(value)) !== null) {
-        const refApiId = match[1].split('.')[0];
+        const refApiId = extractApiIdFromRef(match[1]);
         if (refApiId === apiId) {
           refs.push({ section, key, ref: match[1] });
         }
