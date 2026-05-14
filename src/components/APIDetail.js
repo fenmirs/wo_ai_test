@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, ChevronRight, ChevronDown, ChevronUp, Trash2, Plus, Upload, X, AlertCircle, FileText, Save, FileDown, Code, Layout } from 'lucide-react';
+import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, ChevronRight, ChevronDown, ChevronUp, Trash2, Plus, Upload, X, AlertCircle, FileText, Save, FileDown, Code, Layout, Edit } from 'lucide-react';
 import './APIDetail.css';
 import ChainManager from '../utils/ChainManager';
 import { projectManager } from '../utils/ProjectManager';
@@ -89,6 +89,8 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const { showProgress, hideProgress } = useProgress();
   const [showCodeSwitchConfirm, setShowCodeSwitchConfirm] = useState(false);
   const [draftDirty, setDraftDirty] = useState(false);
+  const [apiEditMode, setApiEditMode] = useState(false);
+  const savedUrlSegmentsRef = useRef(null);
   const cleanSnapshotRef = useRef(null);
 
   const apiHistory = history.filter(h =>
@@ -1297,199 +1299,134 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
   return (
     <div className="api-detail">
-      <div className="api-detail-header">
-        <div className="api-title">
-          {isTemporary && <span className="temp-badge">草稿</span>}
-          <input
-            type="text"
-            className="api-name-input"
-            value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            placeholder={isTemporary ? "请输入 API 名称以保存" : "API 名称"}
-          />
-          {formData.id && (
-            <span className="api-id-badge" onClick={() => navigator.clipboard.writeText(formData.id)} title="点击复制 ID">
-              <span className="api-id-text">{formData.id}</span>
-              <Copy size={10} />
-            </span>
+      {/* API 级别：方法 + URL（只读/可编辑切换）+ 操作按钮 */}
+      <div className="api-line">
+        {apiEditMode ? (
+          <div className="method-select" style={{ flexShrink: 0 }}>
+            <select
+              value={formData.method}
+              onChange={(e) => setFormData({ ...formData, method: e.target.value })}
+              style={{ backgroundColor: getMethodColor(formData.method) }}
+            >
+              {methods.map(m => <option key={m} value={m}>{m}</option>)}
+            </select>
+          </div>
+        ) : (
+          <div className="api-method-label" style={{ backgroundColor: getMethodColor(formData.method) }}>
+            {formData.method}
+          </div>
+        )}
+        <div className="api-line-url">
+          {apiEditMode ? (
+            <div className="url-builder" style={{ border: 'none', padding: 0 }}>
+              <div className="url-segments">
+                {urlSegments.map((seg, idx) => (
+                  <div
+                    key={idx}
+                    className={`url-segment ${idx === 0 ? 'first' : ''} ${activeSegmentIdx === idx ? 'active' : ''}`}
+                  >
+                    {editingSegmentIdx === idx ? (
+                      <input
+                        type="text"
+                        className="segment-edit-input"
+                        value={editingValue}
+                        onChange={(e) => setEditingValue(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            const newSegments = [...urlSegments];
+                            newSegments[idx] = { ...seg, value: editingValue, type: 'text' };
+                            setUrlSegments(newSegments);
+                            setEditingSegmentIdx(null);
+                            setActiveSegmentIdx(null);
+                          } else if (e.key === 'Escape') {
+                            setEditingSegmentIdx(null);
+                            setActiveSegmentIdx(null);
+                          }
+                        }}
+                        onBlur={() => {
+                          const newSegments = [...urlSegments];
+                          newSegments[idx] = { ...seg, value: editingValue, type: 'text' };
+                          setUrlSegments(newSegments);
+                          setEditingSegmentIdx(null);
+                          setActiveSegmentIdx(null);
+                        }}
+                        autoFocus
+                      />
+                    ) : (
+                      <div className="segment-content" onClick={() => setActiveSegmentIdx(idx)}>
+                        <span className="segment-text">
+                          {seg.value || (idx === 0 ? '输入或选择' : '输入路径')}
+                        </span>
+                      </div>
+                    )}
+                    {urlSegments.length > 1 && activeSegmentIdx === idx && (
+                      <button className="segment-delete" onClick={() => setUrlSegments(urlSegments.filter((_, i) => i !== idx))}>
+                        <X size={10} />
+                      </button>
+                    )}
+                    {activeSegmentIdx === idx && editingSegmentIdx !== idx && (
+                      <div className="segment-var-dropdown">
+                        <div className="segment-var-option input-option" onClick={() => { setEditingSegmentIdx(idx); setEditingValue(seg.value); }}>
+                          输入内容...
+                        </div>
+                        {profile && Object.keys(profile)
+                          .filter(k => k !== 'name' && k !== 'activate')
+                          .filter(k => idx === 0 || k !== 'domain')
+                          .map(k => (
+                            <div key={k} className="segment-var-option" onClick={() => {
+                              const newSegments = [...urlSegments];
+                              newSegments[idx] = { type: 'variable', value: k };
+                              setUrlSegments(newSegments);
+                              setActiveSegmentIdx(null);
+                            }}>
+                              {k}
+                            </div>
+                          ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+                <button className="segment-add-btn" onClick={() => setUrlSegments([...urlSegments, { type: 'text', value: '' }])} title="添加片段">
+                  <Plus size={12} />
+                </button>
+              </div>
+            </div>
+          ) : (
+            <span className="api-line-url-text" title={formData.api_path}>{formData.api_path}</span>
           )}
         </div>
-        <div className="header-actions">
-          <button
-            className="btn-save"
-            onClick={handleSave}
-            title="保存 API"
-          >
-            {isSaving ? (
-              <RefreshCw size={16} className="spin" />
-            ) : (
-              <Save size={16} />
-            )}
-            {isSaving ? '保存中' : '保存'}
-          </button>
-          <button className="btn-send" onClick={handleSend}>
-            {isExecuting ? <X size={16} /> : <Play size={16} />}
-            {isExecuting ? '发送中' : '发送'}
-          </button>
-          <button className="btn-doc" onClick={handleGenerateDoc} title="生成API文档">
-            <FileDown size={16} />
-            生成文档
-          </button>
-        </div>
-      </div>
-
-      <div className="scenario-description">
-        <div className="scenario-meta">
-          <span className="scenario-label">当前场景</span>
-          {(() => {
-            const curScn = scenarioList.find(s => s.id === currentScenarioId);
-            if (!curScn) return null;
-            return (
-              <>
-                <input
-                  className="scenario-name-edit"
-                  value={curScn.name}
-                  onChange={(e) => renameScenario(curScn.id, e.target.value)}
-                  placeholder="场景名称"
-                />
-                <textarea
-                  className="scenario-desc-input"
-                  value={curScn.description || ''}
-                  onChange={(e) => {
-                    const newDesc = e.target.value;
-                    setScenarioList(prev => prev.map(s =>
-                      s.id === curScn.id ? { ...s, description: newDesc, updatedAt: new Date().toISOString() } : s
-                    ));
-                  }}
-                  placeholder="点击添加场景描述..."
-                  rows={2}
-                />
-              </>
-            );
-          })()}
-        </div>
-        <div className="scenario-actions">
-          <button className="scenario-add-btn" onClick={addScenario} title="新建场景">
-            <Plus size={14} /> 添加场景
-          </button>
-          {scenarioList.length > 1 && currentScenarioId && (
-            <button className="scenario-del-btn" onClick={() => deleteScenario(currentScenarioId)} title="删除当前场景">
-              <Trash2 size={12} /> 删除
+        <div className="api-line-right">
+          {apiEditMode ? (
+            <>
+              <button className="api-edit-btn confirm" onClick={() => setApiEditMode(false)} title="完成编辑">
+                <CheckCircle size={14} />
+              </button>
+              <button className="api-edit-btn cancel" onClick={() => { setUrlSegments(savedUrlSegmentsRef.current); savedUrlSegmentsRef.current = null; setApiEditMode(false); }} title="取消">
+                <X size={14} />
+              </button>
+            </>
+          ) : (
+            <button className="api-edit-btn" onClick={() => { savedUrlSegmentsRef.current = [...urlSegments]; setApiEditMode(true); }} title="编辑 API">
+              <Edit size={14} />
             </button>
           )}
-        </div>
-      </div>
-
-      <div className="url-bar">
-        <div className="method-select">
-          <select
-            value={formData.method}
-            onChange={(e) => setFormData({ ...formData, method: e.target.value })}
-            style={{ backgroundColor: getMethodColor(formData.method) }}
-          >
-            {methods.map(m => <option key={m} value={m}>{m}</option>)}
-          </select>
-        </div>
-
-        <div className="url-builder">
-          <div className="url-segments">
-            {/* 所有片段统一样式 */}
-            {urlSegments.map((seg, idx) => (
-              <div
-                key={idx}
-                className={`url-segment ${idx === 0 ? 'first' : ''} ${activeSegmentIdx === idx ? 'active' : ''}`}
-              >
-                {editingSegmentIdx === idx ? (
-                  <input
-                    type="text"
-                    className="segment-edit-input"
-                    value={editingValue}
-                    onChange={(e) => setEditingValue(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        const newSegments = [...urlSegments];
-                        newSegments[idx] = { ...seg, value: editingValue, type: 'text' };
-                        setUrlSegments(newSegments);
-                        setEditingSegmentIdx(null);
-                        setActiveSegmentIdx(null);
-                      } else if (e.key === 'Escape') {
-                        setEditingSegmentIdx(null);
-                        setActiveSegmentIdx(null);
-                      }
-                    }}
-                    onBlur={() => {
-                      const newSegments = [...urlSegments];
-                      newSegments[idx] = { ...seg, value: editingValue, type: 'text' };
-                      setUrlSegments(newSegments);
-                      setEditingSegmentIdx(null);
-                      setActiveSegmentIdx(null);
-                    }}
-                    autoFocus
-                  />
-                ) : (
-                  <div
-                    className="segment-content"
-                    onClick={() => setActiveSegmentIdx(idx)}
-                  >
-                    <span className="segment-text">
-                      {seg.value || (idx === 0 ? '输入或选择' : '输入路径')}
-                    </span>
-                  </div>
-                )}
-                {urlSegments.length > 1 && activeSegmentIdx === idx && (
-                  <button
-                    className="segment-delete"
-                    onClick={() => setUrlSegments(urlSegments.filter((_, i) => i !== idx))}
-                  >
-                    <X size={10} />
-                  </button>
-                )}
-                {/* 变量下拉面板 */}
-                {activeSegmentIdx === idx && editingSegmentIdx !== idx && (
-                  <div className="segment-var-dropdown">
-                    <div
-                      className="segment-var-option input-option"
-                      onClick={() => {
-                        setEditingSegmentIdx(idx);
-                        setEditingValue(seg.value);
-                      }}
-                    >
-                      输入内容...
-                    </div>
-                    {profile && Object.keys(profile)
-                      .filter(k => k !== 'name' && k !== 'activate')
-                      .filter(k => idx === 0 || k !== 'domain')
-                      .map(k => (
-                        <div
-                          key={k}
-                          className="segment-var-option"
-                          onClick={() => {
-                            const newSegments = [...urlSegments];
-                            newSegments[idx] = { type: 'variable', value: k };
-                            setUrlSegments(newSegments);
-                            setActiveSegmentIdx(null);
-                          }}
-                        >
-                          {k}
-                        </div>
-                      ))}
-                  </div>
-                )}
-              </div>
-            ))}
-
-            {/* 添加片段按钮 */}
-            <button
-              className="segment-add-btn"
-              onClick={() => setUrlSegments([...urlSegments, { type: 'text', value: '' }])}
-              title="添加片段"
-            >
-              <Plus size={12} />
+          <div className="api-line-actions">
+            <button className="scene-action-btn btn-save-icon" onClick={handleSave} title="保存">
+              {isSaving ? <RefreshCw size={14} className="spin" /> : <Save size={14} />}
+            </button>
+            <span className="scene-action-divider">|</span>
+            <button className="scene-action-btn btn-send-icon" onClick={handleSend} title={isExecuting ? '取消' : '发送'}>
+              {isExecuting ? <X size={14} /> : <Play size={14} />}
+            </button>
+            <span className="scene-action-divider">|</span>
+            <button className="scene-action-btn btn-doc-icon" onClick={handleGenerateDoc} title="生成文档">
+              <FileDown size={14} />
             </button>
           </div>
         </div>
       </div>
 
+      {/* URL 预览 */}
       <div className="url-preview">
         <span className="preview-label">完整路径:</span>
         <code className="preview-path">{generateResolvedPath()}</code>
@@ -1502,14 +1439,33 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         </button>
       </div>
 
+      {/* 描述行：可拖拽文本域 */}
+      <div className="desc-line">
+        {(() => {
+          const curScn = scenarioList.find(s => s.id === currentScenarioId);
+          if (!curScn) return null;
+          return (
+            <textarea
+              className="desc-textarea"
+              value={curScn.description || ''}
+              onChange={(e) => {
+                const newDesc = e.target.value;
+                setScenarioList(prev => prev.map(s =>
+                  s.id === curScn.id ? { ...s, description: newDesc, updatedAt: new Date().toISOString() } : s
+                ));
+              }}
+              placeholder="点击添加场景描述..."
+              rows={1}
+            />
+          );
+        })()}
+      </div>
+
+      {(() => { const refs = extractRefApis(); if (refs.length === 0) return null; return (
       <div className="chain-section">
         <span className="section-label">依赖</span>
         <div className="chain-tags">
           {(() => {
-            const computed = extractRefApis();
-            if (computed.length === 0) {
-              return <span className="chain-empty">自动从引用变量中检测</span>;
-            }
             const projectData = projectManager.getData();
             const groups = projectData?.groups || [];
             const groupMap = {};
@@ -1523,7 +1479,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
               }
               return path.join(' / ');
             };
-            return computed.map((apiId, index) => {
+            return refs.map((apiId, index) => {
               const chainAPI = projectData?.apis?.find(a => a.id === apiId);
               const displayName = chainAPI ? chainAPI.name : apiId;
               const idSuffix = chainAPI?.id ? ` (${chainAPI.id.substr(-6)})` : '';
@@ -1536,7 +1492,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
             });
           })()}
         </div>
-      </div>
+      </div>); })()}
 
       <div className="detail-content">
         <div className="tab-bar">

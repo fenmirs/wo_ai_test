@@ -10,7 +10,7 @@
       "name": "默认场景",
       "description": "首次自动创建",
       "createdAt": "2026-05-14T06:19:38.555Z",
-      "updatedAt": "2026-05-14T08:12:03.743Z",
+      "updatedAt": "2026-05-14T09:55:32.967Z",
       "deleted": false,
       "header": [
         {
@@ -60,9 +60,9 @@
     "scn_1778747508474_d7d7n": {
       "id": "scn_1778747508474_d7d7n",
       "name": "新场景",
-      "description": "首次自动创建",
+      "description": "测试点什么吧",
       "createdAt": "2026-05-14T08:31:48.474Z",
-      "updatedAt": "2026-05-14T08:31:51.476Z",
+      "updatedAt": "2026-05-14T09:55:46.860Z",
       "deleted": false,
       "header": [
         {

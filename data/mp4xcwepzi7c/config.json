@@ -153,14 +153,6 @@
       "api_path": "{domain}{lcgl-prj}/pmi/iv/testAble",
       "group": "group_mp57z0ty0a9qi",
       "deleted": false
-    },
-    {
-      "id": "api_mp594upzok7vk",
-      "name": "是否可测试(复制)",
-      "method": "POST",
-      "api_path": "{domain}{lcgl-prj}/pmi/iv/testAble",
-      "group": "group_mp594upzv0lrm",
-      "deleted": false
     }
   ]
 }
