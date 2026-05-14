@@ -10,7 +10,7 @@
       "name": "默认场景",
       "description": "首次自动创建",
       "createdAt": "2026-05-14T03:35:04.308Z",
-      "updatedAt": "2026-05-14T05:13:44.491Z",
+      "updatedAt": "2026-05-14T10:03:25.120Z",
       "deleted": false,
       "header": [
         {
@@ -23,13 +23,6 @@
         {
           "key": "JID",
           "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ4LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3Nzg3Mjg1NjAsImlzcyI6IlF6In0.rNwOMYrYotrhHupYqcVxgdFKNXKhHy7QvpaDQcdcn1I",
-          "type": "string",
-          "description": "",
-          "enabled": true
-        },
-        {
-          "key": "code",
-          "default": "{{ref:api_1778729108226_1ztdonnj4@scn_default.obj.code}}",
           "type": "string",
           "description": "",
           "enabled": true
