@@ -18,6 +18,7 @@ contextBridge.exposeInMainWorld('electron', {
   createNewProject: (dirPath, projectName) => ipcRenderer.invoke('create-new-project', dirPath, projectName),
   readProjectConfig: (dirPath, projectId) => ipcRenderer.invoke('read-project-config', dirPath, projectId),
   saveProjectConfig: (dirPath, projectId, config) => ipcRenderer.invoke('save-project-config', dirPath, projectId, config),
+  deleteProject: (dirPath, projectId) => ipcRenderer.invoke('delete-project', dirPath, projectId),
   
   // Per-API 文件操作（新版 v2 格式）
   readAPIConfig: (dirPath, projectId, apiId) => ipcRenderer.invoke('read-api-config', dirPath, projectId, apiId),

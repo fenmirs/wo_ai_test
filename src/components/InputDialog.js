@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
 import './InputDialog.css';
 
-function InputDialog({ isOpen, title, placeholder, defaultValue, onConfirm, onCancel, onClose }) {
+function InputDialog({ isOpen, title, placeholder, defaultValue, onConfirm, onCancel, onClose, onValueChange, confirmDisabled, confirmLabel }) {
   const [value, setValue] = useState(defaultValue || '');
   const inputRef = useRef(null);
 
@@ -16,6 +16,12 @@ function InputDialog({ isOpen, title, placeholder, defaultValue, onConfirm, onCa
     }
   }, [isOpen]);
 
+  const handleChange = (e) => {
+    const v = e.target.value;
+    setValue(v);
+    if (onValueChange) onValueChange(v);
+  };
+
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       handleConfirm();
@@ -25,6 +31,7 @@ function InputDialog({ isOpen, title, placeholder, defaultValue, onConfirm, onCa
   };
 
   const handleConfirm = () => {
+    if (confirmDisabled) return;
     if (value.trim() && onConfirm) {
       onConfirm(value.trim());
     }
@@ -58,7 +65,7 @@ function InputDialog({ isOpen, title, placeholder, defaultValue, onConfirm, onCa
             ref={inputRef}
             type="text"
             value={value}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={handleChange}
             onKeyDown={handleKeyDown}
             placeholder={placeholder}
             className="input-dialog-input"
@@ -71,9 +78,9 @@ function InputDialog({ isOpen, title, placeholder, defaultValue, onConfirm, onCa
           <button 
             className="btn-primary" 
             onClick={handleConfirm}
-            disabled={!value.trim()}
+            disabled={!value.trim() || confirmDisabled}
           >
-            确定
+            {confirmLabel || '确定'}
           </button>
         </div>
       </div>

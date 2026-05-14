@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Globe, Variable, ChevronUp, Settings2, FolderKanban, Save, XCircle, Sun, Moon, History, LogOut, Bell, CheckCheck, Trash2, PanelLeft, Columns, PanelRight, Bug, FolderOpen } from 'lucide-react';
+import { Globe, Variable, ChevronUp, Settings2, FolderKanban, Save, XCircle, Sun, Moon, History, LogOut, Bell, CheckCheck, Trash2, PanelLeft, Columns, PanelRight, Bug, FolderOpen, Plus, Pencil } from 'lucide-react';
 import { notificationManager } from '../utils/NotificationManager';
 import { projectManager } from '../utils/ProjectManager';
 import './BottomBar.css';
@@ -13,6 +13,9 @@ function BottomBar({
   projectName,
   projectList,
   onProjectSelect,
+  onAddProject,
+  onRenameProject,
+  onDeleteProject,
   isDirty,
   onShowHistory,
   onSave,
@@ -125,13 +128,37 @@ function BottomBar({
           <div className="dropdown-menu project-menu">
             <div className="dropdown-header project-exit-header">
               <span>选择项目</span>
-              <button
-                className="bar-btn"
-                onClick={onCloseProject}
-                title="退出"
-              >
-                <LogOut size={14} />
-              </button>
+              <div style={{ display: 'flex', gap: 4 }}>
+                <button
+                  className="bar-btn"
+                  onClick={onAddProject}
+                  title="新增项目"
+                >
+                  <Plus size={14} />
+                </button>
+                <button
+                  className="bar-btn"
+                  onClick={onRenameProject}
+                  title="修改项目名称"
+                >
+                  <Pencil size={14} />
+                </button>
+                <button
+                  className="bar-btn"
+                  onClick={onDeleteProject}
+                  title="删除项目"
+                  style={{ color: 'var(--error-color)' }}
+                >
+                  <Trash2 size={14} />
+                </button>
+                <button
+                  className="bar-btn"
+                  onClick={onCloseProject}
+                  title="退出"
+                >
+                  <LogOut size={14} />
+                </button>
+              </div>
             </div>
             {!projectList || projectList.length === 0 ? (
               <div className="dropdown-empty">
@@ -146,7 +173,7 @@ function BottomBar({
                   <div className="dropdown-item-main">
                     <span className="dropdown-item-name">{project.name}</span>
                   </div>
-                  <span className="dropdown-item-sub" title={project.dirPath || project.path}>{project.dirPath || project.path}</span>
+                  <span className="dropdown-item-sub" title={(project.dirPath || project.path) + '/' + project.id}>{(project.dirPath || project.path) + '/' + project.id}</span>
                 </div>
               ))
             )}

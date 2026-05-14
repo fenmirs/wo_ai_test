@@ -131,6 +131,8 @@ function App() {
     defaultValue: '',
     onConfirm: null
   });
+  const [deleteConfirmValue, setDeleteConfirmValue] = useState('');
+  const [deleteProjectName, setDeleteProjectName] = useState('');
   
   // 确认对话框状态
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
@@ -160,6 +162,14 @@ function App() {
     document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
   };
+
+  // 对话框关闭时重置删除确认状态
+  useEffect(() => {
+    if (!showInputDialog) {
+      setDeleteProjectName('');
+      setDeleteConfirmValue('');
+    }
+  }, [showInputDialog]);
 
   // 监听 ProjectManager 状态变化
   useEffect(() => {
@@ -234,22 +244,6 @@ function App() {
     };
   }, [hasProject]);
 
-  // 导入工作空间（扫描目录下所有项目）
-  const handleImportProject = useCallback(async () => {
-    const result = await window.electron.selectDirectory();
-    if (result.success) {
-      const projects = await projectManager.scanDirectory(result.path);
-      setProjectList(projects);
-      
-      if (projects.length > 0) {
-        setSaveMessage('项目扫描成功');
-        setTimeout(() => setSaveMessage(''), 2000);
-      } else {
-        alert('该目录下没有找到项目，请先创建新项目');
-      }
-    }
-  }, []);
-
   // 选择项目（从目录项目列表中选择）— 加载整个工作空间
   const handleProjectSelect = useCallback(async (project) => {
     const dirPath = project.dirPath || project.path;
@@ -286,6 +280,49 @@ function App() {
       setWorkspaceStatus('error');
     }
   }, []);
+
+  // 导入空间（扫描目录下所有项目）
+  const handleImportProject = useCallback(async () => {
+    const result = await window.electron.selectDirectory();
+    if (result.success) {
+      const projects = await projectManager.scanDirectory(result.path);
+      setProjectList(projects);
+      
+      if (projects.length > 0) {
+        setSaveMessage('项目扫描成功');
+        setTimeout(() => setSaveMessage(''), 2000);
+        handleProjectSelect(projects[0]);
+      } else {
+        setInputDialogConfig({
+          title: '新建项目',
+          placeholder: '请输入项目名称',
+          defaultValue: '',
+          onConfirm: async (projectName) => {
+            const createResult = await projectManager.createProject(result.path, projectName);
+            if (!createResult.success) {
+              alert(`创建项目失败: ${createResult.error}`);
+              return;
+            }
+
+            const loadResult = await projectManager.loadProject(result.path, createResult.project.projectId);
+            if (!loadResult.success) {
+              alert(`加载项目失败: ${loadResult.error || createResult.error}`);
+              return;
+            }
+
+            const updatedProjects = await projectManager.getDirProjects();
+            setProjectList(updatedProjects);
+            setCurrentProjectDir(result.path);
+
+            setSaveMessage('新项目创建成功');
+            setTimeout(() => setSaveMessage(''), 2000);
+          },
+          onCancel: () => {}
+        });
+        setShowInputDialog(true);
+      }
+    }
+  }, [handleProjectSelect]);
 
   // 工作空间加载完成后进入项目（忽略问题）
   const handleEnterProject = useCallback(async () => {
@@ -381,6 +418,122 @@ function App() {
     }
   }, []);
 
+  // 底部栏新增项目（增量添加到当前工作空间）
+  const handleAddProject = useCallback(async () => {
+    if (!currentProjectDir) return;
+
+    setInputDialogConfig({
+      title: '新增项目',
+      placeholder: '请输入项目名称',
+      defaultValue: '',
+      onConfirm: async (projectName) => {
+        const result = await projectManager.addProjectToWorkspace(currentProjectDir, projectName);
+        if (!result.success) {
+          alert(`创建项目失败: ${result.error}`);
+          return;
+        }
+
+        const projects = await projectManager.getDirProjects();
+        setProjectList(projects);
+
+        // 自动切换到新项目（handleProjectSwitch 会检查脏状态）
+        const newProject = projects.find(p => p.id === result.project.projectId);
+        if (newProject) {
+          handleProjectSwitch(newProject);
+        }
+
+        setSaveMessage('新项目创建成功');
+        setTimeout(() => setSaveMessage(''), 2000);
+      },
+      onCancel: () => {}
+    });
+    setShowInputDialog(true);
+  }, [currentProjectDir, handleProjectSwitch]);
+
+  // 修改当前项目名称
+  const handleRenameProject = useCallback(async () => {
+    const activeProject = projectManager._activeProject;
+    if (!activeProject || !activeProject.projectName) return;
+
+    setInputDialogConfig({
+      title: '修改项目名称',
+      placeholder: '请输入新的项目名称',
+      defaultValue: activeProject.projectName,
+      onConfirm: async (newName) => {
+        if (newName === activeProject.projectName) return;
+
+        activeProject.projectName = newName;
+        activeProject.config.projectName = newName;
+        projectManager.markDirty();
+        await projectManager.saveProject();
+
+        // 重新扫描目录以刷新项目列表（dirProjects 在初始扫描后是静态的）
+        await projectManager.scanDirectory(projectManager.dirPath);
+        const projects = projectManager.getDirProjects();
+        setProjectList(projects);
+
+        setSaveMessage('项目名称已修改');
+        setTimeout(() => setSaveMessage(''), 2000);
+      },
+      onCancel: () => {}
+    });
+    setShowInputDialog(true);
+  }, []);
+
+  // 删除项目（需输入项目名称确认）
+  const handleDeleteProject = useCallback(() => {
+    const activeProject = projectManager._activeProject;
+    if (!activeProject || !activeProject.projectName) return;
+    const targetId = projectManager.activeProjectId;
+    const projectName = activeProject.projectName;
+
+    setDeleteProjectName(projectName);
+    setDeleteConfirmValue('');
+
+    setInputDialogConfig({
+      title: `删除项目 "${projectName}"`,
+      placeholder: '请输入项目名称以确认删除',
+      defaultValue: '',
+      onConfirm: async () => {
+        // 从磁盘删除
+        await window.electron.deleteProject(currentProjectDir, targetId);
+
+        // 从缓存移除
+        delete projectManager.projects[targetId];
+
+        // 重新扫描目录以刷新项目列表
+        await projectManager.scanDirectory(currentProjectDir);
+        const projects = projectManager.getDirProjects();
+        setProjectList(projects);
+
+        // 如果删除的是当前活跃项目，切换到其他项目或退出
+        if (targetId === projectManager.activeProjectId) {
+          const remaining = Object.keys(projectManager.projects);
+          if (remaining.length > 0) {
+            projectManager.switchProject(remaining[0]);
+            setApiHistory([]);
+            setSelectedAPI(null);
+            setEditingAPI(null);
+            setIsAddingAPI(false);
+            setTemporaryAPI(null);
+            setViewMode('api');
+          } else {
+            projectManager.clear();
+            setHasProject(false);
+            setCurrentProfile(null);
+          }
+        }
+
+        setSaveMessage(`项目 "${projectName}" 已删除`);
+        setTimeout(() => setSaveMessage(''), 2000);
+      },
+      onCancel: () => {},
+      onValueChange: setDeleteConfirmValue,
+      confirmLabel: '删除'
+    });
+    setShowInputDialog(true);
+  }, [currentProjectDir]);
+
   // 创建新项目
   const handleNewProject = useCallback(async () => {
     // 先弹出输入框让用户输入项目名称
@@ -409,9 +562,10 @@ function App() {
           return;
         }
 
-        // 更新项目列表
+        // 更新项目列表和当前项目目录
         const projects = await projectManager.getDirProjects();
         setProjectList(projects);
+        setCurrentProjectDir(dirResult.path);
         
         setSaveMessage('新项目创建成功');
         setTimeout(() => setSaveMessage(''), 2000);
@@ -827,8 +981,6 @@ function App() {
             <EmptyState 
               onImportProject={handleImportProject}
               onNewProject={handleNewProject}
-              projectList={projectList}
-              onProjectSelect={handleProjectSelect}
             />
           )}
         </main>
@@ -842,7 +994,12 @@ function App() {
           onConfirm={inputDialogConfig.onConfirm}
           onCancel={inputDialogConfig.onCancel}
           onClose={() => setShowInputDialog(false)}
+          onValueChange={inputDialogConfig.onValueChange}
+          confirmDisabled={deleteProjectName ? deleteConfirmValue !== deleteProjectName : inputDialogConfig.confirmDisabled}
+          confirmLabel={inputDialogConfig.confirmLabel}
         />
+        
+
         
         {/* 确认对话框 */}
         <ConfirmDialog
@@ -1098,6 +1255,9 @@ function App() {
           viewModeValue={viewMode}
           projectList={projectList}
           onProjectSelect={handleProjectSwitch}
+          onAddProject={handleAddProject}
+          onRenameProject={handleRenameProject}
+          onDeleteProject={handleDeleteProject}
           showLeftPanel={showLeftPanel}
           onToggleLeftPanel={toggleLeftPanel}
           showCenterPanel={showCenterPanel}
@@ -1116,8 +1276,12 @@ function App() {
         onConfirm={inputDialogConfig.onConfirm}
         onCancel={inputDialogConfig.onCancel}
         onClose={() => setShowInputDialog(false)}
+        onValueChange={inputDialogConfig.onValueChange}
+        confirmDisabled={deleteProjectName ? deleteConfirmValue !== deleteProjectName : inputDialogConfig.confirmDisabled}
+        confirmLabel={inputDialogConfig.confirmLabel}
       />
       
+
       {/* 确认对话框 */}
       <ConfirmDialog
         isOpen={showConfirmDialog}

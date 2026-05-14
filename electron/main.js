@@ -281,6 +281,27 @@ ipcMain.handle('save-project-config', async (event, dirPath, projectId, config) 
   }
 });
 
+// 删除项目（递归删除项目目录并从 project.json 移除）
+ipcMain.handle('delete-project', async (event, dirPath, projectId) => {
+  try {
+    const projectDir = path.join(dirPath, projectId);
+    if (fs.existsSync(projectDir)) {
+      fs.rmSync(projectDir, { recursive: true, force: true });
+    }
+    // 更新 project.json
+    const projectJsonPath = path.join(dirPath, 'project.json');
+    if (fs.existsSync(projectJsonPath)) {
+      const content = fs.readFileSync(projectJsonPath, 'utf-8');
+      const data = JSON.parse(content);
+      data.projects = (data.projects || []).filter(p => p.id !== projectId);
+      fs.writeFileSync(projectJsonPath, JSON.stringify(data, null, 2), 'utf-8');
+    }
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
 // 新版：读取 API 配置（per-API 文件）
 ipcMain.handle('read-api-config', async (event, dirPath, projectId, apiId) => {
   try {

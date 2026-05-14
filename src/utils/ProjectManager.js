@@ -125,6 +125,41 @@ class ProjectManager {
     }
   }
 
+  // ── 增量添加项目到工作空间缓存（不重新加载整个工作空间） ──
+
+  async addProjectToWorkspace(dirPath, projectName) {
+    try {
+      const result = await window.electron.createNewProject(dirPath, projectName);
+      if (!result.success) {
+        return { success: false, error: result.error };
+      }
+
+      const projectId = result.projectId;
+
+      const configResult = await window.electron.readProjectConfig(dirPath, projectId);
+      if (!configResult.success) {
+        return { success: false, error: '读取项目配置失败' };
+      }
+
+      this.projects[projectId] = {
+        config: configResult.data,
+        dirPath,
+        projectName: configResult.data.projectName || projectName,
+        apiDataCache: {},
+        apiHistoryCache: {},
+        isDirty: false,
+        dirtyApiConfigs: new Set()
+      };
+
+      await this.scanDirectory(dirPath);
+
+      return { success: true, project: { projectId, name: projectName } };
+    } catch (error) {
+      console.error('添加项目失败:', error);
+      return { success: false, error: error.message };
+    }
+  }
+
   // ── 加载工作空间（配置目录，包含多个项目） ──
 
   async loadWorkspace(dirPath, onProgress) {
@@ -329,13 +364,6 @@ class ProjectManager {
           });
         }
         const apiConfig = deepClone(api);
-        const indexEntry = {
-          id: api.id,
-          name: api.name || '',
-          group: api.group || null,
-          deleted: false
-        };
-
         try {
           await window.electron.writeAPIConfig(apisDir, projectId, api.id, apiConfig);
         } catch (e) {
@@ -343,12 +371,12 @@ class ProjectManager {
         }
 
         Object.keys(api).forEach(k => {
-          if (!['id', 'name', 'group'].includes(k)) {
+          if (!['id', 'name', 'method', 'group'].includes(k)) {
             delete api[k];
           }
         });
         api.deleted = false;
-        Object.assign(api, indexEntry);
+        if (!api.method) api.method = apiConfig.method || 'GET';
       }
     }
 
@@ -610,6 +638,7 @@ class ProjectManager {
     const updatedEntry = {
       id: oldEntry.id,
       name: newData.name !== undefined ? newData.name : oldEntry.name,
+      method: newData.method !== undefined ? newData.method : oldEntry.method,
       group: newData.group !== undefined ? newData.group : oldEntry.group,
       deleted: oldEntry.deleted || false
     };
@@ -630,6 +659,7 @@ class ProjectManager {
     const indexEntry = {
       id: api.id,
       name: api.name || '',
+      method: api.method || 'GET',
       group: api.group || null,
       deleted: false
     };
