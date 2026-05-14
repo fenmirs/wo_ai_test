@@ -638,7 +638,7 @@ function App() {
   const handleAPISelect = async (api) => {
     checkDraftThen(async () => {
       let fullData = api;
-      if (api.id && !api.api_path && !api.method) {
+      if (api.id) {
         const loaded = await projectManager.loadAPIData(api.id);
         if (loaded) fullData = loaded;
       }

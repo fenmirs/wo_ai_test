@@ -31,8 +31,6 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     deleted: false,
-    method: 'GET',
-    apiPath: '',
     header: [],
     param: [],
     body: {
@@ -293,7 +291,9 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
   const initializeFromApi = (apiData) => {
     const defaultHeader = {};
-    if (!apiData.header?.['Content-Type']) {
+    if (apiData.header?.['Content-Type'] !== undefined) {
+      defaultHeader['Content-Type'] = apiData.header['Content-Type'];
+    } else {
       defaultHeader['Content-Type'] = 'application/json';
     }
 
@@ -303,7 +303,9 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         .map(a => ({ expression: a, enabled: true }));
     };
 
+    // API-level method and path
     const apiPath = apiData.api_path || '';
+    const apiMethod = apiData.method || 'GET';
     const isFullUrl = apiPath.startsWith('http://') || apiPath.startsWith('https://');
 
     // Parse scenarios from API data
@@ -318,12 +320,10 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       }
       activeScenarioId = scenarios[0].id;
     } else {
-      // Legacy format: create default scenario from top-level fields
+      // Legacy / temporary format: create default scenario from top-level fields
       const parsedParam = parseToArray(apiData.param);
       const parsedHeader = parseToArray({ ...defaultHeader, ...apiData.header });
       const defaultScn = createEmptyScenario('scn_default', '默认场景', '首次自动创建');
-      defaultScn.method = apiData.method || 'GET';
-      defaultScn.apiPath = apiPath;
       defaultScn.header = parsedHeader;
       defaultScn.param = parsedParam;
       defaultScn.body = parseBodyData(apiData.body, { ...defaultHeader, ...apiData.header });
@@ -340,8 +340,8 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       id: apiData.id,
       name: apiData.name || '',
       group: apiData.group || '默认',
-      api_path: firstScenario?.apiPath || apiPath,
-      method: firstScenario?.method || apiData.method || 'GET',
+      api_path: apiPath,
+      method: apiMethod,
       header: firstScenario?.header || parseToArray({ ...defaultHeader, ...apiData.header }),
       param: firstScenario?.param || parseToArray(apiData.param),
       body: firstScenario?.body || parseBodyData(apiData.body, { ...defaultHeader, ...apiData.header }),
@@ -377,10 +377,11 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         .map(a => ({ expression: a, enabled: true }));
     };
 
-    // Create a restored scenario
+    // API-level method/path from history (not per-scenario)
+    const apiMethod = cfg.method || 'GET';
+    const apiPath = cfg.api_path || '';
+
     const restoredScn = createEmptyScenario('scn_restored', '已恢复', `从历史记录恢复 - ${historyEntry.timestamp}`);
-    restoredScn.method = cfg.method || 'GET';
-    restoredScn.apiPath = cfg.api_path || '';
     restoredScn.header = parseToArray({ ...defaultHeader, ...cfg.header });
     restoredScn.param = parseToArray(cfg.param);
     restoredScn.body = parseBodyData(cfg.body, { ...defaultHeader, ...cfg.header });
@@ -392,15 +393,14 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     setFormData({
       name: cfg.name || '',
       group: cfg.group || '默认',
-      api_path: cfg.api_path || '',
-      method: cfg.method || 'GET',
+      api_path: apiPath,
+      method: apiMethod,
       header: parseToArray({ ...defaultHeader, ...cfg.header }),
       param: parseToArray(cfg.param),
       body: parseBodyData(cfg.body, { ...defaultHeader, ...cfg.header }),
       assertions: parseAssertions(cfg.successAssert)
     });
 
-    const apiPath = cfg.api_path || '';
     const isFullUrl = apiPath.startsWith('http://') || apiPath.startsWith('https://');
     if (isFullUrl) {
       setUrlSegments([{ type: 'text', value: apiPath }]);
@@ -521,8 +521,6 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   };
 
   const formToScenarioData = () => ({
-    method: formData.method,
-    apiPath: formData.api_path,
     header: formData.header,
     param: formData.param,
     body: formData.body,
@@ -533,8 +531,6 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     if (!scenario) return;
     setFormData(prev => ({
       ...prev,
-      method: scenario.method || 'GET',
-      api_path: scenario.apiPath || '',
       header: scenario.header || [],
       param: scenario.param || [],
       body: scenario.body || {
@@ -586,7 +582,6 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     };
     setScenarioList(prev => [...prev, newScenario]);
     setCurrentScenarioId(newId);
-    // Form data already reflects current scenario, no change needed
   };
 
   const renameScenario = (scenarioId, newName) => {
@@ -980,14 +975,12 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       .map(a => a.expression.trim())
       .join('; ');
 
-    // Build scenarios object from scenarioList
+    // Build scenarios object from scenarioList (scenarios no longer carry method/apiPath)
     const scenarios = {};
     const updatedList = scenarioList.map(s => {
       if (s.id === currentScenarioId) {
         return {
           ...s,
-          method: formData.method,
-          apiPath: formData.api_path,
           header: formData.header,
           param: formData.param,
           body: formData.body,

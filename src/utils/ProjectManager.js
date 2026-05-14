@@ -371,7 +371,7 @@ class ProjectManager {
         }
 
         Object.keys(api).forEach(k => {
-          if (!['id', 'name', 'method', 'group'].includes(k)) {
+          if (!['id', 'name', 'method', 'api_path', 'group'].includes(k)) {
             delete api[k];
           }
         });
@@ -639,13 +639,23 @@ class ProjectManager {
       id: oldEntry.id,
       name: newData.name !== undefined ? newData.name : oldEntry.name,
       method: newData.method !== undefined ? newData.method : oldEntry.method,
+      api_path: newData.api_path !== undefined ? newData.api_path : (oldEntry.api_path || ''),
       group: newData.group !== undefined ? newData.group : oldEntry.group,
       deleted: oldEntry.deleted || false
     };
     proj.config.apis[index] = updatedEntry;
 
-    // 只更新缓存 + 标记脏
-    proj.apiDataCache[apiId] = deepClone(newData);
+    // 合并缓存：API 级字段覆盖，保留 scenarios
+    const existingCache = proj.apiDataCache[apiId] || {};
+    const apiConfig = {
+      id: newData.id || oldEntry.id,
+      name: newData.name !== undefined ? newData.name : (existingCache.name || oldEntry.name),
+      method: newData.method !== undefined ? newData.method : (existingCache.method || oldEntry.method),
+      api_path: newData.api_path !== undefined ? newData.api_path : (existingCache.api_path || ''),
+      group: newData.group !== undefined ? newData.group : (existingCache.group || oldEntry.group || null),
+      scenarios: newData.scenarios || existingCache.scenarios || {}
+    };
+    proj.apiDataCache[apiId] = deepClone(apiConfig);
     proj.dirtyApiConfigs.add(apiId);
     this.markDirty();
   }
@@ -660,12 +670,23 @@ class ProjectManager {
       id: api.id,
       name: api.name || '',
       method: api.method || 'GET',
+      api_path: api.api_path || '',
       group: api.group || null,
       deleted: false
     };
 
     proj.config.apis.push(indexEntry);
-    proj.apiDataCache[api.id] = deepClone(api);
+
+    // Per-API config: 只存 API 级字段 + scenarios
+    const apiConfig = {
+      id: api.id,
+      name: api.name || '',
+      method: api.method || 'GET',
+      api_path: api.api_path || '',
+      group: api.group || null,
+      scenarios: api.scenarios || {}
+    };
+    proj.apiDataCache[api.id] = deepClone(apiConfig);
     proj.dirtyApiConfigs.add(api.id);
     this.markDirty();
   }

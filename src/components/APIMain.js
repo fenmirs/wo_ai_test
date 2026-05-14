@@ -376,25 +376,18 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
       const idMatch = api.id && api.id.toLowerCase().includes(lowerQuery);
       const groupMatch = matchedGroupIds.has(api.group);
 
-      // 路径和场景名搜索：直接从预加载的缓存中读取
-      let pathMatch = false;
+      // 路径搜索直接从索引 api.api_path (Phase 3 优化：不再需要加载 per-API 缓存)
+      const pathMatch = !!(api.api_path && api.api_path.toLowerCase().includes(lowerQuery));
+
+      // 场景名搜索仍需缓存
       let scenarioMatch = false;
-      if (api.id) {
+      if (api.id && !pathMatch) {
         const config = projectManager._apiDataCache[api.id];
-        if (config) {
-          if (config.api_path && config.api_path.toLowerCase().includes(lowerQuery)) {
-            pathMatch = true;
-          }
-          if (config.scenarios) {
-            for (const scn of Object.values(config.scenarios)) {
-              if (scn) {
-                if (scn.apiPath && scn.apiPath.toLowerCase().includes(lowerQuery)) {
-                  pathMatch = true;
-                }
-                if (scn.name && scn.name.toLowerCase().includes(lowerQuery)) {
-                  scenarioMatch = true;
-                }
-              }
+        if (config && config.scenarios) {
+          for (const scn of Object.values(config.scenarios)) {
+            if (scn && scn.name && scn.name.toLowerCase().includes(lowerQuery)) {
+              scenarioMatch = true;
+              break;
             }
           }
         }

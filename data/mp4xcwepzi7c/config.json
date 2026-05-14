@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "projectName": "222",
+  "profile": [
+    {
+      "activate": true,
+      "name": "dev",
+      "domain": "localhost",
+      "api-prj": ":8080/api",
+      "lcgl-prj": ""
+    },
+    {
+      "name": "测试环境",
+      "activate": false,
+      "domain": "https://192.168.2.213",
+      "api-prj": "",
+      "lcgl-prj": ":23200/lcgl-prj"
+    }
+  ],
+  "groups": [],
+  "apis": [
+    {
+      "id": "api_1778729108226_1ztdonnj4",
+      "name": "获取token",
+      "method": "POST",
+      "api_path": "{domain}{api-prj}/openapi/security/token",
+      "group": "default",
+      "deleted": false
+    },
+    {
+      "id": "api_mp4xgtj5de5f0",
+      "name": "是否可测试",
+      "method": "POST",
+      "api_path": "{domain}{lcgl-prj}/pmi/iv/testAble",
+      "group": "default",
+      "deleted": false
+    }
+  ]
+}
