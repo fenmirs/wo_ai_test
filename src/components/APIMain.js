@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { Search, Folder, FolderOpen, Plus, Trash2, FolderPlus, ChevronRight, ChevronDown, MoreHorizontal, Copy, Edit, X } from 'lucide-react';
+import { Search, Folder, FolderOpen, Plus, Trash2, FolderPlus, ChevronRight, ChevronDown, MoreHorizontal, Copy, Edit, X, Layers } from 'lucide-react';
 import { projectManager } from '../utils/ProjectManager';
 import './APIMain.css';
 
-function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, onEdit, onDelete, onAddGroup, onDeleteGroup, onGroupSelect, onMoveToGroup, onRenameGroup, onMoveGroup, onCopyAPI, onCopyGroup }) {
+function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, onEdit, onDelete, onAddGroup, onDeleteGroup, onGroupSelect, onMoveToGroup, onRenameGroup, onMoveGroup, onCopyAPI, onCopyGroup, onScenarioSelect, onAddScenario, onDeleteScenario, zenMode, zenApiId, currentScenarioId }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [dragAPI, setDragAPI] = useState(null);
   const [dragGroup, setDragGroup] = useState(null);
@@ -11,9 +11,16 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
   const [editingGroup, setEditingGroup] = useState(null);
   const [newGroupName, setNewGroupName] = useState('');
   const [expandedGroups, setExpandedGroups] = useState(new Set());
+  const [expandedScenarioApis, setExpandedScenarioApis] = useState(new Set());
   const [operationMenu, setOperationMenu] = useState({ visible: false, type: null, data: null, buttonRef: null });
   const [refPopup, setRefPopup] = useState({ visible: false, api: null, data: null, loading: false });
+  const [editingApiId, setEditingApiId] = useState(null);
+  const [editingApiName, setEditingApiName] = useState('');
+  const [editingScenarioKey, setEditingScenarioKey] = useState(null);
+  const [editingScenarioName, setEditingScenarioName] = useState('');
   const editInputRef = useRef(null);
+  const editApiInputRef = useRef(null);
+  const editScenarioInputRef = useRef(null);
   const operationMenuRef = useRef(null);
   const refPopupRef = useRef(null);
 
@@ -66,12 +73,20 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
           if (onAdd) onAdd(group.id);
           break;
         case 'addSubGroup':
-          // 添加子分组，父分组为当前分组
-          if (onAddGroup) onAddGroup(group.id);
+          projectManager.addGroup('新分组', group.id);
+          {
+            const groups = projectManager._activeProject?.config?.groups || [];
+            const newGroup = groups.filter(g => g.parentId === group.id).pop();
+            if (newGroup) { setEditingGroup(newGroup.id); setNewGroupName('新分组'); }
+          }
           break;
         case 'addSiblingGroup':
-          // 添加同级分组，父分组和当前分组相同
-          if (onAddGroup) onAddGroup(group.parentId || null);
+          projectManager.addGroup('新分组', group.parentId || null);
+          {
+            const groups = projectManager._activeProject?.config?.groups || [];
+            const newGroup = groups.filter(g => g.parentId === (group.parentId || null)).pop();
+            if (newGroup) { setEditingGroup(newGroup.id); setNewGroupName('新分组'); }
+          }
           break;
         case 'rename':
           setEditingGroup(group.id);
@@ -114,10 +129,26 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
   // 编辑分组时自动聚焦
   useEffect(() => {
     if (editingGroup && editInputRef.current) {
-      editInputRef.current.focus();
+      editInputRef.current.focus({ preventScroll: true });
       editInputRef.current.select();
     }
   }, [editingGroup]);
+
+  // 编辑 API 名称时自动聚焦
+  useEffect(() => {
+    if (editingApiId && editApiInputRef.current) {
+      editApiInputRef.current.focus({ preventScroll: true });
+      editApiInputRef.current.select();
+    }
+  }, [editingApiId]);
+
+  // 编辑场景名称时自动聚焦
+  useEffect(() => {
+    if (editingScenarioKey && editScenarioInputRef.current) {
+      editScenarioInputRef.current.focus({ preventScroll: true });
+      editScenarioInputRef.current.select();
+    }
+  }, [editingScenarioKey]);
 
   // 处理分组名编辑完成
   const handleGroupRename = (groupId) => {
@@ -136,6 +167,38 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
     }
     setEditingGroup(null);
     setNewGroupName('');
+  };
+
+  const handleAPIRename = (apiId) => {
+    const trimmed = editingApiName.trim();
+    const api = apis.find(a => a.id === apiId);
+    if (!trimmed || !api || trimmed === api.name) {
+      setEditingApiId(null);
+      setEditingApiName('');
+      return;
+    }
+    projectManager.updateAPI(apiId, { name: trimmed });
+    if (projectManager._apiDataCache[apiId]) {
+      projectManager._apiDataCache[apiId].name = trimmed;
+    }
+    projectManager.markDirty();
+    setEditingApiId(null);
+    setEditingApiName('');
+  };
+
+  const handleScenarioRename = (apiId, scenarioId) => {
+    const trimmed = editingScenarioName.trim();
+    const config = projectManager._apiDataCache[apiId];
+    const scn = config?.scenarios?.[scenarioId];
+    if (!trimmed || !scn || trimmed === scn.name) {
+      setEditingScenarioKey(null);
+      setEditingScenarioName('');
+      return;
+    }
+    scn.name = trimmed;
+    projectManager.markDirty();
+    setEditingScenarioKey(null);
+    setEditingScenarioName('');
   };
 
   // 获取分组树形结构（默认分组作为常规组）
@@ -358,6 +421,17 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
     return suffix && suffix !== id ? `#${suffix}` : '';
   };
 
+  // 计算分组深度
+  const getGroupDepth = (groupId, groups) => {
+    let depth = 0;
+    let current = groups.find(g => g.id === groupId);
+    while (current && current.parentId) {
+      depth++;
+      current = groups.find(g => g.id === current.parentId);
+    }
+    return depth;
+  };
+
   // 搜索过滤：按名称、ID、组名、路径、场景名全内存搜索
   const getFilteredAPIs = (groupId) => {
     const groupAPIs = getAPIsInGroup(groupId);
@@ -397,6 +471,22 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
     });
   };
 
+  // 获取 API 的场景数量和列表
+  const getScenarioData = (apiId) => {
+    const config = projectManager._apiDataCache[apiId];
+    if (!config?.scenarios) return { count: 1, list: [] };
+    const scns = Object.values(config.scenarios).filter(s => !s.deleted);
+    return { count: scns.length, list: scns };
+  };
+
+  const toggleScenarioList = (apiId) => {
+    setExpandedScenarioApis(prev => {
+      const next = new Set(prev);
+      if (next.has(apiId)) next.delete(apiId); else next.add(apiId);
+      return next;
+    });
+  };
+
   // 获取方法颜色
   const getMethodColor = (method) => {
     const colors = {
@@ -427,11 +517,11 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
     }
 
     return (
-      <div key={groupId}>
+      <div key={groupId} className="group-wrapper" style={{ '--guide-x': `${8 + level * 8 + 5}px` }}>
         {/* 分组标题 */}
         <div
           className={`group-header ${isActive ? 'active' : ''} ${isDragOver ? 'drag-over' : ''} ${isDefault ? 'default-group' : ''} ${isDraggingGroup ? 'dragging' : ''}`}
-          style={{ paddingLeft: `${12 + level * 16}px` }}
+          style={{ paddingLeft: `${8 + level * 8}px` }}
           onClick={() => toggleGroup(groupId)}
           onDoubleClick={() => {
             if (!isDefault && onRenameGroup) {
@@ -460,13 +550,13 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
               setExpandedGroups(newExpanded);
             }}
           >
-            {isExpanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
+            {isExpanded ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
           </span>
 
           {isActive ? (
-            <FolderOpen size={16} className="group-icon" />
+            <FolderOpen size={14} className="group-icon" />
           ) : (
-            <Folder size={16} className="group-icon" />
+            <Folder size={14} className="group-icon" />
           )}
 
           {editingGroup === groupId ? (
@@ -497,15 +587,14 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
 
           <span className="group-count">{apiCount}</span>
 
-          {!editingGroup && (
             <button
               className="icon-btn operation-trigger"
+              style={{ visibility: editingGroup ? 'hidden' : 'visible' }}
               onClick={(e) => toggleOperationMenu(e, 'group', group)}
               title="操作"
             >
-              <MoreHorizontal size={14} />
+              <MoreHorizontal size={12} />
             </button>
-          )}
 
           {/* 分组拖拽手柄
           {!isDefault && !editingGroup && (
@@ -523,9 +612,13 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
         {/* API 列表 - 树形缩进 */}
         {isExpanded && (
           <div className="group-content">
-            {filteredAPIs.map(api => (
+            {filteredAPIs.map(api => {
+              const scnData = getScenarioData(api.id);
+              const hasMultiScenarios = scnData.count >= 2;
+              const isScnExpanded = hasMultiScenarios && expandedScenarioApis.has(api.id);
+              return (
+              <React.Fragment key={api.id || api.name}>
                 <div
-                  key={api.id || api.name}
                   className={`api-item ${
                     (selectedAPI?.id && api.id && selectedAPI.id === api.id) ||
                     (!api.id && selectedAPI?.name === api.name)
@@ -535,39 +628,114 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
                     (!api.id && dragAPI?.name === api.name)
                       ? 'dragging' : ''
                   }`}
-                  style={{ paddingLeft: `${12 + (level + 1) * 16}px` }}
+                  style={{ paddingLeft: `${8 + (level + 1) * 8}px` }}
                   draggable
                   onDragStart={(e) => handleDragStart(e, api)}
                   onDragEnd={handleDragEnd}
                   onClick={() => onSelect(api)}
+                  onDoubleClick={() => {
+                    if (api.id) {
+                      setEditingApiId(api.id);
+                      setEditingApiName(api.name);
+                    }
+                  }}
                 >
-                  <div className="api-header">
-                    <div className="api-info">
-                      <span className="api-name" title={api.name}>
-                        <span
-                          className="api-method"
-                          style={{ background: getMethodColor(api.method) }}
-                        >
-                          {api.method}
-                        </span>
-                        {api.name}
-                      </span>
-                      <span className="api-id-suffix">{getShortIdSuffix(api.id)}</span>
+                    <div className="api-header">
+                      <div className="api-info">
+                        <div className="api-info-row">
+                          <span
+                            className="api-expand-icon"
+                            onClick={(e) => { if (hasMultiScenarios) { e.stopPropagation(); toggleScenarioList(api.id); } }}
+                            style={{ visibility: hasMultiScenarios ? 'visible' : 'hidden' }}
+                          >
+                            {isScnExpanded ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
+                          </span>
+                          <span className="api-method-bar" style={{ background: getMethodColor(api.method) }} />
+                          {editingApiId === api.id ? (
+                            <input
+                              ref={editApiInputRef}
+                              type="text"
+                              className="group-name-edit"
+                              value={editingApiName}
+                              onClick={(e) => e.stopPropagation()}
+                              onChange={(e) => setEditingApiName(e.target.value)}
+                              onKeyDown={(e) => {
+                                if (e.key === 'Enter') { e.stopPropagation(); handleAPIRename(api.id); }
+                                else if (e.key === 'Escape') { e.stopPropagation(); setEditingApiId(null); setEditingApiName(''); }
+                              }}
+                              onBlur={() => { handleAPIRename(api.id); }}
+                            />
+                          ) : (
+                            <span className="api-name" title={`${api.name}\nID: ${api.id}`}>
+                              {api.name}
+                            </span>
+                          )}
+                          <span className="scenario-count-badge" title={`${scnData.count} 个场景`}>
+                            <Layers size={11} />
+                            {scnData.count}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="api-actions">
+                      <button
+                        className="icon-btn operation-trigger"
+                        onClick={(e) => toggleOperationMenu(e, 'api', api)}
+                        title="操作"
+                      >
+                        <MoreHorizontal size={12} />
+                      </button>
                     </div>
                   </div>
-                  <div className="api-actions">
-                    <button
-                      className="icon-btn operation-trigger"
-                      onClick={(e) => toggleOperationMenu(e, 'api', api)}
-                      title="操作"
-                    >
-                      <MoreHorizontal size={14} />
-                    </button>
+                {/* 场景子列表 */}
+                {isScnExpanded && (
+                  <div className="scenario-sublist">
+                    {scnData.list.map(scn => (
+                      <div
+                        key={scn.id}
+                        className={`scenario-item ${currentScenarioId === scn.id && selectedAPI?.id === api.id ? 'active' : ''}`}
+                        style={{ paddingLeft: `${8 + (level + 1) * 8}px` }}
+                        onClick={() => onScenarioSelect?.(api, scn.id)}
+                        onDoubleClick={(e) => { e.stopPropagation(); setEditingScenarioKey(`${api.id}:${scn.id}`); setEditingScenarioName(scn.name); }}
+                      >
+                        <span className="scenario-dot" />
+                        {editingScenarioKey === `${api.id}:${scn.id}` ? (
+                          <input
+                            ref={editScenarioInputRef}
+                            type="text"
+                            className="group-name-edit"
+                            value={editingScenarioName}
+                            onClick={(e) => e.stopPropagation()}
+                            onChange={(e) => setEditingScenarioName(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') { e.stopPropagation(); handleScenarioRename(api.id, scn.id); }
+                              else if (e.key === 'Escape') { e.stopPropagation(); setEditingScenarioKey(null); setEditingScenarioName(''); }
+                            }}
+                            onBlur={() => { handleScenarioRename(api.id, scn.id); }}
+                            style={{ fontSize: '11px' }}
+                          />
+                        ) : (
+                          <span className="scenario-item-name" title={scn.description || scn.name}>
+                            {scn.name}
+                          </span>
+                        )}
+                        <button
+                          className="scenario-item-del icon-btn"
+                          onClick={(e) => { e.stopPropagation(); onDeleteScenario?.(api.id, scn.id); }}
+                          title="删除场景"
+                        >
+                          <Trash2 size={11} />
+                        </button>
+                      </div>
+                    ))}
                   </div>
-                </div>
-            ))}
+                )}
+              </React.Fragment>
+              );
+            })}
           </div>
         )}
+        {/* Need React import for Fragment */}
 
         {/* 递归渲染子分组 */}
         {hasChildren && isExpanded && (
@@ -677,7 +845,57 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
 
       {/* API 列表 */}
       <div className="api-list">
-        {getGroupTree().map(group => renderGroup(group, 0))}
+        {zenMode && zenApiId ? (
+          <div className="zen-scenario-list">
+            <div className="zen-header">
+              <span className="zen-title">专注模式</span>
+              <button className="icon-btn" onClick={() => onSelect?.({ id: zenApiId })} title="退出专注模式">
+                <X size={14} />
+              </button>
+            </div>
+            {(() => {
+              const scnData = getScenarioData(zenApiId);
+              const apiEntry = apis.find(a => a.id === zenApiId);
+              return scnData.list.map(scn => (
+                <div
+                  key={scn.id}
+                  className={`scenario-item zen-scenario-item ${currentScenarioId === scn.id ? 'active' : ''}`}
+                  onClick={() => onScenarioSelect?.({ id: zenApiId, ...apiEntry }, scn.id)}
+                  onDoubleClick={() => { setEditingScenarioKey(`${zenApiId}:${scn.id}`); setEditingScenarioName(scn.name); }}
+                >
+                  <span className="scenario-dot" />
+                  {editingScenarioKey === `${zenApiId}:${scn.id}` ? (
+                    <input
+                      ref={editScenarioInputRef}
+                      type="text"
+                      className="group-name-edit"
+                      value={editingScenarioName}
+                      onClick={(e) => e.stopPropagation()}
+                      onChange={(e) => setEditingScenarioName(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') { e.stopPropagation(); handleScenarioRename(zenApiId, scn.id); }
+                        else if (e.key === 'Escape') { e.stopPropagation(); setEditingScenarioKey(null); setEditingScenarioName(''); }
+                      }}
+                      onBlur={() => { handleScenarioRename(zenApiId, scn.id); }}
+                      style={{ fontSize: '11px' }}
+                    />
+                  ) : (
+                    <span className="scenario-item-name">{scn.name}</span>
+                  )}
+                  <button
+                    className="scenario-item-del icon-btn"
+                    onClick={(e) => { e.stopPropagation(); onDeleteScenario?.(zenApiId, scn.id); }}
+                    title="删除场景"
+                  >
+                    <Trash2 size={11} />
+                  </button>
+                </div>
+              ));
+            })()}
+          </div>
+        ) : (
+          getGroupTree().map(group => renderGroup(group, 0))
+        )}
       </div>
 
       {/* 操作菜单 */}
@@ -693,10 +911,12 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
                 <Plus size={14} />
                 <span>添加 API</span>
               </div>
-              <div className="operation-menu-item" onClick={() => { handleOperationMenuAction('addSubGroup'); }}>
-                <FolderPlus size={14} />
-                <span>添加子分组</span>
-              </div>
+              {getGroupDepth(operationMenu.data?.id, groupsData) < 6 && (
+                <div className="operation-menu-item" onClick={() => { handleOperationMenuAction('addSubGroup'); }}>
+                  <FolderPlus size={14} />
+                  <span>添加子分组</span>
+                </div>
+              )}
               <div className="operation-menu-item" onClick={() => { handleOperationMenuAction('addSiblingGroup'); }}>
                 <FolderPlus size={14} />
                 <span>添加同级分组</span>
@@ -728,6 +948,10 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
               <div className="operation-menu-item" onClick={() => handleOperationMenuAction('copyId')}>
                 <Copy size={14} />
                 <span>复制 ID</span>
+              </div>
+              <div className="operation-menu-item" onClick={() => { setOperationMenu({ visible: false, type: null, data: null, buttonRef: null }); onAddScenario?.(operationMenu.data); }}>
+                <Plus size={14} />
+                <span>添加场景</span>
               </div>
               <div className="operation-menu-item" onClick={() => handleOperationMenuAction('viewRefs')}>
                 <Search size={14} />

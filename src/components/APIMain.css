@@ -9,8 +9,8 @@
 .search-bar {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
+  gap: 6px;
+  padding: 6px 10px;
   background: var(--bg-primary);
   border-bottom: 1px solid var(--border-color);
   flex-shrink: 0;
@@ -109,7 +109,7 @@
 .api-list {
   flex: 1;
   overflow-y: auto;
-  padding: 0 12px 12px;
+  padding: 0 8px 8px;
   min-height: 0;
 }
 
@@ -120,8 +120,8 @@
 .group-header {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 6px;
+  gap: 4px;
+  padding: 2px 4px;
   background: var(--bg-secondary);
   border-radius: 6px;
   cursor: pointer;
@@ -157,8 +157,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 16px;
-  height: 16px;
+  width: 12px;
+  height: 12px;
   flex-shrink: 0;
   color: var(--text-muted);
   cursor: pointer;
@@ -177,6 +177,7 @@
   flex: 1;
   font-size: 13px;
   font-weight: 500;
+  line-height: 20px;
   color: var(--text-secondary);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -188,31 +189,57 @@
   flex: 1;
   font-size: 13px;
   font-weight: 500;
-  padding: 2px 4px;
+  line-height: normal;
+  padding: 0 3px;
   border: 1px solid var(--accent-primary);
   border-radius: 3px;
   background: var(--bg-primary);
   color: var(--text-primary);
   outline: none;
   min-width: 0;
+  box-sizing: border-box;
+  height: 20px;
 }
 
 .group-count {
   font-size: 11px;
   color: var(--text-muted);
   background: var(--bg-primary);
-  padding: 2px 8px;
+  padding: 1px 6px;
   border-radius: 10px;
   flex-shrink: 0;
+}
+
+.group-content,
+.group-children {
+  position: relative;
+}
+
+.group-content::before,
+.group-children::before {
+  content: '';
+  position: absolute;
+  left: calc(var(--guide-x, 13px));
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: transparent;
+  transition: background 0.12s;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.group-wrapper:hover .group-content::before,
+.group-wrapper:hover .group-children::before {
+  background: var(--border-color);
 }
 
 .group-content {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
   margin-top: 2px;
   min-height: 0;
-  padding-left: 8px;
 }
 
 .group-children {
@@ -222,13 +249,12 @@
 .api-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 4px 4px;
+  gap: 4px;
+  padding: 3px 4px;
   background: var(--bg-secondary);
   border-radius: 6px;
   cursor: pointer;
-  transition: all 0.2s;
-  border-left: 3px solid transparent;
+  transition: all 0.15s;
   position: relative;
   flex-shrink: 0;
 }
@@ -254,21 +280,9 @@
 .api-header {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
   min-width: 0;
   flex: 1;
-}
-
-.api-method {
-  font-size: 11px;
-  font-weight: 700;
-  padding: 2px 4px;
-  margin-right: 2px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-  font-family: 'Courier New', monospace;
-  flex-shrink: 0;
-  color: #ffffff;
 }
 
 .api-info {
@@ -290,7 +304,7 @@
 }
 
 .api-path {
-  font-size: 11px;
+  font-size: 10px;
   color: var(--text-muted);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -298,16 +312,9 @@
   min-width: 0;
 }
 
-.api-id-suffix {
-  font-size: 10px;
-  color: var(--text-muted);
-  font-family: monospace;
-  opacity: 0.7;
-}
-
 .api-actions {
   display: flex;
-  gap: 4px;
+  gap: 2px;
   opacity: 0;
   transition: opacity 0.2s;
   flex-shrink: 0;
@@ -381,6 +388,164 @@
 
 .placeholder button:hover {
   background: var(--accent-hover);
+}
+
+/* API method color bar */
+.api-method-bar {
+  width: 3px;
+  height: 12px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  margin: 0 3px;
+}
+
+/* API info row - inline items */
+.api-info-row {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+  width: 100%;
+}
+
+/* Scenario expand icon within api-info */
+.api-expand-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.api-expand-icon:hover {
+  color: var(--text-primary);
+}
+
+/* Scenario count badge */
+.scenario-count-badge {
+  position: absolute;
+  right: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 1px 4px;
+  background: var(--bg-tertiary);
+  border-radius: 8px;
+  font-size: 10px;
+  color: var(--text-muted);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* Scenario sublist */
+.scenario-sublist {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 2px 0 2px 20px;
+}
+
+/* Scenario item */
+.scenario-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: transparent;
+}
+
+.scenario-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.scenario-item:hover {
+  background: var(--bg-hover);
+}
+
+.scenario-item.active {
+  background: var(--bg-active);
+  color: var(--accent-primary);
+}
+
+.scenario-item-name {
+  flex: 1;
+  font-size: 11px;
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.scenario-item.active .scenario-item-name {
+  color: var(--accent-primary);
+}
+
+.scenario-item-del {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+  flex-shrink: 0;
+}
+
+.scenario-item:hover .scenario-item-del {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Zen mode */
+.zen-scenario-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px;
+}
+
+.zen-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 6px 8px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.zen-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.zen-scenario-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.zen-scenario-item:hover {
+  background: var(--bg-hover);
+}
+
+.zen-scenario-item.active {
+  background: var(--bg-active);
+  color: var(--accent-primary);
 }
 
 /* 拖拽预览 */

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Globe, Variable, ChevronUp, Settings2, FolderKanban, Save, XCircle, Sun, Moon, History, LogOut, Bell, CheckCheck, Trash2, PanelLeft, Columns, PanelRight, Bug, FolderOpen, Plus, Pencil } from 'lucide-react';
+import { Globe, Variable, ChevronUp, Settings2, FolderKanban, Save, XCircle, Sun, Moon, History, LogOut, Bell, CheckCheck, Trash2, PanelLeft, Columns, PanelRight, Bug, FolderOpen, Plus, Pencil, Layers } from 'lucide-react';
 import { notificationManager } from '../utils/NotificationManager';
 import { projectManager } from '../utils/ProjectManager';
 import './BottomBar.css';
@@ -29,7 +29,9 @@ function BottomBar({
   showCenterPanel,
   onToggleCenterPanel,
   showRightPanel,
-  onToggleRightPanel
+  onToggleRightPanel,
+  zenMode,
+  onToggleZenMode
 }) {
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const [showProjectDropdown, setShowProjectDropdown] = useState(false);
@@ -298,6 +300,14 @@ function BottomBar({
         <PanelRight size={13} />
       </button>
 
+      <div className="bar-separator"></div>
+        <button
+          className={`bar-btn ${zenMode ? 'active' : ''}`}
+          onClick={onToggleZenMode}
+          title={zenMode ? '退出专注模式' : '专注模式'}
+        >
+          <Layers size={14} />
+        </button>
       <div className="bar-separator"></div>
         <button
           className="bar-btn"

@@ -105,83 +105,94 @@
 
 /* URL 栏 */
 /* 场景切换栏 */
-.scenario-bar {
+.scenario-description {
   display: flex;
-  align-items: center;
-  padding: 4px 12px;
+  align-items: flex-start;
+  padding: 6px 12px;
   border-bottom: 1px solid var(--border-color);
   flex-shrink: 0;
-  gap: 6px;
+  gap: 8px;
   background: var(--bg-secondary);
 }
 
-.scenario-label {
-  font-size: 11px;
-  color: var(--text-secondary);
-  white-space: nowrap;
-  font-weight: 500;
-}
-
-.scenario-tabs {
+.scenario-meta {
   display: flex;
-  gap: 2px;
+  flex-direction: column;
+  gap: 4px;
   flex: 1;
-  overflow-x: auto;
 }
 
-.scenario-tab {
-  display: flex;
-  align-items: center;
-  padding: 2px 8px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 11px;
-  color: var(--text-secondary);
-  white-space: nowrap;
-  border: 1px solid transparent;
-  transition: all 0.15s;
+.scenario-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
 }
 
-.scenario-tab:hover {
-  background: var(--bg-hover);
-  color: var(--text-primary);
-}
-
-.scenario-tab.active {
-  background: var(--bg-active);
-  color: var(--text-primary);
-  border-color: var(--accent-color);
-}
-
-.scenario-name-input {
+.scenario-name-edit {
   background: transparent;
   border: none;
-  color: inherit;
-  font-size: 11px;
-  width: auto;
-  min-width: 40px;
-  max-width: 120px;
+  border-bottom: 1px solid transparent;
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 2px 0;
   outline: none;
-  cursor: pointer;
+  width: 100%;
+  transition: border-color 0.15s;
 }
 
-.scenario-name-input:focus {
-  cursor: text;
-  border-bottom: 1px solid var(--accent-color);
+.scenario-name-edit:focus {
+  border-bottom-color: var(--accent-color);
+}
+
+.scenario-desc-input {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  font-size: 11px;
+  padding: 4px 6px;
+  outline: none;
+  resize: vertical;
+  min-height: 28px;
+  max-height: 60px;
+  border-radius: 4px;
+  transition: border-color 0.15s;
+  font-family: inherit;
+  line-height: 1.4;
+  width: 100%;
+}
+
+.scenario-desc-input:focus {
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.scenario-desc-input::placeholder {
+  color: var(--text-muted);
+}
+
+.scenario-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+  padding-top: 18px;
 }
 
 .scenario-add-btn {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 4px;
   background: none;
   border: 1px dashed var(--border-color);
   color: var(--text-secondary);
   border-radius: 4px;
-  padding: 2px 6px;
+  padding: 3px 8px;
   cursor: pointer;
   font-size: 11px;
   transition: all 0.15s;
+  white-space: nowrap;
 }
 
 .scenario-add-btn:hover {
@@ -192,15 +203,16 @@
 .scenario-del-btn {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 4px;
   background: none;
   border: none;
   color: var(--text-muted);
   border-radius: 4px;
-  padding: 2px 6px;
+  padding: 3px 8px;
   cursor: pointer;
   font-size: 11px;
   transition: all 0.15s;
+  white-space: nowrap;
 }
 
 .scenario-del-btn:hover {

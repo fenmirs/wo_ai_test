@@ -768,15 +768,12 @@ class ProjectManager {
 
     if (!proj.config.groups) proj.config.groups = [];
 
-    const exists = proj.config.groups.find(g => g.name === groupName && g.parentId === parentId);
-    if (!exists) {
-      proj.config.groups.push({
-        id: generateId('group'),
-        name: groupName,
-        parentId: parentId
-      });
-      this.markDirty();
-    }
+    proj.config.groups.push({
+      id: generateId('group'),
+      name: groupName,
+      parentId: parentId
+    });
+    this.markDirty();
   }
 
   copyGroup(groupId, newParentId = null) {

@@ -17,7 +17,118 @@
       "lcgl-prj": ":23200/lcgl-prj"
     }
   ],
-  "groups": [],
+  "groups": [
+    {
+      "id": "group_mp53nbu6hkdnx",
+      "name": "fff",
+      "parentId": "default"
+    },
+    {
+      "id": "group_mp53ni938nw9c",
+      "name": "dd",
+      "parentId": "group_mp53nbu6hkdnx"
+    },
+    {
+      "id": "group_mp53nkpxcf0e8",
+      "name": "ccc",
+      "parentId": "group_mp53ni938nw9c"
+    },
+    {
+      "id": "group_mp53noaljej79",
+      "name": "vvv1",
+      "parentId": "group_mp53nkpxcf0e8"
+    },
+    {
+      "id": "group_mp57yx3pbn2l9",
+      "name": "111",
+      "parentId": "group_mp53noaljej79"
+    },
+    {
+      "id": "group_mp57z0ty0a9qi",
+      "name": "222",
+      "parentId": "group_mp57yx3pbn2l9"
+    },
+    {
+      "id": "group_mp57z5fpz5pkn",
+      "name": "112",
+      "parentId": "group_mp53noaljej79"
+    },
+    {
+      "id": "group_mp57zibhbnswk",
+      "name": "113",
+      "parentId": "group_mp53nbu6hkdnx"
+    },
+    {
+      "id": "group_mp58pesprvoka",
+      "name": "新分组",
+      "parentId": "group_mp57zibhbnswk"
+    },
+    {
+      "id": "group_mp58u36wfi6ag",
+      "name": "新分组",
+      "parentId": "group_mp57zibhbnswk"
+    },
+    {
+      "id": "group_mp58u52pg9b5q",
+      "name": "新分组",
+      "parentId": "group_mp57zibhbnswk"
+    },
+    {
+      "id": "group_mp594upzmxnhm",
+      "name": "fff(复制)",
+      "parentId": null
+    },
+    {
+      "id": "group_mp594upzfump1",
+      "name": "dd",
+      "parentId": "group_mp594upzmxnhm"
+    },
+    {
+      "id": "group_mp594upzhxcro",
+      "name": "ccc",
+      "parentId": "group_mp594upzfump1"
+    },
+    {
+      "id": "group_mp594upzygy24",
+      "name": "vvv",
+      "parentId": "group_mp594upzhxcro"
+    },
+    {
+      "id": "group_mp594upz3415v",
+      "name": "111",
+      "parentId": "group_mp594upzygy24"
+    },
+    {
+      "id": "group_mp594upzv0lrm",
+      "name": "222",
+      "parentId": "group_mp594upz3415v"
+    },
+    {
+      "id": "group_mp594upz7i47a",
+      "name": "112",
+      "parentId": "group_mp594upzygy24"
+    },
+    {
+      "id": "group_mp594upz6ml0v",
+      "name": "113",
+      "parentId": "group_mp594upzmxnhm"
+    },
+    {
+      "id": "group_mp594upzmzs6j",
+      "name": "新分组",
+      "parentId": "group_mp594upz6ml0v"
+    },
+    {
+      "id": "group_mp594upzqjoxl",
+      "name": "新分组",
+      "parentId": "group_mp594upz6ml0v"
+    },
+    {
+      "id": "group_mp594upzmnz7a",
+      "name": "新分组",
+      "parentId": "group_mp594upz6ml0v"
+    }
+  ],
   "apis": [
     {
       "id": "api_1778729108226_1ztdonnj4",
@@ -33,6 +144,22 @@
       "method": "POST",
       "api_path": "{domain}{lcgl-prj}/pmi/iv/testAble",
       "group": "default",
+      "deleted": false
+    },
+    {
+      "id": "api_mp58d87ogwzwv",
+      "name": "是否可测试(复制)1",
+      "method": "POST",
+      "api_path": "{domain}{lcgl-prj}/pmi/iv/testAble",
+      "group": "group_mp57z0ty0a9qi",
+      "deleted": false
+    },
+    {
+      "id": "api_mp594upzok7vk",
+      "name": "是否可测试(复制)",
+      "method": "POST",
+      "api_path": "{domain}{lcgl-prj}/pmi/iv/testAble",
+      "group": "group_mp594upzv0lrm",
       "deleted": false
     }
   ]

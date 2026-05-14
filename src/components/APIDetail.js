@@ -13,7 +13,7 @@ import BodyTreeEditor from './BodyTreeEditor';
 import { toast } from './Toast';
 import { useProgress } from './ProgressOverlay';
 
-function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, groups = [], isAdding = false, isTemporary = false, onViewDetail, onRestoreHistory, onDeleteHistory, theme = 'dark', onResultChange, onDraftChange }) {
+function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, groups = [], isAdding = false, isTemporary = false, onViewDetail, onRestoreHistory, onDeleteHistory, theme = 'dark', onResultChange, onDraftChange, requestedScenarioId, requestedScenarioAction, onScenarioChange, onRequestedScenarioActionHandled, onRequestedScenarioHandled }) {
   const [resolvedPath, setResolvedPath] = useState('');
   const [executionResult, setExecutionResult] = useState(null);
   const [isExecuting, setIsExecuting] = useState(false);
@@ -23,6 +23,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const fileInputRef = useRef(null);
   const executorRef = useRef(null);
   const initializedApiIdRef = useRef(null);
+  const pendingActionRef = useRef(null);
 
   const createEmptyScenario = (id, name, description) => ({
     id: id || `scn_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
@@ -102,7 +103,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       }
       initializedApiIdRef.current = api.id;
       console.log(`[APIDetail] useEffect(api) fired, api.id=${api.id}, api.name=${api.name}, api.param=`, JSON.stringify(api.param));
-      initializeFromApi(api);
+      initializeFromApi(api, requestedScenarioId);
       setExecutionResult(null);
 
       // 从历史记录恢复最近一次执行结果
@@ -152,6 +153,30 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       if (onRestored) onRestored();
     }
   }, [restoringHistoryEntry]);
+
+  useEffect(() => {
+    if (requestedScenarioId && requestedScenarioId !== currentScenarioId) {
+      if (scenarioList.length > 0) {
+        switchScenario(requestedScenarioId);
+        onRequestedScenarioHandled?.();
+      }
+    }
+  }, [requestedScenarioId]);
+
+  useEffect(() => {
+    if (!requestedScenarioAction) return;
+    if (requestedScenarioAction.type === 'add') {
+      if (scenarioList.length > 0) {
+        addScenario();
+        onRequestedScenarioActionHandled?.();
+      } else {
+        pendingActionRef.current = requestedScenarioAction;
+      }
+    } else if (requestedScenarioAction.type === 'delete') {
+      deleteScenario(requestedScenarioAction.scenarioId);
+      onRequestedScenarioActionHandled?.();
+    }
+  }, [requestedScenarioAction]);
 
   useEffect(() => {
     updateResolvedPath();
@@ -294,7 +319,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     return segments.length > 0 ? segments : [{ type: 'text', value: '' }];
   };
 
-  const initializeFromApi = (apiData) => {
+  const initializeFromApi = (apiData, pendingScenarioId) => {
     const defaultHeader = {};
     if (apiData.header?.['Content-Type'] !== undefined) {
       defaultHeader['Content-Type'] = apiData.header['Content-Type'];
@@ -324,6 +349,10 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         scenarios = [apiData.scenarios[firstKey]];
       }
       activeScenarioId = scenarios[0].id;
+      // If a specific scenario was requested (e.g. from tree click), use it
+      if (pendingScenarioId && scenarios.find(s => s.id === pendingScenarioId)) {
+        activeScenarioId = pendingScenarioId;
+      }
     } else {
       // Legacy / temporary format: create default scenario from top-level fields
       const parsedParam = parseToArray(apiData.param);
@@ -335,6 +364,25 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       defaultScn.assertions = parseAssertions(apiData.successAssert);
       scenarios = [defaultScn];
       activeScenarioId = defaultScn.id;
+    }
+
+    // Handle pending add scenario action
+    if (pendingActionRef.current?.type === 'add') {
+      pendingActionRef.current = null;
+      const newScnId = `scn_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
+      const currentScn = scenarios.find(s => s.id === activeScenarioId);
+      let name = '新场景';
+      let counter = 1;
+      while (scenarios.some(s => s.name === name)) {
+        name = `新场景 ${counter++}`;
+      }
+      const newScenario = {
+        ...createEmptyScenario(newScnId, name, currentScn?.description || ''),
+        id: newScnId,
+        name,
+      };
+      scenarios = [...scenarios, newScenario];
+      activeScenarioId = newScnId;
     }
 
     setScenarioList(scenarios);
@@ -355,6 +403,9 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
     setFormData(newFormData);
 
+    // Notify tree which scenario is active
+    onScenarioChange?.(apiData.id, activeScenarioId);
+
     if (isAdding) {
       cleanSnapshotRef.current = JSON.stringify(newFormData);
       setDraftDirty(false);
@@ -365,6 +416,8 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     } else {
       setUrlSegments(parseApiPathToSegments(apiPath));
     }
+
+    onRequestedScenarioHandled?.();
   };
 
   const restoreFromHistory = (historyEntry) => {
@@ -565,6 +618,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     setScenarioList(updatedList);
     setCurrentScenarioId(scenarioId);
     scenarioToForm(scenario);
+    onScenarioChange?.(api?.id, scenarioId);
   };
 
   const addScenario = () => {
@@ -587,6 +641,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     };
     setScenarioList(prev => [...prev, newScenario]);
     setCurrentScenarioId(newId);
+    onScenarioChange?.(api?.id, newId);
   };
 
   const renameScenario = (scenarioId, newName) => {
@@ -603,6 +658,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       const next = remaining[0];
       setCurrentScenarioId(next.id);
       scenarioToForm(next);
+      onScenarioChange?.(api?.id, next.id);
     }
   };
 
@@ -1282,32 +1338,46 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         </div>
       </div>
 
-      <div className="scenario-bar">
-        <span className="scenario-label">场景:</span>
-        <div className="scenario-tabs">
-          {scenarioList.filter(s => !s.deleted).map(scn => (
-            <div
-              key={scn.id}
-              className={`scenario-tab ${scn.id === currentScenarioId ? 'active' : ''}`}
-              onClick={() => { if (scn.id !== currentScenarioId) switchScenario(scn.id); }}
-            >
-              <input
-                className="scenario-name-input"
-                value={scn.name}
-                onClick={(e) => e.stopPropagation()}
-                onChange={(e) => renameScenario(scn.id, e.target.value)}
-              />
-            </div>
-          ))}
+      <div className="scenario-description">
+        <div className="scenario-meta">
+          <span className="scenario-label">当前场景</span>
+          {(() => {
+            const curScn = scenarioList.find(s => s.id === currentScenarioId);
+            if (!curScn) return null;
+            return (
+              <>
+                <input
+                  className="scenario-name-edit"
+                  value={curScn.name}
+                  onChange={(e) => renameScenario(curScn.id, e.target.value)}
+                  placeholder="场景名称"
+                />
+                <textarea
+                  className="scenario-desc-input"
+                  value={curScn.description || ''}
+                  onChange={(e) => {
+                    const newDesc = e.target.value;
+                    setScenarioList(prev => prev.map(s =>
+                      s.id === curScn.id ? { ...s, description: newDesc, updatedAt: new Date().toISOString() } : s
+                    ));
+                  }}
+                  placeholder="点击添加场景描述..."
+                  rows={2}
+                />
+              </>
+            );
+          })()}
         </div>
-        <button className="scenario-add-btn" onClick={addScenario} title="新建场景">
-          <Plus size={14} />
-        </button>
-        {scenarioList.length > 1 && currentScenarioId && (
-          <button className="scenario-del-btn" onClick={() => deleteScenario(currentScenarioId)} title="删除当前场景">
-            <Trash2 size={12} />
+        <div className="scenario-actions">
+          <button className="scenario-add-btn" onClick={addScenario} title="新建场景">
+            <Plus size={14} /> 添加场景
           </button>
-        )}
+          {scenarioList.length > 1 && currentScenarioId && (
+            <button className="scenario-del-btn" onClick={() => deleteScenario(currentScenarioId)} title="删除当前场景">
+              <Trash2 size={12} /> 删除
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="url-bar">

@@ -326,6 +326,55 @@ $.success == true
 
 ## 变更记录
 
+### 2026-05-14（第三阶段 — 场景/API 数据模型重构 + 界面密度优化）
+
+#### API 数据模型重构
+- **API 级别承载 method/api_path** — 从场景剥离，所有场景共享同一 method 和路径
+- **场景仅包含 header/param/body/assertions** — 不再携带 method/api_path，数据模型清晰
+- **索引条目增强** — `addAPI`/`updateAPI` 在索引中保存 `api_path`，搜索无需加载 per-API 缓存
+- **V2 迁移** — `_migrateToV2` 在索引清理中保留 `api_path`
+- **prepareForExecute** — 运行时合并 API 级别 method/path + 当前场景数据，向下兼容 APIExecutor
+
+#### 场景管理 UI
+- **展开式场景子列表** — 场景嵌入 API 树，可展开/折叠，显示场景名 + 删除按钮
+- **场景标记点** — 场景前加圆点（scenario-dot）以区分 API 项
+- **展开箭头空间保留** — 单场景 API 也保留 12px 展开箭头位，保持对齐统一
+- **场景计数徽标** — 浮动半透明徽标，始终显示场景数量
+- **API 操作菜单添加场景** — 支持从树中直接添加/删除场景
+
+#### 专注模式
+- **底部栏专注模式按钮** — 点击后左侧面板仅显示当前 API 的场景扁平列表
+- **App.js 状态管理** — 添加 `zenMode` 状态及 `handleToggleZenMode` 处理函数
+
+#### 描述区域取代场景栏
+- **场景描述区域** — 名称输入 + 描述文本域 + 添加/删除按钮
+- **移除旧的 scenario-bar 选项卡** — APIDetail.js 中删除
+
+#### 视觉密度大幅优化
+- **缩进** — 从 16px/级降为 4px/级（后根据反馈加倍至 8px/级）
+- **字号** — group-name 12→13px, api-name 11→12px, scenario-item-name 10→11px, group-count 10→11px
+- **图标** — 分组展开/折叠/文件夹缩小至 12px（文件夹后增至 14px）
+- **分组头部** — padding 4px→2px 降低高度
+- **方法色条** — 去掉 api-item 左边框，改用独立 `api-method-bar` 元素（置于展开箭头之后）
+- **层级引导线** — 改用 `::before` 伪元素，经 `--guide-x` CSS 变量定位至箭头中心垂直位置，hover 显示；线仅从 content/children 顶部延伸（不穿过分组头）
+- **分组名编辑** — input 与 span 严格 20px 等高，防止切换时布局跳动
+- **操作按钮常驻 DOM** — 编辑模式下用 `visibility:hidden` 而非移除 DOM，保持 flex 布局不变
+
+#### 分组管理改进
+- **直接添加+内联编辑** — 去掉弹窗，一键创建"新分组"并立即进入改名模式
+- **允许重复分组名** — 移除 `addGroup` 的 exists 校验
+- **重命名去重校验移除** — App.js handleRenameGroup 中去掉同名检测
+- **6级分组限制** — `getGroupDepth()` 检查，≥6 级隐藏"添加子分组"菜单
+
+#### Bug 修复
+- **handleAPISelect 全量加载** — 始终从缓存加载完整 per-API 配置
+- **引用路径解析** — `extractRefApis`/`findRefParamsForApi` 按 `@` 分割提取 API ID
+- **requestedScenarioId 泄漏** — 添加 `onRequestedScenarioHandled` 回调，`initializeFromApi` 消费后清除
+- **requestedScenarioAction 竞态** — 使用 `pendingActionRef` 防止 add 在加载前丢失
+- **场景切换守卫** — `useEffect([requestedScenarioId])` 增加 `scenarioList.length > 0` 检查
+- **编辑模式聚焦不滚动** — `focus({ preventScroll: true })` 防止浏览器自动滚动树容器
+- **计数器徽标重叠** — `right: 28px` 为操作按钮留空间
+
 ### 2026-05-14
 
 #### 空间管理重构

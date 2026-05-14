@@ -30,6 +30,10 @@ function App() {
   const [activeGroup, setActiveGroup] = useState('默认');
   const [showEnvVarConfig, setShowEnvVarConfig] = useState(false);
   const [apiHistory, setApiHistory] = useState([]);
+  const [currentScenarioId, setCurrentScenarioId] = useState(null);
+  const [requestedScenarioId, setRequestedScenarioId] = useState(null);
+  const [requestedScenarioAction, setRequestedScenarioAction] = useState(null);
+  const [zenMode, setZenMode] = useState(false);
   const [restoringHistoryEntry, setRestoringHistoryEntry] = useState(null);
   const [viewingHistoryEntry, setViewingHistoryEntry] = useState(null);
   const [projectList, setProjectList] = useState([]);
@@ -655,25 +659,9 @@ function App() {
     });
   };
 
-  // 选择分组
+  // 选择分组（仅切换激活分组，不自动选中 API）
   const handleGroupSelect = (groupId) => {
     setActiveGroup(groupId);
-    const apisInGroup = projectData.apis?.filter(api => {
-      if (groupId === null || groupId === 'default' || groupId === '默认') {
-        return !api.group || api.group === null || api.group === 'default' || api.group === '默认';
-      }
-      return api.group === groupId;
-    }) || [];
-    
-    if (apisInGroup.length > 0) {
-      if (!selectedAPI || selectedAPI.group !== groupId) {
-        setSelectedAPI(apisInGroup[0]);
-        setViewMode('api_detail');
-      }
-    } else {
-      setSelectedAPI(null);
-      setViewMode('api');
-    }
   };
 
   // 从历史记录恢复请求（临时模式）
@@ -694,6 +682,44 @@ function App() {
     setTemporaryAPI(restoredApi);
     setRestoringHistoryEntry(historyEntry);
     setViewMode('api_detail');
+  };
+
+  // 场景选择（从 API 树中的场景项点击）
+  const handleScenarioSelect = (api, scenarioId) => {
+    if (api?.id) {
+      handleAPISelect(api);
+      setRequestedScenarioId(scenarioId);
+    }
+  };
+
+  // 添加场景（从 API 树操作菜单触发）
+  const handleAddScenario = async (api) => {
+    if (!api?.id) return;
+    handleAPISelect(api);
+    setRequestedScenarioAction({ type: 'add', ts: Date.now() });
+  };
+
+  // 删除场景（从 API 树场景项触发）
+  const handleDeleteScenario = async (apiId, scenarioId) => {
+    if (!apiId || !scenarioId) return;
+    const config = projectManager._apiDataCache[apiId];
+    if (config?.scenarios && Object.keys(config.scenarios).length > 1) {
+      delete config.scenarios[scenarioId];
+      projectManager.markDirty();
+      if (selectedAPI?.id === apiId) {
+        setRequestedScenarioAction({ type: 'delete', scenarioId, ts: Date.now() });
+      }
+    }
+  };
+
+  // 场景切换通知（来自 APIDetail）
+  const handleScenarioChange = (apiId, scenarioId) => {
+    setCurrentScenarioId(scenarioId);
+  };
+
+  // 专注模式切换
+  const handleToggleZenMode = () => {
+    setZenMode(prev => !prev);
   };
 
   // 添加分组
@@ -752,25 +778,6 @@ function App() {
 
     // 如果名称没有变化，直接返回（不报错）
     if (newName === currentGroup.name) return;
-
-    // 检查新名称是否已存在（同父分组下，排除自己）
-    const existingGroup = projectData.groups?.find(g => 
-      g.id !== groupId && // 排除自己
-      g.name === newName && 
-      g.parentId === currentGroup.parentId
-    );
-    
-    if (existingGroup) {
-      setConfirmDialogConfig({
-        title: '提示',
-        message: '当前层级下已存在同名分组',
-        options: [{ value: 'ok', label: '确定' }],
-        onConfirm: () => setShowConfirmDialog(false),
-        onCancel: () => setShowConfirmDialog(false)
-      });
-      setShowConfirmDialog(true);
-      return;
-    }
 
     // 更新分组名称
     await projectManager.updateGroup(groupId, { name: newName });
@@ -1125,7 +1132,7 @@ function App() {
                         setViewMode('api_detail');
                       });
                     }}
-                    onDelete={async (api) => {
+                     onDelete={async (api) => {
                       // 逻辑删除：标记 deleted，UI 隐藏
                       await projectManager.softDeleteAPI(api.id);
                       if (selectedAPI?.id === api.id) {
@@ -1139,6 +1146,12 @@ function App() {
                       setTimeout(() => setSaveMessage(''), 5000);
                       setViewMode('api');
                     }}
+                    onScenarioSelect={handleScenarioSelect}
+                    onAddScenario={handleAddScenario}
+                    onDeleteScenario={handleDeleteScenario}
+                    zenMode={zenMode}
+                    zenApiId={selectedAPI?.id}
+                    currentScenarioId={currentScenarioId}
                  />
               </div>
             </div>
@@ -1190,6 +1203,11 @@ function App() {
                   onDeleteHistory={handleDeleteHistory}
                   theme={theme}
                   onResultChange={handleResultChange}
+                  requestedScenarioId={requestedScenarioId}
+                  requestedScenarioAction={requestedScenarioAction}
+                  onScenarioChange={handleScenarioChange}
+                   onRequestedScenarioActionHandled={() => setRequestedScenarioAction(null)}
+                   onRequestedScenarioHandled={() => setRequestedScenarioId(null)}
                 />
               ) : (
                 <div className="empty-state">
@@ -1264,6 +1282,8 @@ function App() {
           onToggleCenterPanel={toggleCenterPanel}
           showRightPanel={showRightPanel}
           onToggleRightPanel={toggleRightPanel}
+          zenMode={zenMode}
+          onToggleZenMode={handleToggleZenMode}
         />
       </main>
       

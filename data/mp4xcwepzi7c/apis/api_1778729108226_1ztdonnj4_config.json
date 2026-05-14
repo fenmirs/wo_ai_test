@@ -9,13 +9,13 @@
       "id": "scn_default",
       "name": "默认场景",
       "description": "首次自动创建",
-      "createdAt": "2026-05-14T03:24:27.971Z",
-      "updatedAt": "2026-05-14T03:25:08.225Z",
+      "createdAt": "2026-05-14T06:19:38.555Z",
+      "updatedAt": "2026-05-14T08:12:03.743Z",
       "deleted": false,
       "header": [
         {
           "key": "Content-Type",
-          "default": "application/json",
+          "default": "text/plain",
           "type": "string",
           "description": "",
           "enabled": true
@@ -26,69 +26,73 @@
         "type": "raw",
         "formData": [],
         "xwwwFormUrlencoded": [],
-        "activeContentType": "json",
-        "contentType": "json",
-        "content": "{\r\n  \"appId\": \"MESUkSn6E7xqQ\",\r\n  \"appSecret\": \"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
-        "schema": {
-          "id": "node_1778729107461_s5zdaym9b",
-          "type": "object",
-          "key": null,
-          "value": null,
-          "description": "",
-          "children": [
-            {
-              "id": "node_1778729107461_wgb96hbci",
-              "type": "string",
-              "key": "appId",
-              "value": "MESUkSn6E7xqQ",
-              "description": "",
-              "children": []
-            },
-            {
-              "id": "node_1778729107461_dy7jr6chq",
-              "type": "string",
-              "key": "appSecret",
-              "value": "xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk",
-              "description": "",
-              "children": []
-            }
-          ]
-        },
+        "activeContentType": "text",
+        "contentType": "text",
+        "content": "1111",
+        "schema": null,
         "contents": {
           "json": {
-            "content": "{\r\n  \"appId\": \"MESUkSn6E7xqQ\",\r\n  \"appSecret\": \"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
-            "schema": {
-              "id": "node_1778729107461_s5zdaym9b",
-              "type": "object",
-              "key": null,
-              "value": null,
-              "description": "",
-              "children": [
-                {
-                  "id": "node_1778729107461_wgb96hbci",
-                  "type": "string",
-                  "key": "appId",
-                  "value": "MESUkSn6E7xqQ",
-                  "description": "",
-                  "children": []
-                },
-                {
-                  "id": "node_1778729107461_dy7jr6chq",
-                  "type": "string",
-                  "key": "appSecret",
-                  "value": "xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk",
-                  "description": "",
-                  "children": []
-                }
-              ]
-            }
+            "content": "",
+            "schema": null
           },
           "xml": {
             "content": "",
             "schema": null
           },
           "text": {
+            "content": "1111",
+            "schema": null
+          },
+          "html": {
             "content": "",
+            "schema": null
+          }
+        }
+      },
+      "assertions": [
+        {
+          "expression": "",
+          "enabled": true
+        }
+      ],
+      "refChain": []
+    },
+    "scn_1778747508474_d7d7n": {
+      "id": "scn_1778747508474_d7d7n",
+      "name": "新场景",
+      "description": "首次自动创建",
+      "createdAt": "2026-05-14T08:31:48.474Z",
+      "updatedAt": "2026-05-14T08:31:51.476Z",
+      "deleted": false,
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "text/plain",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "text",
+        "contentType": "text",
+        "content": "1111",
+        "schema": null,
+        "contents": {
+          "json": {
+            "content": "",
+            "schema": null
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "1111",
             "schema": null
           },
           "html": {
