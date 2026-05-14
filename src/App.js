@@ -234,7 +234,7 @@ function App() {
     };
   }, [hasProject]);
 
-  // 导入项目（扫描目录下所有项目）
+  // 导入工作空间（扫描目录下所有项目）
   const handleImportProject = useCallback(async () => {
     const result = await window.electron.selectDirectory();
     if (result.success) {

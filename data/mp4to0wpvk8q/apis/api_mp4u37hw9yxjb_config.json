@@ -1,0 +1,253 @@
+{
+  "id": "api_mp4u37hw9yxjb",
+  "name": "RunGzyq",
+  "group": "default",
+  "api_path": "{domain}{api-prj}/openapi/security/token",
+  "method": "POST",
+  "header": {
+    "Content-Type": "application/x-www-form-urlencoded"
+  },
+  "param": {},
+  "body": {
+    "btnCode": "PUSH_TI_INFO_TO_MES",
+    "jsonDataStr": "{\"ids\":\"1245412104896,1245412104946,1245412104947,1245412104996,1245412104984,1245412104983,1245412104992,1245412104946,1245412104947,1245412104896,1245412104920,1245412104921,1245412104912,1245412104914,1245412104917,1245412104916,1245412104918,1245412104910,1245412104911,1245412104993,1245412104994,1245412104995,1245412104987,1245412104988,1245412104989,1245412104990,1245412105024,1245412105025\"}"
+  },
+  "chain": [],
+  "successAssert": "$.code == 200",
+  "scenarios": {
+    "scn_default": {
+      "id": "scn_default",
+      "name": "推送Mes检验项目",
+      "description": "首次自动创建",
+      "createdAt": "2026-05-14T01:41:07.983Z",
+      "updatedAt": "2026-05-14T01:53:19.467Z",
+      "deleted": false,
+      "method": "POST",
+      "apiPath": "{domain}{api-prj}/openapi/security/token",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "btnCode",
+            "default": "PUSH_TI_INFO_TO_MES",
+            "type": "string",
+            "description": "方法识别编码",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\"ids\":\"1245412104896,1245412104946,1245412104947,1245412104996,1245412104984,1245412104983,1245412104992,1245412104946,1245412104947,1245412104896,1245412104920,1245412104921,1245412104912,1245412104914,1245412104917,1245412104916,1245412104918,1245412104910,1245412104911,1245412104993,1245412104994,1245412104995,1245412104987,1245412104988,1245412104989,1245412104990,1245412105024,1245412105025\"}",
+            "type": "string",
+            "description": "检验项目的id",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}",
+        "schema": {
+          "id": "node_1778722957293_z7qe4pyqv",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1778722957293_6yk9akmaf",
+              "type": "string",
+              "key": "appId",
+              "value": "NC6bNAttXRh4",
+              "description": "授权id",
+              "children": []
+            },
+            {
+              "id": "node_1778722957293_7032vk2ys",
+              "type": "string",
+              "key": "appSecret",
+              "value": "67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS",
+              "description": "授权key",
+              "children": []
+            }
+          ]
+        },
+        "contents": {
+          "json": {
+            "content": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}",
+            "schema": {
+              "id": "node_1778722957293_z7qe4pyqv",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1778722957293_6yk9akmaf",
+                  "type": "string",
+                  "key": "appId",
+                  "value": "NC6bNAttXRh4",
+                  "description": "授权id",
+                  "children": []
+                },
+                {
+                  "id": "node_1778722957293_7032vk2ys",
+                  "type": "string",
+                  "key": "appSecret",
+                  "value": "67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS",
+                  "description": "授权key",
+                  "children": []
+                }
+              ]
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "assertions": [
+        {
+          "expression": "$.code == 200",
+          "enabled": true
+        }
+      ],
+      "refChain": []
+    },
+    "scn_1778723602939_wifgs": {
+      "id": "scn_1778723602939_wifgs",
+      "name": "111",
+      "description": "首次自动创建",
+      "createdAt": "2026-05-14T01:53:22.939Z",
+      "updatedAt": "2026-05-14T01:53:30.858Z",
+      "deleted": false,
+      "method": "POST",
+      "apiPath": "{domain}{api-prj}/openapi/security/token",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "btnCode",
+            "default": "PUSH_TI_INFO_TO_MES",
+            "type": "string",
+            "description": "方法识别编码",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\"ids\":\"1245412104896,1245412104946,1245412104947,1245412104996,1245412104984,1245412104983,1245412104992,1245412104946,1245412104947,1245412104896,1245412104920,1245412104921,1245412104912,1245412104914,1245412104917,1245412104916,1245412104918,1245412104910,1245412104911,1245412104993,1245412104994,1245412104995,1245412104987,1245412104988,1245412104989,1245412104990,1245412105024,1245412105025\"}",
+            "type": "string",
+            "description": "检验项目的id",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}",
+        "schema": {
+          "id": "node_1778722957293_z7qe4pyqv",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1778722957293_6yk9akmaf",
+              "type": "string",
+              "key": "appId",
+              "value": "NC6bNAttXRh4",
+              "description": "授权id",
+              "children": []
+            },
+            {
+              "id": "node_1778722957293_7032vk2ys",
+              "type": "string",
+              "key": "appSecret",
+              "value": "67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS",
+              "description": "授权key",
+              "children": []
+            }
+          ]
+        },
+        "contents": {
+          "json": {
+            "content": "{\n  \"appId\": \"NC6bNAttXRh4\",\n  \"appSecret\": \"67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS\"\n}",
+            "schema": {
+              "id": "node_1778722957293_z7qe4pyqv",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1778722957293_6yk9akmaf",
+                  "type": "string",
+                  "key": "appId",
+                  "value": "NC6bNAttXRh4",
+                  "description": "授权id",
+                  "children": []
+                },
+                {
+                  "id": "node_1778722957293_7032vk2ys",
+                  "type": "string",
+                  "key": "appSecret",
+                  "value": "67ZwYAzTpzVUHJBME2WSXmV6qvZT4ZWS",
+                  "description": "授权key",
+                  "children": []
+                }
+              ]
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "assertions": [
+        {
+          "expression": "$.code == 200",
+          "enabled": true
+        }
+      ],
+      "refChain": []
+    }
+  }
+}

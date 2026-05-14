@@ -54,9 +54,9 @@ function EmptyState({ onImportProject, onNewProject, projectList, onProjectSelec
             <Plus size={20} />
             新建项目
           </button>
-          <button className="import-button" onClick={() => { console.log('导入项目 button clicked'); onImportProject && onImportProject(); }}>
+          <button className="import-button" onClick={() => { console.log('导入工作空间 button clicked'); onImportProject && onImportProject(); }}>
             <FolderOpen size={20} />
-            导入项目
+            导入工作空间
           </button>
         </div>
         
