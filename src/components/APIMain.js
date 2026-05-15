@@ -3,7 +3,7 @@ import { Search, Folder, FolderOpen, Plus, Trash2, FolderPlus, ChevronRight, Che
 import { projectManager } from '../utils/ProjectManager';
 import './APIMain.css';
 
-function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, onEdit, onDelete, onAddGroup, onDeleteGroup, onGroupSelect, onMoveToGroup, onRenameGroup, onMoveGroup, onCopyAPI, onCopyGroup, onScenarioSelect, onAddScenario, onDeleteScenario, zenMode, zenApiId, currentScenarioId, expandScenarioApiId, onExpandScenarioHandled }) {
+function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, onEdit, onDelete, onAddGroup, onDeleteGroup, onGroupSelect, onMoveToGroup, onRenameGroup, onMoveGroup, onCopyAPI, onCopyGroup, onScenarioSelect, onAddScenario, onDeleteScenario, zenMode, zenApiId, currentScenarioId, expandScenarioApiId, onExpandScenarioHandled, scrollToApiId, onScrollToApiHandled, expandGroupId, onExpandGroupHandled }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [dragAPI, setDragAPI] = useState(null);
   const [dragGroup, setDragGroup] = useState(null);
@@ -23,17 +23,15 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
   const editScenarioInputRef = useRef(null);
   const operationMenuRef = useRef(null);
   const refPopupRef = useRef(null);
+  const lastGroupClickRef = useRef(0);
 
   const currentActiveGroup = activeGroup || null;
 
-  // 激活分组时自动展开其所有祖先
+  // 激活分组时只展开祖先（不展开 active 自身）
   useEffect(() => {
     if (!activeGroup) return;
     setExpandedGroups(prev => {
       const next = new Set(prev);
-      if (!next.has(activeGroup)) {
-        next.add(activeGroup);
-      }
       let parentId = groupsData?.find(g => g.id === activeGroup)?.parentId;
       while (parentId) {
         next.add(parentId);
@@ -54,6 +52,32 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
     });
     onExpandScenarioHandled?.();
   }, [expandScenarioApiId]);
+
+  // 新建 API 时滚到对应节点
+  useEffect(() => {
+    if (!scrollToApiId) return;
+    const el = document.querySelector(`[data-api-id="${scrollToApiId}"]`);
+    if (el) {
+      el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+    onScrollToApiHandled?.();
+  }, [scrollToApiId]);
+
+  // 程序化展开分组（新建 API/分组时）
+  useEffect(() => {
+    if (!expandGroupId) return;
+    setExpandedGroups(prev => {
+      const next = new Set(prev);
+      next.add(expandGroupId);
+      let pid = groupsData?.find(g => g.id === expandGroupId)?.parentId;
+      while (pid) {
+        next.add(pid);
+        pid = groupsData?.find(g => g.id === pid)?.parentId;
+      }
+      return next;
+    });
+    onExpandGroupHandled?.();
+  }, [expandGroupId]);
 
   // 点击外部关闭菜单和引用弹窗
   useEffect(() => {
@@ -106,7 +130,21 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
           {
             const groups = projectManager._activeProject?.config?.groups || [];
             const newGroup = groups.filter(g => g.parentId === group.id).pop();
-            if (newGroup) { setEditingGroup(newGroup.id); setNewGroupName('新分组'); onGroupSelect?.(newGroup.id); }
+            if (newGroup) {
+              setExpandedGroups(prev => {
+                const next = new Set(prev);
+                next.add(group.id);
+                let pid = group.parentId;
+                while (pid) {
+                  next.add(pid);
+                  pid = groupsData?.find(g => g.id === pid)?.parentId;
+                }
+                return next;
+              });
+              onGroupSelect?.(newGroup.id);
+              setEditingGroup(newGroup.id);
+              setNewGroupName('新分组');
+            }
           }
           break;
         case 'addSiblingGroup':
@@ -114,7 +152,20 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
           {
             const groups = projectManager._activeProject?.config?.groups || [];
             const newGroup = groups.filter(g => g.parentId === (group.parentId || null)).pop();
-            if (newGroup) { setEditingGroup(newGroup.id); setNewGroupName('新分组'); onGroupSelect?.(newGroup.id); }
+            if (newGroup) {
+              setExpandedGroups(prev => {
+                const next = new Set(prev);
+                let pid = newGroup.parentId;
+                while (pid) {
+                  next.add(pid);
+                  pid = groupsData?.find(g => g.id === pid)?.parentId;
+                }
+                return next;
+              });
+              onGroupSelect?.(newGroup.id);
+              setEditingGroup(newGroup.id);
+              setNewGroupName('新分组');
+            }
           }
           break;
         case 'rename':
@@ -155,11 +206,12 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
     setOperationMenu({ visible: false, type: null, data: null, buttonRef: null });
   };
 
-  // 编辑分组时自动聚焦
+  // 编辑分组时自动聚焦并滚动到可视区域
   useEffect(() => {
     if (editingGroup && editInputRef.current) {
       editInputRef.current.focus({ preventScroll: true });
       editInputRef.current.select();
+      editInputRef.current.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     }
   }, [editingGroup]);
 
@@ -292,13 +344,8 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
     return count;
   };
 
-  // 切换分组展开/折叠
-  const toggleGroup = (groupId) => {
-    if (onGroupSelect) {
-      onGroupSelect(groupId);
-    }
-    
-    // 切换展开状态
+  // 切换分组展开/折叠（仅操作菜单/图标触发）
+  const toggleExpand = (groupId) => {
     const newExpanded = new Set(expandedGroups);
     if (newExpanded.has(groupId)) {
       newExpanded.delete(groupId);
@@ -314,7 +361,27 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
     setExpandedGroups(newExpanded);
   };
 
-  // API 拖拽处理
+  // 选中分组（点击分组标题）
+  const selectGroup = (groupId) => {
+    const now = Date.now();
+    if (now - lastGroupClickRef.current < 300) return;
+    lastGroupClickRef.current = now;
+    if (onGroupSelect) onGroupSelect(groupId);
+    const newExpanded = new Set(expandedGroups);
+    if (newExpanded.has(groupId)) {
+      newExpanded.delete(groupId);
+    } else {
+      newExpanded.add(groupId);
+      let parentId = groupsData?.find(g => g.id === groupId)?.parentId;
+      while (parentId) {
+        newExpanded.add(parentId);
+        parentId = groupsData?.find(g => g.id === parentId)?.parentId;
+      }
+    }
+    setExpandedGroups(newExpanded);
+  };
+
+  // 拖拽处理
   const handleDragStart = (e, api) => {
     setDragAPI(api);
     e.dataTransfer.effectAllowed = 'move';
@@ -569,7 +636,7 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
         <div
           className={`group-header ${isActive ? 'active' : ''} ${isDragOver ? 'drag-over' : ''} ${isDefault ? 'default-group' : ''} ${isDraggingGroup ? 'dragging' : ''}`}
           style={{ paddingLeft: `${8 + level * 8}px` }}
-          onClick={() => toggleGroup(groupId)}
+          onClick={() => selectGroup(groupId)}
           onDoubleClick={() => {
             if (!isDefault && onRenameGroup) {
               setEditingGroup(groupId);
@@ -588,13 +655,13 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
             className="expand-icon" 
             onClick={(e) => {
               e.stopPropagation();
-              toggleGroup(groupId);
+              toggleExpand(groupId);
             }}
           >
             {isExpanded ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
           </span>
 
-          {isActive ? (
+          {isExpanded ? (
             <FolderOpen size={14} className="group-icon" />
           ) : (
             <Folder size={14} className="group-icon" />
@@ -660,6 +727,7 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
               return (
               <React.Fragment key={api.id || api.name}>
                 <div
+                  data-api-id={api.id}
                   className={`api-item ${
                     (selectedAPI?.id && api.id && selectedAPI.id === api.id) ||
                     (!api.id && selectedAPI?.name === api.name)

@@ -1,0 +1,75 @@
+{
+  "id": "api_1778828840044_ezwddrt8l",
+  "name": "未命名的API",
+  "method": "GET",
+  "api_path": "{domain}",
+  "group": "group_mp6k91meh202d",
+  "scenarios": {
+    "scn_default": {
+      "id": "scn_default",
+      "name": "默认场景",
+      "description": "",
+      "createdAt": "2026-05-15T07:07:20.052Z",
+      "updatedAt": "2026-05-15T07:07:20.368Z",
+      "deleted": false,
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1778828840053_kv1001w17",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1778828840053_kv1001w17",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "assertions": [
+        {
+          "expression": "",
+          "enabled": true
+        }
+      ],
+      "refChain": []
+    }
+  }
+}

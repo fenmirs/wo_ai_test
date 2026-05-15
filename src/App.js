@@ -34,6 +34,8 @@ function App() {
   const [requestedScenarioId, setRequestedScenarioId] = useState(null);
   const [requestedScenarioAction, setRequestedScenarioAction] = useState(null);
   const [expandScenarioApiId, setExpandScenarioApiId] = useState(null);
+  const [scrollToApiId, setScrollToApiId] = useState(null);
+  const [expandGroupId, setExpandGroupId] = useState(null);
   const [zenMode, setZenMode] = useState(false);
   const [restoringHistoryEntry, setRestoringHistoryEntry] = useState(null);
   const [viewingHistoryEntry, setViewingHistoryEntry] = useState(null);
@@ -1105,7 +1107,9 @@ function App() {
                       };
                       projectManager.addAPI(newApi);
                       setActiveGroup(parentId || 'default');
+                      setExpandGroupId(parentId || 'default');
                       setSelectedAPI(newApi);
+                      setScrollToApiId(newApi.id);
                       setViewMode('api_detail');
                     }}
                    onAddGroup={handleAddGroup}
@@ -1202,6 +1206,10 @@ function App() {
                     currentScenarioId={currentScenarioId}
                     expandScenarioApiId={expandScenarioApiId}
                     onExpandScenarioHandled={handleExpandScenarioApiHandled}
+                    scrollToApiId={scrollToApiId}
+                    onScrollToApiHandled={() => setScrollToApiId(null)}
+                    expandGroupId={expandGroupId}
+                    onExpandGroupHandled={() => setExpandGroupId(null)}
                  />
               </div>
             </div>
