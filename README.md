@@ -324,6 +324,15 @@ $.success == true
 8. **CORS** - HTTP 请求通过 Electron 主进程发出，不受浏览器 CORS 限制
 9. **面板** - 至少保持一栏可见，宽度可拖拽调整（左 200-600px，右 300-800px）
 
+## 默认分组
+
+"默认"分组是一个**纯逻辑分组**，不在 `config.groups` 中持久化：
+
+- **不在数据中** — `config.json` 的 `groups` 数组里没有 `{ id: "default", ... }` 记录
+- **UI 注入** — `getGroupTree()`（APIMain.js）和 `getFlatGroupsWithLevel()`（ProjectManager.js）在构建树时**内存中注入** `{ id: 'default', name: '默认', parentId: null }`
+- **兜底容器** — 删除分组时，该分组下的 API 被重新分配到 `api.group = 'default'`
+- **保护规则** — `deleteGroup` 跳过 `id === 'default'` 的分组；不支持拖拽、重命名、删除；新建分组禁止命名为"默认"
+
 ## 变更记录
 
 ### 2026-05-14（第三阶段 — 场景/API 数据模型重构 + 界面密度优化）

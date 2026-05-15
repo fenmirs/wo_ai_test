@@ -26,6 +26,12 @@
   border: 1px solid var(--border-color);
   border-radius: 4px;
   min-width: 0;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.search-box:focus-within {
+  background: var(--bg-primary);
+  border-color: var(--accent-primary);
 }
 
 .search-icon {
@@ -169,7 +175,6 @@
 }
 
 .group-icon {
-  color: var(--accent-primary);
   flex-shrink: 0;
 }
 

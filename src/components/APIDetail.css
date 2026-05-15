@@ -42,11 +42,13 @@
 .api-line-url-text {
   font-family: monospace;
   font-size: 12px;
+  font-weight: bold;
   color: var(--text-primary);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   display: block;
+  opacity: 0.9;
 }
 
 .api-line-right {
@@ -155,7 +157,7 @@
   background: var(--bg-primary);
   border: 1px solid var(--border-color);
   color: var(--text-secondary);
-  font-size: 11px;
+  font-size: 12px;
   padding: 4px 6px;
   outline: none;
   resize: vertical;
@@ -323,10 +325,7 @@
 }
 
 .segment-var-dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 100;
+  z-index: 10000;
   min-width: 120px;
   max-height: 150px;
   overflow-y: auto;

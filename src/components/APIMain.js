@@ -3,7 +3,7 @@ import { Search, Folder, FolderOpen, Plus, Trash2, FolderPlus, ChevronRight, Che
 import { projectManager } from '../utils/ProjectManager';
 import './APIMain.css';
 
-function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, onEdit, onDelete, onAddGroup, onDeleteGroup, onGroupSelect, onMoveToGroup, onRenameGroup, onMoveGroup, onCopyAPI, onCopyGroup, onScenarioSelect, onAddScenario, onDeleteScenario, zenMode, zenApiId, currentScenarioId }) {
+function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, onEdit, onDelete, onAddGroup, onDeleteGroup, onGroupSelect, onMoveToGroup, onRenameGroup, onMoveGroup, onCopyAPI, onCopyGroup, onScenarioSelect, onAddScenario, onDeleteScenario, zenMode, zenApiId, currentScenarioId, expandScenarioApiId, onExpandScenarioHandled }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [dragAPI, setDragAPI] = useState(null);
   const [dragGroup, setDragGroup] = useState(null);
@@ -25,6 +25,35 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
   const refPopupRef = useRef(null);
 
   const currentActiveGroup = activeGroup || null;
+
+  // 激活分组时自动展开其所有祖先
+  useEffect(() => {
+    if (!activeGroup) return;
+    setExpandedGroups(prev => {
+      const next = new Set(prev);
+      if (!next.has(activeGroup)) {
+        next.add(activeGroup);
+      }
+      let parentId = groupsData?.find(g => g.id === activeGroup)?.parentId;
+      while (parentId) {
+        next.add(parentId);
+        parentId = groupsData?.find(g => g.id === parentId)?.parentId;
+      }
+      return next;
+    });
+  }, [activeGroup]);
+
+  // 添加场景时自动展开该 API 的场景子列表
+  useEffect(() => {
+    if (!expandScenarioApiId) return;
+    setExpandedScenarioApis(prev => {
+      if (prev.has(expandScenarioApiId)) return prev;
+      const next = new Set(prev);
+      next.add(expandScenarioApiId);
+      return next;
+    });
+    onExpandScenarioHandled?.();
+  }, [expandScenarioApiId]);
 
   // 点击外部关闭菜单和引用弹窗
   useEffect(() => {
@@ -77,7 +106,7 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
           {
             const groups = projectManager._activeProject?.config?.groups || [];
             const newGroup = groups.filter(g => g.parentId === group.id).pop();
-            if (newGroup) { setEditingGroup(newGroup.id); setNewGroupName('新分组'); }
+            if (newGroup) { setEditingGroup(newGroup.id); setNewGroupName('新分组'); onGroupSelect?.(newGroup.id); }
           }
           break;
         case 'addSiblingGroup':
@@ -85,7 +114,7 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
           {
             const groups = projectManager._activeProject?.config?.groups || [];
             const newGroup = groups.filter(g => g.parentId === (group.parentId || null)).pop();
-            if (newGroup) { setEditingGroup(newGroup.id); setNewGroupName('新分组'); }
+            if (newGroup) { setEditingGroup(newGroup.id); setNewGroupName('新分组'); onGroupSelect?.(newGroup.id); }
           }
           break;
         case 'rename':
@@ -275,6 +304,12 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
       newExpanded.delete(groupId);
     } else {
       newExpanded.add(groupId);
+      // 展开时自动展开所有祖先分组
+      let parentId = groupsData?.find(g => g.id === groupId)?.parentId;
+      while (parentId) {
+        newExpanded.add(parentId);
+        parentId = groupsData?.find(g => g.id === parentId)?.parentId;
+      }
     }
     setExpandedGroups(newExpanded);
   };
@@ -453,13 +488,17 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
       // 路径搜索直接从索引 api.api_path (Phase 3 优化：不再需要加载 per-API 缓存)
       const pathMatch = !!(api.api_path && api.api_path.toLowerCase().includes(lowerQuery));
 
-      // 场景名搜索仍需缓存
+      // 场景名 + 描述搜索
       let scenarioMatch = false;
       if (api.id && !pathMatch) {
         const config = projectManager._apiDataCache[api.id];
         if (config && config.scenarios) {
           for (const scn of Object.values(config.scenarios)) {
             if (scn && scn.name && scn.name.toLowerCase().includes(lowerQuery)) {
+              scenarioMatch = true;
+              break;
+            }
+            if (scn && scn.description && scn.description.toLowerCase().includes(lowerQuery)) {
               scenarioMatch = true;
               break;
             }
@@ -505,7 +544,15 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
     const groupId = group.id;
     const hasChildren = group.children && group.children.length > 0;
     const isExpanded = expandedGroups.has(groupId);
-    const isActive = currentActiveGroup === groupId;
+    const isActive = (() => {
+      if (currentActiveGroup === groupId) return true;
+      let pid = groupsData?.find(g => g.id === currentActiveGroup)?.parentId;
+      while (pid) {
+        if (pid === groupId) return true;
+        pid = groupsData?.find(g => g.id === pid)?.parentId;
+      }
+      return false;
+    })();
     const isDragOver = dragOverGroup === groupId;
     const isDraggingGroup = dragGroup && dragGroup.id === groupId;
     const filteredAPIs = getFilteredAPIs(groupId);
@@ -541,13 +588,7 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
             className="expand-icon" 
             onClick={(e) => {
               e.stopPropagation();
-              const newExpanded = new Set(expandedGroups);
-              if (newExpanded.has(groupId)) {
-                newExpanded.delete(groupId);
-              } else {
-                newExpanded.add(groupId);
-              }
-              setExpandedGroups(newExpanded);
+              toggleGroup(groupId);
             }}
           >
             {isExpanded ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
@@ -839,6 +880,7 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()}
             className="search-input"
+            title="支持按 API 名称、请求路径、场景名、场景描述、组名、ID 模糊搜索"
           />
         </div>
       </div>

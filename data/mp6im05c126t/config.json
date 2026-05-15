@@ -1,0 +1,50 @@
+{
+  "version": 2,
+  "projectName": "222",
+  "profile": [
+    {
+      "activate": true,
+      "name": "dev",
+      "domain": "localhost",
+      "api-prj": ":8080/api"
+    }
+  ],
+  "groups": [
+    {
+      "id": "group_mp6irch3k1h6b",
+      "name": "adsfadsf",
+      "parentId": "default"
+    },
+    {
+      "id": "group_mp6irojbptpqc",
+      "name": "cccc",
+      "parentId": "default"
+    },
+    {
+      "id": "group_mp6irs0f4kqpf",
+      "name": "vb",
+      "parentId": null
+    },
+    {
+      "id": "group_mp6irwb36yr4n",
+      "name": "d",
+      "parentId": "group_mp6irch3k1h6b"
+    },
+    {
+      "id": "group_mp6irzwnayt8k",
+      "name": "55",
+      "parentId": "group_mp6irch3k1h6b"
+    },
+    {
+      "id": "group_mp6is8fr319be",
+      "name": "新分组d",
+      "parentId": "group_mp6irs0f4kqpf"
+    },
+    {
+      "id": "group_mp6isf6vxzm5b",
+      "name": "新分组dad",
+      "parentId": "group_mp6irs0f4kqpf"
+    }
+  ],
+  "apis": []
+}

@@ -78,8 +78,10 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
   const [urlSegments, setUrlSegments] = useState([{ type: 'text', value: '' }]);
   const [activeSegmentIdx, setActiveSegmentIdx] = useState(null);
-  const [editingSegmentIdx, setEditingSegmentIdx] = useState(null);
   const [editingValue, setEditingValue] = useState('');
+  const segmentInputRef = useRef(null);
+  const isDropdownClickRef = useRef(false);
+  const [dropdownPos, setDropdownPos] = useState(null);
   const [urlCopied, setUrlCopied] = useState(false);
   const [jsonEditMode, setJsonEditMode] = useState('code');
   const [xmlEditMode, setXmlEditMode] = useState('code');
@@ -92,6 +94,8 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const [apiEditMode, setApiEditMode] = useState(false);
   const savedUrlSegmentsRef = useRef(null);
   const cleanSnapshotRef = useRef(null);
+  const autoSaveTimerRef = useRef(null);
+  const isFirstAutoSave = useRef(true);
 
   const apiHistory = history.filter(h =>
     (h.apiId && h.apiId === formData.id) ||
@@ -104,7 +108,9 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         return;
       }
       initializedApiIdRef.current = api.id;
-      console.log(`[APIDetail] useEffect(api) fired, api.id=${api.id}, api.name=${api.name}, api.param=`, JSON.stringify(api.param));
+      isFirstAutoSave.current = true;
+      setApiEditMode(false);
+      savedUrlSegmentsRef.current = null;
       initializeFromApi(api, requestedScenarioId);
       setExecutionResult(null);
 
@@ -225,11 +231,62 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     onDraftChange?.(draftDirty);
   }, [draftDirty, onDraftChange]);
 
+  // 自动保存：表单或场景变化时（路径和方法除外）自动更新缓存
+  useEffect(() => {
+    if (!api?.id || !projectManager._apiDataCache[api.id]) return;
+    if (isFirstAutoSave.current) {
+      isFirstAutoSave.current = false;
+      return;
+    }
+    if (apiEditMode) return;
+
+    if (autoSaveTimerRef.current) clearTimeout(autoSaveTimerRef.current);
+    autoSaveTimerRef.current = setTimeout(() => {
+      const cache = projectManager._apiDataCache[api.id];
+      if (!cache) return;
+
+      cache.name = formData.name;
+      cache.group = formData.group;
+
+      const scenarios = {};
+      scenarioList.forEach(s => {
+        if (s.id === currentScenarioId) {
+          scenarios[s.id] = {
+            ...s,
+            header: formData.header,
+            param: formData.param,
+            body: formData.body,
+            assertions: formData.assertions,
+            updatedAt: new Date().toISOString()
+          };
+        } else {
+          scenarios[s.id] = { ...s, updatedAt: new Date().toISOString() };
+        }
+      });
+      cache.scenarios = scenarios;
+
+      projectManager.markDirty();
+    }, 300);
+
+    return () => {
+      if (autoSaveTimerRef.current) clearTimeout(autoSaveTimerRef.current);
+    };
+  }, [formData, scenarioList, apiEditMode]);
+
+  // 计算变量下拉菜单位置
+  useEffect(() => {
+    if (activeSegmentIdx !== null && segmentInputRef.current) {
+      const rect = segmentInputRef.current.getBoundingClientRect();
+      setDropdownPos({ left: rect.left, top: rect.bottom + 4, width: rect.width });
+    } else {
+      setDropdownPos(null);
+    }
+  }, [activeSegmentIdx]);
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
         setActiveSegmentIdx(null);
-        setEditingSegmentIdx(null);
       }
     };
     document.addEventListener('keydown', handleKeyDown);
@@ -359,7 +416,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       // Legacy / temporary format: create default scenario from top-level fields
       const parsedParam = parseToArray(apiData.param);
       const parsedHeader = parseToArray({ ...defaultHeader, ...apiData.header });
-      const defaultScn = createEmptyScenario('scn_default', '默认场景', '首次自动创建');
+      const defaultScn = createEmptyScenario('scn_default', '默认场景', '');
       defaultScn.header = parsedHeader;
       defaultScn.param = parsedParam;
       defaultScn.body = parseBodyData(apiData.body, { ...defaultHeader, ...apiData.header });
@@ -625,7 +682,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
   const addScenario = () => {
     const newId = `scn_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
-    const currentScenario = scenarioList.find(s => s.id === currentScenarioId);
+    const defaultScenario = scenarioList[0];
     const baseName = '新场景';
     let name = baseName;
     let counter = 1;
@@ -634,15 +691,26 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       counter++;
     }
     const newScenario = {
-      ...createEmptyScenario(newId, name, currentScenario?.description || ''),
-      ...formToScenarioData(),
+      ...createEmptyScenario(newId, name, ''),
       id: newId,
       name,
+      header: defaultScenario?.header || formData.header,
+      param: defaultScenario?.param || formData.param,
+      body: defaultScenario?.body || formData.body,
+      assertions: defaultScenario?.assertions || formData.assertions,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };
     setScenarioList(prev => [...prev, newScenario]);
     setCurrentScenarioId(newId);
+    // 同步更新缓存，使左侧树能立即反映场景数变化
+    if (api?.id && projectManager._apiDataCache[api.id]) {
+      if (!projectManager._apiDataCache[api.id].scenarios) {
+        projectManager._apiDataCache[api.id].scenarios = {};
+      }
+      projectManager._apiDataCache[api.id].scenarios[newId] = { ...newScenario };
+      projectManager.markDirty();
+    }
     onScenarioChange?.(api?.id, newId);
   };
 
@@ -884,7 +952,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   };
 
   const handleSave = async () => {
-    if (!formData.name && (isAdding || isTemporary)) {
+    if (!formData.name) {
       toast.error('请输入 API 名称');
       return;
     }
@@ -924,15 +992,10 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
     try {
       const execAPI = prepareForExecute();
-      console.log(`[APIDetail] handleSave - formData.body:`, JSON.stringify(formData.body));
-      console.log(`[APIDetail] handleSave - execAPI.body:`, JSON.stringify(execAPI.body));
-      console.log(`[APIDetail] handleSave - execAPI params:`, JSON.stringify(execAPI.param));
-      console.log(`[APIDetail] handleSave - execAPI headers:`, JSON.stringify(execAPI.header));
       if (onSaveAPI) {
         await onSaveAPI(execAPI, isAdding || isTemporary);
       }
       toast.success('保存成功');
-      console.log(`[APIDetail] handleSave - after save complete`);
     } catch (error) {
       const errMsg = error.message || '保存失败';
       toast.error(errMsg);
@@ -1325,63 +1388,47 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                     key={idx}
                     className={`url-segment ${idx === 0 ? 'first' : ''} ${activeSegmentIdx === idx ? 'active' : ''}`}
                   >
-                    {editingSegmentIdx === idx ? (
-                      <input
-                        type="text"
-                        className="segment-edit-input"
-                        value={editingValue}
-                        onChange={(e) => setEditingValue(e.target.value)}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter') {
+                    {activeSegmentIdx === idx ? (
+                      <>
+                        <input
+                          ref={segmentInputRef}
+                          type="text"
+                          className="segment-edit-input"
+                          value={editingValue}
+                          onChange={(e) => setEditingValue(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              const newSegments = [...urlSegments];
+                              newSegments[idx] = { ...seg, value: editingValue, type: 'text' };
+                              setUrlSegments(newSegments);
+                              setActiveSegmentIdx(null);
+                            } else if (e.key === 'Escape') {
+                              setActiveSegmentIdx(null);
+                            }
+                          }}
+                          onBlur={() => {
+                            if (isDropdownClickRef.current) {
+                              isDropdownClickRef.current = false;
+                              return;
+                            }
                             const newSegments = [...urlSegments];
                             newSegments[idx] = { ...seg, value: editingValue, type: 'text' };
                             setUrlSegments(newSegments);
-                            setEditingSegmentIdx(null);
                             setActiveSegmentIdx(null);
-                          } else if (e.key === 'Escape') {
-                            setEditingSegmentIdx(null);
-                            setActiveSegmentIdx(null);
-                          }
-                        }}
-                        onBlur={() => {
-                          const newSegments = [...urlSegments];
-                          newSegments[idx] = { ...seg, value: editingValue, type: 'text' };
-                          setUrlSegments(newSegments);
-                          setEditingSegmentIdx(null);
-                          setActiveSegmentIdx(null);
-                        }}
-                        autoFocus
-                      />
+                          }}
+                          autoFocus
+                        />
+                        {urlSegments.length > 1 && (
+                          <button className="segment-delete" onMouseDown={(e) => { e.preventDefault(); setUrlSegments(urlSegments.filter((_, i) => i !== idx)); }}>
+                            <X size={10} />
+                          </button>
+                        )}
+                      </>
                     ) : (
-                      <div className="segment-content" onClick={() => setActiveSegmentIdx(idx)}>
+                      <div className="segment-content" onClick={() => { setActiveSegmentIdx(idx); setEditingValue(seg.value); }}>
                         <span className="segment-text">
                           {seg.value || (idx === 0 ? '输入或选择' : '输入路径')}
                         </span>
-                      </div>
-                    )}
-                    {urlSegments.length > 1 && activeSegmentIdx === idx && (
-                      <button className="segment-delete" onClick={() => setUrlSegments(urlSegments.filter((_, i) => i !== idx))}>
-                        <X size={10} />
-                      </button>
-                    )}
-                    {activeSegmentIdx === idx && editingSegmentIdx !== idx && (
-                      <div className="segment-var-dropdown">
-                        <div className="segment-var-option input-option" onClick={() => { setEditingSegmentIdx(idx); setEditingValue(seg.value); }}>
-                          输入内容...
-                        </div>
-                        {profile && Object.keys(profile)
-                          .filter(k => k !== 'name' && k !== 'activate')
-                          .filter(k => idx === 0 || k !== 'domain')
-                          .map(k => (
-                            <div key={k} className="segment-var-option" onClick={() => {
-                              const newSegments = [...urlSegments];
-                              newSegments[idx] = { type: 'variable', value: k };
-                              setUrlSegments(newSegments);
-                              setActiveSegmentIdx(null);
-                            }}>
-                              {k}
-                            </div>
-                          ))}
                       </div>
                     )}
                   </div>
@@ -1394,11 +1441,44 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
           ) : (
             <span className="api-line-url-text" title={formData.api_path}>{formData.api_path}</span>
           )}
+          {dropdownPos && (
+            <div className="segment-var-dropdown" style={{ position: 'fixed', left: dropdownPos.left, top: dropdownPos.top, minWidth: dropdownPos.width, zIndex: 10000 }}>
+              {profile && Object.keys(profile)
+                .filter(k => k !== 'name' && k !== 'activate')
+                .filter(k => activeSegmentIdx === 0 || k !== 'domain')
+                .map(k => (
+                  <div key={k} className="segment-var-option" onMouseDown={(e) => {
+                    e.preventDefault();
+                    isDropdownClickRef.current = true;
+                    const newSegments = [...urlSegments];
+                    newSegments[activeSegmentIdx] = { type: 'variable', value: k };
+                    setUrlSegments(newSegments);
+                    setActiveSegmentIdx(null);
+                  }}>
+                    {k}
+                  </div>
+                ))}
+            </div>
+          )}
         </div>
         <div className="api-line-right">
           {apiEditMode ? (
             <>
-              <button className="api-edit-btn confirm" onClick={() => setApiEditMode(false)} title="完成编辑">
+              <button className="api-edit-btn confirm" onClick={() => {
+                savedUrlSegmentsRef.current = null;
+                setApiEditMode(false);
+                if (api?.id && projectManager._apiDataCache[api.id]) {
+                  const cache = projectManager._apiDataCache[api.id];
+                  cache.method = formData.method;
+                  cache.api_path = formData.api_path;
+                  const cacheEntry = projectManager._activeProject?.config?.apis?.find(a => a.id === api.id);
+                  if (cacheEntry) {
+                    cacheEntry.method = formData.method;
+                    cacheEntry.api_path = formData.api_path;
+                  }
+                  projectManager.markDirty();
+                }
+              }} title="完成编辑">
                 <CheckCircle size={14} />
               </button>
               <button className="api-edit-btn cancel" onClick={() => { setUrlSegments(savedUrlSegmentsRef.current); savedUrlSegmentsRef.current = null; setApiEditMode(false); }} title="取消">
@@ -1411,7 +1491,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
             </button>
           )}
           <div className="api-line-actions">
-            <button className="scene-action-btn btn-save-icon" onClick={handleSave} title="保存">
+            <button className="scene-action-btn btn-save-icon" onClick={handleSave} title="保存" style={{ display: 'none' }}>
               {isSaving ? <RefreshCw size={14} className="spin" /> : <Save size={14} />}
             </button>
             <span className="scene-action-divider">|</span>

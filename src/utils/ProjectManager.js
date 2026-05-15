@@ -821,6 +821,7 @@ class ProjectManager {
   deleteGroup(groupId) {
     const proj = this._activeProject;
     if (!proj?.config || !proj.config.groups) return;
+    if (groupId === 'default' || groupId === null) return;
 
     const groupsToDelete = this._getChildGroupIds(groupId);
     groupsToDelete.push(groupId);

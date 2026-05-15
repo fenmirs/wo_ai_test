@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
 import './InputDialog.css';
 
-function InputDialog({ isOpen, title, placeholder, defaultValue, onConfirm, onCancel, onClose, onValueChange, confirmDisabled, confirmLabel }) {
+function InputDialog({ isOpen, title, placeholder, defaultValue, onConfirm, onCancel, onClose, onValueChange, confirmDisabled, confirmLabel, error }) {
   const [value, setValue] = useState(defaultValue || '');
   const inputRef = useRef(null);
 
@@ -30,14 +30,13 @@ function InputDialog({ isOpen, title, placeholder, defaultValue, onConfirm, onCa
     }
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (confirmDisabled) return;
     if (value.trim() && onConfirm) {
-      onConfirm(value.trim());
+      const shouldClose = await onConfirm(value.trim());
+      if (shouldClose === false) return;
     }
-    if (onClose) {
-      onClose();
-    }
+    if (onClose) onClose();
   };
 
   const handleCancel = () => {
@@ -68,8 +67,9 @@ function InputDialog({ isOpen, title, placeholder, defaultValue, onConfirm, onCa
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             placeholder={placeholder}
-            className="input-dialog-input"
+            className={`input-dialog-input ${error ? 'input-error' : ''}`}
           />
+          {error && <div className="input-dialog-error">{error}</div>}
         </div>
         <div className="input-dialog-footer">
           <button className="btn-secondary" onClick={handleCancel}>

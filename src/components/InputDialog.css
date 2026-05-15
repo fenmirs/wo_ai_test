@@ -72,6 +72,21 @@
   border-color: var(--primary-color);
 }
 
+.input-dialog-input.input-error {
+  border-color: #e74c3c;
+}
+
+.input-dialog-input.input-error:focus {
+  border-color: #c0392b;
+}
+
+.input-dialog-error {
+  color: #e74c3c;
+  font-size: 12px;
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
 .input-dialog-footer {
   display: flex;
   justify-content: flex-end;
