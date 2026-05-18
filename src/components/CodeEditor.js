@@ -9,7 +9,7 @@ const LANGUAGE_MAP = {
   javascript: 'javascript',
 };
 
-function CodeEditor({ value, onChange, contentType = 'text', readOnly = false, theme = 'dark' }) {
+function CodeEditor({ value, onChange, contentType = 'text', readOnly = false, theme = 'dark', monacoOptions = {}, onMount }) {
   const handleChange = (newValue) => {
     onChange && onChange(newValue || '');
   };
@@ -29,7 +29,9 @@ function CodeEditor({ value, onChange, contentType = 'text', readOnly = false, t
             formatOnPaste: true,
             formatOnType: true,
             fontSize: 13,
+            ...monacoOptions,
           }}
+          onMount={onMount}
         />
       </div>
     </div>

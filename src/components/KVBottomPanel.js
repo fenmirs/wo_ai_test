@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Search } from 'lucide-react';
 import { projectManager } from '../utils/ProjectManager';
+import { toast } from './Toast';
 import CodeEditor from './CodeEditor';
 import './KVBottomPanel.css';
 
@@ -15,6 +16,8 @@ function KVBottomPanel({ visible, section, rowIndex, field, items, onItemsChange
   const [collapsed, setCollapsed] = useState(false);
   const [panelHeight, setPanelHeight] = useState(250);
   const fileInputRef = useRef(null);
+  const lastToastRef = useRef(0);
+  const headerEditorRef = useRef(null);
 
   // --- Resize ---
   const handleResizeStart = useCallback((e) => {
@@ -53,9 +56,29 @@ function KVBottomPanel({ visible, section, rowIndex, field, items, onItemsChange
     return labels[type] || type;
   };
 
+  const handleHeaderEditorMount = useCallback((editor) => {
+    headerEditorRef.current = editor;
+  }, []);
+
   const updateDefault = (newVal) => {
     if (!onItemsChange) return;
-    const newItems = items.map((it, i) => i === rowIndex ? { ...it, default: newVal } : it);
+    let finalVal = newVal;
+    if (section === 'header') {
+      const str = String(newVal);
+      const cleaned = str.replace(/[^\t\x20-\x7e]/g, '');
+      if (cleaned !== str) {
+        if (Date.now() - lastToastRef.current > 1000) {
+          const removed = [...new Set(str.replace(/[\t\x20-\x7e]/g, '').split(''))].join('');
+          toast.info(`已去掉特殊字符: ${removed}`);
+          lastToastRef.current = Date.now();
+        }
+        if (headerEditorRef.current) {
+          headerEditorRef.current.setValue(cleaned);
+        }
+        return;
+      }
+    }
+    const newItems = items.map((it, i) => i === rowIndex ? { ...it, default: finalVal } : it);
     onItemsChange(newItems);
   };
 
@@ -110,14 +133,23 @@ function KVBottomPanel({ visible, section, rowIndex, field, items, onItemsChange
             />
           </div>
         ) : (
-          <ValueEditor
-            type={activeType}
-            value={item.default}
-            onChange={updateDefault}
-            theme={theme}
-            excludeApiId={excludeApiId}
-            fileInputRef={fileInputRef}
-          />
+          <div className="kv-panel-editor-wrapper">
+            <ValueEditor
+              type={activeType}
+              value={item.default}
+              onChange={updateDefault}
+              theme={theme}
+              excludeApiId={excludeApiId}
+              fileInputRef={fileInputRef}
+              onMount={handleHeaderEditorMount}
+            />
+            {section === 'param' && typeof item.default === 'string' && item.default && (
+              <div className="kv-validation-bar kv-encoding-info">
+                <div>编码结果:</div>
+                <div>{encodeURIComponent(item.default)}</div>
+              </div>
+            )}
+          </div>
         )}
       </div>
     </div>
@@ -125,7 +157,7 @@ function KVBottomPanel({ visible, section, rowIndex, field, items, onItemsChange
 }
 
 /* ====== Type-driven value editor ====== */
-function ValueEditor({ type, value, onChange, theme, excludeApiId, fileInputRef }) {
+function ValueEditor({ type, value, onChange, theme, excludeApiId, fileInputRef, onMount }) {
   switch (type) {
     case 'boolean':
       return <BooleanEditor value={value} onChange={onChange} />;
@@ -148,7 +180,7 @@ function ValueEditor({ type, value, onChange, theme, excludeApiId, fileInputRef 
     default:
       return (
         <div className="kv-panel-editor-wrapper">
-          <CodeEditor value={typeof value === 'string' ? value : ''} onChange={onChange} contentType="text" theme={theme} />
+          <CodeEditor value={typeof value === 'string' ? value : ''} onChange={onChange} contentType="text" theme={theme} onMount={onMount} />
         </div>
       );
   }

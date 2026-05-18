@@ -5,8 +5,9 @@
     {
       "activate": true,
       "name": "dev",
-      "domain": "localhost",
-      "api-prj": ":8080/api"
+      "domain": "192.168.17.128",
+      "api-prj": ":25710/api-prj",
+      "lcgl-prj": ":25708/lcgl-prj"
     }
   ],
   "groups": [],
@@ -39,7 +40,15 @@
       "id": "api_1779089430134_13n55nmgn",
       "name": "获取lims-token",
       "method": "POST",
-      "api_path": "{domain}{api-prj}1",
+      "api_path": "{domain}{api-prj}/openapi/security/token",
+      "group": "default",
+      "deleted": false
+    },
+    {
+      "id": "api_mpb0mktf9b1no",
+      "name": "接收mes订单",
+      "method": "POST",
+      "api_path": "{domain}{api-prj}/openapi/order/mes/receive",
       "group": "default",
       "deleted": false
     }

@@ -1,5 +1,7 @@
-import React from 'react';
-import { Trash2, Plus } from 'lucide-react';
+import React, { useRef } from 'react';
+import { Trash2, Plus, AlertCircle } from 'lucide-react';
+import { validateHeaderName } from '../utils/HTTPValidator';
+import { toast } from './Toast';
 import './KVTable.css';
 
 const ALL_TYPES = [
@@ -22,6 +24,7 @@ function getFileList(val) {
 
 function KVTable({ items, onItemsChange, section, showType, showFileType, onValueClick, onDescClick, onActiveRowChange, activeRowIndex, excludeApiId, theme }) {
   const typeOptions = showFileType ? ALL_TYPES : NON_FILE_TYPES;
+  const lastToastRef = useRef(0);
 
   const parseRefPreview = (val) => {
     if (typeof val !== 'string') return val;
@@ -54,14 +57,14 @@ function KVTable({ items, onItemsChange, section, showType, showFileType, onValu
         return <span className="kv-preview-ref">{parseRefPreview(val)}</span>;
       default: {
         const str = String(val);
-        return str.length > 80 ? <span title={str}>{str.slice(0, 80)}...</span> : <span>{str}</span>;
+        return str.length > 10 ? <span title={str}>{str.slice(0, 10)}...</span> : <span>{str}</span>;
       }
     }
   };
 
   const getDescPreview = (desc) => {
     if (!desc) return <span className="kv-empty">(空)</span>;
-    return desc.length > 40 ? <span title={desc}>{desc.slice(0, 40)}...</span> : <span>{desc}</span>;
+    return desc.length > 10 ? <span title={desc}>{desc.slice(0, 10)}...</span> : <span>{desc}</span>;
   };
 
   const handleRowClick = (index) => {
@@ -97,15 +100,32 @@ function KVTable({ items, onItemsChange, section, showType, showFileType, onValu
                     disabled={isReadonly} />
                 </td>
                 <td className="col-key">
-                  <input type="text" value={item.key || ''}
-                    onChange={(e) => {
-                      if (isReadonly) return;
-                      const newItems = items.map((it, i) => i === index ? { ...it, key: e.target.value } : it);
-                      onItemsChange(newItems);
-                    }}
-                    placeholder={`${section} Key`}
-                    readOnly={isReadonly}
-                    className={isReadonly ? 'readonly' : ''} />
+                  <div className="kv-key-cell">
+                    <input type="text" value={item.key || ''}
+                      onChange={(e) => {
+                        if (isReadonly) return;
+                        let val = e.target.value;
+                        if (section === 'header') {
+                          const cleaned = val.replace(/[^A-Za-z0-9\-_]/g, '');
+                          if (cleaned !== val && Date.now() - lastToastRef.current > 1000) {
+                            const removed = [...new Set(val.replace(/[A-Za-z0-9\-_]/g, '').split(''))].join('');
+                            toast.info(`已去掉特殊字符: ${removed}`);
+                            lastToastRef.current = Date.now();
+                          }
+                          val = cleaned;
+                        }
+                        const newItems = items.map((it, i) => i === index ? { ...it, key: val } : it);
+                        onItemsChange(newItems);
+                      }}
+                      placeholder={`${section} Key`}
+                      readOnly={isReadonly}
+                      className={`${isReadonly ? 'readonly' : ''} ${section === 'header' && item.key && !validateHeaderName(item.key).valid ? 'header-name-invalid' : ''}`} />
+                    {section === 'header' && item.key && !validateHeaderName(item.key).valid && (
+                      <span className="kv-key-error-icon" title={validateHeaderName(item.key).error}>
+                        <AlertCircle size={12} />
+                      </span>
+                    )}
+                  </div>
                 </td>
                 {showType && (
                   <td className="col-type">

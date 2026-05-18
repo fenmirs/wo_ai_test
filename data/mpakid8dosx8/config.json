@@ -33,6 +33,14 @@
       "api_path": "{domain}{lcgl-prj}/order/save/v1",
       "group": "default",
       "deleted": true
+    },
+    {
+      "id": "api_mpay5mndvbqxm",
+      "name": "订单保存(复制)",
+      "method": "POST",
+      "api_path": "{domain}{lcgl-prj}/order/save/v1",
+      "group": "default",
+      "deleted": false
     }
   ]
 }

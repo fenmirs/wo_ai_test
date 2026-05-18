@@ -1,3 +1,5 @@
+import { sanitizeParams } from './HTTPValidator';
+
 class APIExecutor {
   constructor(projectPath, config, profile) {
     this.projectPath = projectPath;
@@ -313,16 +315,27 @@ class APIExecutor {
       let header = mergedAPI.header || {};
       header = this.resolveDict(header, this.apiResults);
       
-      // 清理 Header 值中的非法字符（如 \r\n）
+      // 清理 Header Name 中的非法字符（只保留 A-Z, a-z, 0-9, -, _）
+      const cleanedHeaders = {};
+      for (const key in header) {
+        const cleanedKey = (key || '').replace(/[^A-Za-z0-9\-_]/g, '');
+        if (!cleanedKey) continue;
+        cleanedHeaders[cleanedKey] = header[key];
+      }
+      header = cleanedHeaders;
+
+      // 清理 Header Value 中的非法字符（\r, \n, \0 等控制字符）
       for (const key in header) {
         if (typeof header[key] === 'string') {
-          header[key] = header[key].replace(/[\r\n]/g, '').trim();
+          header[key] = header[key].replace(/[^\t\x20-\x7e]/g, '');
         }
       }
 
       // 解析 URL 参数
       let params = mergedAPI.param || {};
       params = this.resolveDict(params, this.apiResults);
+      // 对 URL 参数值进行百分比编码
+      params = sanitizeParams(params);
 
       // 解析 Body
       let body = mergedAPI.body;

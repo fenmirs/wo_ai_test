@@ -14,6 +14,7 @@ import KVBottomPanel from './KVBottomPanel';
 import { toast } from './Toast';
 import { useProgress } from './ProgressOverlay';
 
+
 function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, groups = [], isAdding = false, isTemporary = false, onViewDetail, onRestoreHistory, onDeleteHistory, theme = 'dark', onResultChange, onDraftChange, requestedScenarioId, requestedScenarioAction, onScenarioChange, onRequestedScenarioActionHandled, onRequestedScenarioHandled }) {
   const [resolvedPath, setResolvedPath] = useState('');
   const [executionResult, setExecutionResult] = useState(null);
