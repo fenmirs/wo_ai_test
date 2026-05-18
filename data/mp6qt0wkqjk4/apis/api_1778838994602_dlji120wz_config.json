@@ -1,0 +1,8 @@
+{
+  "id": "api_1778838994602_dlji120wz",
+  "name": "未命名的API",
+  "method": "GET",
+  "api_path": "{domain}",
+  "group": "default",
+  "scenarios": {}
+}

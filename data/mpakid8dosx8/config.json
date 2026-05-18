@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "projectName": "浙江电商",
+  "profile": [
+    {
+      "activate": true,
+      "name": "dev",
+      "domain": "192.168.17.128",
+      "api-prj": ":23210/api-prj",
+      "lcgl-prj": ":23208/lcgl-prj"
+    }
+  ],
+  "groups": [
+    {
+      "id": "group_mpakiot8eozb3",
+      "name": "SOP改造",
+      "parentId": "default"
+    }
+  ],
+  "apis": [
+    {
+      "id": "api_1779070312269_4xtbri9vr",
+      "name": "订单保存",
+      "method": "POST",
+      "api_path": "{domain}{lcgl-prj}/order/save/v1",
+      "group": "default",
+      "deleted": false
+    },
+    {
+      "id": "api_mpalqc28cpt2r",
+      "name": "订单保存(复制)",
+      "method": "POST",
+      "api_path": "{domain}{lcgl-prj}/order/save/v1",
+      "group": "default",
+      "deleted": false
+    }
+  ]
+}

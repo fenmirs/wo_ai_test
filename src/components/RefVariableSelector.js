@@ -134,6 +134,9 @@ function RefVariableSelector({ value, onChange, excludeApiId, theme = 'dark' }) 
 
   const availableApis = allApis.filter(a => {
     if (excludeApiId && a.id === excludeApiId) return false;
+    const cache = projectManager._apiDataCache?.[a.id];
+    const scns = cache?.scenarios ? Object.values(cache.scenarios).filter(s => !s.deleted) : [];
+    if (scns.length === 0) return false;
     return true;
   });
 

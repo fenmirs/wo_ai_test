@@ -1,8 +1,16 @@
 {
   "projects": [
     {
-      "id": "mp6im05c126t",
-      "name": "222",
+      "id": "mp6qt0wkqjk4",
+      "name": "存储",
+      "path": "C:\\Users\\fenmi\\Desktop\\api_test_ui\\data",
+      "configFile": "config.json",
+      "historyFile": null,
+      "version": 2
+    },
+    {
+      "id": "mpakid8dosx8",
+      "name": "浙江电商",
       "path": "C:\\Users\\fenmi\\Desktop\\api_test_ui\\data",
       "configFile": "config.json",
       "historyFile": null,

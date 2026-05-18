@@ -880,8 +880,10 @@ function App() {
     if (!formData) return;
     
     const isTemporary = temporaryAPI !== null;
+    console.log('[App.handleSaveAPI] isAddingAPI:', isAddingAPI, 'isTemporary:', isTemporary, 'formData.id:', formData.id, 'formData.name:', formData.name, 'selectedAPI.id:', selectedAPI?.id);
     
     if (isTemporary || isAddingAPI) {
+      console.log('[App.handleSaveAPI] BRANCH: addAPI');
       const exists = projectData.apis.find(api => 
         api.name === formData.name && api.group === formData.group
       );
@@ -892,13 +894,17 @@ function App() {
         formData.id = `api_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
       }
       await projectManager.addAPI(formData);
+      console.log('[App.handleSaveAPI] addAPI done, new id:', formData.id);
       setSelectedAPI(formData);
       setTemporaryAPI(null);
     } else {
+      console.log('[App.handleSaveAPI] BRANCH: updateAPI');
       if (formData.id !== selectedAPI.id) {
+        console.log('[App.handleSaveAPI] ID MISMATCH!', formData.id, 'vs', selectedAPI.id);
         throw new Error('API ID 不匹配');
       }
       await projectManager.updateAPI(formData.id, formData);
+      console.log('[App.handleSaveAPI] updateAPI done');
       setSelectedAPI(formData);
     }
     setEditingAPI(null);
@@ -1210,6 +1216,7 @@ function App() {
                     onScrollToApiHandled={() => setScrollToApiId(null)}
                     expandGroupId={expandGroupId}
                     onExpandGroupHandled={() => setExpandGroupId(null)}
+                    profile={currentProfile}
                  />
               </div>
             </div>

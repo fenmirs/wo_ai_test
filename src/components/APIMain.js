@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Search, Folder, FolderOpen, Plus, Trash2, FolderPlus, ChevronRight, ChevronDown, MoreHorizontal, Copy, Edit, X, Layers } from 'lucide-react';
 import { projectManager } from '../utils/ProjectManager';
+import { toast } from './Toast';
 import './APIMain.css';
 
-function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, onEdit, onDelete, onAddGroup, onDeleteGroup, onGroupSelect, onMoveToGroup, onRenameGroup, onMoveGroup, onCopyAPI, onCopyGroup, onScenarioSelect, onAddScenario, onDeleteScenario, zenMode, zenApiId, currentScenarioId, expandScenarioApiId, onExpandScenarioHandled, scrollToApiId, onScrollToApiHandled, expandGroupId, onExpandGroupHandled }) {
+function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, onEdit, onDelete, onAddGroup, onDeleteGroup, onGroupSelect, onMoveToGroup, onRenameGroup, onMoveGroup, onCopyAPI, onCopyGroup, onScenarioSelect, onAddScenario, onDeleteScenario, zenMode, zenApiId, currentScenarioId, expandScenarioApiId, onExpandScenarioHandled, scrollToApiId, onScrollToApiHandled, expandGroupId, onExpandGroupHandled, profile }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [dragAPI, setDragAPI] = useState(null);
   const [dragGroup, setDragGroup] = useState(null);
@@ -276,6 +277,13 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
       setEditingScenarioName('');
       return;
     }
+    const existing = Object.values(config.scenarios).find(s => s.id !== scenarioId && !s.deleted && s.name === trimmed);
+    if (existing) {
+      toast.error('场景名称不能重复');
+      setEditingScenarioKey(null);
+      setEditingScenarioName('');
+      return;
+    }
     scn.name = trimmed;
     projectManager.markDirty();
     setEditingScenarioKey(null);
@@ -523,6 +531,22 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
     return suffix && suffix !== id ? `#${suffix}` : '';
   };
 
+  const escapeRegex = (str) => {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  };
+
+  // 根据当前 profile 解析 api_path 中的 {var} 变量
+  const resolvePath = (apiPath) => {
+    if (!apiPath || !profile) return apiPath || '';
+    let path = apiPath;
+    Object.keys(profile).forEach(key => {
+      if (key !== 'name' && key !== 'activate') {
+        path = path.replace(new RegExp(`\\{${escapeRegex(key)}\\}`, 'gi'), profile[key]);
+      }
+    });
+    return path;
+  };
+
   // 计算分组深度
   const getGroupDepth = (groupId, groups) => {
     let depth = 0;
@@ -552,8 +576,9 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
       const idMatch = api.id && api.id.toLowerCase().includes(lowerQuery);
       const groupMatch = matchedGroupIds.has(api.group);
 
-      // 路径搜索直接从索引 api.api_path (Phase 3 优化：不再需要加载 per-API 缓存)
+      // 路径搜索：原始路径 + 解析变量后的完整路径
       const pathMatch = !!(api.api_path && api.api_path.toLowerCase().includes(lowerQuery));
+      const resolvedPathMatch = !pathMatch && !!(api.api_path && resolvePath(api.api_path).toLowerCase().includes(lowerQuery));
 
       // 场景名 + 描述搜索
       let scenarioMatch = false;
@@ -573,7 +598,7 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
         }
       }
 
-      return nameMatch || idMatch || groupMatch || pathMatch || scenarioMatch;
+      return nameMatch || idMatch || groupMatch || pathMatch || resolvedPathMatch || scenarioMatch;
     });
   };
 
@@ -856,10 +881,6 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
     );
   };
 
-  const escapeRegex = (str) => {
-    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  };
-
   // 扫描场景数据中的引用
   const scanRefInScenario = (scn, targetApiId) => {
     const refPattern = new RegExp(`\\{\\{ref:${escapeRegex(targetApiId)}(?:@|\\}|\\.)`, 'i');
@@ -948,7 +969,7 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()}
             className="search-input"
-            title="支持按 API 名称、请求路径、场景名、场景描述、组名、ID 模糊搜索"
+            title="支持按 API 名称、请求路径（含变量解析后）、场景名、场景描述、组名、ID 模糊搜索"
           />
         </div>
       </div>
@@ -1063,10 +1084,13 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
                 <Plus size={14} />
                 <span>添加场景</span>
               </div>
-              <div className="operation-menu-item" onClick={() => handleOperationMenuAction('viewRefs')}>
-                <Search size={14} />
-                <span>查看引用</span>
-              </div>
+              {projectManager._apiDataCache[operationMenu.data?.id]?.scenarios && 
+               Object.values(projectManager._apiDataCache[operationMenu.data.id].scenarios).filter(s => !s.deleted).length > 0 && (
+                <div className="operation-menu-item" onClick={() => handleOperationMenuAction('viewRefs')}>
+                  <Search size={14} />
+                  <span>查看引用</span>
+                </div>
+              )}
               <div className="operation-menu-item danger" onClick={() => handleOperationMenuAction('delete')}>
                 <Trash2 size={14} />
                 <span>删除</span>

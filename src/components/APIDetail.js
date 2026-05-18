@@ -94,8 +94,6 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const [apiEditMode, setApiEditMode] = useState(false);
   const savedUrlSegmentsRef = useRef(null);
   const cleanSnapshotRef = useRef(null);
-  const autoSaveTimerRef = useRef(null);
-  const isFirstAutoSave = useRef(true);
 
   const apiHistory = history.filter(h =>
     (h.apiId && h.apiId === formData.id) ||
@@ -108,7 +106,6 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         return;
       }
       initializedApiIdRef.current = api.id;
-      isFirstAutoSave.current = true;
       setApiEditMode(false);
       savedUrlSegmentsRef.current = null;
       initializeFromApi(api, requestedScenarioId);
@@ -152,6 +149,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
           });
         }
       }
+
     }
   }, [api]);
 
@@ -174,7 +172,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   useEffect(() => {
     if (!requestedScenarioAction) return;
     if (requestedScenarioAction.type === 'add') {
-      if (scenarioList.length > 0) {
+      if (initializedApiIdRef.current === api?.id) {
         addScenario();
         onRequestedScenarioActionHandled?.();
       } else {
@@ -194,7 +192,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     const path = urlSegments.map(seg =>
       seg.type === 'variable' ? `{${seg.value}}` : seg.value
     ).join('');
-    setFormData(prev => ({ ...prev, api_path: path }));
+    setFormData(prev => prev.api_path === path ? prev : { ...prev, api_path: path });
   }, [urlSegments]);
 
   useEffect(() => {
@@ -231,47 +229,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     onDraftChange?.(draftDirty);
   }, [draftDirty, onDraftChange]);
 
-  // 自动保存：表单或场景变化时（路径和方法除外）自动更新缓存
-  useEffect(() => {
-    if (!api?.id || !projectManager._apiDataCache[api.id]) return;
-    if (isFirstAutoSave.current) {
-      isFirstAutoSave.current = false;
-      return;
-    }
-    if (apiEditMode) return;
 
-    if (autoSaveTimerRef.current) clearTimeout(autoSaveTimerRef.current);
-    autoSaveTimerRef.current = setTimeout(() => {
-      const cache = projectManager._apiDataCache[api.id];
-      if (!cache) return;
-
-      cache.name = formData.name;
-      cache.group = formData.group;
-
-      const scenarios = {};
-      scenarioList.forEach(s => {
-        if (s.id === currentScenarioId) {
-          scenarios[s.id] = {
-            ...s,
-            header: formData.header,
-            param: formData.param,
-            body: formData.body,
-            assertions: formData.assertions,
-            updatedAt: new Date().toISOString()
-          };
-        } else {
-          scenarios[s.id] = { ...s, updatedAt: new Date().toISOString() };
-        }
-      });
-      cache.scenarios = scenarios;
-
-      projectManager.markDirty();
-    }, 300);
-
-    return () => {
-      if (autoSaveTimerRef.current) clearTimeout(autoSaveTimerRef.current);
-    };
-  }, [formData, scenarioList, apiEditMode]);
 
   // 计算变量下拉菜单位置
   useEffect(() => {
@@ -413,16 +371,31 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         activeScenarioId = pendingScenarioId;
       }
     } else {
-      // Legacy / temporary format: create default scenario from top-level fields
-      const parsedParam = parseToArray(apiData.param);
-      const parsedHeader = parseToArray({ ...defaultHeader, ...apiData.header });
-      const defaultScn = createEmptyScenario('scn_default', '默认场景', '');
-      defaultScn.header = parsedHeader;
-      defaultScn.param = parsedParam;
-      defaultScn.body = parseBodyData(apiData.body, { ...defaultHeader, ...apiData.header });
-      defaultScn.assertions = parseAssertions(apiData.successAssert);
-      scenarios = [defaultScn];
-      activeScenarioId = defaultScn.id;
+      // Try cache first (apiData prop may not include scenarios for new APIs)
+      const cacheEntry = projectManager._apiDataCache[apiData.id];
+      if (cacheEntry?.scenarios && Object.keys(cacheEntry.scenarios).length > 0) {
+        scenarios = Object.values(cacheEntry.scenarios).filter(s => !s.deleted);
+        if (scenarios.length === 0) {
+          const firstKey = Object.keys(cacheEntry.scenarios)[0];
+          scenarios = [cacheEntry.scenarios[firstKey]];
+        }
+        activeScenarioId = scenarios[0]?.id;
+      } else if (apiData.header && Object.keys(apiData.header).length > 0) {
+        // Legacy format: create default scenario from top-level fields
+        const parsedParam = parseToArray(apiData.param);
+        const parsedHeader = parseToArray({ ...defaultHeader, ...apiData.header });
+        const defaultScn = createEmptyScenario('scn_default', '默认场景', '');
+        defaultScn.header = parsedHeader;
+        defaultScn.param = parsedParam;
+        defaultScn.body = parseBodyData(apiData.body, { ...defaultHeader, ...apiData.header });
+        defaultScn.assertions = parseAssertions(apiData.successAssert);
+        scenarios = [defaultScn];
+        activeScenarioId = defaultScn.id;
+      } else {
+        // Truly no scenarios (e.g. newly created API)
+        scenarios = [];
+        activeScenarioId = null;
+      }
     }
 
     // Handle pending add scenario action
@@ -430,10 +403,11 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       pendingActionRef.current = null;
       const newScnId = `scn_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
       const currentScn = scenarios.find(s => s.id === activeScenarioId);
-      let name = '新场景';
+      const baseName = scenarios.length === 0 ? '默认场景' : '新场景';
+      let name = baseName;
       let counter = 1;
       while (scenarios.some(s => s.name === name)) {
-        name = `新场景 ${counter++}`;
+        name = `${baseName} ${counter++}`;
       }
       const newScenario = {
         ...createEmptyScenario(newScnId, name, currentScn?.description || ''),
@@ -683,7 +657,10 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const addScenario = () => {
     const newId = `scn_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
     const defaultScenario = scenarioList[0];
-    const baseName = '新场景';
+    const cacheScns = api?.id && projectManager._apiDataCache[api.id]?.scenarios
+      ? Object.values(projectManager._apiDataCache[api.id].scenarios).filter(s => !s.deleted)
+      : [];
+    const baseName = cacheScns.length === 0 ? '默认场景' : '新场景';
     let name = baseName;
     let counter = 1;
     while (scenarioList.some(s => s.name === name)) {
@@ -715,8 +692,14 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   };
 
   const renameScenario = (scenarioId, newName) => {
+    const trimmed = newName.trim();
+    if (!trimmed) return;
+    if (scenarioList.some(s => s.id !== scenarioId && s.name === trimmed)) {
+      toast.error('场景名称不能重复');
+      return;
+    }
     setScenarioList(prev => prev.map(s =>
-      s.id === scenarioId ? { ...s, name: newName, updatedAt: new Date().toISOString() } : s
+      s.id === scenarioId ? { ...s, name: trimmed, updatedAt: new Date().toISOString() } : s
     ));
   };
 
@@ -988,10 +971,12 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       }
     }
 
+    console.log('[APIDetail.handleSave] formData.id:', formData.id, 'isAdding:', isAdding, 'isTemporary:', isTemporary, 'scenarioList.length:', scenarioList.length);
+    const execAPI = prepareForExecute();
+    console.log('[APIDetail.handleSave] execAPI.id:', execAPI.id, 'name:', execAPI.name);
     setIsSaving(true);
 
     try {
-      const execAPI = prepareForExecute();
       if (onSaveAPI) {
         await onSaveAPI(execAPI, isAdding || isTemporary);
       }
@@ -1103,7 +1088,16 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
     // Build scenarios object from scenarioList (scenarios no longer carry method/apiPath)
     const scenarios = {};
-    const updatedList = scenarioList.map(s => {
+    let list = scenarioList;
+    if (list.length === 0) {
+      const defaultScn = createEmptyScenario(`scn_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`, '默认场景', '');
+      defaultScn.header = formData.header;
+      defaultScn.param = formData.param;
+      defaultScn.body = formData.body;
+      defaultScn.assertions = formData.assertions;
+      list = [defaultScn];
+    }
+    const updatedList = list.map(s => {
       if (s.id === currentScenarioId) {
         return {
           ...s,
@@ -1467,40 +1461,29 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
               <button className="api-edit-btn confirm" onClick={() => {
                 savedUrlSegmentsRef.current = null;
                 setApiEditMode(false);
-                if (api?.id && projectManager._apiDataCache[api.id]) {
-                  const cache = projectManager._apiDataCache[api.id];
-                  cache.method = formData.method;
-                  cache.api_path = formData.api_path;
-                  const cacheEntry = projectManager._activeProject?.config?.apis?.find(a => a.id === api.id);
-                  if (cacheEntry) {
-                    cacheEntry.method = formData.method;
-                    cacheEntry.api_path = formData.api_path;
-                  }
-                  projectManager.markDirty();
-                }
               }} title="完成编辑">
-                <CheckCircle size={14} />
+                <CheckCircle size={16} />
               </button>
               <button className="api-edit-btn cancel" onClick={() => { setUrlSegments(savedUrlSegmentsRef.current); savedUrlSegmentsRef.current = null; setApiEditMode(false); }} title="取消">
-                <X size={14} />
+                <X size={16} />
               </button>
             </>
           ) : (
             <button className="api-edit-btn" onClick={() => { savedUrlSegmentsRef.current = [...urlSegments]; setApiEditMode(true); }} title="编辑 API">
-              <Edit size={14} />
+              <Edit size={16} />
             </button>
           )}
           <div className="api-line-actions">
-            <button className="scene-action-btn btn-save-icon" onClick={handleSave} title="保存" style={{ display: 'none' }}>
-              {isSaving ? <RefreshCw size={14} className="spin" /> : <Save size={14} />}
+            <button className="scene-action-btn btn-save-icon" onClick={handleSave} title="保存">
+              {isSaving ? <RefreshCw size={16} className="spin" /> : <Save size={16} />}
             </button>
             <span className="scene-action-divider">|</span>
             <button className="scene-action-btn btn-send-icon" onClick={handleSend} title={isExecuting ? '取消' : '发送'}>
-              {isExecuting ? <X size={14} /> : <Play size={14} />}
+              {isExecuting ? <X size={16} /> : <Play size={16} />}
             </button>
             <span className="scene-action-divider">|</span>
             <button className="scene-action-btn btn-doc-icon" onClick={handleGenerateDoc} title="生成文档">
-              <FileDown size={14} />
+              <FileDown size={16} />
             </button>
           </div>
         </div>

@@ -531,7 +531,6 @@ class ProjectManager {
     this.disableAutoSave();
     this.autoSaveTimer = setInterval(async () => {
       if (this.isDirty) {
-        console.log('自动保存中...');
         const result = await this.saveProject();
         if (result.success) {
           console.log('自动保存成功');
@@ -629,10 +628,11 @@ class ProjectManager {
 
   async updateAPI(apiId, newData) {
     const proj = this._activeProject;
-    if (!proj?.config) return;
+    if (!proj?.config) { console.log('[PM.updateAPI] no project/config'); return; }
 
     const index = proj.config.apis.findIndex(api => api.id === apiId);
-    if (index === -1) return;
+    console.log('[PM.updateAPI] apiId:', apiId, 'index:', index, 'total apis:', proj.config.apis.length);
+    if (index === -1) { console.log('[PM.updateAPI] INDEX NOT FOUND - returning early'); return; }
 
     const oldEntry = proj.config.apis[index];
     const updatedEntry = {
@@ -655,16 +655,19 @@ class ProjectManager {
       group: newData.group !== undefined ? newData.group : (existingCache.group || oldEntry.group || null),
       scenarios: newData.scenarios || existingCache.scenarios || {}
     };
+    console.log('[PM.updateAPI] scenarios keys:', Object.keys(apiConfig.scenarios));
     proj.apiDataCache[apiId] = deepClone(apiConfig);
     proj.dirtyApiConfigs.add(apiId);
     this.markDirty();
+    console.log('[PM.updateAPI] done');
   }
 
   async addAPI(api) {
     const proj = this._activeProject;
-    if (!proj?.config) return;
+    if (!proj?.config) { console.log('[PM.addAPI] no project/config'); return; }
 
     if (!api.id) api.id = generateId('api');
+    console.log('[PM.addAPI] api.id:', api.id, 'name:', api.name, 'total apis before:', proj.config.apis.length);
 
     const indexEntry = {
       id: api.id,
@@ -676,6 +679,7 @@ class ProjectManager {
     };
 
     proj.config.apis.push(indexEntry);
+    console.log('[PM.addAPI] pushed to config, total:', proj.config.apis.length);
 
     // Per-API config: 只存 API 级字段 + scenarios
     const apiConfig = {
@@ -689,6 +693,7 @@ class ProjectManager {
     proj.apiDataCache[api.id] = deepClone(apiConfig);
     proj.dirtyApiConfigs.add(api.id);
     this.markDirty();
+    console.log('[PM.addAPI] done');
   }
 
   async softDeleteAPI(apiId) {

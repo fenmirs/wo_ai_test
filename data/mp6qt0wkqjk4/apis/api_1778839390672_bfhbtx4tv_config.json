@@ -1,16 +1,16 @@
 {
-  "id": "api_1778828071062_197rs8f0g",
-  "name": "未命名的API 1",
+  "id": "api_1778839390672_bfhbtx4tv",
+  "name": "未命名的API 2",
   "method": "GET",
   "api_path": "{domain}",
-  "group": "group_mp6k8qmnhornl",
+  "group": "default",
   "scenarios": {
-    "scn_default": {
-      "id": "scn_default",
+    "scn_1778839393345_0ljug": {
+      "id": "scn_1778839393345_0ljug",
       "name": "默认场景",
       "description": "",
-      "createdAt": "2026-05-15T06:54:31.067Z",
-      "updatedAt": "2026-05-15T06:54:31.387Z",
+      "createdAt": "2026-05-15T10:03:13.346Z",
+      "updatedAt": "2026-05-15T10:03:13.346Z",
       "deleted": false,
       "header": [
         {
@@ -30,7 +30,7 @@
         "contentType": "json",
         "content": "{}",
         "schema": {
-          "id": "node_1778828071067_67e30svwf",
+          "id": "node_1778839390678_lpal9iw75",
           "type": "object",
           "key": null,
           "value": null,
@@ -41,7 +41,7 @@
           "json": {
             "content": "{}",
             "schema": {
-              "id": "node_1778828071067_67e30svwf",
+              "id": "node_1778839390678_lpal9iw75",
               "type": "object",
               "key": null,
               "value": null,
