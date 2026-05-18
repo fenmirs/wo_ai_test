@@ -1,0 +1,75 @@
+{
+  "id": "api_1779089430134_13n55nmgn",
+  "name": "获取lims-token",
+  "method": "POST",
+  "api_path": "{domain}{api-prj}1",
+  "group": "default",
+  "scenarios": {
+    "scn_1779089483391_f3wlv": {
+      "id": "scn_1779089483391_f3wlv",
+      "name": "默认场景",
+      "description": "",
+      "createdAt": "2026-05-18T07:31:23.391Z",
+      "updatedAt": "2026-05-18T07:31:23.391Z",
+      "deleted": false,
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1779089430145_qq7mkv41n",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1779089430145_qq7mkv41n",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "assertions": [
+        {
+          "expression": "",
+          "enabled": true
+        }
+      ],
+      "refChain": []
+    }
+  }
+}

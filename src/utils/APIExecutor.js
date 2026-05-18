@@ -312,6 +312,13 @@ class APIExecutor {
       // 解析 Header
       let header = mergedAPI.header || {};
       header = this.resolveDict(header, this.apiResults);
+      
+      // 清理 Header 值中的非法字符（如 \r\n）
+      for (const key in header) {
+        if (typeof header[key] === 'string') {
+          header[key] = header[key].replace(/[\r\n]/g, '').trim();
+        }
+      }
 
       // 解析 URL 参数
       let params = mergedAPI.param || {};
@@ -341,7 +348,7 @@ class APIExecutor {
       }
       if (body !== undefined && body !== null && body !== '') {
         const bodyStr = typeof body === 'string' ? body : JSON.stringify(body, null, 2);
-        console.log(`[APIExecutor]  Body:`, bodyStr.length > 2000 ? bodyStr.substring(0, 2000) + '...' : bodyStr);
+        console.log(`[APIExecutor]  Body:`, bodyStr.length > 50000 ? bodyStr.substring(0, 50000) + '...(truncated at 50k)' : bodyStr);
       }
 
       // 检查是否包含文件上传
@@ -433,6 +440,13 @@ class APIExecutor {
           errorType = response.errorType || 'network';
           statusCode = response.status_code;
           statusText = response.status_text || errorType.toUpperCase();
+          // 合并 Electron 原始错误信息（如 code、原始 message），便于排查
+          if (response._electronError) {
+            const extra = [];
+            if (response._electronCode) extra.push(`code=${response._electronCode}`);
+            if (response._electronRaw && response._electronRaw !== errorMessage) extra.push(`raw=${response._electronRaw}`);
+            if (extra.length) statusText += ' | ' + extra.join(' ');
+          }
         } else {
           // 成功响应
           statusCode = response.status_code;
@@ -470,7 +484,7 @@ class APIExecutor {
       console.log(`[APIExecutor]  断言: ${assertionResult ? (assertionResult.passed ? '通过' : '失败') : '无'} | 最终结果: ${success ? '成功' : '失败'}`);
       if (responseData !== undefined) {
         const dataStr = typeof responseData === 'object' ? JSON.stringify(responseData, null, 2) : String(responseData);
-        console.log(`[APIExecutor]  响应体:`, dataStr.length > 3000 ? dataStr.substring(0, 3000) + '...' : dataStr);
+        console.log(`[APIExecutor]  响应体:`, dataStr.length > 50000 ? dataStr.substring(0, 50000) + '...(truncated at 50k)' : dataStr);
       }
       console.log(`[APIExecutor] ════════════════════════════════════════`);
 

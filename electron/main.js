@@ -748,11 +748,14 @@ ipcMain.handle('http-request-with-cancel', async (event, { id, requestConfig }) 
         }
 
         const { type, message } = formatErrorMessage(error);
-        console.log(`[Electron]  !! ${type}: ${message}`);
+        console.log(`[Electron]  !! ${type}: ${message}${error.code ? ' (code=' + error.code + ')' : ''}`);
         resolve({
           success: false,
           error: message,
           errorType: type,
+          _electronError: true,
+          _electronCode: error.code || null,
+          _electronRaw: error.message || message,
           elapsedTime: ((Date.now() - startTime) / 1000).toFixed(2) + 's'
         });
       });

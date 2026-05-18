@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, ChevronRight, ChevronDown, ChevronUp, Trash2, Plus, Upload, X, AlertCircle, FileText, Save, FileDown, Code, Layout, Edit } from 'lucide-react';
+import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, Trash2, Plus, X, AlertCircle, FileText, Save, FileDown, Code, Layout, Edit } from 'lucide-react';
 import './APIDetail.css';
 import ChainManager from '../utils/ChainManager';
 import { projectManager } from '../utils/ProjectManager';
@@ -8,8 +8,9 @@ import APIDocGenerator from '../utils/APIDocGenerator';
 import JSONSchemaConverter from '../utils/JSONSchemaConverter';
 import XMLSchemaConverter from '../utils/XMLSchemaConverter';
 import CodeEditor from './CodeEditor';
-import RefVariableSelector from './RefVariableSelector';
 import BodyTreeEditor from './BodyTreeEditor';
+import KVTable from './KVTable';
+import KVBottomPanel from './KVBottomPanel';
 import { toast } from './Toast';
 import { useProgress } from './ProgressOverlay';
 
@@ -94,6 +95,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const [apiEditMode, setApiEditMode] = useState(false);
   const savedUrlSegmentsRef = useRef(null);
   const cleanSnapshotRef = useRef(null);
+  const [bottomPanel, setBottomPanel] = useState({ visible: false, section: null, rowIndex: null, field: 'value' });
 
   const apiHistory = history.filter(h =>
     (h.apiId && h.apiId === formData.id) ||
@@ -715,6 +717,46 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     }
   };
 
+  // --- KV Bottom Panel Handlers ---
+  const handleBottomPanelOpen = (section, rowIndex, field) => {
+    setBottomPanel({ visible: true, section, rowIndex, field });
+  };
+
+  const handleBottomPanelClose = () => {
+    setBottomPanel({ visible: false, section: null, rowIndex: null, field: 'value' });
+  };
+
+  const handleActiveRowChange = (rowIndex) => {
+    setBottomPanel(prev => prev.visible ? { ...prev, rowIndex } : prev);
+  };
+
+  const handleSectionItemsChange = (section, newItems) => {
+    switch (section) {
+      case 'param':
+        setFormData(prev => ({ ...prev, param: newItems }));
+        break;
+      case 'header':
+        setFormData(prev => ({ ...prev, header: newItems }));
+        break;
+      case 'formData':
+        updateFormBody({ formData: newItems });
+        break;
+      case 'xwww':
+        updateFormBody({ xwwwFormUrlencoded: newItems });
+        break;
+    }
+  };
+
+  const getSectionItems = (section) => {
+    switch (section) {
+      case 'param': return formData.param;
+      case 'header': return formData.header;
+      case 'formData': return formData.body.formData;
+      case 'xwww': return formData.body.xwwwFormUrlencoded;
+      default: return [];
+    }
+  };
+
   const updateResolvedPath = () => {
     if (!formData.api_path || !profile) return;
     let path = formData.api_path;
@@ -1225,131 +1267,6 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     ...(!isTemporary && apiHistory.length > 0 ? [{ id: 'history', label: '历史', count: apiHistory.length }] : [])
   ];
 
-  const paramTypes = [
-    { value: 'string', label: 'String' },
-    { value: 'number', label: 'Number' },
-    { value: 'boolean', label: 'Boolean' },
-    { value: 'file', label: 'File' }
-  ];
-
-  const renderKVTable = (items, setItems, label, showType = false, showFileSelect = false) => {
-    return (
-      <div className="kv-editor">
-        <table className="kv-table-edit">
-          <thead>
-            <tr>
-              <th className="col-check"></th>
-              <th className="col-key">Key</th>
-              <th className="col-desc">Description</th>
-              {showType && <th className="col-type">Type</th>}
-              <th className="col-default">Default</th>
-              <th className="col-action"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {items.map((item, index) => {
-              const isReadonly = item.key.toLowerCase() === 'content-type';
-              return (
-                <tr key={index}>
-                  <td>
-                    <input type="checkbox" checked={item.enabled !== false}
-                      onChange={(e) => {
-                        if (isReadonly) return;
-                        const newItems = [...items];
-                        newItems[index] = { ...item, enabled: e.target.checked };
-                        setItems(newItems);
-                      }}
-                      disabled={isReadonly} />
-                  </td>
-                  <td>
-                    <input type="text" value={item.key || ''}
-                      onChange={(e) => {
-                        if (isReadonly) return;
-                        const newItems = [...items];
-                        newItems[index] = { ...item, key: e.target.value };
-                        setItems(newItems);
-                      }}
-                      placeholder={`${label} Key`}
-                      readOnly={isReadonly} className={isReadonly ? 'readonly' : ''} />
-                  </td>
-                  <td>
-                    <input type="text" value={item.description || ''}
-                      onChange={(e) => {
-                        if (isReadonly) return;
-                        const newItems = [...items];
-                        newItems[index] = { ...item, description: e.target.value };
-                        setItems(newItems);
-                      }}
-                      placeholder="备注" readOnly={isReadonly} className={isReadonly ? 'readonly' : ''} />
-                  </td>
-                  {showType && (
-                    <td>
-                      <select value={item.type || 'string'}
-                        onChange={(e) => {
-                          if (isReadonly) return;
-                          const newItems = [...items];
-                          newItems[index] = { ...item, type: e.target.value };
-                          setItems(newItems);
-                        }}
-                        disabled={isReadonly}>
-                        {paramTypes.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
-                      </select>
-                    </td>
-                  )}
-                  <td>
-                    {item.type === 'file' || (showFileSelect && isReadonly) ? (
-                      <div className="file-input">
-                        <span className="file-name">{item.default || '选择文件...'}</span>
-                        {!isReadonly && (
-                          <>
-                            <input type="file"
-                              ref={index === items.length - 1 ? fileInputRef : null}
-                              onChange={(e) => {
-                                const newItems = [...items];
-                                newItems[index] = { ...item, default: e.target.files[0]?.name || '', type: 'file' };
-                                setItems(newItems);
-                              }}
-                              style={{ display: 'none' }} />
-                            <button className="btn-file" onClick={() => fileInputRef.current?.click()}>
-                              <Upload size={12} />
-                            </button>
-                          </>
-                        )}
-                      </div>
-                    ) : isReadonly ? (
-                      <input type="text" value={item.default || ''} readOnly className="readonly" />
-                    ) : (
-                      <RefVariableSelector
-                        value={item.default || ''}
-                        onChange={(val) => {
-                          const newItems = [...items];
-                          newItems[index] = { ...item, default: val };
-                          setItems(newItems);
-                        }}
-                        excludeApiId={formData.id}
-                        theme={theme}
-                      />
-                    )}
-                  </td>
-                  <td>
-                    {!isReadonly && (
-                      <button className="btn-delete" onClick={() => setItems(items.filter((_, i) => i !== index))}>
-                        <Trash2 size={14} />
-                      </button>
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-        <button className="btn-add-row" onClick={() => setItems([...items, { key: '', default: '', type: 'string', description: '', enabled: true }])}>
-          <Plus size={14} /> 添加
-        </button>
-      </div>
-    );
-  };
-
   if (!api && !formData.name) return null;
 
   const methods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'];
@@ -1570,13 +1487,35 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
         {activeTab === 'params' && (
           <div className="tab-content">
-            {renderKVTable(formData.param, (items) => setFormData(prev => ({ ...prev, param: items })), 'Params', true, false)}
+            <KVTable
+              items={formData.param}
+              onItemsChange={(items) => setFormData(prev => ({ ...prev, param: items }))}
+              section="param"
+              showType={true}
+              onValueClick={(idx) => handleBottomPanelOpen('param', idx, 'value')}
+              onDescClick={(idx) => handleBottomPanelOpen('param', idx, 'description')}
+              onActiveRowChange={handleActiveRowChange}
+              activeRowIndex={bottomPanel.section === 'param' ? bottomPanel.rowIndex : null}
+              excludeApiId={formData.id}
+              theme={theme}
+            />
           </div>
         )}
 
         {activeTab === 'headers' && (
           <div className="tab-content">
-            {renderKVTable(formData.header, (items) => setFormData(prev => ({ ...prev, header: items })), 'Headers', false, false)}
+            <KVTable
+              items={formData.header}
+              onItemsChange={(items) => setFormData(prev => ({ ...prev, header: items }))}
+              section="header"
+              showType={false}
+              onValueClick={(idx) => handleBottomPanelOpen('header', idx, 'value')}
+              onDescClick={(idx) => handleBottomPanelOpen('header', idx, 'description')}
+              onActiveRowChange={handleActiveRowChange}
+              activeRowIndex={bottomPanel.section === 'header' ? bottomPanel.rowIndex : null}
+              excludeApiId={formData.id}
+              theme={theme}
+            />
           </div>
         )}
 
@@ -1632,11 +1571,25 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                 <p className="body-hint">
                   {formData.body.type === 'form-data' ? '支持 String、Number、Boolean、File 类型' : '支持 String、Number、Boolean 类型'}
                 </p>
-                {renderKVTable(
-                  formData.body.type === 'form-data' ? formData.body.formData : formData.body.xwwwFormUrlencoded,
-                  (items) => updateFormBody(formData.body.type === 'form-data' ? { formData: items } : { xwwwFormUrlencoded: items }),
-                  'Form', true, formData.body.type === 'form-data'
-                )}
+                {(() => {
+                  const section = formData.body.type === 'form-data' ? 'formData' : 'xwww';
+                  const items = section === 'formData' ? formData.body.formData : formData.body.xwwwFormUrlencoded;
+                  return (
+                    <KVTable
+                      items={items}
+                      onItemsChange={(newItems) => handleSectionItemsChange(section, newItems)}
+                      section={section}
+                      showType={true}
+                      showFileType={section === 'formData'}
+                      onValueClick={(idx) => handleBottomPanelOpen(section, idx, 'value')}
+                      onDescClick={(idx) => handleBottomPanelOpen(section, idx, 'description')}
+                      onActiveRowChange={handleActiveRowChange}
+                      activeRowIndex={bottomPanel.section === section ? bottomPanel.rowIndex : null}
+                      excludeApiId={formData.id}
+                      theme={theme}
+                    />
+                  );
+                })()}
               </div>
             )}
 
@@ -1975,6 +1928,18 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
             </div>
           </div>
         )}
+
+      <KVBottomPanel
+        visible={bottomPanel.visible}
+        section={bottomPanel.section}
+        rowIndex={bottomPanel.rowIndex}
+        field={bottomPanel.field}
+        items={getSectionItems(bottomPanel.section)}
+        onItemsChange={(newItems) => handleSectionItemsChange(bottomPanel.section, newItems)}
+        onClose={handleBottomPanelClose}
+        theme={theme}
+        excludeApiId={formData.id}
+      />
       </div>
 
       {formData.assertions.filter(a => a.enabled && a.expression.trim()).length > 0 && (

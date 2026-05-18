@@ -32,7 +32,7 @@
       "method": "POST",
       "api_path": "{domain}{lcgl-prj}/order/save/v1",
       "group": "default",
-      "deleted": false
+      "deleted": true
     }
   ]
 }

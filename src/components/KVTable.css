@@ -1,0 +1,207 @@
+.kv-editor {
+  width: 100%;
+}
+
+.kv-table-edit {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.kv-table-edit thead {
+  background: var(--bg-secondary);
+}
+
+.kv-table-edit th {
+  padding: 6px 8px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+  font-size: 11px;
+}
+
+.kv-table-edit td {
+  padding: 4px 6px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+
+.kv-table-edit tbody tr:hover {
+  background: var(--bg-hover);
+}
+
+.kv-table-edit tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.kv-table-edit tbody tr.row-active {
+  background: var(--bg-active, rgba(59, 130, 246, 0.08));
+}
+
+.kv-table-edit input[type="text"] {
+  width: 100%;
+  padding: 5px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 12px;
+  outline: none;
+}
+
+.kv-table-edit input[type="text"]:focus {
+  border-color: var(--accent-primary);
+}
+
+.kv-table-edit input[type="text"].readonly {
+  background: var(--bg-tertiary);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.kv-table-edit input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  accent-color: var(--accent-primary);
+  cursor: pointer;
+}
+
+.kv-table-edit input[type="checkbox"]:disabled {
+  cursor: not-allowed;
+}
+
+.kv-table-edit select {
+  width: 100%;
+  padding: 5px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 11px;
+  outline: none;
+  cursor: pointer;
+}
+
+.kv-table-edit select:focus {
+  border-color: var(--accent-primary);
+}
+
+.kv-table-edit select:disabled {
+  background: var(--bg-tertiary);
+  cursor: not-allowed;
+}
+
+.col-check {
+  width: 36px;
+  text-align: center;
+}
+
+.col-key {
+  min-width: 120px;
+  font-family: monospace;
+  color: var(--text-primary);
+}
+
+.col-type {
+  width: 90px;
+  font-size: 11px;
+}
+
+.col-value {
+  min-width: 150px;
+  font-family: monospace;
+}
+
+.col-desc {
+  min-width: 120px;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.col-action {
+  width: 40px;
+  text-align: center;
+}
+
+.kv-cell-clickable {
+  cursor: pointer;
+  padding: 5px 8px;
+  border-radius: 3px;
+  transition: background 0.15s;
+  min-height: 22px;
+  display: flex;
+  align-items: center;
+}
+
+.kv-cell-clickable:hover {
+  background: var(--bg-tertiary);
+}
+
+.kv-cell-clickable .kv-empty {
+  color: var(--text-muted);
+  font-style: italic;
+  font-family: sans-serif;
+  font-size: 11px;
+}
+
+.kv-preview-file {
+  color: var(--text-secondary);
+  font-family: sans-serif;
+  font-size: 11px;
+}
+
+.kv-preview-code {
+  font-family: monospace;
+  font-size: 11px;
+  color: var(--accent-primary, #3b82f6);
+  background: rgba(59, 130, 246, 0.08);
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
+.kv-preview-ref {
+  color: var(--accent-warning, #f59e0b);
+  font-family: sans-serif;
+  font-size: 11px;
+}
+
+.btn-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.2s;
+}
+
+.btn-delete:hover {
+  background: var(--error-bg);
+  color: var(--error-color);
+}
+
+.btn-add-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  margin-top: 8px;
+  background: transparent;
+  border: 1px dashed var(--border-color);
+  border-radius: 4px;
+  color: var(--text-muted);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-add-row:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  background: var(--bg-hover);
+}

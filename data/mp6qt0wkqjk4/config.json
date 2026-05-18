@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "projectName": "存储",
+  "projectName": "河北晨光",
   "profile": [
     {
       "activate": true,
@@ -17,7 +17,7 @@
       "method": "GET",
       "api_path": "{domain}",
       "group": "default",
-      "deleted": false
+      "deleted": true
     },
     {
       "id": "api_1778839000057_la9v98hhu",
@@ -25,7 +25,7 @@
       "method": "GET",
       "api_path": "{domain}",
       "group": "default",
-      "deleted": false
+      "deleted": true
     },
     {
       "id": "api_1778839390672_bfhbtx4tv",
@@ -34,6 +34,14 @@
       "api_path": "{domain}",
       "group": "default",
       "deleted": true
+    },
+    {
+      "id": "api_1779089430134_13n55nmgn",
+      "name": "获取lims-token",
+      "method": "POST",
+      "api_path": "{domain}{api-prj}1",
+      "group": "default",
+      "deleted": false
     }
   ]
 }
