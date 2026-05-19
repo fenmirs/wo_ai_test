@@ -15,7 +15,7 @@ import { toast } from './Toast';
 import { useProgress } from './ProgressOverlay';
 
 
-function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, groups = [], isAdding = false, isTemporary = false, onViewDetail, onRestoreHistory, onDeleteHistory, theme = 'dark', onResultChange, onDraftChange, requestedScenarioId, requestedScenarioAction, onScenarioChange, onRequestedScenarioActionHandled, onRequestedScenarioHandled }) {
+function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, groups = [], isTemporary = false, onViewDetail, onRestoreHistory, onDeleteHistory, theme = 'dark', onResultChange, onDraftChange, requestedScenarioId, requestedScenarioAction, onScenarioChange, onRequestedScenarioActionHandled, onRequestedScenarioHandled }) {
   const [resolvedPath, setResolvedPath] = useState('');
   const [executionResult, setExecutionResult] = useState(null);
   const [isExecuting, setIsExecuting] = useState(false);
@@ -219,14 +219,9 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   }, [formData.body.contents, formData.body.activeContentType, formData.body.type]);
 
   useEffect(() => {
-    if (!isAdding) {
-      cleanSnapshotRef.current = null;
-      setDraftDirty(false);
-      return;
-    }
-    if (cleanSnapshotRef.current === null) return;
-    setDraftDirty(JSON.stringify(formData) !== cleanSnapshotRef.current);
-  }, [formData, isAdding]);
+    cleanSnapshotRef.current = null;
+    setDraftDirty(false);
+  }, []);
 
   useEffect(() => {
     onDraftChange?.(draftDirty);
@@ -383,8 +378,8 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
           scenarios = [cacheEntry.scenarios[firstKey]];
         }
         activeScenarioId = scenarios[0]?.id;
-      } else if (apiData.header && Object.keys(apiData.header).length > 0) {
-        // Legacy format: create default scenario from top-level fields
+      } else {
+        // No scenarios yet: create default scenario from top-level fields
         const parsedParam = parseToArray(apiData.param);
         const parsedHeader = parseToArray({ ...defaultHeader, ...apiData.header });
         const defaultScn = createEmptyScenario('scn_default', '默认场景', '');
@@ -394,10 +389,6 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         defaultScn.assertions = parseAssertions(apiData.successAssert);
         scenarios = [defaultScn];
         activeScenarioId = defaultScn.id;
-      } else {
-        // Truly no scenarios (e.g. newly created API)
-        scenarios = [];
-        activeScenarioId = null;
       }
     }
 
@@ -441,11 +432,6 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
     // Notify tree which scenario is active
     onScenarioChange?.(apiData.id, activeScenarioId);
-
-    if (isAdding) {
-      cleanSnapshotRef.current = JSON.stringify(newFormData);
-      setDraftDirty(false);
-    }
 
     if (isFullUrl) {
       setUrlSegments([{ type: 'text', value: apiPath }]);
@@ -938,7 +924,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       };
 
       if (onSaveAPI && !isTemporary) {
-        await onSaveAPI(execAPI, isAdding);
+        await onSaveAPI(execAPI, false);
       }
 
       const chainManager = new ChainManager(projectPath, config, profile);
@@ -1014,14 +1000,14 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       }
     }
 
-    console.log('[APIDetail.handleSave] formData.id:', formData.id, 'isAdding:', isAdding, 'isTemporary:', isTemporary, 'scenarioList.length:', scenarioList.length);
+    console.log('[APIDetail.handleSave] formData.id:', formData.id, 'isTemporary:', isTemporary, 'scenarioList.length:', scenarioList.length);
     const execAPI = prepareForExecute();
     console.log('[APIDetail.handleSave] execAPI.id:', execAPI.id, 'name:', execAPI.name);
     setIsSaving(true);
 
     try {
       if (onSaveAPI) {
-        await onSaveAPI(execAPI, isAdding || isTemporary);
+        await onSaveAPI(execAPI, isTemporary);
       }
       toast.success('保存成功');
     } catch (error) {
@@ -1420,27 +1406,26 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         </button>
       </div>
 
-      {/* 描述行：可拖拽文本域 */}
       <div className="desc-line">
-        {(() => {
-          const curScn = scenarioList.find(s => s.id === currentScenarioId);
-          if (!curScn) return null;
-          return (
-            <textarea
-              className="desc-textarea"
-              value={curScn.description || ''}
-              onChange={(e) => {
-                const newDesc = e.target.value;
-                setScenarioList(prev => prev.map(s =>
-                  s.id === curScn.id ? { ...s, description: newDesc, updatedAt: new Date().toISOString() } : s
-                ));
-              }}
-              placeholder="点击添加场景描述..."
-              rows={1}
-            />
-          );
-        })()}
-      </div>
+          {(() => {
+            const curScn = scenarioList.find(s => s.id === currentScenarioId);
+            if (!curScn) return null;
+            return (
+              <textarea
+                className="desc-textarea"
+                value={curScn.description || ''}
+                onChange={(e) => {
+                  const newDesc = e.target.value;
+                  setScenarioList(prev => prev.map(s =>
+                    s.id === curScn.id ? { ...s, description: newDesc, updatedAt: new Date().toISOString() } : s
+                  ));
+                }}
+                placeholder="点击添加场景描述..."
+                rows={1}
+              />
+            );
+          })()}
+        </div>
 
       {(() => { const refs = extractRefApis(); if (refs.length === 0) return null; return (
       <div className="chain-section">

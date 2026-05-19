@@ -484,12 +484,30 @@
   border: 1px solid rgba(245, 158, 11, 0.2);
 }
 
-.kv-validation-bar.kv-encoding-info {
-  background: rgba(59, 130, 246, 0.08);
-  color: var(--text-muted);
-  border: 1px solid rgba(59, 130, 246, 0.15);
-  font-family: monospace;
+.kv-encoding-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 4px 10px;
+  margin-top: 6px;
   font-size: 11px;
+}
+
+.kv-encoding-label {
+  width: 30px;
+  flex-shrink: 0;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.kv-encoding-value {
+  flex: 1;
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.15);
+  border-radius: 3px;
+  padding: 2px 6px;
+  font-family: monospace;
+  color: var(--text-muted);
   white-space: pre-wrap;
   word-break: break-all;
   max-height: calc(1.4em * 4);

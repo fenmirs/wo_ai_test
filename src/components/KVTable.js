@@ -57,14 +57,14 @@ function KVTable({ items, onItemsChange, section, showType, showFileType, onValu
         return <span className="kv-preview-ref">{parseRefPreview(val)}</span>;
       default: {
         const str = String(val);
-        return str.length > 10 ? <span title={str}>{str.slice(0, 10)}...</span> : <span>{str}</span>;
+        return str.length > 40 ? <span title={str}>{str.slice(0, 40)}...</span> : <span>{str}</span>;
       }
     }
   };
 
   const getDescPreview = (desc) => {
     if (!desc) return <span className="kv-empty">(空)</span>;
-    return desc.length > 10 ? <span title={desc}>{desc.slice(0, 10)}...</span> : <span>{desc}</span>;
+    return desc.length > 30 ? <span title={desc}>{desc.slice(0, 30)}...</span> : <span>{desc}</span>;
   };
 
   const handleRowClick = (index) => {
@@ -141,7 +141,7 @@ function KVTable({ items, onItemsChange, section, showType, showFileType, onValu
                   </td>
                 )}
                 <td className="col-value">
-                  <div className="kv-cell-clickable" onClick={() => { if (!isReadonly) onValueClick(index); }}>
+                  <div className="kv-cell-clickable" onClick={() => onValueClick(index)}>
                     {getValuePreview(item)}
                   </div>
                 </td>

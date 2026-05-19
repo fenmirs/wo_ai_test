@@ -108,17 +108,15 @@ function App() {
   
   // 编辑状态
   const [editingAPI, setEditingAPI] = useState(null);
-  const [isAddingAPI, setIsAddingAPI] = useState(false);
   const [draftDirty, setDraftDirty] = useState(false);
   const checkDraftThen = useCallback((action) => {
-    if (isAddingAPI && draftDirty) {
+    if (draftDirty) {
       setConfirmDialogConfig({
         title: '丢弃草稿',
         message: '当前 API 尚未保存，确定要丢弃所有更改吗？',
         options: [],
         onConfirm: () => {
           setShowConfirmDialog(false);
-          setIsAddingAPI(false);
           setDraftDirty(false);
           action();
         },
@@ -128,7 +126,7 @@ function App() {
     } else {
       action();
     }
-  }, [isAddingAPI, draftDirty]);
+  }, [draftDirty]);
   
   // 输入对话框状态
   const [showInputDialog, setShowInputDialog] = useState(false);
@@ -396,7 +394,6 @@ function App() {
       setApiHistory([]);
       setSelectedAPI(null);
       setEditingAPI(null);
-      setIsAddingAPI(false);
       setTemporaryAPI(null);
       setViewMode('api');
     };
@@ -534,7 +531,6 @@ function App() {
             setApiHistory([]);
             setSelectedAPI(null);
             setEditingAPI(null);
-            setIsAddingAPI(false);
             setTemporaryAPI(null);
             setViewMode('api');
           } else {
@@ -624,10 +620,9 @@ function App() {
       setCurrentProfile(null);
       setSelectedAPI(null);
       setEditingAPI(null);
-      setIsAddingAPI(false);
       setViewMode('api');
     });
-  }, [isDirty, isAddingAPI, draftDirty]);
+  }, [isDirty, draftDirty]);
 
   // 选择环境
   const handleProfileSelect = (profile) => {
@@ -669,7 +664,6 @@ function App() {
         const groupId = fullData.group || null;
         setActiveGroup(groupId);
         setEditingAPI(null);
-        setIsAddingAPI(false);
         setTemporaryAPI(null);
         setRestoringHistoryEntry(null);
         setViewMode('api_detail');
@@ -870,7 +864,6 @@ function App() {
     checkDraftThen(() => {
       if (selectedAPI) {
         setEditingAPI({ ...selectedAPI });
-        setIsAddingAPI(false);
       }
     });
   };
@@ -880,9 +873,9 @@ function App() {
     if (!formData) return;
     
     const isTemporary = temporaryAPI !== null;
-    console.log('[App.handleSaveAPI] isAddingAPI:', isAddingAPI, 'isTemporary:', isTemporary, 'formData.id:', formData.id, 'formData.name:', formData.name, 'selectedAPI.id:', selectedAPI?.id);
+    console.log('[App.handleSaveAPI] isTemporary:', isTemporary, 'formData.id:', formData.id, 'formData.name:', formData.name, 'selectedAPI.id:', selectedAPI?.id);
     
-    if (isTemporary || isAddingAPI) {
+    if (isTemporary) {
       console.log('[App.handleSaveAPI] BRANCH: addAPI');
       const exists = projectData.apis.find(api => 
         api.name === formData.name && api.group === formData.group
@@ -908,13 +901,11 @@ function App() {
       setSelectedAPI(formData);
     }
     setEditingAPI(null);
-    setIsAddingAPI(false);
   };
 
   // 取消编辑
   const handleCancelEdit = () => {
     setEditingAPI(null);
-    setIsAddingAPI(false);
     if (temporaryAPI) {
       setTemporaryAPI(null);
       setRestoringHistoryEntry(null);
@@ -1186,10 +1177,9 @@ function App() {
                      }
                    }}
                     onEdit={(api) => {
-                      checkDraftThen(() => {
-                        setEditingAPI({ ...api });
-                        setIsAddingAPI(false);
-                        setSelectedAPI(api);
+                       checkDraftThen(() => {
+                         setEditingAPI({ ...api });
+                         setSelectedAPI(api);
                         setViewMode('api_detail');
                       });
                     }}
@@ -1199,7 +1189,6 @@ function App() {
                        if (selectedAPI?.id === api.id) {
                          setSelectedAPI(null);
                          setEditingAPI(null);
-                         setIsAddingAPI(false);
                        }
                        setViewMode('api');
                        toast.success(`"${api.name}" 已删除`);
@@ -1260,7 +1249,6 @@ function App() {
                   onRestored={() => setRestoringHistoryEntry(null)}
                   onSaveAPI={handleSaveAPI}
                   groups={projectManager.getGroups()}
-                  isAdding={isAddingAPI}
                   isTemporary={temporaryAPI !== null}
                   onDraftChange={setDraftDirty}
                   onViewDetail={(entry) => setViewingHistoryEntry(entry)}

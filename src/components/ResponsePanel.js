@@ -1,8 +1,62 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef, useLayoutEffect } from 'react';
 import { CheckCircle, XCircle, AlertCircle, FileText, Play, Trash2, Clock, ChevronRight, ChevronDown } from 'lucide-react';
 import MonacoView from './MonacoView';
-import { projectManager } from '../utils/ProjectManager';
 import './ResponsePanel.css';
+
+function KVItemRow({ label, value, showEncodeToggle }) {
+  const [expanded, setExpanded] = useState(false);
+  const [showDecoded, setShowDecoded] = useState(false);
+  const [isOverflowing, setIsOverflowing] = useState(null);
+  const valueRef = useRef(null);
+
+  const rawValue = String(value ?? '');
+  const displayValue = showEncodeToggle && showDecoded ? decodeURIComponent(rawValue) : rawValue;
+
+  useLayoutEffect(() => {
+    const el = valueRef.current;
+    if (el) {
+      setIsOverflowing(el.scrollWidth > el.clientWidth);
+    }
+  }, [displayValue]);
+
+  const needsTruncation = isOverflowing !== false && !expanded;
+  const canExpand = isOverflowing === true;
+
+  const copyText = (text) => {
+    navigator.clipboard.writeText(text).catch(() => {});
+  };
+
+  return (
+    <div className={`kv-item${expanded ? ' expanded' : ''}`}>
+      <span className="kv-key">{label}</span>
+      <span
+        ref={valueRef}
+        className={`kv-value${needsTruncation ? ' truncated' : ''}${canExpand ? ' kv-overflow' : ''}`}
+        onClick={() => canExpand && setExpanded(e => !e)}
+        title={canExpand ? (expanded ? '点击收缩' : '点击展开') : undefined}
+      >
+        {displayValue}
+      </span>
+      <span className="kv-actions" onClick={e => e.stopPropagation()}>
+        {showEncodeToggle && (
+          <button
+            className="kv-action-btn"
+            onClick={() => setShowDecoded(s => !s)}
+            title={showDecoded ? '显示编码后' : '显示解码后'}
+          >
+            {showDecoded ? '原码' : '解码'}
+          </button>
+        )}
+        <button className="kv-action-btn" onClick={() => copyText(label)} title="复制 Key">
+          K
+        </button>
+        <button className="kv-action-btn" onClick={() => copyText(displayValue)} title="复制值">
+          V
+        </button>
+      </span>
+    </div>
+  );
+}
 
 function ResponsePanel({ executionResult, theme }) {
   const [selectedCardIdx, setSelectedCardIdx] = useState(0);
@@ -149,10 +203,7 @@ function ResponsePanel({ executionResult, theme }) {
                     {cardResult.refParams && cardResult.refParams.length > 0 && renderSection('引用该 API 的参数',
                       <div className="kv-list">
                         {cardResult.refParams.map((ref, idx) => (
-                          <div key={idx} className="kv-item">
-                            <span className="kv-key">{ref.section}</span>
-                            <span className="kv-value">{ref.key}: {`{{ref:${ref.ref}}}`}</span>
-                          </div>
+                          <KVItemRow key={idx} label={ref.section} value={`${ref.key}: {{ref:${ref.ref}}}`} />
                         ))}
                       </div>
                     )}
@@ -173,10 +224,7 @@ function ResponsePanel({ executionResult, theme }) {
                     {refs.length > 0 && renderSection('引用详情',
                       <div className="kv-list">
                         {refs.map((ref, idx) => (
-                          <div key={idx} className="kv-item">
-                            <span className="kv-key">{ref.section}</span>
-                            <span className="kv-value">{ref.key}: {`{{ref:${ref.ref}}}`}</span>
-                          </div>
+                          <KVItemRow key={idx} label={ref.section} value={`${ref.key}: {{ref:${ref.ref}}}`} />
                         ))}
                       </div>
                     )}
@@ -219,20 +267,14 @@ function ResponsePanel({ executionResult, theme }) {
                                 {reqConfig.header && reqConfig.header.length > 0 && renderSection('请求 Headers',
                                   <div className="kv-list">
                                     {reqConfig.header.map((h, idx) => (
-                                      <div key={idx} className="kv-item">
-                                        <span className="kv-key">{h.key}</span>
-                                        <span className="kv-value">{h.default || ''}</span>
-                                      </div>
+                                      <KVItemRow key={idx} label={h.key} value={h.default || ''} />
                                     ))}
                                   </div>
                                 )}
                                 {reqConfig.param && reqConfig.param.length > 0 && renderSection('Query Parameters',
                                   <div className="kv-list">
                                     {reqConfig.param.map((p, idx) => (
-                                      <div key={idx} className="kv-item">
-                                        <span className="kv-key">{p.key}</span>
-                                        <span className="kv-value">{p.default || ''}</span>
-                                      </div>
+                                      <KVItemRow key={idx} label={p.key} value={p.default || ''} showEncodeToggle />
                                     ))}
                                   </div>
                                 )}
@@ -252,10 +294,7 @@ function ResponsePanel({ executionResult, theme }) {
                                         {(reqConfig.bodyType === 'form-data' ? reqConfig.body.formData : reqConfig.body.xwwwFormUrlencoded)
                                           .filter(p => p.enabled && p.key)
                                           .map((p, idx) => (
-                                            <div key={idx} className="kv-item">
-                                              <span className="kv-key">{p.key}</span>
-                                              <span className="kv-value">{p.default || ''}</span>
-                                            </div>
+                                            <KVItemRow key={idx} label={p.key} value={p.default || ''} />
                                           ))}
                                       </div>
                                     )}
@@ -267,45 +306,63 @@ function ResponsePanel({ executionResult, theme }) {
                                 {reqConfig.headers && Object.keys(reqConfig.headers).length > 0 && renderSection('请求 Headers',
                                   <div className="kv-list">
                                     {Object.entries(reqConfig.headers).map(([key, value]) => (
-                                      <div key={key} className="kv-item">
-                                        <span className="kv-key">{key}</span>
-                                        <span className="kv-value">{String(value)}</span>
-                                      </div>
+                                      <KVItemRow key={key} label={key} value={String(value)} />
                                     ))}
                                   </div>
                                 )}
                                 {reqConfig.params && Object.keys(reqConfig.params).length > 0 && renderSection('Query Parameters',
                                   <div className="kv-list">
                                     {Object.entries(reqConfig.params).map(([key, value]) => (
-                                      <div key={key} className="kv-item">
-                                        <span className="kv-key">{key}</span>
-                                        <span className="kv-value">{String(value)}</span>
-                                      </div>
+                                      <KVItemRow key={key} label={key} value={String(value)} showEncodeToggle />
                                     ))}
                                   </div>
                                 )}
-                                {reqConfig.bodyType && reqConfig.bodyType !== 'none' && renderSection(`请求 Body (${reqConfig.bodyType})`,
-                                  <div className="request-body-content">
-                                    {(() => {
-                                      if (!reqConfig.body) return null;
-                                      const bodyVal = typeof reqConfig.body === 'string'
-                                        ? reqConfig.body
-                                        : typeof reqConfig.body === 'object' && reqConfig.body !== null
-                                          ? JSON.stringify(reqConfig.body, null, 2)
-                                          : String(reqConfig.body);
-                                      const bodyLang = typeof reqConfig.body === 'object' && reqConfig.body !== null ? 'json' : 'plaintext';
-                                      return (
-                                        <MonacoView
-                                          height="200px"
-                                          language={bodyLang}
-                                          value={bodyVal}
-                                          theme={theme}
-                                          readOnly={true}
-                                        />
-                                      );
-                                    })()}
-                                  </div>
-                                )}
+                                {reqConfig.bodyType && reqConfig.bodyType !== 'none' && (() => {
+                                  const ctKey = Object.keys(reqConfig.headers || {}).find(k => k.toLowerCase() === 'content-type');
+                                  const ct = ctKey ? reqConfig.headers[ctKey] : '';
+                                  const isUrlEncoded = ct.includes('x-www-form-urlencoded');
+                                  const isFormData = ct.includes('multipart/form-data');
+                                  const isStructuredForm = (isUrlEncoded || isFormData) && typeof reqConfig.body === 'object' && reqConfig.body !== null;
+
+                                  if (isStructuredForm) {
+                                    const entries = Object.entries(reqConfig.body);
+                                    const label = isUrlEncoded ? 'x-www-form-urlencoded' : 'form-data';
+                                    return renderSection(`请求 Body (${label})`,
+                                      <div className="request-body-content">
+                                        <div className="kv-list">
+                                          {entries.length > 0 ? entries.map(([key, value], idx) => (
+                                            <KVItemRow key={idx} label={key} value={String(value ?? '')} />
+                                          )) : (
+                                            <div className="response-empty">无表单字段</div>
+                                          )}
+                                        </div>
+                                      </div>
+                                    );
+                                  }
+
+                                  return renderSection(`请求 Body (${reqConfig.bodyType})`,
+                                    <div className="request-body-content">
+                                      {(() => {
+                                        if (!reqConfig.body) return null;
+                                        const bodyVal = typeof reqConfig.body === 'string'
+                                          ? reqConfig.body
+                                          : typeof reqConfig.body === 'object' && reqConfig.body !== null
+                                            ? JSON.stringify(reqConfig.body, null, 2)
+                                            : String(reqConfig.body);
+                                        const bodyLang = typeof reqConfig.body === 'object' && reqConfig.body !== null ? 'json' : 'plaintext';
+                                        return (
+                                          <MonacoView
+                                            height="200px"
+                                            language={bodyLang}
+                                            value={bodyVal}
+                                            theme={theme}
+                                            readOnly={true}
+                                          />
+                                        );
+                                      })()}
+                                    </div>
+                                  );
+                                })()}
                               </>
                             )}
                           </>
@@ -319,10 +376,7 @@ function ResponsePanel({ executionResult, theme }) {
                       {cardResult?.headers && Object.keys(cardResult.headers).length > 0 && renderSection('响应 Headers',
                         <div className="kv-list">
                           {Object.entries(cardResult.headers).map(([key, value]) => (
-                            <div key={key} className="kv-item">
-                              <span className="kv-key">{key}</span>
-                              <span className="kv-value">{Array.isArray(value) ? value.join(', ') : value}</span>
-                            </div>
+                            <KVItemRow key={key} label={key} value={Array.isArray(value) ? value.join(', ') : String(value)} />
                           ))}
                         </div>
                       )}

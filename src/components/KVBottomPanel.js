@@ -41,6 +41,10 @@ function KVBottomPanel({ visible, section, rowIndex, field, items, onItemsChange
     if (visible) setCollapsed(false);
   }, [visible, section, rowIndex, field]);
 
+  const handleHeaderEditorMount = useCallback((editor) => {
+    headerEditorRef.current = editor;
+  }, []);
+
   if (!visible) return null;
 
   const item = items?.[rowIndex];
@@ -49,16 +53,12 @@ function KVBottomPanel({ visible, section, rowIndex, field, items, onItemsChange
   const isEditingValue = field === 'value';
   const isEditingDesc = field === 'description';
   const activeType = isEditingValue ? (item.type || 'string') : 'description';
-  const isReadonly = item.key && item.key.toLowerCase() === 'content-type';
+  const isContentType = item.key && item.key.toLowerCase() === 'content-type';
 
   const getTypeLabel = (type) => {
     const labels = { string: 'String', number: 'Number', boolean: 'Boolean', file: 'File', json: 'Json String', xml: 'Xml String', ref: 'Ref Variable', description: '备注' };
     return labels[type] || type;
   };
-
-  const handleHeaderEditorMount = useCallback((editor) => {
-    headerEditorRef.current = editor;
-  }, []);
 
   const updateDefault = (newVal) => {
     if (!onItemsChange) return;
@@ -121,8 +121,8 @@ function KVBottomPanel({ visible, section, rowIndex, field, items, onItemsChange
       <div className="kv-panel-body">
         {keyEmpty ? (
           <div className="kv-panel-empty">⚠ 请先填写 Key 名称</div>
-        ) : isReadonly ? (
-          <div className="kv-panel-empty">🔒 Content-Type 自动生成，不可编辑</div>
+        ) : isEditingDesc && isContentType ? (
+          <div className="kv-panel-empty">🔒 Content-Type 备注不可编辑</div>
         ) : isEditingDesc ? (
           <div className="kv-panel-editor-wrapper">
             <CodeEditor
@@ -143,10 +143,10 @@ function KVBottomPanel({ visible, section, rowIndex, field, items, onItemsChange
               fileInputRef={fileInputRef}
               onMount={handleHeaderEditorMount}
             />
-            {section === 'param' && typeof item.default === 'string' && item.default && (
-              <div className="kv-validation-bar kv-encoding-info">
-                <div>编码结果:</div>
-                <div>{encodeURIComponent(item.default)}</div>
+            {section === 'param' && typeof item.default === 'string' && item.default && activeType !== 'ref' && (
+              <div className="kv-encoding-info">
+                <div className="kv-encoding-label">编码结果:</div>
+                <div className="kv-encoding-value">{encodeURIComponent(item.default)}</div>
               </div>
             )}
           </div>
