@@ -95,6 +95,129 @@
   border-left: 1px solid var(--border-color);
 }
 
+/* API 名称 + 场景切换行 */
+.meta-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 12px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.meta-field {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.meta-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.meta-divider {
+  width: 1px;
+  height: 16px;
+  background: var(--border-color);
+  flex-shrink: 0;
+}
+
+.meta-input {
+  width: 180px;
+  padding: 2px 6px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 12px;
+  font-weight: 500;
+  outline: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.meta-input:hover {
+  border-color: var(--border-color);
+}
+
+.meta-input:focus {
+  border-color: var(--accent-primary);
+  background: var(--bg-primary);
+}
+
+.meta-input::placeholder {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.meta-select {
+  padding: 2px 20px 2px 6px;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 12px;
+  cursor: pointer;
+  outline: none;
+  min-width: 100px;
+  max-width: 180px;
+}
+
+.meta-select:focus {
+  border-color: var(--accent-primary);
+}
+
+.meta-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.meta-btn:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.meta-btn.meta-del-btn:hover {
+  color: var(--error-color);
+  background: var(--error-bg);
+}
+
+.scene-field {
+  flex: 1;
+  min-width: 0;
+}
+
+.meta-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.meta-actions .api-line-actions {
+  margin-left: 0;
+  padding-left: 0;
+  border-left: none;
+}
+
+.meta-input.rename-input {
+  width: 160px;
+}
+
 /* 场景行：圆点 + 场景名 + 操作按钮 */
 .scene-actions {
   display: flex;
@@ -292,6 +415,24 @@
 
 .url-segment.active .segment-content {
   border-color: var(--accent-primary);
+}
+
+/* 变量片段样式 - 跟随主题色 */
+.segment-variable .segment-content {
+  background: color-mix(in srgb, var(--accent-primary) 12%, transparent);
+  border-color: color-mix(in srgb, var(--accent-primary) 35%, transparent);
+  color: var(--accent-primary);
+  font-weight: 600;
+}
+
+.segment-variable .segment-content:hover {
+  border-color: color-mix(in srgb, var(--accent-primary) 60%, transparent);
+  background: color-mix(in srgb, var(--accent-primary) 18%, transparent);
+}
+
+.url-segment.segment-variable.active .segment-content {
+  border-color: var(--accent-primary);
+  background: color-mix(in srgb, var(--accent-primary) 25%, transparent);
 }
 
 .segment-text {

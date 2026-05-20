@@ -93,10 +93,11 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const { showProgress, hideProgress } = useProgress();
   const [showCodeSwitchConfirm, setShowCodeSwitchConfirm] = useState(false);
   const [draftDirty, setDraftDirty] = useState(false);
-  const [apiEditMode, setApiEditMode] = useState(false);
-  const savedUrlSegmentsRef = useRef(null);
   const cleanSnapshotRef = useRef(null);
   const [bottomPanel, setBottomPanel] = useState({ visible: false, section: null, rowIndex: null, field: 'value' });
+  const [renamingScenarioId, setRenamingScenarioId] = useState(null);
+  const [renamingScenarioValue, setRenamingScenarioValue] = useState('');
+  const renameInputRef = useRef(null);
 
   const apiHistory = history.filter(h =>
     (h.apiId && h.apiId === formData.id) ||
@@ -109,8 +110,6 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         return;
       }
       initializedApiIdRef.current = api.id;
-      setApiEditMode(false);
-      savedUrlSegmentsRef.current = null;
       initializeFromApi(api, requestedScenarioId);
       setExecutionResult(null);
 
@@ -248,6 +247,13 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, []);
+
+  useEffect(() => {
+    if (renamingScenarioId && renameInputRef.current) {
+      renameInputRef.current.focus();
+      renameInputRef.current.select();
+    }
+  }, [renamingScenarioId]);
 
   const extractApiIdFromRef = (refContent) => {
     const atIdx = refContent.indexOf('@');
@@ -1156,6 +1162,17 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     };
   };
 
+  const getSegmentDisplayText = (seg) => {
+    if (seg.type === 'variable') return `{${seg.value}}`;
+    return seg.value;
+  };
+
+  const parseSegmentValue = (input) => {
+    const match = input.match(/^\{(.+)\}$/);
+    if (match) return { type: 'variable', value: match[1] };
+    return { type: 'text', value: input };
+  };
+
   const getMethodColor = (method) => {
     const colors = { 'GET': '#10b981', 'POST': '#3b82f6', 'PUT': '#f59e0b', 'DELETE': '#ef4444', 'PATCH': '#8b5cf6', 'HEAD': '#6b7280', 'OPTIONS': '#6b7280' };
     return colors[method] || '#64748b';
@@ -1260,85 +1277,160 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
   return (
     <div className="api-detail">
-      {/* API 级别：方法 + URL（只读/可编辑切换）+ 操作按钮 */}
-      <div className="api-line">
-        {apiEditMode ? (
-          <div className="method-select" style={{ flexShrink: 0 }}>
+            {/* API 名称 + 场景切换 */}
+      <div className="meta-bar">
+        <div className="meta-field">
+          <span className="meta-label">名称</span>
+          <input
+            className="meta-input"
+            type="text"
+            value={formData.name}
+            onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+            placeholder="API 名称"
+          />
+        </div>
+        <span className="meta-divider"></span>
+        <div className="meta-field scene-field">
+          <span className="meta-label">场景</span>
+          {renamingScenarioId === currentScenarioId ? (
+            <input
+              ref={renameInputRef}
+              className="meta-input rename-input"
+              type="text"
+              value={renamingScenarioValue}
+              onChange={(e) => setRenamingScenarioValue(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  if (renamingScenarioValue.trim()) {
+                    renameScenario(currentScenarioId, renamingScenarioValue.trim());
+                  }
+                  setRenamingScenarioId(null);
+                } else if (e.key === 'Escape') {
+                  setRenamingScenarioId(null);
+                }
+              }}
+              onBlur={() => {
+                if (renamingScenarioValue.trim()) {
+                  renameScenario(currentScenarioId, renamingScenarioValue.trim());
+                }
+                setRenamingScenarioId(null);
+              }}
+            />
+          ) : (
             <select
-              value={formData.method}
-              onChange={(e) => setFormData({ ...formData, method: e.target.value })}
-              style={{ backgroundColor: getMethodColor(formData.method) }}
+              className="meta-select"
+              value={currentScenarioId || ''}
+              onChange={(e) => switchScenario(e.target.value)}
             >
-              {methods.map(m => <option key={m} value={m}>{m}</option>)}
+              {scenarioList.map(s => (
+                <option key={s.id} value={s.id}>{s.name}</option>
+              ))}
             </select>
+          )}
+          {renamingScenarioId === currentScenarioId ? null : (
+            <button className="meta-btn" onClick={() => {
+              const cur = scenarioList.find(s => s.id === currentScenarioId);
+              setRenamingScenarioValue(cur?.name || '');
+              setRenamingScenarioId(currentScenarioId);
+            }} title="重命名场景">
+              <Edit size={12} />
+            </button>
+          )}
+          <button className="meta-btn" onClick={addScenario} title="添加场景">
+            <Plus size={14} />
+          </button>
+          {scenarioList.length > 1 && (
+            <button className="meta-btn meta-del-btn" onClick={() => deleteScenario(currentScenarioId)} title="删除场景">
+              <Trash2 size={14} />
+            </button>
+          )}
+        </div>
+        <div className="meta-actions">
+          <div className="api-line-actions">
+            <button className="scene-action-btn btn-save-icon" onClick={handleSave} title="保存">
+              {isSaving ? <RefreshCw size={16} className="spin" /> : <Save size={16} />}
+            </button>
+            <span className="scene-action-divider">|</span>
+            <button className="scene-action-btn btn-send-icon" onClick={handleSend} title={isExecuting ? '取消' : '发送'}>
+              {isExecuting ? <X size={16} /> : <Play size={16} />}
+            </button>
+            <span className="scene-action-divider">|</span>
+            <button className="scene-action-btn btn-doc-icon" onClick={handleGenerateDoc} title="生成文档">
+              <FileDown size={16} />
+            </button>
           </div>
-        ) : (
-          <div className="api-method-label" style={{ backgroundColor: getMethodColor(formData.method) }}>
-            {formData.method}
-          </div>
-        )}
+        </div>
+      </div>
+
+      {/* API 级别：方法 + URL + 操作按钮 */}
+      <div className="api-line">
+        <div className="method-select" style={{ flexShrink: 0 }}>
+          <select
+            value={formData.method}
+            onChange={(e) => setFormData({ ...formData, method: e.target.value })}
+            style={{ backgroundColor: getMethodColor(formData.method) }}
+          >
+            {methods.map(m => <option key={m} value={m}>{m}</option>)}
+          </select>
+        </div>
         <div className="api-line-url">
-          {apiEditMode ? (
-            <div className="url-builder" style={{ border: 'none', padding: 0 }}>
-              <div className="url-segments">
-                {urlSegments.map((seg, idx) => (
-                  <div
-                    key={idx}
-                    className={`url-segment ${idx === 0 ? 'first' : ''} ${activeSegmentIdx === idx ? 'active' : ''}`}
-                  >
-                    {activeSegmentIdx === idx ? (
-                      <>
-                        <input
-                          ref={segmentInputRef}
-                          type="text"
-                          className="segment-edit-input"
-                          value={editingValue}
-                          onChange={(e) => setEditingValue(e.target.value)}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter') {
-                              const newSegments = [...urlSegments];
-                              newSegments[idx] = { ...seg, value: editingValue, type: 'text' };
-                              setUrlSegments(newSegments);
-                              setActiveSegmentIdx(null);
-                            } else if (e.key === 'Escape') {
-                              setActiveSegmentIdx(null);
-                            }
-                          }}
-                          onBlur={() => {
-                            if (isDropdownClickRef.current) {
-                              isDropdownClickRef.current = false;
-                              return;
-                            }
+          <div className="url-builder" style={{ border: 'none', padding: 0 }}>
+            <div className="url-segments">
+              {urlSegments.map((seg, idx) => (
+                <div
+                  key={idx}
+                  className={`url-segment ${idx === 0 ? 'first' : ''} ${activeSegmentIdx === idx ? 'active' : ''} ${seg.type === 'variable' ? 'segment-variable' : ''}`}
+                >
+                  {activeSegmentIdx === idx ? (
+                    <>
+                      <input
+                        ref={segmentInputRef}
+                        type="text"
+                        className="segment-edit-input"
+                        value={editingValue}
+                        onChange={(e) => setEditingValue(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
                             const newSegments = [...urlSegments];
-                            newSegments[idx] = { ...seg, value: editingValue, type: 'text' };
+                            newSegments[idx] = { ...seg, ...parseSegmentValue(editingValue) };
                             setUrlSegments(newSegments);
                             setActiveSegmentIdx(null);
-                          }}
-                          autoFocus
-                        />
-                        {urlSegments.length > 1 && (
-                          <button className="segment-delete" onMouseDown={(e) => { e.preventDefault(); setUrlSegments(urlSegments.filter((_, i) => i !== idx)); }}>
-                            <X size={10} />
-                          </button>
-                        )}
-                      </>
-                    ) : (
-                      <div className="segment-content" onClick={() => { setActiveSegmentIdx(idx); setEditingValue(seg.value); }}>
+                          } else if (e.key === 'Escape') {
+                            setActiveSegmentIdx(null);
+                          }
+                        }}
+                        onBlur={() => {
+                          if (isDropdownClickRef.current) {
+                            isDropdownClickRef.current = false;
+                            return;
+                          }
+                          const newSegments = [...urlSegments];
+                          newSegments[idx] = { ...seg, ...parseSegmentValue(editingValue) };
+                          setUrlSegments(newSegments);
+                          setActiveSegmentIdx(null);
+                        }}
+                        autoFocus
+                      />
+                      {urlSegments.length > 1 && (
+                        <button className="segment-delete" onMouseDown={(e) => { e.preventDefault(); setUrlSegments(urlSegments.filter((_, i) => i !== idx)); }}>
+                          <X size={10} />
+                        </button>
+                      )}
+                    </>
+                  ) : (
+                    <div className="segment-content" onClick={() => { setActiveSegmentIdx(idx); setEditingValue(getSegmentDisplayText(seg)); }}>
                         <span className="segment-text">
-                          {seg.value || (idx === 0 ? '输入或选择' : '输入路径')}
+                          {getSegmentDisplayText(seg) || (idx === 0 ? '输入或选择' : '输入路径')}
                         </span>
                       </div>
-                    )}
-                  </div>
-                ))}
-                <button className="segment-add-btn" onClick={() => setUrlSegments([...urlSegments, { type: 'text', value: '' }])} title="添加片段">
-                  <Plus size={12} />
-                </button>
-              </div>
+                  )}
+                </div>
+              ))}
+              <button className="segment-add-btn" onClick={() => setUrlSegments([...urlSegments, { type: 'text', value: '' }])} title="添加片段">
+                <Plus size={12} />
+              </button>
             </div>
-          ) : (
-            <span className="api-line-url-text" title={formData.api_path}>{formData.api_path}</span>
-          )}
+          </div>
           {dropdownPos && (
             <div className="segment-var-dropdown" style={{ position: 'fixed', left: dropdownPos.left, top: dropdownPos.top, minWidth: dropdownPos.width, zIndex: 10000 }}>
               {profile && Object.keys(profile)
@@ -1358,38 +1450,6 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                 ))}
             </div>
           )}
-        </div>
-        <div className="api-line-right">
-          {apiEditMode ? (
-            <>
-              <button className="api-edit-btn confirm" onClick={() => {
-                savedUrlSegmentsRef.current = null;
-                setApiEditMode(false);
-              }} title="完成编辑">
-                <CheckCircle size={16} />
-              </button>
-              <button className="api-edit-btn cancel" onClick={() => { setUrlSegments(savedUrlSegmentsRef.current); savedUrlSegmentsRef.current = null; setApiEditMode(false); }} title="取消">
-                <X size={16} />
-              </button>
-            </>
-          ) : (
-            <button className="api-edit-btn" onClick={() => { savedUrlSegmentsRef.current = [...urlSegments]; setApiEditMode(true); }} title="编辑 API">
-              <Edit size={16} />
-            </button>
-          )}
-          <div className="api-line-actions">
-            <button className="scene-action-btn btn-save-icon" onClick={handleSave} title="保存">
-              {isSaving ? <RefreshCw size={16} className="spin" /> : <Save size={16} />}
-            </button>
-            <span className="scene-action-divider">|</span>
-            <button className="scene-action-btn btn-send-icon" onClick={handleSend} title={isExecuting ? '取消' : '发送'}>
-              {isExecuting ? <X size={16} /> : <Play size={16} />}
-            </button>
-            <span className="scene-action-divider">|</span>
-            <button className="scene-action-btn btn-doc-icon" onClick={handleGenerateDoc} title="生成文档">
-              <FileDown size={16} />
-            </button>
-          </div>
         </div>
       </div>
 

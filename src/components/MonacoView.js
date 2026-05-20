@@ -4,7 +4,7 @@ import { Copy } from 'lucide-react';
 import './MonacoView.css';
 
 const DEFAULT_OPTIONS = {
-  fontSize: 11,
+  fontSize: 13,
   minimap: { enabled: false },
   lineNumbers: 'on',
   scrollBeyondLastLine: false,
