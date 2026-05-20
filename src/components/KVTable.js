@@ -22,7 +22,7 @@ function getFileList(val) {
   return [val];
 }
 
-function KVTable({ items, onItemsChange, section, showType, showFileType, onValueClick, onDescClick, onActiveRowChange, activeRowIndex, excludeApiId, theme }) {
+function KVTable({ items, onItemsChange, section, showType, showFileType, onValueClick, onDescClick, onActiveRowChange, activeRowIndex, excludeApiId, theme, readOnly = false }) {
   const typeOptions = showFileType ? ALL_TYPES : NON_FILE_TYPES;
   const lastToastRef = useRef(0);
 
@@ -86,7 +86,7 @@ function KVTable({ items, onItemsChange, section, showType, showFileType, onValu
         </thead>
         <tbody>
           {items.map((item, index) => {
-            const isReadonly = item.key && item.key.toLowerCase() === 'content-type';
+            const isReadonly = readOnly || (item.key && item.key.toLowerCase() === 'content-type');
             const isActive = activeRowIndex === index;
             return (
               <tr key={index} className={isActive ? 'row-active' : ''} onClick={() => handleRowClick(index)}>
@@ -162,11 +162,13 @@ function KVTable({ items, onItemsChange, section, showType, showFileType, onValu
           })}
         </tbody>
       </table>
-      <button className="btn-add-row" onClick={() => {
-        onItemsChange([...items, { key: '', default: '', type: 'string', description: '', enabled: true }]);
-      }}>
-        <Plus size={14} /> 添加
-      </button>
+      {!readOnly && (
+        <button className="btn-add-row" onClick={() => {
+          onItemsChange([...items, { key: '', default: '', type: 'string', description: '', enabled: true }]);
+        }}>
+          <Plus size={14} /> 添加
+        </button>
+      )}
     </div>
   );
 }

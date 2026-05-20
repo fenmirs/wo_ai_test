@@ -702,6 +702,9 @@ class ProjectManager {
 
     const api = proj.config.apis.find(a => a.id === apiId);
     if (api) {
+      api.name = this._ensureUniqueTrashAPIName(api.name, api.id);
+      const group = proj.config.groups?.find(g => g.id === api.group);
+      api.originalGroupName = group?.name || null;
       api.deleted = true;
       this.markDirty();
     }
@@ -713,9 +716,81 @@ class ProjectManager {
 
     const api = proj.config.apis.find(a => a.id === apiId);
     if (api) {
+      if (api.group && api.group !== 'default') {
+        const groupExists = proj.config.groups?.some(g => g.id === api.group);
+        if (!groupExists) {
+          proj.config.groups = proj.config.groups || [];
+          const groupName = api.originalGroupName || api.group;
+          proj.config.groups.push({
+            id: api.group,
+            name: this.ensureUniqueGroupName(groupName, null),
+            parentId: null
+          });
+        }
+      }
+      api.name = this.ensureUniqueAPIName(api.name, api.group, api.id);
       api.deleted = false;
+      delete api.originalGroupName;
       this.markDirty();
     }
+  }
+
+  emptyTrash() {
+    const proj = this._activeProject;
+    if (!proj?.config) return;
+
+    const deletedIds = proj.config.apis.filter(a => a.deleted).map(a => a.id);
+    deletedIds.forEach(id => this.deleteAPI(id));
+  }
+
+  // ── 名称唯一性检查 ──
+
+  ensureUniqueAPIName(name, groupId, excludeId = null) {
+    const proj = this._activeProject;
+    if (!proj?.config) return name;
+    let result = name;
+    let counter = 2;
+    while (proj.config.apis.some(a =>
+      a.name === result &&
+      a.group === groupId &&
+      !a.deleted &&
+      a.id !== excludeId
+    )) {
+      result = `${name} (${counter})`;
+      counter++;
+    }
+    return result;
+  }
+
+  ensureUniqueGroupName(name, parentId, excludeId = null) {
+    const proj = this._activeProject;
+    if (!proj?.config?.groups) return name;
+    let result = name;
+    let counter = 2;
+    while (proj.config.groups.some(g =>
+      g.name === result &&
+      g.parentId === parentId &&
+      !g.deleted &&
+      g.id !== excludeId
+    )) {
+      result = `${name} (${counter})`;
+      counter++;
+    }
+    return result;
+  }
+
+  _ensureUniqueTrashAPIName(name, excludeId = null) {
+    const proj = this._activeProject;
+    if (!proj?.config) return name;
+    let result = name;
+    let counter = 2;
+    while (proj.config.apis.some(a =>
+      a.deleted && a.name === result && a.id !== excludeId
+    )) {
+      result = `${name} (${counter})`;
+      counter++;
+    }
+    return result;
   }
 
   async deleteAPI(apiId) {
@@ -759,7 +834,8 @@ class ProjectManager {
 
     const newAPI = deepClone(sourceAPI);
     newAPI.id = generateId('api');
-    newAPI.name = `${sourceAPI.name}(复制)`;
+    const baseName = `${sourceAPI.name}(复制)`;
+    newAPI.name = this.ensureUniqueAPIName(baseName, newAPI.group || 'default');
 
     await this.addAPI(newAPI);
     return newAPI;
@@ -771,12 +847,19 @@ class ProjectManager {
     const proj = this._activeProject;
     if (!proj?.config) return;
 
+    if (groupName === '回收站') {
+      console.warn('[PM.addGroup] "回收站" is a reserved name');
+      return;
+    }
+
     if (!proj.config.groups) proj.config.groups = [];
 
+    const uniqueName = this.ensureUniqueGroupName(groupName, parentId);
     proj.config.groups.push({
       id: generateId('group'),
-      name: groupName,
-      parentId: parentId
+      name: uniqueName,
+      parentId: parentId,
+      deleted: false
     });
     this.markDirty();
   }
@@ -797,10 +880,14 @@ class ProjectManager {
       const newGroupId = generateId('group');
       groupIdMap[sourceGroupId] = newGroupId;
 
+      const groupName = group.id === groupId
+        ? this.ensureUniqueGroupName(`${group.name}(复制)`, parentId)
+        : group.name;
       proj.config.groups.push({
         id: newGroupId,
-        name: group.id === groupId ? `${group.name}(复制)` : group.name,
-        parentId: parentId
+        name: groupName,
+        parentId: parentId,
+        deleted: false
       });
 
       proj.config.apis?.forEach(api => {
@@ -828,12 +915,61 @@ class ProjectManager {
     if (!proj?.config || !proj.config.groups) return;
     if (groupId === 'default' || groupId === null) return;
 
-    const groupsToDelete = this._getChildGroupIds(groupId);
+    const groupsToDelete = this._getChildGroupIds(groupId, true);
     groupsToDelete.push(groupId);
     proj.config.groups = proj.config.groups.filter(g => !groupsToDelete.includes(g.id));
     proj.config.apis?.forEach(api => {
       if (groupsToDelete.includes(api.group)) api.group = 'default';
     });
+    this.markDirty();
+  }
+
+  softDeleteGroup(groupId) {
+    const proj = this._activeProject;
+    if (!proj?.config || !proj.config.groups) return;
+    if (groupId === 'default' || groupId === null) return;
+
+    const allIds = this._getChildGroupIds(groupId, true);
+    allIds.push(groupId);
+
+    allIds.forEach(id => {
+      const g = proj.config.groups.find(gr => gr.id === id);
+      if (g) g.deleted = true;
+    });
+
+    proj.config.apis?.forEach(api => {
+      if (allIds.includes(api.group) && !api.deleted) {
+        api.name = this._ensureUniqueTrashAPIName(api.name, api.id);
+        const group = proj.config.groups.find(g => g.id === api.group);
+        api.originalGroupName = group?.name || null;
+        api.deleted = true;
+      }
+    });
+    this.markDirty();
+  }
+
+  restoreGroup(groupId) {
+    const proj = this._activeProject;
+    if (!proj?.config || !proj.config.groups) return;
+
+    const restoreRecursive = (id) => {
+      const g = proj.config.groups.find(gr => gr.id === id);
+      if (!g) return;
+      g.deleted = false;
+
+      const children = proj.config.groups.filter(c => c.parentId === id);
+      children.forEach(c => restoreRecursive(c.id));
+
+      proj.config.apis?.forEach(api => {
+        if (api.group === id && api.deleted) {
+          api.name = this.ensureUniqueAPIName(api.name, id, api.id);
+          api.deleted = false;
+          delete api.originalGroupName;
+        }
+      });
+    };
+
+    restoreRecursive(groupId);
     this.markDirty();
   }
 
@@ -848,27 +984,28 @@ class ProjectManager {
     }
   }
 
-  _getChildGroupIds(parentId) {
+  _getChildGroupIds(parentId, includeDeleted = false) {
     const proj = this._activeProject;
     if (!proj?.config?.groups) return [];
 
-    const children = proj.config.groups.filter(g => g.parentId === parentId);
+    const children = proj.config.groups.filter(g => g.parentId === parentId && (includeDeleted || !g.deleted));
     let allIds = children.map(g => g.id);
     children.forEach(child => {
-      allIds = [...allIds, ...this._getChildGroupIds(child.id)];
+      allIds = [...allIds, ...this._getChildGroupIds(child.id, includeDeleted)];
     });
     return allIds;
   }
 
-  getGroupTree() {
+  getGroupTree(includeDeleted = false) {
     const proj = this._activeProject;
     if (!proj?.config?.groups) {
       return [{ id: 'default', name: '默认', parentId: null, children: [] }];
     }
 
-    const rootGroups = proj.config.groups.filter(g => !g.parentId);
+    const filterFn = includeDeleted ? () => true : (g) => !g.deleted;
+    const rootGroups = proj.config.groups.filter(g => !g.parentId && filterFn(g));
     const buildTree = (parentId) => {
-      return proj.config.groups.filter(g => g.parentId === parentId).map(g => ({
+      return proj.config.groups.filter(g => g.parentId === parentId && filterFn(g)).map(g => ({
         ...g,
         children: buildTree(g.id)
       }));
@@ -876,7 +1013,7 @@ class ProjectManager {
     return rootGroups.map(g => ({ ...g, children: buildTree(g.id) }));
   }
 
-  getFlatGroupsWithLevel() {
+  getFlatGroupsWithLevel(includeDeleted = false) {
     const proj = this._activeProject;
     if (!proj?.config?.groups) {
       return [{ id: 'default', name: '默认', parentId: null, level: 0 }];
@@ -884,7 +1021,7 @@ class ProjectManager {
 
     const result = [{ id: 'default', name: '默认', parentId: null, level: 0 }];
     const addGroupsRecursive = (parentId, level) => {
-      proj.config.groups.filter(g => g.parentId === parentId).forEach(g => {
+      proj.config.groups.filter(g => g.parentId === parentId && (includeDeleted || !g.deleted)).forEach(g => {
         result.push({ ...g, level });
         addGroupsRecursive(g.id, level + 1);
       });
@@ -907,9 +1044,9 @@ class ProjectManager {
 
     const groups = new Set(['默认']);
     proj.config.apis?.forEach(api => {
-      if (api.group && api.group !== '默认') groups.add(api.group);
+      if (!api.deleted && api.group && api.group !== '默认') groups.add(api.group);
     });
-    proj.config.groups?.forEach(g => groups.add(g.id));
+    proj.config.groups?.filter(g => !g.deleted).forEach(g => groups.add(g.id));
     return Array.from(groups);
   }
 

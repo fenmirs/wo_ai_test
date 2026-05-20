@@ -56,6 +56,13 @@
   padding: 20px;
 }
 
+.input-dialog-description {
+  margin: 0 0 12px 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
 .input-dialog-input {
   width: 100%;
   padding: 10px 12px;

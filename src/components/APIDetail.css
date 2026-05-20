@@ -1980,3 +1980,17 @@
   border-color: var(--error-color);
   color: var(--error-color);
 }
+
+/* ── 只读模式 ── */
+
+.readonly-input {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.readonly-input:disabled {
+  background: transparent;
+  border-color: transparent;
+  color: var(--text-muted);
+  cursor: default;
+}

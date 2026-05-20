@@ -4,7 +4,7 @@ import { projectManager } from '../utils/ProjectManager';
 import { toast } from './Toast';
 import './APIMain.css';
 
-function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, onEdit, onDelete, onAddGroup, onDeleteGroup, onGroupSelect, onMoveToGroup, onRenameGroup, onMoveGroup, onCopyAPI, onCopyGroup, onScenarioSelect, onAddScenario, onDeleteScenario, zenMode, zenApiId, currentScenarioId, expandScenarioApiId, onExpandScenarioHandled, scrollToApiId, onScrollToApiHandled, expandGroupId, onExpandGroupHandled, profile }) {
+function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, onEdit, onDelete, onAddGroup, onDeleteGroup, onGroupSelect, onMoveToGroup, onRenameGroup, onMoveGroup, onCopyAPI, onCopyGroup, onScenarioSelect, onAddScenario, onDeleteScenario, zenMode, zenApiId, currentScenarioId, expandScenarioApiId, onExpandScenarioHandled, scrollToApiId, onScrollToApiHandled, expandGroupId, onExpandGroupHandled, profile, onRestoreAPI, onPermanentDelete, onEmptyTrash, onRestoreGroup, onPermanentDeleteGroup }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [dragAPI, setDragAPI] = useState(null);
   const [dragGroup, setDragGroup] = useState(null);
@@ -17,8 +17,8 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
   const [refPopup, setRefPopup] = useState({ visible: false, api: null, data: null, loading: false });
   const [editingApiId, setEditingApiId] = useState(null);
   const [editingApiName, setEditingApiName] = useState('');
-  const [editingScenarioKey, setEditingScenarioKey] = useState(null);
-  const [editingScenarioName, setEditingScenarioName] = useState('');
+  const [editingScenarioKey, setEditingScenarioName] = useState('');
+  const [trashExpanded, setTrashExpanded] = useState(false);
   const editInputRef = useRef(null);
   const editApiInputRef = useRef(null);
   const editScenarioInputRef = useRef(null);
@@ -259,6 +259,16 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
       setEditingApiName('');
       return;
     }
+    // 重名检查：同分组内拒绝操作
+    const duplicate = apis.some(a =>
+      a.name === trimmed && a.group === api.group && !a.deleted && a.id !== apiId
+    );
+    if (duplicate) {
+      toast.error(`当前分组下已存在名为 "${trimmed}" 的 API`);
+      setEditingApiId(null);
+      setEditingApiName('');
+      return;
+    }
     projectManager.updateAPI(apiId, { name: trimmed });
     if (projectManager._apiDataCache[apiId]) {
       projectManager._apiDataCache[apiId].name = trimmed;
@@ -292,8 +302,8 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
 
   // 获取分组树形结构（默认分组作为常规组）
   const getGroupTree = () => {
-    // 确保默认分组存在
-    let allGroups = [...(groupsData || [])];
+    // 过滤已删除的分组
+    let allGroups = (groupsData || []).filter(g => !g.deleted);
     const hasDefault = allGroups.some(g => g.id === 'default');
     if (!hasDefault) {
       allGroups.push({ id: 'default', name: '默认', parentId: null });
@@ -523,6 +533,21 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
     setDragOverGroup(null);
   };
 
+  const handleTrashDragOver = (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  };
+
+  const handleTrashDrop = (e) => {
+    e.preventDefault();
+    const dragType = e.dataTransfer.getData('type');
+    if (dragType === 'api' && dragAPI && !dragAPI.deleted && onDelete) {
+      onDelete(dragAPI);
+    }
+    setDragAPI(null);
+    setDragGroup(null);
+  };
+
   // 提取简短 ID 后缀
   const getShortIdSuffix = (id) => {
     if (!id) return '';
@@ -599,6 +624,39 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
       }
 
       return nameMatch || idMatch || groupMatch || pathMatch || resolvedPathMatch || scenarioMatch;
+    });
+  };
+
+  // 获取已删除的 API
+  const getDeletedAPIs = () => (apis || []).filter(a => a.deleted);
+
+  // 构建已删除分组树（以每个无父级已删除分组为根，或已删除分组自身为根）
+  const getDeletedGroupTree = () => {
+    const deletedGroups = (groupsData || []).filter(g => g.deleted);
+    const deletedIds = new Set(deletedGroups.map(g => g.id));
+    // 只取顶层已删除分组（其父级未删除或不存在），避免嵌套在未删除分组下丢失
+    const roots = deletedGroups.filter(g => !g.parentId || !deletedIds.has(g.parentId));
+    const buildTree = (parentId) => {
+      return deletedGroups.filter(g => g.parentId === parentId).map(g => ({
+        ...g,
+        children: buildTree(g.id)
+      }));
+    };
+    return roots.map(g => ({ ...g, children: buildTree(g.id) }));
+  };
+
+  const getAPIsInDeletedGroup = (groupId) => (apis || []).filter(a => a.deleted && a.group === groupId);
+
+  // 搜索过滤已删除 API
+  const getFilteredDeletedAPIs = () => {
+    const deleted = getDeletedAPIs();
+    if (!searchQuery) return deleted;
+    const lowerQuery = searchQuery.toLowerCase();
+    return deleted.filter(api => {
+      const nameMatch = api.name && api.name.toLowerCase().includes(lowerQuery);
+      const idMatch = api.id && api.id.toLowerCase().includes(lowerQuery);
+      const pathMatch = api.api_path && api.api_path.toLowerCase().includes(lowerQuery);
+      return nameMatch || idMatch || pathMatch;
     });
   };
 
@@ -881,6 +939,75 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
     );
   };
 
+  // 渲染回收站中的已删除分组
+  const renderDeletedGroup = (group, level = 0) => {
+    const hasChildren = group.children && group.children.length > 0;
+    const groupAPIs = getAPIsInDeletedGroup(group.id);
+    const isExpanded = expandedGroups.has(`trash_${group.id}`);
+    return (
+      <div key={group.id} className="deleted-group-wrapper" style={{ paddingLeft: `${8 + level * 8}px` }}>
+        <div
+          className="deleted-group-header"
+          onClick={() => {
+            const next = new Set(expandedGroups);
+            const key = `trash_${group.id}`;
+            if (next.has(key)) next.delete(key); else next.add(key);
+            setExpandedGroups(next);
+          }}
+        >
+          <span className="expand-icon">
+            {isExpanded ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
+          </span>
+          <Folder size={14} className="group-icon" />
+          <span className="group-name deleted-group-name">{group.name}</span>
+          <span className="group-count">{groupAPIs.length}</span>
+          <div className="trash-actions" style={{ marginLeft: 'auto' }}>
+            <button
+              className="trash-btn restore-btn"
+              onClick={(e) => { e.stopPropagation(); onRestoreGroup?.(group.id); }}
+              title="恢复分组及下属 API"
+            >恢复</button>
+            <button
+              className="trash-btn permanent-delete-btn"
+              onClick={(e) => { e.stopPropagation(); onPermanentDeleteGroup?.(group.id); }}
+              title="永久删除分组及下属 API"
+            >彻底删除</button>
+          </div>
+        </div>
+        {isExpanded && (
+          <div className="group-content">
+            {groupAPIs.map(api => (
+              <div
+                key={api.id}
+                data-api-id={api.id}
+                className={`api-item deleted-api-item ${selectedAPI?.id === api.id ? 'active' : ''}`}
+                style={{ paddingLeft: `${8 + (level + 1) * 8}px` }}
+                draggable
+                onDragStart={(e) => handleDragStart(e, api)}
+                onDragEnd={handleDragEnd}
+                onClick={() => onSelect(api)}
+              >
+                <div className="api-header">
+                  <div className="api-info">
+                    <div className="api-info-row">
+                      <span className="api-method-bar" style={{ background: getMethodColor(api.method) }} />
+                      <span className="api-name">{api.name}</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="api-actions trash-actions">
+                  <button className="trash-btn restore-btn" onClick={(e) => { e.stopPropagation(); onRestoreAPI?.(api.id); }}>恢复</button>
+                  <button className="trash-btn permanent-delete-btn" onClick={(e) => { e.stopPropagation(); onPermanentDelete?.(api.id); }}>彻底删除</button>
+                </div>
+              </div>
+            ))}
+            {hasChildren && group.children.map(child => renderDeletedGroup(child, level + 1))}
+          </div>
+        )}
+      </div>
+    );
+  };
+
   // 扫描场景数据中的引用
   const scanRefInScenario = (scn, targetApiId) => {
     const refPattern = new RegExp(`\\{\\{ref:${escapeRegex(targetApiId)}(?:@|\\}|\\.)`, 'i');
@@ -1025,7 +1152,94 @@ function APIMain({ apis, groupsData, selectedAPI, activeGroup, onSelect, onAdd, 
             })()}
           </div>
         ) : (
-          getGroupTree().map(group => renderGroup(group, 0))
+          <>
+            {getGroupTree().map(group => renderGroup(group, 0))}
+            {/* 回收站 */}
+            <div
+              className="group-wrapper trash-wrapper"
+              onDragOver={handleTrashDragOver}
+              onDrop={handleTrashDrop}
+            >
+              <div
+                className={`group-header trash-header`}
+                style={{ paddingLeft: '8px' }}
+                onClick={() => setTrashExpanded(prev => !prev)}
+              >
+                <span className="expand-icon">
+                  {trashExpanded ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
+                </span>
+                <Trash2 size={14} className="group-icon trash-icon" />
+                <span className="group-name">回收站</span>
+                <span className="group-count">{getDeletedAPIs().length}</span>
+              </div>
+              {trashExpanded && (
+                <div className="group-content">
+                  {/* 已删除的分组树 */}
+                  {getDeletedGroupTree().map(group => renderDeletedGroup(group, 0))}
+                  {/* 回收站内无分组的已删除 API */}
+                  {getFilteredDeletedAPIs().filter(api => {
+                    const g = groupsData?.find(gr => gr.id === api.group);
+                    return !g?.deleted || !g;
+                  }).map(api => {
+                    const groupName = groupsData?.find(g => g.id === api.group)?.name || (api.group === 'default' ? '默认' : api.group || '未分组');
+                    const isSearchMatch = searchQuery && api.name && api.name.toLowerCase().includes(searchQuery.toLowerCase());
+                    return (
+                      <div
+                        key={api.id}
+                        data-api-id={api.id}
+                        className={`api-item deleted-api-item ${selectedAPI?.id === api.id ? 'active' : ''}`}
+                        style={{ paddingLeft: '16px' }}
+                        draggable
+                        onDragStart={(e) => handleDragStart(e, api)}
+                        onDragEnd={handleDragEnd}
+                        onClick={() => onSelect(api)}
+                      >
+                        <div className="api-header">
+                          <div className="api-info">
+                            <div className="api-info-row">
+                              <span className="api-method-bar" style={{ background: getMethodColor(api.method) }} />
+                              <span className={`api-name ${isSearchMatch ? 'search-strikethrough' : ''}`}>
+                                {api.name}
+                              </span>
+                              <span className="original-group-label" title="原始分组">
+                                {groupName}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="api-actions trash-actions">
+                          <button
+                            className="trash-btn restore-btn"
+                            onClick={(e) => { e.stopPropagation(); onRestoreAPI?.(api.id); }}
+                            title="恢复"
+                          >
+                            恢复
+                          </button>
+                          <button
+                            className="trash-btn permanent-delete-btn"
+                            onClick={(e) => { e.stopPropagation(); onPermanentDelete?.(api.id); }}
+                            title="彻底删除"
+                          >
+                            彻底删除
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                  {(getDeletedAPIs().length > 0 || getDeletedGroupTree().length > 0) && (
+                    <div className="empty-trash-wrapper" style={{ paddingLeft: '16px' }}>
+                      <button
+                        className="empty-trash-btn"
+                        onClick={() => onEmptyTrash?.()}
+                      >
+                        清空回收站
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </>
         )}
       </div>
 

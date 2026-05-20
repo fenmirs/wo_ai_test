@@ -686,3 +686,140 @@
   border-radius: 3px;
   color: var(--text-secondary, #a0a0a0);
 }
+
+/* ── 回收站 ── */
+
+.trash-wrapper {
+  border-top: 1px solid var(--border-color);
+  margin-top: 4px;
+}
+
+.trash-header .trash-icon {
+  color: var(--accent-danger, #ef4444);
+}
+
+.trash-header .group-name {
+  color: var(--text-muted, #888);
+}
+
+.deleted-api-item {
+  opacity: 0.75;
+}
+
+.deleted-api-item .api-name {
+  color: var(--text-muted, #888);
+}
+
+.deleted-api-item .api-name.search-strikethrough {
+  text-decoration: line-through;
+  color: var(--text-muted, #888);
+}
+
+.deleted-api-item.active {
+  opacity: 1;
+  background: var(--bg-tertiary, #3a3a3a);
+}
+
+.original-group-label {
+  font-size: 10px;
+  color: var(--text-muted, #888);
+  background: var(--bg-tertiary, #3a3a3a);
+  padding: 1px 5px;
+  border-radius: 3px;
+  margin-left: 6px;
+  white-space: nowrap;
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.trash-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.trash-btn {
+  font-size: 10px;
+  padding: 2px 6px;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.trash-btn:hover {
+  background: var(--bg-tertiary);
+}
+
+.restore-btn {
+  color: var(--accent-primary, #3b82f6);
+  border-color: var(--accent-primary, #3b82f6);
+}
+
+.restore-btn:hover {
+  background: color-mix(in srgb, var(--accent-primary) 15%, transparent);
+}
+
+.permanent-delete-btn {
+  color: var(--accent-danger, #ef4444);
+  border-color: var(--accent-danger, #ef4444);
+}
+
+.permanent-delete-btn:hover {
+  background: color-mix(in srgb, var(--accent-danger) 15%, transparent);
+}
+
+.empty-trash-wrapper {
+  padding: 8px 0;
+}
+
+.empty-trash-btn {
+  font-size: 11px;
+  padding: 4px 10px;
+  border: 1px solid var(--accent-danger, #ef4444);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--accent-danger, #ef4444);
+  cursor: pointer;
+}
+
+.empty-trash-btn:hover {
+  background: color-mix(in srgb, var(--accent-danger) 15%, transparent);
+}
+
+/* ── 回收站中的已删除分组 ── */
+
+.deleted-group-wrapper {
+  position: relative;
+}
+
+.deleted-group-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background 0.15s;
+}
+
+.deleted-group-header:hover {
+  background: var(--bg-hover, #3a3a3a);
+}
+
+.deleted-group-header .group-icon {
+  color: var(--text-muted, #888);
+  flex-shrink: 0;
+}
+
+.deleted-group-name {
+  color: var(--text-muted, #888);
+  font-size: 12px;
+}
+
+.deleted-group-header .expand-icon {
+  color: var(--text-muted, #888);
+}

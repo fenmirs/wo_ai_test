@@ -15,7 +15,7 @@ import { toast } from './Toast';
 import { useProgress } from './ProgressOverlay';
 
 
-function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, groups = [], isTemporary = false, onViewDetail, onRestoreHistory, onDeleteHistory, theme = 'dark', onResultChange, onDraftChange, requestedScenarioId, requestedScenarioAction, onScenarioChange, onRequestedScenarioActionHandled, onRequestedScenarioHandled }) {
+function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, groups = [], isTemporary = false, readOnly = false, onViewDetail, onRestoreHistory, onDeleteHistory, theme = 'dark', onResultChange, onDraftChange, requestedScenarioId, requestedScenarioAction, onScenarioChange, onRequestedScenarioActionHandled, onRequestedScenarioHandled }) {
   const [resolvedPath, setResolvedPath] = useState('');
   const [executionResult, setExecutionResult] = useState(null);
   const [isExecuting, setIsExecuting] = useState(false);
@@ -907,7 +907,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   };
 
   const handleSend = async () => {
-    if (!formData.api_path) return;
+    if (readOnly || !formData.api_path) return;
 
     if (isExecuting) {
       executorRef.current?.executor?.cancel();
@@ -970,6 +970,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   };
 
   const handleSave = async () => {
+    if (readOnly) return;
     if (!formData.name) {
       toast.error('请输入 API 名称');
       return;
@@ -1277,16 +1278,17 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
   return (
     <div className="api-detail">
-            {/* API 名称 + 场景切换 */}
+      {/* API 名称 + 场景切换 */}
       <div className="meta-bar">
         <div className="meta-field">
           <span className="meta-label">名称</span>
           <input
-            className="meta-input"
+            className={`meta-input${readOnly ? ' readonly-input' : ''}`}
             type="text"
             value={formData.name}
             onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
             placeholder="API 名称"
+            disabled={readOnly}
           />
         </div>
         <span className="meta-divider"></span>
@@ -1327,7 +1329,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
               ))}
             </select>
           )}
-          {renamingScenarioId === currentScenarioId ? null : (
+          {!readOnly && renamingScenarioId === currentScenarioId ? null : !readOnly && (
             <button className="meta-btn" onClick={() => {
               const cur = scenarioList.find(s => s.id === currentScenarioId);
               setRenamingScenarioValue(cur?.name || '');
@@ -1336,32 +1338,36 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
               <Edit size={12} />
             </button>
           )}
-          <button className="meta-btn" onClick={addScenario} title="添加场景">
-            <Plus size={14} />
-          </button>
-          {scenarioList.length > 1 && (
+          {!readOnly && (
+            <button className="meta-btn" onClick={addScenario} title="添加场景">
+              <Plus size={14} />
+            </button>
+          )}
+          {!readOnly && scenarioList.length > 1 && (
             <button className="meta-btn meta-del-btn" onClick={() => deleteScenario(currentScenarioId)} title="删除场景">
               <Trash2 size={14} />
             </button>
           )}
         </div>
-        <div className="meta-actions">
-          <div className="api-line-actions">
-            <button className="scene-action-btn btn-save-icon" onClick={handleSave} title="保存">
-              {isSaving ? <RefreshCw size={16} className="spin" /> : <Save size={16} />}
-            </button>
-            <span className="scene-action-divider">|</span>
-            <button className="scene-action-btn btn-send-icon" onClick={handleSend} title={isExecuting ? '取消' : '发送'}>
-              {isExecuting ? <X size={16} /> : <Play size={16} />}
-            </button>
-            <span className="scene-action-divider">|</span>
-            <button className="scene-action-btn btn-doc-icon" onClick={handleGenerateDoc} title="生成文档">
-              <FileDown size={16} />
-            </button>
+        {!readOnly && (
+          <div className="meta-actions">
+            <div className="api-line-actions">
+              <button className="scene-action-btn btn-save-icon" onClick={handleSave} title="保存">
+                {isSaving ? <RefreshCw size={16} className="spin" /> : <Save size={16} />}
+              </button>
+              <span className="scene-action-divider">|</span>
+              <button className="scene-action-btn btn-send-icon" onClick={handleSend} title={isExecuting ? '取消' : '发送'}>
+                {isExecuting ? <X size={16} /> : <Play size={16} />}
+              </button>
+              <span className="scene-action-divider">|</span>
+              <button className="scene-action-btn btn-doc-icon" onClick={handleGenerateDoc} title="生成文档">
+                <FileDown size={16} />
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
-
+        
       {/* API 级别：方法 + URL + 操作按钮 */}
       <div className="api-line">
         <div className="method-select" style={{ flexShrink: 0 }}>
@@ -1369,6 +1375,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
             value={formData.method}
             onChange={(e) => setFormData({ ...formData, method: e.target.value })}
             style={{ backgroundColor: getMethodColor(formData.method) }}
+            disabled={readOnly}
           >
             {methods.map(m => <option key={m} value={m}>{m}</option>)}
           </select>
@@ -1381,7 +1388,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                   key={idx}
                   className={`url-segment ${idx === 0 ? 'first' : ''} ${activeSegmentIdx === idx ? 'active' : ''} ${seg.type === 'variable' ? 'segment-variable' : ''}`}
                 >
-                  {activeSegmentIdx === idx ? (
+                  {!readOnly && activeSegmentIdx === idx ? (
                     <>
                       <input
                         ref={segmentInputRef}
@@ -1418,7 +1425,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                       )}
                     </>
                   ) : (
-                    <div className="segment-content" onClick={() => { setActiveSegmentIdx(idx); setEditingValue(getSegmentDisplayText(seg)); }}>
+                    <div className="segment-content" onClick={() => { if (!readOnly) { setActiveSegmentIdx(idx); setEditingValue(getSegmentDisplayText(seg)); } }}>
                         <span className="segment-text">
                           {getSegmentDisplayText(seg) || (idx === 0 ? '输入或选择' : '输入路径')}
                         </span>
@@ -1426,12 +1433,14 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                   )}
                 </div>
               ))}
-              <button className="segment-add-btn" onClick={() => setUrlSegments([...urlSegments, { type: 'text', value: '' }])} title="添加片段">
-                <Plus size={12} />
-              </button>
+              {!readOnly && (
+                <button className="segment-add-btn" onClick={() => setUrlSegments([...urlSegments, { type: 'text', value: '' }])} title="添加片段">
+                  <Plus size={12} />
+                </button>
+              )}
             </div>
           </div>
-          {dropdownPos && (
+          {!readOnly && dropdownPos && (
             <div className="segment-var-dropdown" style={{ position: 'fixed', left: dropdownPos.left, top: dropdownPos.top, minWidth: dropdownPos.width, zIndex: 10000 }}>
               {profile && Object.keys(profile)
                 .filter(k => k !== 'name' && k !== 'activate')
@@ -1472,9 +1481,10 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
             if (!curScn) return null;
             return (
               <textarea
-                className="desc-textarea"
+                className={`desc-textarea${readOnly ? ' readonly-input' : ''}`}
                 value={curScn.description || ''}
                 onChange={(e) => {
+                  if (readOnly) return;
                   const newDesc = e.target.value;
                   setScenarioList(prev => prev.map(s =>
                     s.id === curScn.id ? { ...s, description: newDesc, updatedAt: new Date().toISOString() } : s
@@ -1482,6 +1492,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                 }}
                 placeholder="点击添加场景描述..."
                 rows={1}
+                readOnly={readOnly}
               />
             );
           })()}
@@ -1544,6 +1555,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
               activeRowIndex={bottomPanel.section === 'param' ? bottomPanel.rowIndex : null}
               excludeApiId={formData.id}
               theme={theme}
+              readOnly={readOnly}
             />
           </div>
         )}
@@ -1561,6 +1573,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
               activeRowIndex={bottomPanel.section === 'header' ? bottomPanel.rowIndex : null}
               excludeApiId={formData.id}
               theme={theme}
+              readOnly={readOnly}
             />
           </div>
         )}
@@ -1633,6 +1646,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                       activeRowIndex={bottomPanel.section === section ? bottomPanel.rowIndex : null}
                       excludeApiId={formData.id}
                       theme={theme}
+                      readOnly={readOnly}
                     />
                   );
                 })()}
@@ -1851,6 +1865,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                         }
                       }}
                       theme={theme}
+                      readOnly={readOnly}
                     />
                   )}
                 </div>
@@ -1870,32 +1885,40 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                   <div key={index} className="assert-row">
                     <input type="checkbox" checked={assertion.enabled}
                       onChange={(e) => {
+                        if (readOnly) return;
                         const newAssertions = [...formData.assertions];
                         newAssertions[index] = { ...newAssertions[index], enabled: e.target.checked };
                         setFormData({ ...formData, assertions: newAssertions });
                       }}
+                      disabled={readOnly}
                     />
                     <input type="text" value={assertion.expression}
                       onChange={(e) => {
+                        if (readOnly) return;
                         const newAssertions = [...formData.assertions];
                         newAssertions[index] = { ...newAssertions[index], expression: e.target.value };
                         setFormData({ ...formData, assertions: newAssertions });
                       }}
                       placeholder="$.code == 200" className="assert-input"
+                      readOnly={readOnly}
                     />
-                    <button className="btn-delete" onClick={() => {
-                      const newAssertions = formData.assertions.filter((_, i) => i !== index);
-                      if (newAssertions.length === 0) newAssertions.push({ expression: '', enabled: true });
-                      setFormData({ ...formData, assertions: newAssertions });
-                    }}>
-                      <Trash2 size={14} />
-                    </button>
+                    {!readOnly && (
+                      <button className="btn-delete" onClick={() => {
+                        const newAssertions = formData.assertions.filter((_, i) => i !== index);
+                        if (newAssertions.length === 0) newAssertions.push({ expression: '', enabled: true });
+                        setFormData({ ...formData, assertions: newAssertions });
+                      }}>
+                        <Trash2 size={14} />
+                      </button>
+                    )}
                   </div>
                 ))}
               </div>
-              <button className="btn-add-row" onClick={() => setFormData({ ...formData, assertions: [...formData.assertions, { expression: '', enabled: true }] })}>
-                <Plus size={14} /> 添加断言
-              </button>
+              {!readOnly && (
+                <button className="btn-add-row" onClick={() => setFormData({ ...formData, assertions: [...formData.assertions, { expression: '', enabled: true }] })}>
+                  <Plus size={14} /> 添加断言
+                </button>
+              )}
             </div>
           </div>
         )}

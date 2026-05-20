@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
 import './InputDialog.css';
 
-function InputDialog({ isOpen, title, placeholder, defaultValue, onConfirm, onCancel, onClose, onValueChange, confirmDisabled, confirmLabel, error }) {
+function InputDialog({ isOpen, title, placeholder, defaultValue, onConfirm, onCancel, onClose, onValueChange, confirmDisabled, confirmLabel, error, description }) {
   const [value, setValue] = useState(defaultValue || '');
   const inputRef = useRef(null);
 
@@ -60,6 +60,7 @@ function InputDialog({ isOpen, title, placeholder, defaultValue, onConfirm, onCa
           </button>
         </div>
         <div className="input-dialog-body">
+          {description && <p className="input-dialog-description">{description}</p>}
           <input
             ref={inputRef}
             type="text"
