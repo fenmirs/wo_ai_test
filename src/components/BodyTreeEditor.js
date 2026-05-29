@@ -12,6 +12,7 @@ const VALUE_TYPES = [
   { value: 'null', label: 'Null' },
   { value: 'object', label: 'Object' },
   { value: 'array', label: 'Array' },
+  { value: 'ref', label: 'Ref Variable' },
 ];
 
 function BodyTreeNode({
@@ -103,6 +104,10 @@ function BodyTreeNode({
         break;
       case 'null':
         updates.value = null;
+        updates.children = undefined;
+        break;
+      case 'ref':
+        updates.value = '';
         updates.children = undefined;
         break;
       case 'object':

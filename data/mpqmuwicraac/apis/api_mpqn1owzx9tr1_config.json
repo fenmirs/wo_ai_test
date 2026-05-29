@@ -10,7 +10,7 @@
       "name": "默认场景",
       "description": "",
       "createdAt": "2026-05-29T08:01:38.503Z",
-      "updatedAt": "2026-05-29T08:08:40.226Z",
+      "updatedAt": "2026-05-29T08:54:02.169Z",
       "deleted": false,
       "header": [
         {
@@ -21,11 +21,18 @@
           "enabled": true
         },
         {
-          "key": "",
-          "default": "",
-          "type": "string",
+          "key": "appId",
+          "default": "{{ref:api_1780041698492_2z2pw4mcv@scn_default.appId}}",
+          "type": "ref",
           "description": "",
           "enabled": false
+        },
+        {
+          "key": "token",
+          "default": "{{ref:api_1780041698492_2z2pw4mcv@scn_default.token}}",
+          "type": "ref",
+          "description": "",
+          "enabled": true
         }
       ],
       "param": [
