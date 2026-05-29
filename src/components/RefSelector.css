@@ -1,0 +1,218 @@
+.ref-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow: hidden;
+}
+
+.ref-selector-value {
+  flex-shrink: 0;
+}
+
+.ref-selector-value-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+}
+
+.ref-selector-value-box {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 12px;
+}
+
+.ref-selector-prefix {
+  color: var(--text-muted);
+  white-space: pre;
+  user-select: none;
+}
+
+.ref-selector-suffix {
+  color: var(--text-muted);
+  white-space: pre;
+  user-select: none;
+}
+
+.ref-selector-field-inline {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--accent-warning, #f59e0b);
+  font-family: monospace;
+  font-size: 12px;
+  outline: none;
+  padding: 0 4px;
+  min-width: 50px;
+}
+
+.ref-selector-placeholder {
+  color: var(--text-muted);
+  font-style: italic;
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
+.ref-selector-search {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.ref-selector-search input {
+  width: 100%;
+  padding: 4px 8px 4px 26px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 12px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.ref-selector-search input:focus {
+  border-color: var(--accent-primary);
+}
+
+.ref-selector-search-icon {
+  position: absolute;
+  left: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.ref-selector-section-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0;
+}
+
+.ref-selector-api-list {
+  max-height: 140px;
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-primary);
+}
+
+.ref-selector-group-title {
+  padding: 3px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+}
+
+.ref-selector-api-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  cursor: pointer;
+  transition: background 0.1s;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.ref-selector-api-item:last-child {
+  border-bottom: none;
+}
+
+.ref-selector-api-item:hover {
+  background: var(--bg-hover);
+}
+
+.ref-selector-api-item.selected {
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.ref-selector-api-radio {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+
+.ref-selector-api-item.selected .ref-selector-api-radio {
+  border-color: var(--accent-primary);
+  background: var(--accent-primary);
+  box-shadow: inset 0 0 0 3px var(--bg-primary);
+}
+
+.ref-selector-api-name {
+  flex: 1;
+  font-size: 12px;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ref-selector-api-id {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-family: monospace;
+}
+
+.ref-selector-empty {
+  padding: 16px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.ref-selector-scenarios {
+  flex-shrink: 0;
+}
+
+.ref-selector-scenario-select {
+  width: 100%;
+  padding: 3px 6px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 12px;
+  outline: none;
+}
+
+.ref-selector-scenario-select:focus {
+  border-color: var(--accent-primary);
+}
+
+.ref-selector-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.ref-selector-clear-btn {
+  padding: 3px 8px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  color: var(--text-muted);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+  align-self: flex-start;
+}
+
+.ref-selector-clear-btn:hover {
+  border-color: var(--error-color);
+  color: var(--error-color);
+}

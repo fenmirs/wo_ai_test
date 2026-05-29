@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, Trash2, Plus, X, AlertCircle, FileText, Save, FileDown, Code, Layout, Edit, Search, Zap } from 'lucide-react';
+import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, Trash2, Plus, X, AlertCircle, FileText, Save, FileDown, Code, Layout, Edit, Zap } from 'lucide-react';
 import './APIDetail.css';
 import ChainManager from '../utils/ChainManager';
 import { projectManager } from '../utils/ProjectManager';
@@ -11,6 +11,7 @@ import CodeEditor from './CodeEditor';
 import BodyTreeEditor from './BodyTreeEditor';
 import KVTable from './KVTable';
 import KVBottomPanel from './KVBottomPanel';
+import RefSelector from './RefSelector';
 import { toast } from './Toast';
 import { useProgress } from './ProgressOverlay';
 
@@ -2055,83 +2056,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 }
 
 function RefPickerDialog({ excludeApiId, theme, onInsert, onClose }) {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedApiId, setSelectedApiId] = useState(null);
-  const [selectedScenarioId, setSelectedScenarioId] = useState(null);
-  const [fieldPath, setFieldPath] = useState('');
-  const [apiScenarios, setApiScenarios] = useState([]);
-  const [loadingScenarios, setLoadingScenarios] = useState(false);
-
-  useEffect(() => {
-    if (!selectedApiId) { setApiScenarios([]); return; }
-    setLoadingScenarios(true);
-    projectManager.loadAPIData(selectedApiId).then(data => {
-      if (data?.scenarios) {
-        const list = Object.values(data.scenarios).filter(s => !s.deleted);
-        setApiScenarios(list);
-        if (!selectedScenarioId && list.length > 0) {
-          setSelectedScenarioId(list[0].id);
-        }
-      } else {
-        setApiScenarios([]);
-      }
-    }).catch(() => setApiScenarios([])).finally(() => setLoadingScenarios(false));
-  }, [selectedApiId]);
-
-  const projectData = projectManager.getData();
-  const allApis = projectData?.apis || [];
-  const groups = projectData?.groups || [];
-
-  const groupMap = {};
-  groups.forEach(g => { groupMap[g.id] = g; });
-
-  const getGroupPath = (groupId) => {
-    const path = [];
-    let current = groupMap[groupId];
-    while (current) {
-      path.unshift(current.name);
-      current = groupMap[current.parentId];
-    }
-    return path.join(' / ');
-  };
-
-  const availableApis = allApis.filter(a => {
-    if (excludeApiId && a.id === excludeApiId) return false;
-    const cache = projectManager._apiDataCache?.[a.id];
-    const scns = cache?.scenarios ? Object.values(cache.scenarios).filter(s => !s.deleted) : [];
-    return scns.length > 0;
-  });
-
-  const groupedApis = {};
-  availableApis.forEach(api => {
-    const gid = api.group || 'default';
-    if (!groupedApis[gid]) {
-      groupedApis[gid] = { name: gid === 'default' ? '默认' : getGroupPath(gid), apis: [] };
-    }
-    groupedApis[gid].apis.push(api);
-  });
-
-  const filteredGroups = {};
-  if (searchQuery) {
-    const q = searchQuery.toLowerCase();
-    Object.entries(groupedApis).forEach(([gid, g]) => {
-      const matched = g.apis.filter(a => (a.name && a.name.toLowerCase().includes(q)) || (a.id && a.id.toLowerCase().includes(q)));
-      if (matched.length > 0) {
-        filteredGroups[gid] = { ...g, apis: matched };
-      }
-    });
-  }
-
-  const displayGroups = searchQuery ? filteredGroups : groupedApis;
-
-  const handleInsert = () => {
-    if (!selectedApiId) return;
-    const scenarioPart = selectedScenarioId ? `@${selectedScenarioId}` : '';
-    const ref = `{{ref:${selectedApiId}${scenarioPart}.${fieldPath}}}`;
-    onInsert(ref);
-  };
-
-  const selectedApi = allApis.find(a => a.id === selectedApiId);
+  const [refValue, setRefValue] = useState('');
 
   return (
     <div className="ref-picker-overlay" onClick={onClose}>
@@ -2142,84 +2067,12 @@ function RefPickerDialog({ excludeApiId, theme, onInsert, onClose }) {
         </div>
 
         <div className="ref-picker-body">
-          <div className="ref-picker-section">
-            <div className="ref-picker-section-title">选择 API</div>
-            <div className="ref-picker-search">
-              <Search size={12} className="ref-picker-search-icon" />
-              <input
-                type="text"
-                placeholder="搜索 API..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-            <div className="ref-picker-api-list">
-              {Object.entries(displayGroups).map(([gid, g]) => (
-                <div key={gid}>
-                  <div className="ref-picker-group-title">{g.name}</div>
-                  {g.apis.map(api => (
-                    <div
-                      key={api.id}
-                      className={`ref-picker-api-item ${selectedApiId === api.id ? 'selected' : ''}`}
-                      onClick={() => setSelectedApiId(api.id)}
-                    >
-                      <span className="ref-picker-api-radio" />
-                      <span className="ref-picker-api-name">{api.name}</span>
-                      <span className="ref-picker-api-id">{api.id.slice(-6)}</span>
-                    </div>
-                  ))}
-                </div>
-              ))}
-              {Object.keys(displayGroups).length === 0 && (
-                <div className="ref-picker-empty">{searchQuery ? '无匹配 API' : '暂无可引用 API'}</div>
-              )}
-            </div>
-          </div>
-
-          <div className="ref-picker-section">
-            <div className="ref-picker-section-title">选择场景</div>
-            <div className="ref-picker-scenarios">
-              {loadingScenarios ? (
-                <span className="ref-picker-hint">加载中...</span>
-              ) : apiScenarios.length > 0 ? (
-                <select
-                  className="ref-picker-scenario-select"
-                  value={selectedScenarioId || ''}
-                  onChange={(e) => setSelectedScenarioId(e.target.value)}
-                >
-                  {apiScenarios.map(scn => (
-                    <option key={scn.id} value={scn.id}>{scn.name}</option>
-                  ))}
-                </select>
-              ) : selectedApiId ? (
-                <span className="ref-picker-hint">该 API 暂无场景</span>
-              ) : (
-                <span className="ref-picker-hint">请先选择 API</span>
-              )}
-            </div>
-          </div>
-
-          <div className="ref-picker-section">
-            <div className="ref-picker-section-title">字段路径</div>
-            <input
-              className="ref-picker-field-input"
-              type="text"
-              value={fieldPath}
-              onChange={(e) => setFieldPath(e.target.value)}
-              placeholder="如 data.token"
-            />
-          </div>
-
-          {selectedApiId && (
-            <div className="ref-picker-preview">
-              预览: <code>{`{{ref:${selectedApiId}${selectedScenarioId ? `@${selectedScenarioId}` : ''}.${fieldPath}}}`}</code>
-            </div>
-          )}
+          <RefSelector value={refValue} onChange={setRefValue} excludeApiId={excludeApiId} />
         </div>
 
         <div className="ref-picker-footer">
           <button className="ref-picker-btn-cancel" onClick={onClose}>取消</button>
-          <button className="ref-picker-btn-insert" onClick={handleInsert} disabled={!selectedApiId}>
+          <button className="ref-picker-btn-insert" onClick={() => onInsert(refValue)} disabled={!refValue}>
             插入
           </button>
         </div>
