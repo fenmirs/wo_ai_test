@@ -29,6 +29,15 @@ contextBridge.exposeInMainWorld('electron', {
   moveAPIFileToTrashed: (dirPath, projectId, apiId) => ipcRenderer.invoke('move-api-file-to-trashed', dirPath, projectId, apiId),
   listAPIFiles: (dirPath, projectId) => ipcRenderer.invoke('list-api-files', dirPath, projectId),
   
+  // Trash 文件操作（新版 v3 结构）
+  moveAPIToTrash: (dirPath, projectId, apiId) => ipcRenderer.invoke('move-api-to-trash', dirPath, projectId, apiId),
+  restoreAPIFromTrash: (dirPath, projectId, apiId) => ipcRenderer.invoke('restore-api-from-trash', dirPath, projectId, apiId),
+  permanentDeleteTrashAPI: (dirPath, projectId, apiId) => ipcRenderer.invoke('permanent-delete-trash-api', dirPath, projectId, apiId),
+  listTrashAPIFiles: (dirPath, projectId) => ipcRenderer.invoke('list-trash-api-files', dirPath, projectId),
+  readTrashAPIConfig: (dirPath, projectId, apiId) => ipcRenderer.invoke('read-trash-api-config', dirPath, projectId, apiId),
+  emptyTrashDirectory: (dirPath, projectId) => ipcRenderer.invoke('empty-trash-directory', dirPath, projectId),
+  moveGroupToTrash: (dirPath, projectId, apiIds) => ipcRenderer.invoke('move-group-to-trash', dirPath, projectId, apiIds),
+  
   // 对话框
   selectDirectory: () => ipcRenderer.invoke('select-directory'),
   selectFile: () => ipcRenderer.invoke('select-file'),

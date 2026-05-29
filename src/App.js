@@ -353,6 +353,32 @@ function App() {
     setTimeout(() => setSaveMessage(''), 2000);
   }, []);
 
+  // 取消加载，回退到欢迎页
+  const handleCancelWorkspace = useCallback(() => {
+    setWorkspaceStatus('idle');
+    setWorkspaceIssues([]);
+    setWorkspaceError('');
+  }, []);
+
+  // 删除孤儿文件
+  const handleDeleteOrphan = useCallback(async (orphan) => {
+    const match = orphan.fileName.match(/^(.+)_config\.json$/);
+    if (!match) return;
+    const apiId = match[1];
+    await window.electron.deleteAPIFile(currentProjectDir, orphan.projectId, apiId);
+    const remaining = workspaceIssues.filter(i => i.fileName !== orphan.fileName);
+    setWorkspaceIssues(remaining);
+    if (remaining.length === 0) {
+      setWorkspaceStatus('done');
+      setTimeout(() => {
+        projectManager.switchProject(projectManager.activeProjectId);
+        setWorkspaceStatus('idle');
+        setSaveMessage('项目加载成功');
+        setTimeout(() => setSaveMessage(''), 2000);
+      }, 300);
+    }
+  }, [currentProjectDir, workspaceIssues]);
+
   // 重试加载工作空间
   const handleRetryWorkspace = useCallback(async () => {
     if (!currentProjectDir) return;
@@ -754,10 +780,11 @@ function App() {
       placeholder: '请输入分组名称',
       defaultValue: '',
       onConfirm: async (groupName) => {
-        if (groupName === '回收站') {
-          toast.warning('"回收站" 是保留分组名称，不能使用');
-          return;
-        }
+        // [回收站] 已注释掉
+        // if (groupName === '回收站') {
+        //   toast.warning('"回收站" 是保留分组名称，不能使用');
+        //   return;
+        // }
         // 检查分组是否已存在（同父分组下）
         const existingGroups = projectData.groups || [];
         if (existingGroups.find(g => g.name === groupName && g.parentId === parentId)) {
@@ -778,7 +805,8 @@ function App() {
     // 检查是否是自己或自己的子分组（静默忽略）
     if (groupId === newParentId) return;
     
-    const childIds = projectManager._getChildGroupIds?.(groupId) || [];
+    // v3: 使用新的方法获取子分组
+    const childIds = projectManager._getGroupAndDescendantIds?.(groupId, true) || [];
     if (childIds.includes(newParentId)) return;
 
     // 重名检查：目标父级下是否有同名分组
@@ -823,10 +851,11 @@ function App() {
       toast.warning('"默认" 是保留分组名称，不能使用');
       return;
     }
-    if (newName === '回收站') {
-      toast.warning('"回收站" 是保留分组名称，不能使用');
-      return;
-    }
+    // [回收站] 已注释掉
+    // if (newName === '回收站') {
+    //   toast.warning('"回收站" 是保留分组名称，不能使用');
+    //   return;
+    // }
 
     // 重名检查：同父级下拒绝重名
     const parentId = currentGroup.parentId;
@@ -858,11 +887,8 @@ function App() {
       }
     }
 
-    // 如果 API 已删除（从回收站拖出），先恢复
+    // v3: API 从 apis 列表中查找（已删除的 API 不在列表中，不会走到这里）
     const api = projectData.apis?.find(a => a.id === apiId);
-    if (api?.deleted) {
-      projectManager.restoreAPI(apiId);
-    }
     
     // 重名检查：同分组内自动追加后缀
     const uniqueName = projectManager.ensureUniqueAPIName(api?.name || '', newGroupId, apiId);
@@ -883,55 +909,52 @@ function App() {
     setTimeout(() => setSaveMessage(''), 2000);
   };
 
-  // 恢复已删除 API
-  const handleRestoreAPI = async (apiId) => {
-    await projectManager.restoreAPI(apiId);
-    if (selectedAPI?.id === apiId) {
-      const restored = await projectManager.loadAPIData(apiId);
-      setSelectedAPI(restored);
-    }
-    setRefreshKey(k => k + 1);
-    toast.success('API 已恢复');
-  };
-
-  // 彻底删除 API
-  const handlePermanentDelete = async (apiId) => {
-    const api = projectData.apis?.find(a => a.id === apiId);
-    await projectManager.deleteAPI(apiId);
-    if (selectedAPI?.id === apiId) {
-      setSelectedAPI(null);
-      setEditingAPI(null);
-      setViewMode('api');
-    }
-    toast.success(`"${api?.name || apiId}" 已永久删除`);
-    setRefreshKey(k => k + 1);
-  };
-
-  // 恢复已删除分组（及其下所有 API）
-  const handleRestoreGroup = (groupId) => {
-    projectManager.restoreGroup(groupId);
-    setRefreshKey(k => k + 1);
-    toast.success('分组及下属 API 已恢复');
-  };
-
-  // 永久删除已删除分组（及其下所有 API）
-  const handlePermanentDeleteGroup = (groupId) => {
-    projectManager.deleteGroup(groupId);
-    setRefreshKey(k => k + 1);
-    toast.success('分组及下属 API 已永久删除');
-  };
-
-  // 清空回收站
-  const handleEmptyTrash = async () => {
-    projectManager.emptyTrash();
-    if (selectedAPI && projectData.apis?.find(a => a.id === selectedAPI.id) === undefined) {
-      setSelectedAPI(null);
-      setEditingAPI(null);
-      setViewMode('api');
-    }
-    setRefreshKey(k => k + 1);
-    toast.success('回收站已清空');
-  };
+  // [回收站] 已注释掉 - handleRestoreAPI
+  // const handleRestoreAPI = async (apiId) => {
+  //   await projectManager.restoreAPI(apiId);
+  //   if (selectedAPI?.id === apiId) {
+  //     const restored = await projectManager.loadAPIData(apiId);
+  //     setSelectedAPI(restored);
+  //   }
+  //   setRefreshKey(k => k + 1);
+  //   toast.success('API 已恢复');
+  // };
+  // 
+  // const handlePermanentDelete = async (apiId) => {
+  //   const trashApis = projectData.trash?.apis || [];
+  //   const api = trashApis.find(a => a.id === apiId);
+  //   await projectManager.deleteAPI(apiId);
+  //   if (selectedAPI?.id === apiId) {
+  //     setSelectedAPI(null);
+  //     setEditingAPI(null);
+  //     setViewMode('api');
+  //   }
+  //   toast.success(`"${api?.name || apiId}" 已永久删除`);
+  //   setRefreshKey(k => k + 1);
+  // };
+  // 
+  // const handleRestoreGroup = (groupId) => {
+  //   projectManager.restoreGroup(groupId);
+  //   setRefreshKey(k => k + 1);
+  //   toast.success('分组及下属 API 已恢复');
+  // };
+  // 
+  // const handlePermanentDeleteGroup = (groupId) => {
+  //   projectManager.permanentDeleteGroup(groupId);
+  //   setRefreshKey(k => k + 1);
+  //   toast.success('分组及下属 API 已永久删除');
+  // };
+  // 
+  // const handleEmptyTrash = async () => {
+  //   projectManager.emptyTrash();
+  //   if (selectedAPI && projectData.apis?.find(a => a.id === selectedAPI.id) === undefined) {
+  //     setSelectedAPI(null);
+  //     setEditingAPI(null);
+  //     setViewMode('api');
+  //   }
+  //   setRefreshKey(k => k + 1);
+  //   toast.success('回收站已清空');
+  // };
 
   // 复制 API
   const handleCopyAPI = (apiId) => {
@@ -990,8 +1013,9 @@ function App() {
       }
       // 重名检查：API 重命名时拒绝操作
       if (formData.name !== selectedAPI.name) {
+        // v3: apis 列表不包含已删除项，无需过滤
         const exists = projectData.apis?.some(a =>
-          a.name === formData.name && a.group === formData.group && !a.deleted && a.id !== formData.id
+          a.name === formData.name && a.group === formData.group && a.id !== formData.id
         );
         if (exists) {
           toast.error(`当前分组下已存在名为 "${formData.name}" 的 API`);
@@ -1108,8 +1132,10 @@ function App() {
                   '加载完成'
                 }
                 issues={workspaceIssues}
+                onDeleteOrphan={handleDeleteOrphan}
                 actions={
                   workspaceStatus === 'issues' ? [
+                    { label: '取消', onClick: handleCancelWorkspace, warning: true },
                     { label: '忽略并进入项目', onClick: handleEnterProject, primary: true }
                   ] : workspaceStatus === 'error' ? [
                     { label: '重试', onClick: handleRetryWorkspace, primary: true }
@@ -1169,11 +1195,12 @@ function App() {
           {/* 左侧面板 - API 树 */}
           {showLeftPanel && (
             <div className="left-panel" style={{ width: leftPanelWidth }}>
-              <div className="panel-section flex-1">
-                <APIMain
-                   apis={projectData?.apis || []}
-                   groupsData={projectData?.groups || []}
-                   selectedAPI={selectedAPI}
+               <div className="panel-section flex-1">
+                 {/* [回收站] 以下 props 已移除: trashApis, trashGroups, onRestoreAPI, onPermanentDelete, onEmptyTrash, onRestoreGroup, onPermanentDeleteGroup */}
+                 <APIMain
+                    apis={projectData?.apis || []}
+                    groupsData={projectData?.groups || []}
+                    selectedAPI={selectedAPI}
                    activeGroup={activeGroup}
                    onSelect={handleAPISelect}
                    onGroupSelect={handleGroupSelect}
@@ -1211,10 +1238,12 @@ function App() {
                     onDeleteGroup={(groupId) => {
                        const group = projectData.groups?.find(g => g.id === groupId);
                        if (!group) return;
-                       const childGroupIds = projectManager._getChildGroupIds(groupId);
+                       // v3: 获取子分组（包括自身）
+                       const childGroupIds = [groupId, ...(projectManager._getGroupAndDescendantIds?.(groupId, true) || [])];
                        const allGroupIds = [groupId, ...childGroupIds];
+                       // v3: apis 列表不包含已删除项
                        const apisInGroups = (projectData.apis || []).filter(api =>
-                         !api.deleted && allGroupIds.includes(api.group)
+                         allGroupIds.includes(api.group)
                        );
 
                        if (apisInGroups.length === 0) {
@@ -1236,7 +1265,7 @@ function App() {
                                toast.error(`请输入正确的分组名称 "${group.name}" 以确认删除`);
                                return false;
                              }
-                             projectManager.softDeleteGroup(groupId);
+                             projectManager.deleteGroupWithChildren(groupId);
                              if (activeGroup === groupId || childGroupIds.includes(activeGroup)) {
                                setActiveGroup('default');
                              }
@@ -1260,7 +1289,7 @@ function App() {
                     }}
                      onDelete={async (api) => {
                        // 逻辑删除：标记 deleted，UI 隐藏
-                       await projectManager.softDeleteAPI(api.id);
+                       await projectManager.deleteAPI(api.id);
                        if (selectedAPI?.id === api.id) {
                          setSelectedAPI(null);
                          setEditingAPI(null);
@@ -1281,11 +1310,7 @@ function App() {
                     expandGroupId={expandGroupId}
                     onExpandGroupHandled={() => setExpandGroupId(null)}
                     profile={currentProfile}
-                    onRestoreAPI={handleRestoreAPI}
-                    onPermanentDelete={handlePermanentDelete}
-                    onEmptyTrash={handleEmptyTrash}
-                    onRestoreGroup={handleRestoreGroup}
-                    onPermanentDeleteGroup={handlePermanentDeleteGroup}
+
                  />
               </div>
             </div>
@@ -1330,7 +1355,7 @@ function App() {
                   onSaveAPI={handleSaveAPI}
                   groups={projectManager.getGroups()}
                   isTemporary={temporaryAPI !== null}
-                  readOnly={!temporaryAPI && projectData?.apis?.find(a => a.id === selectedAPI?.id)?.deleted}
+                  readOnly={!temporaryAPI && selectedAPI && !projectData?.apis?.some(a => a.id === selectedAPI?.id)}
                   onDraftChange={setDraftDirty}
                   onViewDetail={(entry) => setViewingHistoryEntry(entry)}
                   onRestoreHistory={handleRestoreFromHistory}

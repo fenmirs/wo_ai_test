@@ -5,7 +5,7 @@
   justify-content: center;
   gap: 16px;
   padding: 40px 24px;
-  max-width: 520px;
+  max-width: 860px;
   margin: 0 auto;
 }
 
@@ -54,7 +54,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-height: 240px;
+  max-height: 360px;
   overflow-y: auto;
 }
 
@@ -72,10 +72,6 @@
 
 .embedded-progress-issue-item.missing_file {
   border-left-color: var(--accent-danger, #ef4444);
-}
-
-.embedded-progress-issue-item.orphan_file {
-  border-left-color: var(--accent-warning, #f59e0b);
 }
 
 .embedded-progress-issue-item.id_mismatch {
@@ -101,6 +97,81 @@
 .embedded-progress-issue-text {
   color: var(--text-primary, #e0e0e0);
   word-break: break-all;
+}
+
+.orphan-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.orphan-th {
+  text-align: left;
+  padding: 6px 10px;
+  background: var(--bg-tertiary, #3a3a3a);
+  color: var(--text-secondary, #a0a0a0);
+  font-weight: 600;
+  font-size: 12px;
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.orphan-th:first-child {
+  border-radius: 4px 0 0 0;
+}
+
+.orphan-th:last-child {
+  border-radius: 0 4px 0 0;
+}
+
+.orphan-tr {
+  border-bottom: 1px solid var(--bg-tertiary, #3a3a3a);
+}
+
+.orphan-tr:last-child {
+  border-bottom: none;
+}
+
+.orphan-td {
+  padding: 6px 10px;
+  color: var(--text-primary, #e0e0e0);
+  word-break: break-all;
+  vertical-align: top;
+}
+
+.orphan-file-name {
+  font-family: monospace;
+  font-size: 12px;
+  color: var(--accent-warning, #f59e0b);
+}
+
+.orphan-th-actions {
+  width: 60px;
+  text-align: center;
+}
+
+.orphan-td-actions {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.orphan-delete-btn {
+  padding: 4px 6px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--accent-danger, #ef4444);
+  transition: background 0.15s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orphan-delete-btn:hover {
+  background: color-mix(in srgb, var(--accent-danger) 15%, transparent);
 }
 
 /* Actions */
@@ -133,4 +204,13 @@
 
 .embedded-progress-btn.primary:hover {
   background: var(--accent-primary-hover, #2563eb);
+}
+
+.embedded-progress-btn.warning {
+  background: var(--accent-warning, #f59e0b);
+  color: #000;
+}
+
+.embedded-progress-btn.warning:hover {
+  background: var(--accent-warning-hover, #d97706);
 }

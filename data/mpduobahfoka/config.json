@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "projectName": "阿德1",
+  "profile": [
+    {
+      "activate": true,
+      "name": "dev",
+      "domain": "localhost",
+      "api-prj": ":8080/api"
+    }
+  ],
+  "groups": [
+    {
+      "id": "default",
+      "name": "默认分组",
+      "parentId": null
+    }
+  ],
+  "apis": []
+}

@@ -388,6 +388,103 @@ ipcMain.handle('delete-api-file', async (event, dirPath, projectId, apiId) => {
   }
 });
 
+// ═══════════════════════════════════════════════════════════════════
+// Trash 文件操作 (新结构: trash/apis/ 目录)
+// ═══════════════════════════════════════════════════════════════════
+
+// [回收站] 已注释掉 - trash 目录创建与 IPC 处理
+// function ensureTrashDir(projectDir) {
+//   const trashDir = path.join(projectDir, 'trash', 'apis');
+//   if (!fs.existsSync(trashDir)) { fs.mkdirSync(trashDir, { recursive: true }); }
+//   return trashDir;
+// }
+// 
+// ipcMain.handle('move-api-to-trash', async (event, dirPath, projectId, apiId) => {
+//   try {
+//     const projectDir = path.join(dirPath, projectId);
+//     const apisDir = path.join(projectDir, 'apis');
+//     const trashDir = ensureTrashDir(projectDir);
+//     const configPath = path.join(apisDir, `${apiId}_config.json`);
+//     const historyPath = path.join(apisDir, `${apiId}_history.json`);
+//     const trashConfigPath = path.join(trashDir, `${apiId}_config.json`);
+//     const trashHistoryPath = path.join(trashDir, `${apiId}_history.json`);
+//     if (fs.existsSync(configPath)) { fs.renameSync(configPath, trashConfigPath); }
+//     if (fs.existsSync(historyPath)) { fs.renameSync(historyPath, trashHistoryPath); }
+//     return { success: true };
+//   } catch (error) { console.error('[Electron] 移动 API 到 trash 失败:', error); return { success: false, error: error.message }; }
+// });
+// 
+// ipcMain.handle('restore-api-from-trash', async (event, dirPath, projectId, apiId) => {
+//   try {
+//     const projectDir = path.join(dirPath, projectId);
+//     const apisDir = path.join(projectDir, 'apis');
+//     const trashDir = path.join(projectDir, 'trash', 'apis');
+//     const trashConfigPath = path.join(trashDir, `${apiId}_config.json`);
+//     const trashHistoryPath = path.join(trashDir, `${apiId}_history.json`);
+//     const configPath = path.join(apisDir, `${apiId}_config.json`);
+//     const historyPath = path.join(apisDir, `${apiId}_history.json`);
+//     if (fs.existsSync(trashConfigPath)) { fs.renameSync(trashConfigPath, configPath); }
+//     if (fs.existsSync(trashHistoryPath)) { fs.renameSync(trashHistoryPath, historyPath); }
+//     return { success: true };
+//   } catch (error) { console.error('[Electron] 从 trash 恢复 API 失败:', error); return { success: false, error: error.message }; }
+// });
+// 
+// ipcMain.handle('permanent-delete-trash-api', async (event, dirPath, projectId, apiId) => {
+//   try {
+//     const trashDir = path.join(dirPath, projectId, 'trash', 'apis');
+//     const configFile = path.join(trashDir, `${apiId}_config.json`);
+//     const historyFile = path.join(trashDir, `${apiId}_history.json`);
+//     let deleted = 0;
+//     if (fs.existsSync(configFile)) { fs.unlinkSync(configFile); deleted++; }
+//     if (fs.existsSync(historyFile)) { fs.unlinkSync(historyFile); deleted++; }
+//     return { success: true, deleted };
+//   } catch (error) { return { success: false, error: error.message }; }
+// });
+// 
+// ipcMain.handle('list-trash-api-files', async (event, dirPath, projectId) => {
+//   try {
+//     const trashDir = path.join(dirPath, projectId, 'trash', 'apis');
+//     if (!fs.existsSync(trashDir)) { return { success: true, data: [] }; }
+//     const entries = fs.readdirSync(trashDir, { withFileTypes: true });
+//     const files = entries.filter(e => e.isFile() && e.name.endsWith('_config.json')).map(e => e.name);
+//     return { success: true, data: files };
+//   } catch (error) { return { success: false, error: error.message }; }
+// });
+// 
+// ipcMain.handle('read-trash-api-config', async (event, dirPath, projectId, apiId) => {
+//   try {
+//     const apiFilePath = path.join(dirPath, projectId, 'trash', 'apis', `${apiId}_config.json`);
+//     if (!fs.existsSync(apiFilePath)) { return { success: false, error: `Trash API 配置文件不存在: ${apiId}` }; }
+//     const content = fs.readFileSync(apiFilePath, 'utf-8');
+//     return { success: true, data: JSON.parse(content) };
+//   } catch (error) { return { success: false, error: error.message }; }
+// });
+// 
+// ipcMain.handle('empty-trash-directory', async (event, dirPath, projectId) => {
+//   try {
+//     const trashDir = path.join(dirPath, projectId, 'trash');
+//     if (fs.existsSync(trashDir)) { fs.rmSync(trashDir, { recursive: true, force: true }); }
+//     return { success: true };
+//   } catch (error) { return { success: false, error: error.message }; }
+// });
+// 
+// ipcMain.handle('move-group-to-trash', async (event, dirPath, projectId, apiIds) => {
+//   try {
+//     const projectDir = path.join(dirPath, projectId);
+//     const apisDir = path.join(projectDir, 'apis');
+//     const trashDir = ensureTrashDir(projectDir);
+//     for (const apiId of apiIds) {
+//       const configPath = path.join(apisDir, `${apiId}_config.json`);
+//       const historyPath = path.join(apisDir, `${apiId}_history.json`);
+//       const trashConfigPath = path.join(trashDir, `${apiId}_config.json`);
+//       const trashHistoryPath = path.join(trashDir, `${apiId}_history.json`);
+//       if (fs.existsSync(configPath)) { fs.renameSync(configPath, trashConfigPath); }
+//       if (fs.existsSync(historyPath)) { fs.renameSync(historyPath, trashHistoryPath); }
+//     }
+//     return { success: true };
+//   } catch (error) { console.error('[Electron] 移动分组到 trash 失败:', error); return { success: false, error: error.message }; }
+// });
+
 // 移动 API 文件到回收目录/恢复
 ipcMain.handle('move-api-file-to-trashed', async (event, dirPath, projectId, apiId) => {
   try {
