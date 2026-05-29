@@ -1,0 +1,546 @@
+[
+  {
+    "id": 1780041963941,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1780041698492_2z2pw4mcv",
+    "apiName": "获取api-token",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/openapi/security/token",
+    "timestamp": "2026/5/29 16:06:03",
+    "apiConfig": {
+      "name": "获取api-token",
+      "group": "group_mpqmv4y45epgz",
+      "api_path": "{domain}{api-prj}/openapi/security/token",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": {
+        "content": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+        "schema": {
+          "id": "node_1780041793716_z61nd6g4b",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1780041793716_w2k9am8sk",
+              "type": "string",
+              "key": "appId",
+              "value": "MESUkSn6E7xqQ",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780041793716_pbrm36tct",
+              "type": "string",
+              "key": "appSecret",
+              "value": "xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "https://172.16.17.51:30200/api-prj/openapi/security/token",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+        "schema": {
+          "id": "node_1780041793716_z61nd6g4b",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1780041793716_w2k9am8sk",
+              "type": "string",
+              "key": "appId",
+              "value": "MESUkSn6E7xqQ",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780041793716_pbrm36tct",
+              "type": "string",
+              "key": "appSecret",
+              "value": "xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "contents": {
+          "json": {
+            "content": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+            "schema": {
+              "id": "node_1780041793716_z61nd6g4b",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1780041793716_w2k9am8sk",
+                  "type": "string",
+                  "key": "appId",
+                  "value": "MESUkSn6E7xqQ",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780041793716_pbrm36tct",
+                  "type": "string",
+                  "key": "appSecret",
+                  "value": "xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk",
+                  "description": "",
+                  "children": []
+                }
+              ]
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "OK",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "code": 200,
+        "error": "",
+        "msg": "成功",
+        "obj": {
+          "appId": "MESUkSn6E7xqQ",
+          "token": "Lr58ZpTw30PYHYqyNIIXgttSkXLhCrDqU-55GyJBPeM"
+        },
+        "status": true
+      },
+      "headers": {
+        "server": "nginx/1.27.5",
+        "date": "Fri, 29 May 2026 08:06:04 GMT",
+        "content-type": "application/json;charset=UTF-8",
+        "content-length": "138",
+        "connection": "close",
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+        "pragma": "no-cache",
+        "expires": "0",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1 ; mode=block",
+        "referrer-policy": "no-referrer",
+        "access-control-expose-headers": "Content-disposition"
+      },
+      "elapsedTime": "0.17s",
+      "responseSize": "134 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "https://172.16.17.51:30200/api-prj/openapi/security/token",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "params": {},
+        "body": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+        "bodyType": "raw"
+      }
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.17s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "code": 200,
+      "error": "",
+      "msg": "成功",
+      "obj": {
+        "appId": "MESUkSn6E7xqQ",
+        "token": "Lr58ZpTw30PYHYqyNIIXgttSkXLhCrDqU-55GyJBPeM"
+      },
+      "status": true
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "server": "nginx/1.27.5",
+      "date": "Fri, 29 May 2026 08:06:04 GMT",
+      "content-type": "application/json;charset=UTF-8",
+      "content-length": "138",
+      "connection": "close",
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+      "pragma": "no-cache",
+      "expires": "0",
+      "x-content-type-options": "nosniff",
+      "x-xss-protection": "1 ; mode=block",
+      "referrer-policy": "no-referrer",
+      "access-control-expose-headers": "Content-disposition"
+    },
+    "allResults": {
+      "api_1780041698492_2z2pw4mcv": {
+        "status_code": 200,
+        "status_text": "OK",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "code": 200,
+          "error": "",
+          "msg": "成功",
+          "obj": {
+            "appId": "MESUkSn6E7xqQ",
+            "token": "Lr58ZpTw30PYHYqyNIIXgttSkXLhCrDqU-55GyJBPeM"
+          },
+          "status": true
+        },
+        "headers": {
+          "server": "nginx/1.27.5",
+          "date": "Fri, 29 May 2026 08:06:04 GMT",
+          "content-type": "application/json;charset=UTF-8",
+          "content-length": "138",
+          "connection": "close",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+          "pragma": "no-cache",
+          "expires": "0",
+          "x-content-type-options": "nosniff",
+          "x-xss-protection": "1 ; mode=block",
+          "referrer-policy": "no-referrer",
+          "access-control-expose-headers": "Content-disposition"
+        },
+        "elapsedTime": "0.17s",
+        "responseSize": "134 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "https://172.16.17.51:30200/api-prj/openapi/security/token",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "params": {},
+          "body": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+          "bodyType": "raw"
+        }
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1780041698492_2z2pw4mcv",
+        "name": "获取api-token",
+        "result": {
+          "status_code": 200,
+          "status_text": "OK",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "code": 200,
+            "error": "",
+            "msg": "成功",
+            "obj": {
+              "appId": "MESUkSn6E7xqQ",
+              "token": "Lr58ZpTw30PYHYqyNIIXgttSkXLhCrDqU-55GyJBPeM"
+            },
+            "status": true
+          },
+          "headers": {
+            "server": "nginx/1.27.5",
+            "date": "Fri, 29 May 2026 08:06:04 GMT",
+            "content-type": "application/json;charset=UTF-8",
+            "content-length": "138",
+            "connection": "close",
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+            "pragma": "no-cache",
+            "expires": "0",
+            "x-content-type-options": "nosniff",
+            "x-xss-protection": "1 ; mode=block",
+            "referrer-policy": "no-referrer",
+            "access-control-expose-headers": "Content-disposition"
+          },
+          "elapsedTime": "0.17s",
+          "responseSize": "134 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "https://172.16.17.51:30200/api-prj/openapi/security/token",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "params": {},
+            "body": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+            "bodyType": "raw"
+          }
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1780041887421,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1780041698492_2z2pw4mcv",
+    "apiName": "获取api-token",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/openapi/security/token",
+    "timestamp": "2026/5/29 16:04:47",
+    "apiConfig": {
+      "name": "获取api-token",
+      "group": "group_mpqmv4y45epgz",
+      "api_path": "{domain}{api-prj}/openapi/security/token",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": {
+        "content": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+        "schema": {
+          "id": "node_1780041793716_z61nd6g4b",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1780041793716_w2k9am8sk",
+              "type": "string",
+              "key": "appId",
+              "value": "MESUkSn6E7xqQ",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780041793716_pbrm36tct",
+              "type": "string",
+              "key": "appSecret",
+              "value": "xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "https://192.168.2.213:25700/api-prj/openapi/security/token",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+        "schema": {
+          "id": "node_1780041793716_z61nd6g4b",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1780041793716_w2k9am8sk",
+              "type": "string",
+              "key": "appId",
+              "value": "MESUkSn6E7xqQ",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780041793716_pbrm36tct",
+              "type": "string",
+              "key": "appSecret",
+              "value": "xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "contents": {
+          "json": {
+            "content": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+            "schema": {
+              "id": "node_1780041793716_z61nd6g4b",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1780041793716_w2k9am8sk",
+                  "type": "string",
+                  "key": "appId",
+                  "value": "MESUkSn6E7xqQ",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780041793716_pbrm36tct",
+                  "type": "string",
+                  "key": "appSecret",
+                  "value": "xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk",
+                  "description": "",
+                  "children": []
+                }
+              ]
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "NETWORK | code=ETIMEDOUT raw=connect ETIMEDOUT 192.168.2.213:25700",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "21.10s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "连接超时，请检查网络或服务器状态",
+      "errorType": "network",
+      "requestConfig": {
+        "url": "https://192.168.2.213:25700/api-prj/openapi/security/token",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "params": {},
+        "body": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+        "bodyType": "raw"
+      }
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "21.10s",
+    "error": "连接超时，请检查网络或服务器状态",
+    "errorType": "network",
+    "assertionResult": null,
+    "responseHeaders": {},
+    "allResults": {
+      "api_1780041698492_2z2pw4mcv": {
+        "status_text": "NETWORK | code=ETIMEDOUT raw=connect ETIMEDOUT 192.168.2.213:25700",
+        "httpSuccess": false,
+        "success": false,
+        "headers": {},
+        "elapsedTime": "21.10s",
+        "responseSize": "0 B",
+        "assertionResult": null,
+        "error": "连接超时，请检查网络或服务器状态",
+        "errorType": "network",
+        "requestConfig": {
+          "url": "https://192.168.2.213:25700/api-prj/openapi/security/token",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "params": {},
+          "body": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+          "bodyType": "raw"
+        }
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1780041698492_2z2pw4mcv",
+        "name": "获取api-token",
+        "result": {
+          "status_text": "NETWORK | code=ETIMEDOUT raw=connect ETIMEDOUT 192.168.2.213:25700",
+          "httpSuccess": false,
+          "success": false,
+          "headers": {},
+          "elapsedTime": "21.10s",
+          "responseSize": "0 B",
+          "assertionResult": null,
+          "error": "连接超时，请检查网络或服务器状态",
+          "errorType": "network",
+          "requestConfig": {
+            "url": "https://192.168.2.213:25700/api-prj/openapi/security/token",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "params": {},
+            "body": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+            "bodyType": "raw"
+          }
+        },
+        "isTarget": true
+      }
+    ]
+  }
+]

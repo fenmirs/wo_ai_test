@@ -22,7 +22,7 @@
 - ✅ **面板系统** - 三栏可调宽度布局，面板可独立显隐
 - ✅ **路径搜索** - 搜索范围扩展到 API 请求路径和场景路径，全内存匹配无需 I/O
 - ✅ **引用查看** - API 菜单新增「查看引用」，弹窗展示被引用的 API 和场景，可点击跳转
-- ✅ **完整性检查** - 加载项目时自动校验索引 ↔ 文件一致性，自动修复 + 友好提示
+- ✅ **完整性检查** - 加载项目时自动校验索引 ↔ 文件一致性，孤儿文件以表格列表展示（含操作列），支持单个删除或忽略进入
 - ✅ **工作空间** - 欢迎页加载整个配置目录，内部多项目全量缓存，切换零延迟
 - ✅ **空间管理** - 导入空间后自动进入，空空间引导创建项目；底部栏支持新增/重命名/删除项目
 - ✅ **API 文档生成** - 一键生成 Markdown 文档，支持 Electron 保存和浏览器下载
@@ -53,44 +53,48 @@ api_test_ui/
 │   └── preload.js        # 预加载脚本，暴露 API 到渲染进程
 ├── src/                  # React 前端
 │   ├── components/       # React 组件
-│   │   ├── APIMain.js            # API 分组树（搜索/拖拽/操作菜单）
-│   │   ├── APIDetail.js          # API 编辑器 + 执行器
-│   │   ├── BottomBar.js          # 底部栏（项目/环境/通知/面板/主题）
-│   │   ├── ResponsePanel.js      # 响应展示面板
-│   │   ├── MonacoView.js         # Monaco 编辑器统一封装
-│   │   ├── CodeEditor.js         # 代码编辑器（关联语言类型）
-│   │   ├── BodyTreeEditor.js        # JSON/XML 可视化树编辑器
-│   │   ├── RefVariableSelector.js # 变量引用可视化选择器
-│   │   ├── EnvVarManager.js      # 环境变量矩阵管理
-│   │   ├── ExecutionHistory.js   # 执行历史记录列表
-│   │   ├── HistoryDetailDialog.js # 历史详情弹窗
-│   │   ├── ChainSelector.js      # 依赖链选择器
-│   │   ├── InputDialog.js        # 输入对话框
-│   │   ├── ConfirmDialog.js      # 确认对话框
-│   │   ├── EmbeddedProgress.js   # 可复用嵌入式进度组件（进度条/问题列表/操作按钮）
-│   │   ├── EmptyState.js         # 空状态/欢迎页
-│   │   ├── Toast.js              # Toast 提示组件（顶部居中，自动消失）
-│   │   └── ProjectSelector.js    # 项目选择器
+│   │   ├── APIMain.js / .css        # API 分组树（搜索/拖拽/操作菜单）
+│   │   ├── APIDetail.js / .css      # API 编辑器 + 执行器
+│   │   ├── BottomBar.js / .css      # 底部栏（项目/环境/通知/面板/主题）
+│   │   ├── ResponsePanel.js / .css  # 响应展示面板
+│   │   ├── MonacoView.js / .css     # Monaco 编辑器统一封装
+│   │   ├── CodeEditor.js            # 代码编辑器（关联语言类型）
+│   │   ├── BodyTreeEditor.js / .css # JSON/XML 可视化树编辑器
+│   │   ├── KVTable.js / .css        # 键值表格（Params/Headers/Body）
+│   │   ├── KVBottomPanel.js / .css  # KV 引用变量底部面板
+│   │   ├── RefVariableSelector.js / .css # 变量引用可视化选择器
+│   │   ├── EnvVarManager.js / .css  # 环境变量矩阵管理
+│   │   ├── ExecutionHistory.js / .css # 执行历史记录列表
+│   │   ├── HistoryDetailDialog.js / .css # 历史详情弹窗
+│   │   ├── ChainSelector.js / .css  # 依赖链选择器
+│   │   ├── InputDialog.js / .css    # 输入对话框
+│   │   ├── ConfirmDialog.js / .css  # 确认对话框
+│   │   ├── EmbeddedProgress.js / .css # 进度组件（进度条/问题表格/操作按钮）
+│   │   ├── ProgressOverlay.js / .css # 全局进度覆盖层
+│   │   ├── EmptyState.js / .css     # 空状态/欢迎页
+│   │   ├── Toast.js / .css          # Toast 提示组件（顶部居中，自动消失）
+│   │   └── ProjectSelector.js / .css # 项目选择器
 │   ├── utils/           # 工具类（单例模式）
 │   │   ├── ProjectManager.js      # 项目数据管理器
 │   │   ├── APIExecutor.js         # 单 API 执行器
 │   │   ├── ChainManager.js        # 依赖链执行编排
 │   │   ├── NotificationManager.js # 通知管理器（按项目隔离）
 │   │   ├── APIDocGenerator.js     # API 文档生成器
-│   │   └── JSONSchemaConverter.js # JSON/Schema 互转
-│   │   └── XMLSchemaConverter.js  # XML/Schema 互转（基于 fast-xml-parser）
-│   ├── App.js           # 主应用组件（三栏布局 + 状态管理）
-│   ├── App.css          # 应用布局样式
-│   ├── index.js         # 入口文件
-│   └── index.css        # 全局样式 + CSS 变量主题
-├── data/                # 项目数据目录
-│   ├── project.json     # 项目索引
-│   └── *_config.json    # 各项目配置文件
-├── public/              # 静态资源
-│   ├── index.html       # HTML 模板
-│   └── demo/            # DEMO 项目数据（已废弃）
+│   │   ├── JSONSchemaConverter.js # JSON/Schema 互转
+│   │   ├── XMLSchemaConverter.js  # XML/Schema 互转（基于 fast-xml-parser）
+│   │   └── HTTPValidator.js       # HTTP 头部验证工具
+│   ├── App.js / .css     # 主应用组件（三栏布局 + 状态管理）
+│   ├── index.js          # 入口文件
+│   └── index.css         # 全局样式 + CSS 变量主题
+├── data/                # 项目数据目录（运行时创建）
+├── public/
+│   └── index.html       # HTML 模板
+├── build/               # 生产构建产物
+├── design/              # 架构设计文档
+├── github下载包/         # Electron 构建缓存包
+├── .npmrc               # Electron 镜像配置
+├── start.sh             # Bash 启动脚本
 ├── package.json
-├── AGENTS.md            # 开发助手指南
 └── README.md
 ```
 
@@ -257,10 +261,13 @@ $.success == true
 
 ## 项目配置格式
 
-每个项目包含一个 `{projectId}_config.json` 文件：
+数据分为两层：
+
+**项目级 `config.json`** — 项目信息、环境配置、分组树、API 索引：
 
 ```json
 {
+  "version": 3,
   "projectName": "项目名称",
   "profile": [
     { "activate": true, "name": "dev", "domain": "192.168.1.1", "api-prj": ":8080/api" }
@@ -274,15 +281,37 @@ $.success == true
       "name": "获取 token",
       "group": "grp_001",
       "api_path": "{domain}{api-prj}/token",
-      "method": "POST",
-      "header": { "Content-Type": "application/json" },
-      "param": {},
-      "body": { "type": "json", "content": "{}" },
-      "successAssert": "$.code == 200"
+      "method": "POST"
     }
   ]
 }
 ```
+
+**每 API 文件 `apis/{apiId}_config.json`** — 场景数据（header/param/body/assertions）：
+
+```json
+{
+  "id": "api_001",
+  "name": "获取 token",
+  "method": "POST",
+  "api_path": "{domain}{api-prj}/token",
+  "group": "grp_001",
+  "scenarios": {
+    "scn_001": {
+      "id": "scn_001",
+      "name": "默认场景",
+      "header": { "Content-Type": "application/json" },
+      "param": {},
+      "body": { "type": "json", "content": "{}" },
+      "assertions": [
+        { "expression": "$.code == 200", "enabled": true }
+      ]
+    }
+  }
+}
+```
+
+> API 索引中的 `method` / `api_path` 为速查字段，完整定义以 API 配置文件为准。
 
 ### Body 类型
 
@@ -320,7 +349,7 @@ $.success == true
 
 1. **API ID 是唯一标识** - 用于调用链引用和动态参数引用（非 API 名称）
 2. **环境检测** - 通过 `window.electron` 检测 Electron 环境
-3. **数据存储** - 每项目独立 `{id}_config.json` + `{id}_history.json`
+3. **数据存储** - 每项目 `config.json`（元数据 + API 索引）+ `apis/{apiId}_config.json`（场景数据）+ `apis/{apiId}_history.json`（执行历史）
 4. **保存策略** - 编辑内容通过保存按钮或发送按钮手动提交到缓存；项目级脏数据 5 秒自动落盘
 5. **通知** - 按项目隔离存储在内存中，切换项目不删除缓存
 6. **Content-Type** - 由 Body 类型自动管理，不可手动修改
@@ -334,10 +363,18 @@ $.success == true
 
 - **不在数据中** — `config.json` 的 `groups` 数组里没有 `{ id: "default", ... }` 记录
 - **UI 注入** — `getGroupTree()`（APIMain.js）和 `getFlatGroupsWithLevel()`（ProjectManager.js）在构建树时**内存中注入** `{ id: 'default', name: '默认', parentId: null }`
-- **兜底容器** — 删除分组时，该分组下的 API 被重新分配到 `api.group = 'default'`
 - **保护规则** — `deleteGroup` 跳过 `id === 'default'` 的分组；不支持拖拽、重命名、删除；新建分组禁止命名为"默认"
 
 ## 变更记录
+
+### 2026-05-29（回收站移除 + 孤儿文件管理）
+- **回收站功能移除** — 注释掉所有回收站入口、trash 数据写入逻辑及 IPC 处理，保存时清理 config.json 中的 `trash` 属性
+  > ⚠️ `preload.js` 中仍暴露 `moveAPIFileToTrashed`、`moveAPIToTrash`、`restoreAPIFromTrash`、`permanentDeleteTrashAPI` 桥接（待清理）
+- **物理删除** — 删除 API/分组改为直接物理删除文件（`deleteAPIFile`），不再软删除到回收站
+- **孤儿文件表格** — 问题页孤儿文件改为表格展示（API名称 / 文件地址 / 描述 / 操作），表头固定，支持逐条删除
+- **取消按钮** — 问题页新增「取消」按钮（警告色），点击回退到欢迎页
+- **rename** — `softDeleteAPI` → `deleteAPI`，`softDeleteGroup` → `deleteGroupWithChildren`
+- **README 同步** — 修正项目结构（移除不存在的 `demo/`、`AGENTS.md`，补充 20+ 缺失文件）；重写配置格式说明（双层结构 + scenarios 模型）；更正数据存储格式描述
 
 ### 2026-05-15（第四阶段 — 保存流程优化）
 
@@ -434,10 +471,11 @@ $.success == true
 - `saveProject()` 扩展为一次性写入：所有脏 API 文件 + config.json
 - 自动保存（5s 间隔）统一调度落盘
 
-#### 完整性检查（C 级）
+#### 完整性检查
 - 加载时自动检查：索引↔文件存在性、文件内 id 一致性、孤儿文件
 - 自动修复：从索引移除缺失条目（不删文件）
-- 问题列表通过 EmbeddedProgress 展示，提供「忽略并进入项目」按钮
+- 孤儿文件以表格展示（API名称 / 文件地址 / 描述 / 操作），支持逐条删除物理文件或忽略进入
+- 提供「取消」按钮回退到欢迎页
 
 #### EmbeddedProgress 可复用组件
 - 内嵌式进度组件（非 Portal 遮罩），支持进度条 / 问题列表 / 操作按钮

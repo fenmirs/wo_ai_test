@@ -1,0 +1,51 @@
+{
+  "version": 2,
+  "projectName": "河北晨光",
+  "profile": [
+    {
+      "activate": true,
+      "name": "dev",
+      "domain": "localhost",
+      "api-prj": ":23210/api-prj",
+      "lcgl-prj": ":23208/lcgl-prj",
+      "tm-prj": ":23212/tm-prj",
+      "config-prj": ":23226/config-prj",
+      "gzyq-prj": ":23202/gzyq-prj",
+      "jlgl-prj": ":23216/jlgl-prj"
+    },
+    {
+      "name": "客户测试环境",
+      "activate": false,
+      "domain": "https://172.16.17.51:30200",
+      "api-prj": "/api-prj",
+      "config-prj": "",
+      "gzyq-prj": "",
+      "jlgl-prj": "",
+      "lcgl-prj": "/lcgl-prj",
+      "tm-prj": ""
+    }
+  ],
+  "groups": [
+    {
+      "id": "group_mpqmv4y45epgz",
+      "name": "lims",
+      "parentId": "default"
+    }
+  ],
+  "apis": [
+    {
+      "id": "api_1780041698492_2z2pw4mcv",
+      "name": "获取api-token",
+      "method": "POST",
+      "api_path": "{domain}{api-prj}/openapi/security/token",
+      "group": "group_mpqmv4y45epgz"
+    },
+    {
+      "id": "api_mpqn1owzx9tr1",
+      "name": "接收MES检验单",
+      "method": "POST",
+      "api_path": "{domain}{api-prj}/openapi/order/mes/receive",
+      "group": "group_mpqmv4y45epgz"
+    }
+  ]
+}

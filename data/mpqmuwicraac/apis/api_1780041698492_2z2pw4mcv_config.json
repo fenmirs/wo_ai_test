@@ -1,0 +1,109 @@
+{
+  "id": "api_1780041698492_2z2pw4mcv",
+  "name": "获取api-token",
+  "method": "POST",
+  "api_path": "{domain}{api-prj}/openapi/security/token",
+  "group": "group_mpqmv4y45epgz",
+  "scenarios": {
+    "scn_default": {
+      "id": "scn_default",
+      "name": "MES场景",
+      "description": "获取lims的token，该场景为mes配置",
+      "createdAt": "2026-05-29T08:01:38.503Z",
+      "updatedAt": "2026-05-29T08:06:03.762Z",
+      "deleted": false,
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+        "schema": {
+          "id": "node_1780041793716_z61nd6g4b",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1780041793716_w2k9am8sk",
+              "type": "string",
+              "key": "appId",
+              "value": "MESUkSn6E7xqQ",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780041793716_pbrm36tct",
+              "type": "string",
+              "key": "appSecret",
+              "value": "xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "contents": {
+          "json": {
+            "content": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+            "schema": {
+              "id": "node_1780041793716_z61nd6g4b",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1780041793716_w2k9am8sk",
+                  "type": "string",
+                  "key": "appId",
+                  "value": "MESUkSn6E7xqQ",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780041793716_pbrm36tct",
+                  "type": "string",
+                  "key": "appSecret",
+                  "value": "xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk",
+                  "description": "",
+                  "children": []
+                }
+              ]
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "assertions": [
+        {
+          "expression": "",
+          "enabled": true
+        }
+      ],
+      "refChain": []
+    }
+  }
+}

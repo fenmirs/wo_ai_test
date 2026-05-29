@@ -54,7 +54,7 @@ function createWindow() {
 
   const buildPath = path.join(__dirname, '../build/index.html');
   const buildExists = fs.existsSync(buildPath);
-  
+
   if (isDev) {
     console.log('[Electron] 加载开发服务器 http://localhost:3000');
     mainWindow.loadURL('http://localhost:3000');
@@ -136,7 +136,7 @@ ipcMain.handle('list-directories', async (event, dirPath) => {
     }
     const entries = fs.readdirSync(resolvedPath, { withFileTypes: true });
     const result = [];
-    
+
     for (const entry of entries) {
       if (!entry.name.startsWith('.') && entry.isDirectory()) {
         const configPath = path.join(resolvedPath, entry.name, 'config.json');
@@ -151,7 +151,7 @@ ipcMain.handle('list-directories', async (event, dirPath) => {
         }
       }
     }
-    
+
     return { success: true, data: result };
   } catch (error) {
     return { success: false, error: error.message };
@@ -209,12 +209,12 @@ ipcMain.handle('create-new-project', async (event, dirPath, projectName) => {
   try {
     const projectId = generateProjectId();
     const projectDir = path.join(dirPath, projectId);
-    
+
     // 创建项目目录和 apis 子目录
     fs.mkdirSync(projectDir, { recursive: true });
     const apisDir = path.join(projectDir, 'apis');
     fs.mkdirSync(apisDir, { recursive: true });
-    
+
     const configData = {
       version: 2,
       projectName: projectName,
@@ -223,17 +223,22 @@ ipcMain.handle('create-new-project', async (event, dirPath, projectName) => {
           activate: true,
           name: 'dev',
           domain: 'localhost',
-          'api-prj': ':8080/api'
-        }
+          'api-prj': ':23210/api-prj',
+          'lcgl-prj': ':23208/lcgl-prj',
+          'tm-prj': ':23212/tm-prj',
+          'config-prj': ':23226/config-prj',
+          'gzyq-prj': ':23202/gzyq-prj',
+          'jlgl-prj': ':23216/jlgl-prj'
+        },
       ],
       groups: [],
       apis: []
     };
-    
+
     // 写入 config.json
     const configPath = path.join(projectDir, 'config.json');
     fs.writeFileSync(configPath, JSON.stringify(configData, null, 2), 'utf-8');
-    
+
     return {
       success: true,
       projectId: projectId,
@@ -492,15 +497,15 @@ ipcMain.handle('move-api-file-to-trashed', async (event, dirPath, projectId, api
     const apisDir = path.join(projectDir, 'apis');
     const trashedDir = path.join(projectDir, 'trashed');
     fs.mkdirSync(trashedDir, { recursive: true });
-    
+
     const configPath = path.join(apisDir, `${apiId}_config.json`);
     const historyPath = path.join(apisDir, `${apiId}_history.json`);
     const trashedConfigPath = path.join(trashedDir, `${apiId}_config.json`);
     const trashedHistoryPath = path.join(trashedDir, `${apiId}_history.json`);
-    
+
     if (fs.existsSync(configPath)) { fs.renameSync(configPath, trashedConfigPath); }
     if (fs.existsSync(historyPath)) { fs.renameSync(historyPath, trashedHistoryPath); }
-    
+
     return { success: true };
   } catch (error) {
     return { success: false, error: error.message };
@@ -583,7 +588,7 @@ ipcMain.handle('read-directory-project-list', async (event, dirPath) => {
 ipcMain.handle('scan-directory-projects', async (event, dirPath) => {
   try {
     const projects = scanProjectsInDirectory(dirPath);
-    
+
     // 更新/创建 project.json
     const projectJsonPath = path.join(dirPath, 'project.json');
     if (!fs.existsSync(projectJsonPath)) {
@@ -595,7 +600,7 @@ ipcMain.handle('scan-directory-projects', async (event, dirPath) => {
       projectListData.projects = projects;
       fs.writeFileSync(projectJsonPath, JSON.stringify(projectListData, null, 2), 'utf-8');
     }
-    
+
     return { success: true, data: projects };
   } catch (error) {
     return { success: false, error: error.message };
@@ -621,7 +626,7 @@ ipcMain.handle('select-directory', async () => {
   const result = await dialog.showOpenDialog(mainWindow, {
     properties: ['openDirectory']
   });
-  
+
   if (!result.canceled && result.filePaths.length > 0) {
     return { success: true, path: result.filePaths[0] };
   }
@@ -632,7 +637,7 @@ ipcMain.handle('select-file', async () => {
   const result = await dialog.showOpenDialog(mainWindow, {
     properties: ['openFile']
   });
-  
+
   if (!result.canceled && result.filePaths.length > 0) {
     return { success: true, path: result.filePaths[0] };
   }
@@ -645,7 +650,7 @@ ipcMain.handle('save-file', async (event, options) => {
     defaultPath: options.defaultPath,
     filters: options.filters
   });
-  
+
   if (!result.canceled && result.filePath) {
     return { success: true, filePath: result.filePath };
   }
@@ -659,7 +664,7 @@ ipcMain.handle('create-directory', async (event, dirPath) => {
     if (!path.isAbsolute(dirPath)) {
       resolvedPath = path.join(getAppRoot(), dirPath);
     }
-    
+
     if (!fs.existsSync(resolvedPath)) {
       fs.mkdirSync(resolvedPath, { recursive: true });
     }
@@ -693,7 +698,7 @@ function parseBrowserError(message) {
     'ERR_CERT_DATE_INVALID': { type: 'ssl', msg: '证书日期无效，请检查系统时间' },
     'ERR_UNDETERMINED': { type: 'unknown', msg: '网络错误，请检查网络连接' },
   };
-  
+
   for (const [key, value] of Object.entries(errorMap)) {
     if (message.includes(key)) {
       return value;
@@ -721,13 +726,13 @@ function formatErrorMessage(error) {
       return { type: 'network', message: codeMap[error.code] };
     }
   }
-  
+
   // 解析浏览器错误格式
   const browserError = parseBrowserError(error.message);
   if (browserError) {
     return { type: browserError.type, message: browserError.msg };
   }
-  
+
   // 返回原始消息
   return { type: 'unknown', message: error.message };
 }
