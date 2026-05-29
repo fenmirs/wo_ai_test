@@ -57,10 +57,10 @@ function KVItemRow({ label, value, showEncodeToggle }) {
           </button>
         )}
         <button className={`kv-action-btn${copiedKey ? ' copied' : ''}`} onClick={() => copyText(label, 'key')} title="复制 Key">
-          {copiedKey ? '复制成功' : 'K'}
+          {copiedKey ? '✓' : 'K'}
         </button>
         <button className={`kv-action-btn${copiedValue ? ' copied' : ''}`} onClick={() => copyText(displayValue, 'value')} title="复制值">
-          {copiedValue ? '复制成功' : 'V'}
+          {copiedValue ? '✓' : 'V'}
         </button>
       </span>
     </div>

@@ -419,6 +419,14 @@
   transform: scale(0.92);
 }
 
+.kv-action-btn.copied {
+  width: auto;
+  padding: 0 6px;
+  background: var(--success-bg);
+  color: var(--success-color);
+  border-color: var(--success-color);
+}
+
 .request-body-content {
   background: var(--bg-secondary);
   border-radius: 4px;

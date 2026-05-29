@@ -367,6 +367,11 @@ $.success == true
 
 ## 变更记录
 
+### 2026-05-29（调用链 Body 修复 + KV 复制反馈）
+- **调用链 Body 修复** — `ChainManager.findAPIById` 改为通过 `loadAPIFn` 加载完整 API 数据（含 header/param/body），修复链式请求中前置 API 无请求体发送的问题
+- **`resolveValue` 引用替换修复** — 从整串替换改为 `String.replace` 原位替换，支持多个 `{{ref:...}}` 同时解析；修复引用值指向 `undefined` 字段时的崩溃
+- **KV 复制反馈** — `ResponsePanel` KV 行复制按钮点击后显示绿色 `✓` 图标 1.5 秒，替代无提示静默复制
+
 ### 2026-05-29（回收站移除 + 孤儿文件管理）
 - **回收站功能移除** — 注释掉所有回收站入口、trash 数据写入逻辑及 IPC 处理，保存时清理 config.json 中的 `trash` 属性
   > ⚠️ `preload.js` 中仍暴露 `moveAPIFileToTrashed`、`moveAPIToTrash`、`restoreAPIFromTrash`、`permanentDeleteTrashAPI` 桥接（待清理）
