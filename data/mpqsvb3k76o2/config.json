@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "projectName": "浙江电商",
+  "profile": [
+    {
+      "activate": true,
+      "name": "dev",
+      "domain": "192.168.17.128",
+      "api-prj": ":23210/api-prj",
+      "lcgl-prj": ":23208/lcgl-prj",
+      "tm-prj": ":23212/tm-prj",
+      "config-prj": ":23226/config-prj",
+      "gzyq-prj": ":23202/gzyq-prj",
+      "jlgl-prj": ":23216/jlgl-prj"
+    }
+  ],
+  "groups": [],
+  "apis": [
+    {
+      "id": "api_1780051784480_7ty2035es",
+      "name": "项目审核验证sop",
+      "method": "POST",
+      "api_path": "{domain}{lcgl-prj}/order/item/sop/validate",
+      "group": "default"
+    }
+  ]
+}

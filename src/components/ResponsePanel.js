@@ -7,6 +7,8 @@ function KVItemRow({ label, value, showEncodeToggle }) {
   const [expanded, setExpanded] = useState(false);
   const [showDecoded, setShowDecoded] = useState(false);
   const [isOverflowing, setIsOverflowing] = useState(null);
+  const [copiedKey, setCopiedKey] = useState(false);
+  const [copiedValue, setCopiedValue] = useState(false);
   const valueRef = useRef(null);
 
   const rawValue = String(value ?? '');
@@ -22,8 +24,15 @@ function KVItemRow({ label, value, showEncodeToggle }) {
   const needsTruncation = isOverflowing !== false && !expanded;
   const canExpand = isOverflowing === true;
 
-  const copyText = (text) => {
+  const copyText = (text, type) => {
     navigator.clipboard.writeText(text).catch(() => {});
+    if (type === 'key') {
+      setCopiedKey(true);
+      setTimeout(() => setCopiedKey(false), 1500);
+    } else {
+      setCopiedValue(true);
+      setTimeout(() => setCopiedValue(false), 1500);
+    }
   };
 
   return (
@@ -47,11 +56,11 @@ function KVItemRow({ label, value, showEncodeToggle }) {
             {showDecoded ? '原码' : '解码'}
           </button>
         )}
-        <button className="kv-action-btn" onClick={() => copyText(label)} title="复制 Key">
-          K
+        <button className={`kv-action-btn${copiedKey ? ' copied' : ''}`} onClick={() => copyText(label, 'key')} title="复制 Key">
+          {copiedKey ? '复制成功' : 'K'}
         </button>
-        <button className="kv-action-btn" onClick={() => copyText(displayValue)} title="复制值">
-          V
+        <button className={`kv-action-btn${copiedValue ? ' copied' : ''}`} onClick={() => copyText(displayValue, 'value')} title="复制值">
+          {copiedValue ? '复制成功' : 'V'}
         </button>
       </span>
     </div>

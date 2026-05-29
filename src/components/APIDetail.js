@@ -936,7 +936,26 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         await onSaveAPI(execAPI, false);
       }
 
-      const chainManager = new ChainManager(projectPath, config, profile);
+      const chainManager = new ChainManager(projectPath, config, profile, (apiId) => {
+        const cache = projectManager._apiDataCache?.[apiId];
+        if (!cache) return null;
+        const scenarios = cache.scenarios || {};
+        const scnKeys = Object.keys(scenarios);
+        if (scnKeys.length === 0) return null;
+        const scn = scenarios[scnKeys[0]];
+        const header = {};
+        (scn.header || []).forEach(item => {
+          if (item.enabled && item.key) header[item.key] = item.default || '';
+        });
+        const param = {};
+        (scn.param || []).forEach(item => {
+          if (item.enabled && item.key) {
+            param[item.key] = { default: item.default || '', description: item.description || '', type: item.type || 'string', enabled: item.enabled };
+          }
+        });
+        const successAssert = (scn.assertions || []).filter(a => a.enabled && a.expression.trim()).map(a => a.expression.trim()).join('; ');
+        return { id: cache.id, name: cache.name, method: cache.method, api_path: cache.api_path, header, param, body: scn.body || {}, successAssert };
+      });
       executorRef.current = chainManager;
 
       const cancelPromise = new Promise((resolve) => {
@@ -956,6 +975,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
       if (onExecute) onExecute(execAPI, result);
     } catch (error) {
+      console.error('[APIDetail.handleSend] 执行异常:', error.message, error.stack);
       const partialResults = executorRef.current?.chainResults || {};
       const execAPI = prepareForExecute();
       const cards = buildResultCards(execAPI, partialResults, null, error.message);

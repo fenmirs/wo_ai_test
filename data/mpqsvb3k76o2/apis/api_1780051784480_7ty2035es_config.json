@@ -1,28 +1,21 @@
 {
-  "id": "api_1780041698492_2z2pw4mcv",
-  "name": "获取api-token",
+  "id": "api_1780051784480_7ty2035es",
+  "name": "项目审核验证sop",
   "method": "POST",
-  "api_path": "{domain}{api-prj}/openapi/security/token",
-  "group": "group_mpqmv4y45epgz",
+  "api_path": "{domain}{lcgl-prj}/order/item/sop/validate",
+  "group": "default",
   "scenarios": {
     "scn_default": {
       "id": "scn_default",
-      "name": "MES场景",
-      "description": "获取lims的token，该场景为mes配置",
-      "createdAt": "2026-05-29T08:01:38.503Z",
-      "updatedAt": "2026-05-29T11:59:22.736Z",
+      "name": "默认场景",
+      "description": "",
+      "createdAt": "2026-05-29T10:50:06.086Z",
+      "updatedAt": "2026-05-29T11:23:35.256Z",
       "deleted": false,
       "header": [
         {
           "key": "Content-Type",
           "default": "application/json",
-          "type": "string",
-          "description": "",
-          "enabled": true
-        },
-        {
-          "key": "sss",
-          "default": "2222",
           "type": "string",
           "description": "",
           "enabled": true
@@ -35,27 +28,27 @@
         "xwwwFormUrlencoded": [],
         "activeContentType": "json",
         "contentType": "json",
-        "content": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+        "content": "{\r\n  \"type\": \"XMSH_YS\",\r\n  \"itemIds\": \"2159810122728,2160604932050\"\r\n}",
         "schema": {
-          "id": "node_1780041793716_z61nd6g4b",
+          "id": "node_1780053627219_x5ojbyk63",
           "type": "object",
           "key": null,
           "value": null,
           "description": "",
           "children": [
             {
-              "id": "node_1780041793716_w2k9am8sk",
+              "id": "node_1780053627219_2ouixzt6n",
               "type": "string",
-              "key": "appId",
-              "value": "MESUkSn6E7xqQ",
+              "key": "type",
+              "value": "XMSH_YS",
               "description": "",
               "children": []
             },
             {
-              "id": "node_1780041793716_pbrm36tct",
+              "id": "node_1780053627219_0ng5o834s",
               "type": "string",
-              "key": "appSecret",
-              "value": "xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk",
+              "key": "itemIds",
+              "value": "2159810122728,2160604932050",
               "description": "",
               "children": []
             }
@@ -63,27 +56,27 @@
         },
         "contents": {
           "json": {
-            "content": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+            "content": "{\r\n  \"type\": \"XMSH_YS\",\r\n  \"itemIds\": \"2159810122728,2160604932050\"\r\n}",
             "schema": {
-              "id": "node_1780041793716_z61nd6g4b",
+              "id": "node_1780053627219_x5ojbyk63",
               "type": "object",
               "key": null,
               "value": null,
               "description": "",
               "children": [
                 {
-                  "id": "node_1780041793716_w2k9am8sk",
+                  "id": "node_1780053627219_2ouixzt6n",
                   "type": "string",
-                  "key": "appId",
-                  "value": "MESUkSn6E7xqQ",
+                  "key": "type",
+                  "value": "XMSH_YS",
                   "description": "",
                   "children": []
                 },
                 {
-                  "id": "node_1780041793716_pbrm36tct",
+                  "id": "node_1780053627219_0ng5o834s",
                   "type": "string",
-                  "key": "appSecret",
-                  "value": "xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk",
+                  "key": "itemIds",
+                  "value": "2159810122728,2160604932050",
                   "description": "",
                   "children": []
                 }

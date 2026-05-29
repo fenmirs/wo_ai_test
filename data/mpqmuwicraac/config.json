@@ -5,7 +5,7 @@
     {
       "activate": true,
       "name": "dev",
-      "domain": "localhost",
+      "domain": "192.168.17.128",
       "api-prj": ":23210/api-prj",
       "lcgl-prj": ":23208/lcgl-prj",
       "tm-prj": ":23212/tm-prj",
