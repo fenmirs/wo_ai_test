@@ -60,6 +60,42 @@
   transform: rotate(180deg);
 }
 
+/* 超时控制 */
+.timeout-item {
+  gap: 2px;
+  padding: 4px 4px;
+  cursor: default;
+}
+
+.timeout-item:hover {
+  background: var(--bg-primary);
+}
+
+.timeout-input {
+  width: 48px;
+  padding: 0 0 0 2px;
+  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 11px;
+  font-family: monospace;
+  font-weight: 600;
+  outline: none;
+  text-align: right;
+}
+
+.timeout-input::-webkit-inner-spin-button,
+.timeout-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.timeout-unit {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
 .icon-btn {
   display: flex;
   align-items: center;

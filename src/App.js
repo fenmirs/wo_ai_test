@@ -686,6 +686,14 @@ function App() {
     }
   }, []);
 
+  const handleRequestTimeoutChange = useCallback((value) => {
+    const cfg = projectManager.getData();
+    if (!cfg) return;
+    cfg.requestTimeout = value;
+    projectManager.markDirty();
+    setRefreshKey(k => k + 1);
+  }, []);
+
   // 选择 API（加载完整数据 + 历史）
   const handleAPISelect = async (api) => {
     return new Promise((resolve) => {
@@ -1047,22 +1055,27 @@ function App() {
     }
   };
 
-  // 清空历史记录（per-API）
+  // 清空所有历史记录（项目级）
   const handleClearHistory = async () => {
-    if (!selectedAPI?.id) return;
-    await projectManager.saveAPIHistory(selectedAPI.id, []);
+    const allHistory = await projectManager.loadAllAPIHistory();
+    const apiIds = [...new Set(allHistory.map(h => h.apiId).filter(Boolean))];
+    for (const apiId of apiIds) {
+      await projectManager.saveAPIHistory(apiId, []);
+    }
     setApiHistory([]);
     setSaveMessage('历史记录已清空');
     setTimeout(() => setSaveMessage(''), 2000);
   };
 
-  // 删除单条历史记录（per-API）
+  // 删除单条历史记录（跨 API）
   const handleDeleteHistory = async (entryId) => {
-    if (!selectedAPI?.id) return;
-    const history = await projectManager.loadAPIHistory(selectedAPI.id);
-    const filtered = history.filter(h => h.id !== entryId);
-    await projectManager.saveAPIHistory(selectedAPI.id, filtered);
-    setApiHistory(filtered);
+    const allHistory = await projectManager.loadAllAPIHistory();
+    const entry = allHistory.find(h => h.id === entryId);
+    if (!entry?.apiId) return;
+    const apiHistory = await projectManager.loadAPIHistory(entry.apiId);
+    const filtered = apiHistory.filter(h => h.id !== entryId);
+    await projectManager.saveAPIHistory(entry.apiId, filtered);
+    setApiHistory(allHistory.filter(h => h.id !== entryId));
   };
 
   // 执行 API 完成，保存到 per-API 历史
@@ -1436,7 +1449,13 @@ function App() {
           toggleTheme={toggleTheme}
           theme={theme}
           isSaving={isSaving}
-          onShowHistory={() => { checkDraftThen(() => setViewMode('history')); }}
+          onShowHistory={() => {
+            checkDraftThen(async () => {
+              const allHistory = await projectManager.loadAllAPIHistory();
+              setApiHistory(allHistory);
+              setViewMode('history');
+            });
+          }}
           onBackToApi={() => setViewMode('api')}
           viewModeValue={viewMode}
           projectList={projectList}
@@ -1452,6 +1471,8 @@ function App() {
           onToggleRightPanel={toggleRightPanel}
           zenMode={zenMode}
           onToggleZenMode={handleToggleZenMode}
+          requestTimeout={projectData?.requestTimeout || 3000}
+          onRequestTimeoutChange={handleRequestTimeoutChange}
         />
       </main>
       

@@ -365,6 +365,35 @@ ipcMain.handle('read-api-history', async (event, dirPath, projectId, apiId) => {
   }
 });
 
+// 读取项目下所有 API 的历史记录（聚合）
+ipcMain.handle('read-all-api-history', async (event, dirPath, projectId) => {
+  try {
+    const apisDir = path.join(dirPath, projectId, 'apis');
+    if (!fs.existsSync(apisDir)) {
+      return { success: true, data: [] };
+    }
+    const files = fs.readdirSync(apisDir);
+    const historyFiles = files.filter(f => f.endsWith('_history.json'));
+    const allEntries = [];
+    for (const file of historyFiles) {
+      const filePath = path.join(apisDir, file);
+      try {
+        const content = fs.readFileSync(filePath, 'utf-8');
+        const entries = JSON.parse(content);
+        if (Array.isArray(entries)) {
+          allEntries.push(...entries);
+        }
+      } catch (e) {
+        // skip corrupt files
+      }
+    }
+    allEntries.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    return { success: true, data: allEntries };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
 // 新版：写入 API 历史记录
 ipcMain.handle('write-api-history', async (event, dirPath, projectId, apiId, data) => {
   try {
@@ -755,7 +784,7 @@ ipcMain.handle('http-request-with-cancel', async (event, { id, requestConfig }) 
         errorType: 'timeout',
         elapsedTime: ((Date.now() - startTime) / 1000).toFixed(2) + 's'
       });
-    }, timeout || 30000);
+    }, timeout || 3000);
 
     // 创建忽略证书验证的 HTTPS agent
     const httpsAgent = new https.Agent({

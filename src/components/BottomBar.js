@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Globe, Variable, ChevronUp, Settings2, FolderKanban, Save, XCircle, Sun, Moon, History, LogOut, Bell, CheckCheck, Trash2, PanelLeft, Columns, PanelRight, Bug, FolderOpen, Plus, Pencil, Layers } from 'lucide-react';
+import { Globe, Variable, ChevronUp, Settings2, FolderKanban, Save, XCircle, Sun, Moon, Newspaper, LogOut, Bell, CheckCheck, Trash2, PanelLeft, Columns, PanelRight, Bug, FolderOpen, Plus, Pencil, Layers, Clock } from 'lucide-react';
 import { notificationManager } from '../utils/NotificationManager';
 import { projectManager } from '../utils/ProjectManager';
 import './BottomBar.css';
@@ -31,7 +31,9 @@ function BottomBar({
   showRightPanel,
   onToggleRightPanel,
   zenMode,
-  onToggleZenMode
+  onToggleZenMode,
+  requestTimeout,
+  onRequestTimeoutChange
 }) {
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const [showProjectDropdown, setShowProjectDropdown] = useState(false);
@@ -239,6 +241,26 @@ function BottomBar({
           <Settings2 size={14} />
         </button>
 
+        <div className="bar-separator"></div>
+
+        {/* 超时控制 */}
+        <div className="bar-item timeout-item" title="请求超时时间（毫秒）">
+          <Clock size={14} />
+          <input
+            className="timeout-input"
+            type="number"
+            min={1000}
+            max={300000}
+            step={1000}
+            value={requestTimeout}
+            onChange={(e) => {
+              const v = parseInt(e.target.value, 10);
+              if (!isNaN(v) && v >= 100) onRequestTimeoutChange(v);
+            }}
+          />
+          <span className="timeout-unit">ms</span>
+        </div>
+
         {showVariableDropdown && (
           <div className="dropdown-menu variable-menu">
             <div className="dropdown-header">当前环境变量</div>
@@ -261,7 +283,7 @@ function BottomBar({
         onClick={onShowHistory}
         title="执行历史"
       >
-        <History size={14} />
+          <Newspaper size={14} />
         {/* <span>执行历史</span> */}
       </button>
 
@@ -275,7 +297,6 @@ function BottomBar({
           <Save size={14} />
         </button> */}
         
-      <div className="bar-separator"></div>
 
       {/* 面板显隐切换 */}
       <button

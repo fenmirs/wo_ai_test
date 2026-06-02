@@ -24,6 +24,7 @@ contextBridge.exposeInMainWorld('electron', {
   readAPIConfig: (dirPath, projectId, apiId) => ipcRenderer.invoke('read-api-config', dirPath, projectId, apiId),
   writeAPIConfig: (dirPath, projectId, apiId, data) => ipcRenderer.invoke('write-api-config', dirPath, projectId, apiId, data),
   readAPIHistory: (dirPath, projectId, apiId) => ipcRenderer.invoke('read-api-history', dirPath, projectId, apiId),
+  readAllAPIHistory: (dirPath, projectId) => ipcRenderer.invoke('read-all-api-history', dirPath, projectId),
   writeAPIHistory: (dirPath, projectId, apiId, data) => ipcRenderer.invoke('write-api-history', dirPath, projectId, apiId, data),
   deleteAPIFile: (dirPath, projectId, apiId) => ipcRenderer.invoke('delete-api-file', dirPath, projectId, apiId),
   moveAPIFileToTrashed: (dirPath, projectId, apiId) => ipcRenderer.invoke('move-api-file-to-trashed', dirPath, projectId, apiId),

@@ -391,7 +391,7 @@ class APIExecutor {
         url: apiPath,
         headers: header,
         params: params,
-        timeout: this.config?.requestTimeout || 30000
+        timeout: this.config?.requestTimeout || 3000
       };
 
       // 处理 Body/Files

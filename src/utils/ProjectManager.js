@@ -539,6 +539,17 @@ class ProjectManager {
     }
   }
 
+  async loadAllAPIHistory() {
+    if (!this.dirPath || !this.projectId) return [];
+    try {
+      const result = await window.electron.readAllAPIHistory(this.dirPath, this.projectId);
+      return result.success ? (result.data || []) : [];
+    } catch (error) {
+      console.error('加载全部 API 历史失败:', error);
+      return [];
+    }
+  }
+
   async saveAPIHistory(apiId, history) {
     if (!this.dirPath || !this.projectId || !apiId) return { success: false, error: '无项目数据' };
 
