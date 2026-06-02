@@ -16,7 +16,7 @@ import { toast } from './Toast';
 import { useProgress } from './ProgressOverlay';
 
 
-function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, groups = [], isTemporary = false, readOnly = false, onViewDetail, onRestoreHistory, onDeleteHistory, theme = 'dark', onResultChange, onDraftChange, requestedScenarioId, requestedScenarioAction, onScenarioChange, onRequestedScenarioActionHandled, onRequestedScenarioHandled }) {
+function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, groups = [], isTemporary = false, readOnly = false, onViewDetail, onRestoreHistory, onDeleteHistory, theme = 'dark', onResultChange, onDraftChange, onExecutingChange, requestedScenarioId, requestedScenarioAction, onScenarioChange, onRequestedScenarioActionHandled, onRequestedScenarioHandled }) {
   const [resolvedPath, setResolvedPath] = useState('');
   const [executionResult, setExecutionResult] = useState(null);
   const [isExecuting, setIsExecuting] = useState(false);
@@ -229,6 +229,9 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     onDraftChange?.(draftDirty);
   }, [draftDirty, onDraftChange]);
 
+  useEffect(() => {
+    onExecutingChange?.(isExecuting);
+  }, [isExecuting, onExecutingChange]);
 
 
   // 计算变量下拉菜单位置

@@ -1,0 +1,1105 @@
+[
+  {
+    "id": 1780379892827,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1780368063169_u61jwjy35",
+    "apiName": "runGzyq",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{lcgl-prj}/gzyq/runGzyq",
+    "timestamp": "2026/6/2 13:58:12",
+    "apiConfig": {
+      "name": "runGzyq",
+      "group": "group_mpqmv4y45epgz",
+      "api_path": "{domain}{lcgl-prj}/gzyq/runGzyq",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "btnCode": "ZJ_OTHER_NODE_ADD_TI",
+        "jsonDataStr": "{\r\n  \"orderId\": 2162398982657,\r\n  \"sampleId\": 2162398982737,\r\n  \"nodeId\": \"ut_10\",\r\n  \"prodTiIds\": null,\r\n  \"stdTiIds\": \"2081085295870,2081085295858\",\r\n  \"tiId\": null\r\n}",
+        "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsImlzU2lnbkxvZyI6ZmFsc2UsInNzb190eXBlIjowLCJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidGVuYW50X3R5cGUiOiJUMyIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDM2NTE1NSwiaXNzIjoiUXoifQ.BSI0CiJiybX3vXskVZ4Peas9RNe0Mm-DO8AgxcQ-acA"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://192.168.17.128:25708/lcgl-prj/gzyq/runGzyq",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "btnCode",
+            "default": "ZJ_OTHER_NODE_ADD_TI",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\r\n  \"orderId\": 2162398982657,\r\n  \"sampleId\": 2162398982737,\r\n  \"nodeId\": \"ut_10\",\r\n  \"prodTiIds\": null,\r\n  \"stdTiIds\": \"2081085295870,2081085295858\",\r\n  \"tiId\": null\r\n}",
+            "type": "json",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "JID",
+            "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsImlzU2lnbkxvZyI6ZmFsc2UsInNzb190eXBlIjowLCJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidGVuYW50X3R5cGUiOiJUMyIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDM2NTE1NSwiaXNzIjoiUXoifQ.BSI0CiJiybX3vXskVZ4Peas9RNe0Mm-DO8AgxcQ-acA",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1780368063185_5x15ni0u9",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1780368063185_5x15ni0u9",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "NETWORK | code=ECONNREFUSED raw=connect ECONNREFUSED 192.168.17.128:25708",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "2.03s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "连接被拒绝，请检查服务器是否启动",
+      "errorType": "network",
+      "requestConfig": {
+        "url": "http://192.168.17.128:25708/lcgl-prj/gzyq/runGzyq",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": {
+          "btnCode": "ZJ_OTHER_NODE_ADD_TI",
+          "jsonDataStr": "{\r\n  \"orderId\": 2162398982657,\r\n  \"sampleId\": 2162398982737,\r\n  \"nodeId\": \"ut_10\",\r\n  \"prodTiIds\": null,\r\n  \"stdTiIds\": \"2081085295870,2081085295858\",\r\n  \"tiId\": null\r\n}",
+          "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsImlzU2lnbkxvZyI6ZmFsc2UsInNzb190eXBlIjowLCJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidGVuYW50X3R5cGUiOiJUMyIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDM2NTE1NSwiaXNzIjoiUXoifQ.BSI0CiJiybX3vXskVZ4Peas9RNe0Mm-DO8AgxcQ-acA"
+        },
+        "bodyType": "json"
+      },
+      "_startTime": 1780379890795,
+      "_endTime": 1780379892827
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "2.03s",
+    "error": "连接被拒绝，请检查服务器是否启动",
+    "errorType": "network",
+    "assertionResult": null,
+    "responseHeaders": {},
+    "allResults": {
+      "api_1780368063169_u61jwjy35": {
+        "status_text": "NETWORK | code=ECONNREFUSED raw=connect ECONNREFUSED 192.168.17.128:25708",
+        "httpSuccess": false,
+        "success": false,
+        "headers": {},
+        "elapsedTime": "2.03s",
+        "responseSize": "0 B",
+        "assertionResult": null,
+        "error": "连接被拒绝，请检查服务器是否启动",
+        "errorType": "network",
+        "requestConfig": {
+          "url": "http://192.168.17.128:25708/lcgl-prj/gzyq/runGzyq",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": {
+            "btnCode": "ZJ_OTHER_NODE_ADD_TI",
+            "jsonDataStr": "{\r\n  \"orderId\": 2162398982657,\r\n  \"sampleId\": 2162398982737,\r\n  \"nodeId\": \"ut_10\",\r\n  \"prodTiIds\": null,\r\n  \"stdTiIds\": \"2081085295870,2081085295858\",\r\n  \"tiId\": null\r\n}",
+            "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsImlzU2lnbkxvZyI6ZmFsc2UsInNzb190eXBlIjowLCJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidGVuYW50X3R5cGUiOiJUMyIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDM2NTE1NSwiaXNzIjoiUXoifQ.BSI0CiJiybX3vXskVZ4Peas9RNe0Mm-DO8AgxcQ-acA"
+          },
+          "bodyType": "json"
+        },
+        "_startTime": 1780379890795,
+        "_endTime": 1780379892827
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1780368063169_u61jwjy35",
+        "name": "runGzyq",
+        "result": {
+          "status_text": "NETWORK | code=ECONNREFUSED raw=connect ECONNREFUSED 192.168.17.128:25708",
+          "httpSuccess": false,
+          "success": false,
+          "headers": {},
+          "elapsedTime": "2.03s",
+          "responseSize": "0 B",
+          "assertionResult": null,
+          "error": "连接被拒绝，请检查服务器是否启动",
+          "errorType": "network",
+          "requestConfig": {
+            "url": "http://192.168.17.128:25708/lcgl-prj/gzyq/runGzyq",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": {
+              "btnCode": "ZJ_OTHER_NODE_ADD_TI",
+              "jsonDataStr": "{\r\n  \"orderId\": 2162398982657,\r\n  \"sampleId\": 2162398982737,\r\n  \"nodeId\": \"ut_10\",\r\n  \"prodTiIds\": null,\r\n  \"stdTiIds\": \"2081085295870,2081085295858\",\r\n  \"tiId\": null\r\n}",
+              "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsImlzU2lnbkxvZyI6ZmFsc2UsInNzb190eXBlIjowLCJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidGVuYW50X3R5cGUiOiJUMyIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDM2NTE1NSwiaXNzIjoiUXoifQ.BSI0CiJiybX3vXskVZ4Peas9RNe0Mm-DO8AgxcQ-acA"
+            },
+            "bodyType": "json"
+          },
+          "_startTime": 1780379890795,
+          "_endTime": 1780379892827
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1780379518246,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1780368063169_u61jwjy35",
+    "apiName": "runGzyq",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{lcgl-prj}/gzyq/runGzyq",
+    "timestamp": "2026/6/2 13:51:58",
+    "apiConfig": {
+      "name": "runGzyq",
+      "group": "group_mpqmv4y45epgz",
+      "api_path": "{domain}{lcgl-prj}/gzyq/runGzyq",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "btnCode": "ZJ_OTHER_NODE_ADD_TI",
+        "jsonDataStr": "{\r\n  \"orderId\": 2162398982657,\r\n  \"sampleId\": 2162398982737,\r\n  \"nodeId\": \"ut_10\",\r\n  \"prodTiIds\": null,\r\n  \"stdTiIds\": \"2081085295870,2081085295858\",\r\n  \"tiId\": null\r\n}",
+        "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsImlzU2lnbkxvZyI6ZmFsc2UsInNzb190eXBlIjowLCJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidGVuYW50X3R5cGUiOiJUMyIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDM2NTE1NSwiaXNzIjoiUXoifQ.BSI0CiJiybX3vXskVZ4Peas9RNe0Mm-DO8AgxcQ-acA"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://192.168.17.128:23208/lcgl-prj/gzyq/runGzyq",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "btnCode",
+            "default": "ZJ_OTHER_NODE_ADD_TI",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\r\n  \"orderId\": 2162398982657,\r\n  \"sampleId\": 2162398982737,\r\n  \"nodeId\": \"ut_10\",\r\n  \"prodTiIds\": null,\r\n  \"stdTiIds\": \"2081085295870,2081085295858\",\r\n  \"tiId\": null\r\n}",
+            "type": "json",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "JID",
+            "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsImlzU2lnbkxvZyI6ZmFsc2UsInNzb190eXBlIjowLCJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidGVuYW50X3R5cGUiOiJUMyIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDM2NTE1NSwiaXNzIjoiUXoifQ.BSI0CiJiybX3vXskVZ4Peas9RNe0Mm-DO8AgxcQ-acA",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1780368063185_5x15ni0u9",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1780368063185_5x15ni0u9",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "NETWORK | code=ECONNREFUSED raw=connect ECONNREFUSED 192.168.17.128:23208",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "2.04s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "连接被拒绝，请检查服务器是否启动",
+      "errorType": "network",
+      "requestConfig": {
+        "url": "http://192.168.17.128:23208/lcgl-prj/gzyq/runGzyq",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": {
+          "btnCode": "ZJ_OTHER_NODE_ADD_TI",
+          "jsonDataStr": "{\r\n  \"orderId\": 2162398982657,\r\n  \"sampleId\": 2162398982737,\r\n  \"nodeId\": \"ut_10\",\r\n  \"prodTiIds\": null,\r\n  \"stdTiIds\": \"2081085295870,2081085295858\",\r\n  \"tiId\": null\r\n}",
+          "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsImlzU2lnbkxvZyI6ZmFsc2UsInNzb190eXBlIjowLCJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidGVuYW50X3R5cGUiOiJUMyIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDM2NTE1NSwiaXNzIjoiUXoifQ.BSI0CiJiybX3vXskVZ4Peas9RNe0Mm-DO8AgxcQ-acA"
+        },
+        "bodyType": "json"
+      },
+      "_startTime": 1780379516209,
+      "_endTime": 1780379518246
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "2.04s",
+    "error": "连接被拒绝，请检查服务器是否启动",
+    "errorType": "network",
+    "assertionResult": null,
+    "responseHeaders": {},
+    "allResults": {
+      "api_1780368063169_u61jwjy35": {
+        "status_text": "NETWORK | code=ECONNREFUSED raw=connect ECONNREFUSED 192.168.17.128:23208",
+        "httpSuccess": false,
+        "success": false,
+        "headers": {},
+        "elapsedTime": "2.04s",
+        "responseSize": "0 B",
+        "assertionResult": null,
+        "error": "连接被拒绝，请检查服务器是否启动",
+        "errorType": "network",
+        "requestConfig": {
+          "url": "http://192.168.17.128:23208/lcgl-prj/gzyq/runGzyq",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": {
+            "btnCode": "ZJ_OTHER_NODE_ADD_TI",
+            "jsonDataStr": "{\r\n  \"orderId\": 2162398982657,\r\n  \"sampleId\": 2162398982737,\r\n  \"nodeId\": \"ut_10\",\r\n  \"prodTiIds\": null,\r\n  \"stdTiIds\": \"2081085295870,2081085295858\",\r\n  \"tiId\": null\r\n}",
+            "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsImlzU2lnbkxvZyI6ZmFsc2UsInNzb190eXBlIjowLCJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidGVuYW50X3R5cGUiOiJUMyIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDM2NTE1NSwiaXNzIjoiUXoifQ.BSI0CiJiybX3vXskVZ4Peas9RNe0Mm-DO8AgxcQ-acA"
+          },
+          "bodyType": "json"
+        },
+        "_startTime": 1780379516209,
+        "_endTime": 1780379518246
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1780368063169_u61jwjy35",
+        "name": "runGzyq",
+        "result": {
+          "status_text": "NETWORK | code=ECONNREFUSED raw=connect ECONNREFUSED 192.168.17.128:23208",
+          "httpSuccess": false,
+          "success": false,
+          "headers": {},
+          "elapsedTime": "2.04s",
+          "responseSize": "0 B",
+          "assertionResult": null,
+          "error": "连接被拒绝，请检查服务器是否启动",
+          "errorType": "network",
+          "requestConfig": {
+            "url": "http://192.168.17.128:23208/lcgl-prj/gzyq/runGzyq",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": {
+              "btnCode": "ZJ_OTHER_NODE_ADD_TI",
+              "jsonDataStr": "{\r\n  \"orderId\": 2162398982657,\r\n  \"sampleId\": 2162398982737,\r\n  \"nodeId\": \"ut_10\",\r\n  \"prodTiIds\": null,\r\n  \"stdTiIds\": \"2081085295870,2081085295858\",\r\n  \"tiId\": null\r\n}",
+              "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsImlzU2lnbkxvZyI6ZmFsc2UsInNzb190eXBlIjowLCJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidGVuYW50X3R5cGUiOiJUMyIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDM2NTE1NSwiaXNzIjoiUXoifQ.BSI0CiJiybX3vXskVZ4Peas9RNe0Mm-DO8AgxcQ-acA"
+            },
+            "bodyType": "json"
+          },
+          "_startTime": 1780379516209,
+          "_endTime": 1780379518246
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1780379013955,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1780368063169_u61jwjy35",
+    "apiName": "runGzyq",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{lcgl-prj}/gzyq/runGzyq",
+    "timestamp": "2026/6/2 13:43:33",
+    "apiConfig": {
+      "name": "runGzyq",
+      "group": "group_mpqmv4y45epgz",
+      "api_path": "{domain}{lcgl-prj}/gzyq/runGzyq",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "btnCode": "ZJ_OTHER_NODE_ADD_TI",
+        "jsonDataStr": "{\r\n  \"orderId\": 2162398982657,\r\n  \"sampleId\": 2162398982737,\r\n  \"nodeId\": \"ut_10\",\r\n  \"prodTiIds\": null,\r\n  \"stdTiIds\": \"2081085295870,2081085295858\",\r\n  \"tiId\": null\r\n}",
+        "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsImlzU2lnbkxvZyI6ZmFsc2UsInNzb190eXBlIjowLCJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidGVuYW50X3R5cGUiOiJUMyIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDM2NTE1NSwiaXNzIjoiUXoifQ.BSI0CiJiybX3vXskVZ4Peas9RNe0Mm-DO8AgxcQ-acA"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://192.168.17.128:23208/lcgl-prj/gzyq/runGzyq",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "btnCode",
+            "default": "ZJ_OTHER_NODE_ADD_TI",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\r\n  \"orderId\": 2162398982657,\r\n  \"sampleId\": 2162398982737,\r\n  \"nodeId\": \"ut_10\",\r\n  \"prodTiIds\": null,\r\n  \"stdTiIds\": \"2081085295870,2081085295858\",\r\n  \"tiId\": null\r\n}",
+            "type": "json",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "JID",
+            "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsImlzU2lnbkxvZyI6ZmFsc2UsInNzb190eXBlIjowLCJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidGVuYW50X3R5cGUiOiJUMyIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDM2NTE1NSwiaXNzIjoiUXoifQ.BSI0CiJiybX3vXskVZ4Peas9RNe0Mm-DO8AgxcQ-acA",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1780368063185_5x15ni0u9",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1780368063185_5x15ni0u9",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "NETWORK | code=ECONNREFUSED raw=connect ECONNREFUSED 192.168.17.128:23208",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "2.05s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "连接被拒绝，请检查服务器是否启动",
+      "errorType": "network",
+      "requestConfig": {
+        "url": "http://192.168.17.128:23208/lcgl-prj/gzyq/runGzyq",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": {
+          "btnCode": "ZJ_OTHER_NODE_ADD_TI",
+          "jsonDataStr": "{\r\n  \"orderId\": 2162398982657,\r\n  \"sampleId\": 2162398982737,\r\n  \"nodeId\": \"ut_10\",\r\n  \"prodTiIds\": null,\r\n  \"stdTiIds\": \"2081085295870,2081085295858\",\r\n  \"tiId\": null\r\n}",
+          "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsImlzU2lnbkxvZyI6ZmFsc2UsInNzb190eXBlIjowLCJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidGVuYW50X3R5cGUiOiJUMyIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDM2NTE1NSwiaXNzIjoiUXoifQ.BSI0CiJiybX3vXskVZ4Peas9RNe0Mm-DO8AgxcQ-acA"
+        },
+        "bodyType": "json"
+      },
+      "_startTime": 1780379011907,
+      "_endTime": 1780379013955
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "2.05s",
+    "error": "连接被拒绝，请检查服务器是否启动",
+    "errorType": "network",
+    "assertionResult": null,
+    "responseHeaders": {},
+    "allResults": {
+      "api_1780368063169_u61jwjy35": {
+        "status_text": "NETWORK | code=ECONNREFUSED raw=connect ECONNREFUSED 192.168.17.128:23208",
+        "httpSuccess": false,
+        "success": false,
+        "headers": {},
+        "elapsedTime": "2.05s",
+        "responseSize": "0 B",
+        "assertionResult": null,
+        "error": "连接被拒绝，请检查服务器是否启动",
+        "errorType": "network",
+        "requestConfig": {
+          "url": "http://192.168.17.128:23208/lcgl-prj/gzyq/runGzyq",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": {
+            "btnCode": "ZJ_OTHER_NODE_ADD_TI",
+            "jsonDataStr": "{\r\n  \"orderId\": 2162398982657,\r\n  \"sampleId\": 2162398982737,\r\n  \"nodeId\": \"ut_10\",\r\n  \"prodTiIds\": null,\r\n  \"stdTiIds\": \"2081085295870,2081085295858\",\r\n  \"tiId\": null\r\n}",
+            "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsImlzU2lnbkxvZyI6ZmFsc2UsInNzb190eXBlIjowLCJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidGVuYW50X3R5cGUiOiJUMyIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDM2NTE1NSwiaXNzIjoiUXoifQ.BSI0CiJiybX3vXskVZ4Peas9RNe0Mm-DO8AgxcQ-acA"
+          },
+          "bodyType": "json"
+        },
+        "_startTime": 1780379011907,
+        "_endTime": 1780379013955
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1780368063169_u61jwjy35",
+        "name": "runGzyq",
+        "result": {
+          "status_text": "NETWORK | code=ECONNREFUSED raw=connect ECONNREFUSED 192.168.17.128:23208",
+          "httpSuccess": false,
+          "success": false,
+          "headers": {},
+          "elapsedTime": "2.05s",
+          "responseSize": "0 B",
+          "assertionResult": null,
+          "error": "连接被拒绝，请检查服务器是否启动",
+          "errorType": "network",
+          "requestConfig": {
+            "url": "http://192.168.17.128:23208/lcgl-prj/gzyq/runGzyq",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": {
+              "btnCode": "ZJ_OTHER_NODE_ADD_TI",
+              "jsonDataStr": "{\r\n  \"orderId\": 2162398982657,\r\n  \"sampleId\": 2162398982737,\r\n  \"nodeId\": \"ut_10\",\r\n  \"prodTiIds\": null,\r\n  \"stdTiIds\": \"2081085295870,2081085295858\",\r\n  \"tiId\": null\r\n}",
+              "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsImlzU2lnbkxvZyI6ZmFsc2UsInNzb190eXBlIjowLCJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidGVuYW50X3R5cGUiOiJUMyIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDM2NTE1NSwiaXNzIjoiUXoifQ.BSI0CiJiybX3vXskVZ4Peas9RNe0Mm-DO8AgxcQ-acA"
+            },
+            "bodyType": "json"
+          },
+          "_startTime": 1780379011907,
+          "_endTime": 1780379013955
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1780368303391,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1780368063169_u61jwjy35",
+    "apiName": "runGzyq",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{lcgl-prj}/gzyq/runGzyq",
+    "timestamp": "2026/6/2 10:45:03",
+    "apiConfig": {
+      "name": "runGzyq",
+      "group": "group_mpqmv4y45epgz",
+      "api_path": "{domain}{lcgl-prj}/gzyq/runGzyq",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "btnCode": "ZJ_OTHER_NODE_ADD_TI",
+        "jsonDataStr": "{\r\n  \"orderId\": 2162398982657,\r\n  \"sampleId\": 2162398982737,\r\n  \"nodeId\": \"ut_10\",\r\n  \"prodTiIds\": null,\r\n  \"stdTiIds\": \"2081085295870,2081085295858\",\r\n  \"tiId\": null\r\n}",
+        "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsImlzU2lnbkxvZyI6ZmFsc2UsInNzb190eXBlIjowLCJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidGVuYW50X3R5cGUiOiJUMyIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDM2NTE1NSwiaXNzIjoiUXoifQ.BSI0CiJiybX3vXskVZ4Peas9RNe0Mm-DO8AgxcQ-acA"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://192.168.17.128:23208/lcgl-prj/gzyq/runGzyq",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "btnCode",
+            "default": "ZJ_OTHER_NODE_ADD_TI",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\r\n  \"orderId\": 2162398982657,\r\n  \"sampleId\": 2162398982737,\r\n  \"nodeId\": \"ut_10\",\r\n  \"prodTiIds\": null,\r\n  \"stdTiIds\": \"2081085295870,2081085295858\",\r\n  \"tiId\": null\r\n}",
+            "type": "json",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "JID",
+            "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsImlzU2lnbkxvZyI6ZmFsc2UsInNzb190eXBlIjowLCJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidGVuYW50X3R5cGUiOiJUMyIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDM2NTE1NSwiaXNzIjoiUXoifQ.BSI0CiJiybX3vXskVZ4Peas9RNe0Mm-DO8AgxcQ-acA",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1780368063185_5x15ni0u9",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1780368063185_5x15ni0u9",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "NETWORK | code=ECONNREFUSED raw=connect ECONNREFUSED 192.168.17.128:23208",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "2.03s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "连接被拒绝，请检查服务器是否启动",
+      "errorType": "network",
+      "requestConfig": {
+        "url": "http://192.168.17.128:23208/lcgl-prj/gzyq/runGzyq",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": {
+          "btnCode": "ZJ_OTHER_NODE_ADD_TI",
+          "jsonDataStr": "{\r\n  \"orderId\": 2162398982657,\r\n  \"sampleId\": 2162398982737,\r\n  \"nodeId\": \"ut_10\",\r\n  \"prodTiIds\": null,\r\n  \"stdTiIds\": \"2081085295870,2081085295858\",\r\n  \"tiId\": null\r\n}",
+          "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsImlzU2lnbkxvZyI6ZmFsc2UsInNzb190eXBlIjowLCJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidGVuYW50X3R5cGUiOiJUMyIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDM2NTE1NSwiaXNzIjoiUXoifQ.BSI0CiJiybX3vXskVZ4Peas9RNe0Mm-DO8AgxcQ-acA"
+        },
+        "bodyType": "json"
+      }
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "2.03s",
+    "error": "连接被拒绝，请检查服务器是否启动",
+    "errorType": "network",
+    "assertionResult": null,
+    "responseHeaders": {},
+    "allResults": {
+      "api_1780368063169_u61jwjy35": {
+        "status_text": "NETWORK | code=ECONNREFUSED raw=connect ECONNREFUSED 192.168.17.128:23208",
+        "httpSuccess": false,
+        "success": false,
+        "headers": {},
+        "elapsedTime": "2.03s",
+        "responseSize": "0 B",
+        "assertionResult": null,
+        "error": "连接被拒绝，请检查服务器是否启动",
+        "errorType": "network",
+        "requestConfig": {
+          "url": "http://192.168.17.128:23208/lcgl-prj/gzyq/runGzyq",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": {
+            "btnCode": "ZJ_OTHER_NODE_ADD_TI",
+            "jsonDataStr": "{\r\n  \"orderId\": 2162398982657,\r\n  \"sampleId\": 2162398982737,\r\n  \"nodeId\": \"ut_10\",\r\n  \"prodTiIds\": null,\r\n  \"stdTiIds\": \"2081085295870,2081085295858\",\r\n  \"tiId\": null\r\n}",
+            "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsImlzU2lnbkxvZyI6ZmFsc2UsInNzb190eXBlIjowLCJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidGVuYW50X3R5cGUiOiJUMyIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDM2NTE1NSwiaXNzIjoiUXoifQ.BSI0CiJiybX3vXskVZ4Peas9RNe0Mm-DO8AgxcQ-acA"
+          },
+          "bodyType": "json"
+        }
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1780368063169_u61jwjy35",
+        "name": "runGzyq",
+        "result": {
+          "status_text": "NETWORK | code=ECONNREFUSED raw=connect ECONNREFUSED 192.168.17.128:23208",
+          "httpSuccess": false,
+          "success": false,
+          "headers": {},
+          "elapsedTime": "2.03s",
+          "responseSize": "0 B",
+          "assertionResult": null,
+          "error": "连接被拒绝，请检查服务器是否启动",
+          "errorType": "network",
+          "requestConfig": {
+            "url": "http://192.168.17.128:23208/lcgl-prj/gzyq/runGzyq",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": {
+              "btnCode": "ZJ_OTHER_NODE_ADD_TI",
+              "jsonDataStr": "{\r\n  \"orderId\": 2162398982657,\r\n  \"sampleId\": 2162398982737,\r\n  \"nodeId\": \"ut_10\",\r\n  \"prodTiIds\": null,\r\n  \"stdTiIds\": \"2081085295870,2081085295858\",\r\n  \"tiId\": null\r\n}",
+              "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsImlzU2lnbkxvZyI6ZmFsc2UsInNzb190eXBlIjowLCJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidGVuYW50X3R5cGUiOiJUMyIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDM2NTE1NSwiaXNzIjoiUXoifQ.BSI0CiJiybX3vXskVZ4Peas9RNe0Mm-DO8AgxcQ-acA"
+            },
+            "bodyType": "json"
+          }
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1780368290059,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1780368063169_u61jwjy35",
+    "apiName": "runGzyq",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{lcgl-prj}/gzyq/runGzyq",
+    "timestamp": "2026/6/2 10:44:50",
+    "apiConfig": {
+      "name": "runGzyq",
+      "group": "group_mpqmv4y45epgz",
+      "api_path": "{domain}{lcgl-prj}/gzyq/runGzyq",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "btnCode": "ZJ_OTHER_NODE_ADD_TI",
+        "jsonDataStr": "{\r\n  \"orderId\": 2162398982657,\r\n  \"sampleId\": 2162398982737,\r\n  \"nodeId\": \"ut_10\",\r\n  \"prodTiIds\": null,\r\n  \"stdTiIds\": \"2081085295870,2081085295858\",\r\n  \"tiId\": null\r\n}",
+        "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsImlzU2lnbkxvZyI6ZmFsc2UsInNzb190eXBlIjowLCJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidGVuYW50X3R5cGUiOiJUMyIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDM2NTE1NSwiaXNzIjoiUXoifQ.BSI0CiJiybX3vXskVZ4Peas9RNe0Mm-DO8AgxcQ-acA"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "https://172.16.17.51:30200/lcgl-prj/gzyq/runGzyq",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "btnCode",
+            "default": "ZJ_OTHER_NODE_ADD_TI",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\r\n  \"orderId\": 2162398982657,\r\n  \"sampleId\": 2162398982737,\r\n  \"nodeId\": \"ut_10\",\r\n  \"prodTiIds\": null,\r\n  \"stdTiIds\": \"2081085295870,2081085295858\",\r\n  \"tiId\": null\r\n}",
+            "type": "json",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "JID",
+            "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsImlzU2lnbkxvZyI6ZmFsc2UsInNzb190eXBlIjowLCJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidGVuYW50X3R5cGUiOiJUMyIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDM2NTE1NSwiaXNzIjoiUXoifQ.BSI0CiJiybX3vXskVZ4Peas9RNe0Mm-DO8AgxcQ-acA",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1780368063185_5x15ni0u9",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1780368063185_5x15ni0u9",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "OK",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "redirectUrl": "https://172.16.17.51:30200",
+        "code": -1,
+        "resultCode": "FAIL",
+        "errorCode": "ERROR_PARAM_TOKEN",
+        "error": "登录状态已失效，请重新登录",
+        "errors": [
+          "登录状态已失效，请重新登录"
+        ]
+      },
+      "headers": {
+        "server": "nginx/1.27.5",
+        "date": "Tue, 02 Jun 2026 02:44:50 GMT",
+        "content-type": "application/json;charset=UTF-8",
+        "content-length": "209",
+        "connection": "close",
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+        "pragma": "no-cache",
+        "expires": "0",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1 ; mode=block",
+        "referrer-policy": "no-referrer",
+        "access-control-expose-headers": "Content-disposition"
+      },
+      "elapsedTime": "9.85s",
+      "responseSize": "157 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "https://172.16.17.51:30200/lcgl-prj/gzyq/runGzyq",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": {
+          "btnCode": "ZJ_OTHER_NODE_ADD_TI",
+          "jsonDataStr": "{\r\n  \"orderId\": 2162398982657,\r\n  \"sampleId\": 2162398982737,\r\n  \"nodeId\": \"ut_10\",\r\n  \"prodTiIds\": null,\r\n  \"stdTiIds\": \"2081085295870,2081085295858\",\r\n  \"tiId\": null\r\n}",
+          "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsImlzU2lnbkxvZyI6ZmFsc2UsInNzb190eXBlIjowLCJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidGVuYW50X3R5cGUiOiJUMyIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDM2NTE1NSwiaXNzIjoiUXoifQ.BSI0CiJiybX3vXskVZ4Peas9RNe0Mm-DO8AgxcQ-acA"
+        },
+        "bodyType": "json"
+      }
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "9.85s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "redirectUrl": "https://172.16.17.51:30200",
+      "code": -1,
+      "resultCode": "FAIL",
+      "errorCode": "ERROR_PARAM_TOKEN",
+      "error": "登录状态已失效，请重新登录",
+      "errors": [
+        "登录状态已失效，请重新登录"
+      ]
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "server": "nginx/1.27.5",
+      "date": "Tue, 02 Jun 2026 02:44:50 GMT",
+      "content-type": "application/json;charset=UTF-8",
+      "content-length": "209",
+      "connection": "close",
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+      "pragma": "no-cache",
+      "expires": "0",
+      "x-content-type-options": "nosniff",
+      "x-xss-protection": "1 ; mode=block",
+      "referrer-policy": "no-referrer",
+      "access-control-expose-headers": "Content-disposition"
+    },
+    "allResults": {
+      "api_1780368063169_u61jwjy35": {
+        "status_code": 200,
+        "status_text": "OK",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "redirectUrl": "https://172.16.17.51:30200",
+          "code": -1,
+          "resultCode": "FAIL",
+          "errorCode": "ERROR_PARAM_TOKEN",
+          "error": "登录状态已失效，请重新登录",
+          "errors": [
+            "登录状态已失效，请重新登录"
+          ]
+        },
+        "headers": {
+          "server": "nginx/1.27.5",
+          "date": "Tue, 02 Jun 2026 02:44:50 GMT",
+          "content-type": "application/json;charset=UTF-8",
+          "content-length": "209",
+          "connection": "close",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+          "pragma": "no-cache",
+          "expires": "0",
+          "x-content-type-options": "nosniff",
+          "x-xss-protection": "1 ; mode=block",
+          "referrer-policy": "no-referrer",
+          "access-control-expose-headers": "Content-disposition"
+        },
+        "elapsedTime": "9.85s",
+        "responseSize": "157 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "https://172.16.17.51:30200/lcgl-prj/gzyq/runGzyq",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": {
+            "btnCode": "ZJ_OTHER_NODE_ADD_TI",
+            "jsonDataStr": "{\r\n  \"orderId\": 2162398982657,\r\n  \"sampleId\": 2162398982737,\r\n  \"nodeId\": \"ut_10\",\r\n  \"prodTiIds\": null,\r\n  \"stdTiIds\": \"2081085295870,2081085295858\",\r\n  \"tiId\": null\r\n}",
+            "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsImlzU2lnbkxvZyI6ZmFsc2UsInNzb190eXBlIjowLCJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidGVuYW50X3R5cGUiOiJUMyIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDM2NTE1NSwiaXNzIjoiUXoifQ.BSI0CiJiybX3vXskVZ4Peas9RNe0Mm-DO8AgxcQ-acA"
+          },
+          "bodyType": "json"
+        }
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1780368063169_u61jwjy35",
+        "name": "runGzyq",
+        "result": {
+          "status_code": 200,
+          "status_text": "OK",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "redirectUrl": "https://172.16.17.51:30200",
+            "code": -1,
+            "resultCode": "FAIL",
+            "errorCode": "ERROR_PARAM_TOKEN",
+            "error": "登录状态已失效，请重新登录",
+            "errors": [
+              "登录状态已失效，请重新登录"
+            ]
+          },
+          "headers": {
+            "server": "nginx/1.27.5",
+            "date": "Tue, 02 Jun 2026 02:44:50 GMT",
+            "content-type": "application/json;charset=UTF-8",
+            "content-length": "209",
+            "connection": "close",
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+            "pragma": "no-cache",
+            "expires": "0",
+            "x-content-type-options": "nosniff",
+            "x-xss-protection": "1 ; mode=block",
+            "referrer-policy": "no-referrer",
+            "access-control-expose-headers": "Content-disposition"
+          },
+          "elapsedTime": "9.85s",
+          "responseSize": "157 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "https://172.16.17.51:30200/lcgl-prj/gzyq/runGzyq",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": {
+              "btnCode": "ZJ_OTHER_NODE_ADD_TI",
+              "jsonDataStr": "{\r\n  \"orderId\": 2162398982657,\r\n  \"sampleId\": 2162398982737,\r\n  \"nodeId\": \"ut_10\",\r\n  \"prodTiIds\": null,\r\n  \"stdTiIds\": \"2081085295870,2081085295858\",\r\n  \"tiId\": null\r\n}",
+              "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsImlzU2lnbkxvZyI6ZmFsc2UsInNzb190eXBlIjowLCJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidGVuYW50X3R5cGUiOiJUMyIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDM2NTE1NSwiaXNzIjoiUXoifQ.BSI0CiJiybX3vXskVZ4Peas9RNe0Mm-DO8AgxcQ-acA"
+            },
+            "bodyType": "json"
+          }
+        },
+        "isTarget": true
+      }
+    ]
+  }
+]

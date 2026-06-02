@@ -37,7 +37,11 @@ class ChainManager {
       console.log(`[ChainManager]   ${depAPI.method} ${depAPI.api_path}`);
 
       // 执行依赖 API
+      const callStart = Date.now();
       const result = await this.executor.executeAPI(depAPI, {});
+      const callEnd = Date.now();
+      result._startTime = callStart;
+      result._endTime = callEnd;
       
       // 记录结果
       this.chainResults[apiId] = result;
@@ -67,7 +71,11 @@ class ChainManager {
     console.log(`[ChainManager]   ${targetAPI.method} ${targetAPI.api_path}`);
 
     // 3. 执行目标 API
+    const targetCallStart = Date.now();
     const targetResult = await this.executor.executeAPI(resolvedTarget, customData);
+    const targetCallEnd = Date.now();
+    targetResult._startTime = targetCallStart;
+    targetResult._endTime = targetCallEnd;
     this.chainResults[targetAPI.id || targetAPI.name] = targetResult;
 
     console.log(`[ChainManager]   ↳ 完成 | HTTP ${targetResult.status_code} | 耗时 ${targetResult.elapsedTime} | 成功: ${targetResult.success}`);

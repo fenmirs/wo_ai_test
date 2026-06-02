@@ -53,6 +53,7 @@ function App() {
   
   // 当前执行结果（供右侧 ResponsePanel 使用）
   const [currentExecutionResult, setCurrentExecutionResult] = useState(null);
+  const [currentIsExecuting, setCurrentIsExecuting] = useState(false);
   
   // 面板显隐状态
   const [showLeftPanel, setShowLeftPanel] = useState(true);
@@ -676,6 +677,13 @@ function App() {
   // 处理 APIDetail 执行结果变化（供右侧 ResponsePanel 使用）
   const handleResultChange = useCallback((result) => {
     setCurrentExecutionResult(result);
+  }, []);
+
+  const handleExecutingChange = useCallback((executing) => {
+    setCurrentIsExecuting(executing);
+    if (executing) {
+      setCurrentExecutionResult(null);
+    }
   }, []);
 
   // 选择 API（加载完整数据 + 历史）
@@ -1362,6 +1370,7 @@ function App() {
                   onDeleteHistory={handleDeleteHistory}
                   theme={theme}
                   onResultChange={handleResultChange}
+                  onExecutingChange={handleExecutingChange}
                   requestedScenarioId={requestedScenarioId}
                   requestedScenarioAction={requestedScenarioAction}
                   onScenarioChange={handleScenarioChange}
@@ -1404,7 +1413,7 @@ function App() {
           {/* 右侧面板 - 响应/文档 */}
           {showRightPanel && (
             <div className="right-panel" style={{ width: rightPanelWidth }}>
-              <ResponsePanel executionResult={currentExecutionResult} theme={theme} />
+              <ResponsePanel executionResult={currentExecutionResult} isExecuting={currentIsExecuting} theme={theme} />
             </div>
           )}
         </div>

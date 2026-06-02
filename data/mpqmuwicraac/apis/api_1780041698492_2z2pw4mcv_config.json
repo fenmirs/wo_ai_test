@@ -10,7 +10,7 @@
       "name": "MES场景",
       "description": "获取lims的token，该场景为mes配置",
       "createdAt": "2026-05-29T08:01:38.503Z",
-      "updatedAt": "2026-05-29T11:59:22.736Z",
+      "updatedAt": "2026-06-02T05:58:05.262Z",
       "deleted": false,
       "header": [
         {

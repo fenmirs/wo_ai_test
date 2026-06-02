@@ -1,5 +1,5 @@
-import React, { useState, useCallback, useRef, useLayoutEffect } from 'react';
-import { CheckCircle, XCircle, AlertCircle, FileText, Play, Trash2, Clock, ChevronRight, ChevronDown } from 'lucide-react';
+import React, { useState, useCallback, useRef, useLayoutEffect, useEffect } from 'react';
+import { CheckCircle, XCircle, AlertCircle, FileText, Play, Trash2, Clock, ChevronRight, ChevronDown, Loader, Info } from 'lucide-react';
 import MonacoView from './MonacoView';
 import './ResponsePanel.css';
 
@@ -67,10 +67,26 @@ function KVItemRow({ label, value, showEncodeToggle }) {
   );
 }
 
-function ResponsePanel({ executionResult, theme }) {
+const formatTime = (ts) => {
+  if (!ts) return '-';
+  const d = new Date(ts);
+  return d.toTimeString().slice(0, 8) + '.' + String(d.getMilliseconds()).padStart(3, '0');
+};
+
+function ResponsePanel({ executionResult, isExecuting, theme }) {
   const [selectedCardIdx, setSelectedCardIdx] = useState(0);
   const [responseTab, setResponseTab] = useState('request');
   const [collapsedSections, setCollapsedSections] = useState({});
+  const [infoPopup, setInfoPopup] = useState(null);
+  const userSelectedRef = useRef(false);
+
+  useEffect(() => {
+    if (executionResult?.resultCards?.length && !userSelectedRef.current) {
+      const targetIdx = executionResult.resultCards.findIndex(c => c.isTarget);
+      if (targetIdx >= 0) setSelectedCardIdx(targetIdx);
+    }
+    userSelectedRef.current = false;
+  }, [executionResult]);
 
   const toggleSection = useCallback((key) => {
     setCollapsedSections(prev => ({ ...prev, [key]: !prev[key] }));
@@ -89,12 +105,19 @@ function ResponsePanel({ executionResult, theme }) {
     );
   }, [collapsedSections, toggleSection]);
 
-  const getMethodColor = (method) => {
-    const colors = { 'GET': '#10b981', 'POST': '#3b82f6', 'PUT': '#f59e0b', 'DELETE': '#ef4444', 'PATCH': '#8b5cf6', 'HEAD': '#6b7280', 'OPTIONS': '#6b7280' };
-    return colors[method] || '#64748b';
-  };
-
   const selectedCard = executionResult?.resultCards?.[selectedCardIdx];
+
+  // Loading state
+  if (isExecuting && (!executionResult || !executionResult.resultCards)) {
+    return (
+      <div className="response-panel response-panel-full">
+        <div className="response-loading">
+          <Loader size={28} className="spin" />
+          <p>正在发送请求...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!executionResult) {
     return (
@@ -108,25 +131,39 @@ function ResponsePanel({ executionResult, theme }) {
     );
   }
 
+  const cards = executionResult.resultCards || [];
+
   return (
     <div className="response-panel response-panel-full">
-      {executionResult.resultCards && executionResult.resultCards.length > 0 && (
-        <div className="response-card-bar">
-          {executionResult.resultCards.map((card, idx) => (
-            <button
+      {/* Pipeline */}
+      {cards.length > 0 && (
+        <div className="pipeline">
+          <button className="pipe-info-btn-global" onClick={() => setInfoPopup(executionResult)} title="执行详情">
+            <Info size={16} />
+          </button>
+          <div className="pipe-sep" />
+          {cards.map((card, idx) => (
+            <div
               key={card.apiId}
-              className={`response-card-tab ${selectedCardIdx === idx ? 'active' : ''} ${card.result?.success ? 'card-ok' : 'card-fail'}`}
-              onClick={() => setSelectedCardIdx(idx)}
+              className={`pipe-item ${selectedCardIdx === idx ? 'active' : ''}`}
+              onClick={() => { userSelectedRef.current = true; setSelectedCardIdx(idx); }}
+              title={`${card.name}${card.isTarget ? ' (目标)' : ''}\n开始: ${formatTime(card.result?._startTime)}\n结束: ${formatTime(card.result?._endTime)}\n耗时: ${card.result?.elapsedTime || '-'}${card.result?.error ? '\n错误: ' + card.result.error : ''}${card.result?.assertionResult?.results?.length ? '\n断言: ' + card.result.assertionResult.results.filter(r => r.passed).length + '/' + card.result.assertionResult.results.length : ''}`}
             >
-              {card.isTarget ? '🎯 ' : ''}{card.name}
-              <span className={`card-status-dot ${card.result?.success ? 'dot-ok' : 'dot-fail'}`}>
-                {card.result?.success ? '✓' : '✗'}
-              </span>
-            </button>
+              <div className="pipe-top">
+                {cards.length > 1 && idx > 0 && <div className="pipe-conn"><div className="pipe-line" /></div>}
+                <div className="pipe-node-wrap">
+                  <div className={`pipe-node ${card.isTarget ? 'pipe-star' : 'pipe-dot'} ${card.result?.success ? 'success' : 'error'}`}>
+                    {card.isTarget ? '★' : idx + 1}
+                  </div>
+                  <div className="pipe-time">{card.result?.elapsedTime || ''}</div>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       )}
 
+      {/* Summary */}
       <div className="response-summary">
         <div className="summary-left">
           <span className="summary-label">HTTP</span>
@@ -181,6 +218,7 @@ function ResponsePanel({ executionResult, theme }) {
         })()}
       </div>
 
+      {/* Assertion bar */}
       {selectedCard?.result?.assertionResult && (
         <div className="assertion-results-bar">
           <div className="assertion-results-header">断言结果</div>
@@ -194,9 +232,10 @@ function ResponsePanel({ executionResult, theme }) {
         </div>
       )}
 
+      {/* Response body */}
       <div className="response-body">
-            {executionResult.resultCards && executionResult.resultCards.length > 0 ? (() => {
-              const currentCard = executionResult.resultCards[selectedCardIdx];
+            {cards.length > 0 ? (() => {
+              const currentCard = cards[selectedCardIdx];
               if (!currentCard) return null;
               const cardResult = currentCard.result;
 
@@ -429,6 +468,72 @@ function ResponsePanel({ executionResult, theme }) {
           </div>
         )}
       </div>
+
+      {/* Info popup — 整条链的全部详情 */}
+      {infoPopup && (
+        <div className="pipe-popup-overlay" onClick={() => setInfoPopup(null)}>
+          <div className="pipe-popup" onClick={(e) => e.stopPropagation()}>
+            <div className="pipe-popup-header">
+              <span>全部执行详情 ({(infoPopup.resultCards || []).length} 个步骤)</span>
+              <button className="pipe-popup-close" onClick={() => setInfoPopup(null)}>✕</button>
+            </div>
+            <div className="pipe-popup-body">
+              {(infoPopup.resultCards || []).map((card, idx) => (
+                <div key={card.apiId} className={`pipe-popup-step ${idx > 0 ? 'pipe-popup-step-with-gap' : ''}`}>
+                  <div className="pipe-popup-step-title">
+                    {card.isTarget ? '★' : (idx + 1) + '.'} {card.name}
+                    {card.isTarget && <span className="pipe-popup-step-badge">目标</span>}
+                    <span className={`pipe-popup-step-status ${card.result?.success ? 'success' : 'error'}`}>
+                      {card.result?.success ? ' ✓ 成功' : ' ✗ 失败'}
+                    </span>
+                  </div>
+                  <div className="pipe-popup-step-detail">
+                    <div className="pipe-popup-row">
+                      <span className="pipe-popup-label">HTTP</span>
+                      <span className="pipe-popup-value">{card.result?.status_code || '-'}</span>
+                    </div>
+                    <div className="pipe-popup-row">
+                      <span className="pipe-popup-label">开始时间</span>
+                      <span className="pipe-popup-value">{formatTime(card.result?._startTime)}</span>
+                    </div>
+                    <div className="pipe-popup-row">
+                      <span className="pipe-popup-label">结束时间</span>
+                      <span className="pipe-popup-value">{formatTime(card.result?._endTime)}</span>
+                    </div>
+                    <div className="pipe-popup-row">
+                      <span className="pipe-popup-label">耗时</span>
+                      <span className="pipe-popup-value">{card.result?.elapsedTime || '-'}</span>
+                    </div>
+                    {card.result?.responseSize && (
+                      <div className="pipe-popup-row">
+                        <span className="pipe-popup-label">大小</span>
+                        <span className="pipe-popup-value">{card.result.responseSize}</span>
+                      </div>
+                    )}
+                    {card.result?.error && (
+                      <div className="pipe-popup-row">
+                        <span className="pipe-popup-label">错误</span>
+                        <span className="pipe-popup-value pipe-popup-error">{card.result.error}</span>
+                      </div>
+                    )}
+                    {card.result?.assertionResult?.results?.length > 0 && (
+                      <div className="pipe-popup-assert-list">
+                        {card.result.assertionResult.results.map((r, i) => (
+                          <div key={i} className={`pipe-popup-assert ${r.passed ? 'passed' : 'failed'}`}>
+                            <span>{r.passed ? '✓' : '✗'}</span>
+                            <span className="pipe-popup-assert-expr">{r.expression}</span>
+                            <span className="pipe-popup-assert-actual">实际: {r.actual}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
