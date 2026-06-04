@@ -23,6 +23,17 @@
       "jlgl-prj": "",
       "lcgl-prj": "/lcgl-prj",
       "tm-prj": ""
+    },
+    {
+      "name": "本地debug客户环境",
+      "activate": false,
+      "domain": "192.168.17.128",
+      "api-prj": "",
+      "config-prj": "",
+      "gzyq-prj": "",
+      "jlgl-prj": "",
+      "lcgl-prj": ":30208/lcgl-prj",
+      "tm-prj": ""
     }
   ],
   "groups": [

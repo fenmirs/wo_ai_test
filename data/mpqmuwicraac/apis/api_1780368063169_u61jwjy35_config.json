@@ -10,7 +10,7 @@
       "name": "标准库添加检项",
       "description": "从项目标准库添加",
       "createdAt": "2026-06-02T02:41:03.181Z",
-      "updatedAt": "2026-06-02T05:58:10.790Z",
+      "updatedAt": "2026-06-03T06:24:54.329Z",
       "deleted": false,
       "header": [
         {
@@ -88,6 +88,94 @@
       "assertions": [
         {
           "expression": "",
+          "enabled": true
+        }
+      ],
+      "refChain": []
+    },
+    "scn_1780466505463_urygn": {
+      "id": "scn_1780466505463_urygn",
+      "name": "推送MES检验结果",
+      "description": "推送检验结果到MES",
+      "createdAt": "2026-06-03T06:01:45.464Z",
+      "updatedAt": "2026-06-03T06:24:57.905Z",
+      "deleted": false,
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "jid",
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsInNzb190eXBlIjowLCJ1c2VyX25hbWUiOiLns7vnu5_phY3nva7nlKjmiLciLCJhdHRyS2V5IjoiIiwidGVuYW50X3R5cGUiOiJUMyIsInR0bCI6IiIsImlzU2lnbkxvZyI6ZmFsc2UsInVzZXJfaWQiOiIxIiwibG9naW5fbmEiOiJhZG1pbiIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDQ2NTcxMywiaXNzIjoiUXoifQ.ojnPsb-2Ka4DESik7xOMtQ9VoLK-VnlWMhukjqNx55A",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "btnCode",
+            "default": "PUSH_TEST_VALUE_TO_NCORMES",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\r\n  \"ids\": \"2163805834122\"\r\n}",
+            "type": "json",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1780368063185_5x15ni0u9",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1780368063185_5x15ni0u9",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "assertions": [
+        {
+          "expression": "$.status == true",
           "enabled": true
         }
       ],

@@ -1,0 +1,141 @@
+{
+  "id": "api_1780456163539_vk9uyzq10",
+  "name": "添加未报告备注",
+  "method": "POST",
+  "api_path": "{domain}{api-prj}/outward/receiveLabUnfinishedRemark",
+  "group": "default",
+  "scenarios": {
+    "scn_default": {
+      "id": "scn_default",
+      "name": "默认场景",
+      "description": "",
+      "createdAt": "2026-06-03T03:09:23.561Z",
+      "updatedAt": "2026-06-03T06:29:22.215Z",
+      "deleted": false,
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"333\",\r\n  \"remark\":\"再来一条\"\r\n}",
+        "schema": {
+          "id": "node_1780468123488_gdl479g2e",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1780468123488_8wzq2u6dj",
+              "type": "string",
+              "key": "createUser",
+              "value": "aq",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780468123488_tbg0p14o7",
+              "type": "string",
+              "key": "testNo",
+              "value": "2605100042",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780468123488_ro7r8axry",
+              "type": "string",
+              "key": "type",
+              "value": "333",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780468123488_2ytz5tiun",
+              "type": "string",
+              "key": "remark",
+              "value": "再来一条",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "contents": {
+          "json": {
+            "content": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"333\",\r\n  \"remark\":\"再来一条\"\r\n}",
+            "schema": {
+              "id": "node_1780468123488_gdl479g2e",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1780468123488_8wzq2u6dj",
+                  "type": "string",
+                  "key": "createUser",
+                  "value": "aq",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780468123488_tbg0p14o7",
+                  "type": "string",
+                  "key": "testNo",
+                  "value": "2605100042",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780468123488_ro7r8axry",
+                  "type": "string",
+                  "key": "type",
+                  "value": "333",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780468123488_2ytz5tiun",
+                  "type": "string",
+                  "key": "remark",
+                  "value": "再来一条",
+                  "description": "",
+                  "children": []
+                }
+              ]
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "assertions": [
+        {
+          "expression": "",
+          "enabled": true
+        }
+      ],
+      "refChain": []
+    }
+  }
+}

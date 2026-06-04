@@ -10,7 +10,7 @@
       "name": "默认场景",
       "description": "",
       "createdAt": "2026-05-29T10:50:06.086Z",
-      "updatedAt": "2026-05-29T11:23:35.256Z",
+      "updatedAt": "2026-06-03T07:41:28.864Z",
       "deleted": false,
       "header": [
         {
@@ -28,16 +28,16 @@
         "xwwwFormUrlencoded": [],
         "activeContentType": "json",
         "contentType": "json",
-        "content": "{\r\n  \"type\": \"XMSH_YS\",\r\n  \"itemIds\": \"2159810122728,2160604932050\"\r\n}",
+        "content": "{\r\n  \"type\": \"XMSH_YS\",\r\n  \"itemIds\": \"2163922740804\"\r\n}",
         "schema": {
-          "id": "node_1780053627219_x5ojbyk63",
+          "id": "node_1780472486979_uskwjgyvs",
           "type": "object",
           "key": null,
           "value": null,
           "description": "",
           "children": [
             {
-              "id": "node_1780053627219_2ouixzt6n",
+              "id": "node_1780472486979_1cu9qa2yf",
               "type": "string",
               "key": "type",
               "value": "XMSH_YS",
@@ -45,10 +45,10 @@
               "children": []
             },
             {
-              "id": "node_1780053627219_0ng5o834s",
+              "id": "node_1780472486979_yo7kdgf8j",
               "type": "string",
               "key": "itemIds",
-              "value": "2159810122728,2160604932050",
+              "value": "2163922740804",
               "description": "",
               "children": []
             }
@@ -56,16 +56,16 @@
         },
         "contents": {
           "json": {
-            "content": "{\r\n  \"type\": \"XMSH_YS\",\r\n  \"itemIds\": \"2159810122728,2160604932050\"\r\n}",
+            "content": "{\r\n  \"type\": \"XMSH_YS\",\r\n  \"itemIds\": \"2163922740804\"\r\n}",
             "schema": {
-              "id": "node_1780053627219_x5ojbyk63",
+              "id": "node_1780472486979_uskwjgyvs",
               "type": "object",
               "key": null,
               "value": null,
               "description": "",
               "children": [
                 {
-                  "id": "node_1780053627219_2ouixzt6n",
+                  "id": "node_1780472486979_1cu9qa2yf",
                   "type": "string",
                   "key": "type",
                   "value": "XMSH_YS",
@@ -73,10 +73,10 @@
                   "children": []
                 },
                 {
-                  "id": "node_1780053627219_0ng5o834s",
+                  "id": "node_1780472486979_yo7kdgf8j",
                   "type": "string",
                   "key": "itemIds",
-                  "value": "2159810122728,2160604932050",
+                  "value": "2163922740804",
                   "description": "",
                   "children": []
                 }

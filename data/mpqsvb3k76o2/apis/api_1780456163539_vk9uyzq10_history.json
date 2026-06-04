@@ -1,0 +1,970 @@
+[
+  {
+    "id": 1780468162425,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1780456163539_vk9uyzq10",
+    "apiName": "添加未报告备注",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/outward/receiveLabUnfinishedRemark",
+    "timestamp": "2026/6/3 14:29:22",
+    "apiConfig": {
+      "name": "添加未报告备注",
+      "group": "default",
+      "api_path": "{domain}{api-prj}/outward/receiveLabUnfinishedRemark",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": {
+        "content": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"333\",\r\n  \"remark\":\"再来一条\"\r\n}",
+        "schema": {
+          "id": "node_1780468123488_gdl479g2e",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1780468123488_8wzq2u6dj",
+              "type": "string",
+              "key": "createUser",
+              "value": "aq",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780468123488_tbg0p14o7",
+              "type": "string",
+              "key": "testNo",
+              "value": "2605100042",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780468123488_ro7r8axry",
+              "type": "string",
+              "key": "type",
+              "value": "333",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780468123488_2ytz5tiun",
+              "type": "string",
+              "key": "remark",
+              "value": "再来一条",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "https://192.168.2.213:23200/api-prj/outward/receiveLabUnfinishedRemark",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"333\",\r\n  \"remark\":\"再来一条\"\r\n}",
+        "schema": {
+          "id": "node_1780468123488_gdl479g2e",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1780468123488_8wzq2u6dj",
+              "type": "string",
+              "key": "createUser",
+              "value": "aq",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780468123488_tbg0p14o7",
+              "type": "string",
+              "key": "testNo",
+              "value": "2605100042",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780468123488_ro7r8axry",
+              "type": "string",
+              "key": "type",
+              "value": "333",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780468123488_2ytz5tiun",
+              "type": "string",
+              "key": "remark",
+              "value": "再来一条",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "contents": {
+          "json": {
+            "content": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"333\",\r\n  \"remark\":\"再来一条\"\r\n}",
+            "schema": {
+              "id": "node_1780468123488_gdl479g2e",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1780468123488_8wzq2u6dj",
+                  "type": "string",
+                  "key": "createUser",
+                  "value": "aq",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780468123488_tbg0p14o7",
+                  "type": "string",
+                  "key": "testNo",
+                  "value": "2605100042",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780468123488_ro7r8axry",
+                  "type": "string",
+                  "key": "type",
+                  "value": "333",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780468123488_2ytz5tiun",
+                  "type": "string",
+                  "key": "remark",
+                  "value": "再来一条",
+                  "description": "",
+                  "children": []
+                }
+              ]
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "OK",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "code": 200,
+        "error": "",
+        "list": [],
+        "obj": "Ok",
+        "status": true
+      },
+      "headers": {
+        "server": "nginx/1.25.5",
+        "date": "Wed, 03 Jun 2026 06:29:22 GMT",
+        "content-type": "application/json;charset=UTF-8",
+        "content-length": "58",
+        "connection": "close",
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+        "pragma": "no-cache",
+        "expires": "0",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1 ; mode=block",
+        "referrer-policy": "no-referrer",
+        "access-control-expose-headers": "Content-disposition"
+      },
+      "elapsedTime": "0.21s",
+      "responseSize": "58 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "https://192.168.2.213:23200/api-prj/outward/receiveLabUnfinishedRemark",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "params": {},
+        "body": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"333\",\r\n  \"remark\":\"再来一条\"\r\n}",
+        "bodyType": "raw"
+      },
+      "_startTime": 1780468162217,
+      "_endTime": 1780468162425
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.21s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "code": 200,
+      "error": "",
+      "list": [],
+      "obj": "Ok",
+      "status": true
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "server": "nginx/1.25.5",
+      "date": "Wed, 03 Jun 2026 06:29:22 GMT",
+      "content-type": "application/json;charset=UTF-8",
+      "content-length": "58",
+      "connection": "close",
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+      "pragma": "no-cache",
+      "expires": "0",
+      "x-content-type-options": "nosniff",
+      "x-xss-protection": "1 ; mode=block",
+      "referrer-policy": "no-referrer",
+      "access-control-expose-headers": "Content-disposition"
+    },
+    "allResults": {
+      "api_1780456163539_vk9uyzq10": {
+        "status_code": 200,
+        "status_text": "OK",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "code": 200,
+          "error": "",
+          "list": [],
+          "obj": "Ok",
+          "status": true
+        },
+        "headers": {
+          "server": "nginx/1.25.5",
+          "date": "Wed, 03 Jun 2026 06:29:22 GMT",
+          "content-type": "application/json;charset=UTF-8",
+          "content-length": "58",
+          "connection": "close",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+          "pragma": "no-cache",
+          "expires": "0",
+          "x-content-type-options": "nosniff",
+          "x-xss-protection": "1 ; mode=block",
+          "referrer-policy": "no-referrer",
+          "access-control-expose-headers": "Content-disposition"
+        },
+        "elapsedTime": "0.21s",
+        "responseSize": "58 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "https://192.168.2.213:23200/api-prj/outward/receiveLabUnfinishedRemark",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "params": {},
+          "body": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"333\",\r\n  \"remark\":\"再来一条\"\r\n}",
+          "bodyType": "raw"
+        },
+        "_startTime": 1780468162217,
+        "_endTime": 1780468162425
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1780456163539_vk9uyzq10",
+        "name": "添加未报告备注",
+        "result": {
+          "status_code": 200,
+          "status_text": "OK",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "code": 200,
+            "error": "",
+            "list": [],
+            "obj": "Ok",
+            "status": true
+          },
+          "headers": {
+            "server": "nginx/1.25.5",
+            "date": "Wed, 03 Jun 2026 06:29:22 GMT",
+            "content-type": "application/json;charset=UTF-8",
+            "content-length": "58",
+            "connection": "close",
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+            "pragma": "no-cache",
+            "expires": "0",
+            "x-content-type-options": "nosniff",
+            "x-xss-protection": "1 ; mode=block",
+            "referrer-policy": "no-referrer",
+            "access-control-expose-headers": "Content-disposition"
+          },
+          "elapsedTime": "0.21s",
+          "responseSize": "58 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "https://192.168.2.213:23200/api-prj/outward/receiveLabUnfinishedRemark",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "params": {},
+            "body": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"333\",\r\n  \"remark\":\"再来一条\"\r\n}",
+            "bodyType": "raw"
+          },
+          "_startTime": 1780468162217,
+          "_endTime": 1780468162425
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1780468128380,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1780456163539_vk9uyzq10",
+    "apiName": "添加未报告备注",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/outward/receiveLabUnfinishedRemark",
+    "timestamp": "2026/6/3 14:28:48",
+    "apiConfig": {
+      "name": "添加未报告备注",
+      "group": "default",
+      "api_path": "{domain}{api-prj}/outward/receiveLabUnfinishedRemark",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": {
+        "content": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"333\",\r\n  \"remark\":\"再来一条\"\r\n}",
+        "schema": {
+          "id": "node_1780468123488_gdl479g2e",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1780468123488_8wzq2u6dj",
+              "type": "string",
+              "key": "createUser",
+              "value": "aq",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780468123488_tbg0p14o7",
+              "type": "string",
+              "key": "testNo",
+              "value": "2605100042",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780468123488_ro7r8axry",
+              "type": "string",
+              "key": "type",
+              "value": "333",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780468123488_2ytz5tiun",
+              "type": "string",
+              "key": "remark",
+              "value": "再来一条",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "https://192.168.2.213:23200/api-prj/outward/receiveLabUnfinishedRemark",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"333\",\r\n  \"remark\":\"再来一条\"\r\n}",
+        "schema": {
+          "id": "node_1780468123488_gdl479g2e",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1780468123488_8wzq2u6dj",
+              "type": "string",
+              "key": "createUser",
+              "value": "aq",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780468123488_tbg0p14o7",
+              "type": "string",
+              "key": "testNo",
+              "value": "2605100042",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780468123488_ro7r8axry",
+              "type": "string",
+              "key": "type",
+              "value": "333",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780468123488_2ytz5tiun",
+              "type": "string",
+              "key": "remark",
+              "value": "再来一条",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "contents": {
+          "json": {
+            "content": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"333\",\r\n  \"remark\":\"再来一条\"\r\n}",
+            "schema": {
+              "id": "node_1780468123488_gdl479g2e",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1780468123488_8wzq2u6dj",
+                  "type": "string",
+                  "key": "createUser",
+                  "value": "aq",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780468123488_tbg0p14o7",
+                  "type": "string",
+                  "key": "testNo",
+                  "value": "2605100042",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780468123488_ro7r8axry",
+                  "type": "string",
+                  "key": "type",
+                  "value": "333",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780468123488_2ytz5tiun",
+                  "type": "string",
+                  "key": "remark",
+                  "value": "再来一条",
+                  "description": "",
+                  "children": []
+                }
+              ]
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "TIMEOUT",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "3.00s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "请求超时",
+      "errorType": "timeout",
+      "requestConfig": {
+        "url": "https://192.168.2.213:23200/api-prj/outward/receiveLabUnfinishedRemark",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "params": {},
+        "body": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"333\",\r\n  \"remark\":\"再来一条\"\r\n}",
+        "bodyType": "raw"
+      },
+      "_startTime": 1780468125377,
+      "_endTime": 1780468128380
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "3.00s",
+    "error": "请求超时",
+    "errorType": "timeout",
+    "assertionResult": null,
+    "responseHeaders": {},
+    "allResults": {
+      "api_1780456163539_vk9uyzq10": {
+        "status_text": "TIMEOUT",
+        "httpSuccess": false,
+        "success": false,
+        "headers": {},
+        "elapsedTime": "3.00s",
+        "responseSize": "0 B",
+        "assertionResult": null,
+        "error": "请求超时",
+        "errorType": "timeout",
+        "requestConfig": {
+          "url": "https://192.168.2.213:23200/api-prj/outward/receiveLabUnfinishedRemark",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "params": {},
+          "body": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"333\",\r\n  \"remark\":\"再来一条\"\r\n}",
+          "bodyType": "raw"
+        },
+        "_startTime": 1780468125377,
+        "_endTime": 1780468128380
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1780456163539_vk9uyzq10",
+        "name": "添加未报告备注",
+        "result": {
+          "status_text": "TIMEOUT",
+          "httpSuccess": false,
+          "success": false,
+          "headers": {},
+          "elapsedTime": "3.00s",
+          "responseSize": "0 B",
+          "assertionResult": null,
+          "error": "请求超时",
+          "errorType": "timeout",
+          "requestConfig": {
+            "url": "https://192.168.2.213:23200/api-prj/outward/receiveLabUnfinishedRemark",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "params": {},
+            "body": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"333\",\r\n  \"remark\":\"再来一条\"\r\n}",
+            "bodyType": "raw"
+          },
+          "_startTime": 1780468125377,
+          "_endTime": 1780468128380
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1780456620322,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1780456163539_vk9uyzq10",
+    "apiName": "添加未报告备注",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/outward/receiveLabUnfinishedRemark",
+    "timestamp": "2026/6/3 11:17:00",
+    "apiConfig": {
+      "name": "添加未报告备注",
+      "group": "default",
+      "api_path": "{domain}{api-prj}/outward/receiveLabUnfinishedRemark",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": {
+        "content": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"333\",\r\n  \"remark\":\"222\"\r\n}",
+        "schema": {
+          "id": "node_1780456346323_wvjq2zlim",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1780456346323_u60sgi8y4",
+              "type": "string",
+              "key": "createUser",
+              "value": "aq",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780456346323_i6dg9jhsq",
+              "type": "string",
+              "key": "testNo",
+              "value": "2605100042",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780456346323_n0wtmurp2",
+              "type": "string",
+              "key": "type",
+              "value": "333",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780456346323_16nule50j",
+              "type": "string",
+              "key": "remark",
+              "value": "222",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"333\",\r\n  \"remark\":\"222\"\r\n}",
+        "schema": {
+          "id": "node_1780456346323_wvjq2zlim",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1780456346323_u60sgi8y4",
+              "type": "string",
+              "key": "createUser",
+              "value": "aq",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780456346323_i6dg9jhsq",
+              "type": "string",
+              "key": "testNo",
+              "value": "2605100042",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780456346323_n0wtmurp2",
+              "type": "string",
+              "key": "type",
+              "value": "333",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780456346323_16nule50j",
+              "type": "string",
+              "key": "remark",
+              "value": "222",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "contents": {
+          "json": {
+            "content": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"333\",\r\n  \"remark\":\"222\"\r\n}",
+            "schema": {
+              "id": "node_1780456346323_wvjq2zlim",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1780456346323_u60sgi8y4",
+                  "type": "string",
+                  "key": "createUser",
+                  "value": "aq",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780456346323_i6dg9jhsq",
+                  "type": "string",
+                  "key": "testNo",
+                  "value": "2605100042",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780456346323_n0wtmurp2",
+                  "type": "string",
+                  "key": "type",
+                  "value": "333",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780456346323_16nule50j",
+                  "type": "string",
+                  "key": "remark",
+                  "value": "222",
+                  "description": "",
+                  "children": []
+                }
+              ]
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "code": 200,
+        "error": "",
+        "list": [],
+        "obj": "Ok",
+        "status": true
+      },
+      "headers": {
+        "content-type": "application/json;charset=UTF-8",
+        "content-length": "58",
+        "date": "Wed, 03 Jun 2026 03:17:00 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.40s",
+      "responseSize": "58 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "params": {},
+        "body": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"333\",\r\n  \"remark\":\"222\"\r\n}",
+        "bodyType": "raw"
+      },
+      "_startTime": 1780456619920,
+      "_endTime": 1780456620321
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.40s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "code": 200,
+      "error": "",
+      "list": [],
+      "obj": "Ok",
+      "status": true
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "content-type": "application/json;charset=UTF-8",
+      "content-length": "58",
+      "date": "Wed, 03 Jun 2026 03:17:00 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1780456163539_vk9uyzq10": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "code": 200,
+          "error": "",
+          "list": [],
+          "obj": "Ok",
+          "status": true
+        },
+        "headers": {
+          "content-type": "application/json;charset=UTF-8",
+          "content-length": "58",
+          "date": "Wed, 03 Jun 2026 03:17:00 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.40s",
+        "responseSize": "58 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "params": {},
+          "body": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"333\",\r\n  \"remark\":\"222\"\r\n}",
+          "bodyType": "raw"
+        },
+        "_startTime": 1780456619920,
+        "_endTime": 1780456620321
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1780456163539_vk9uyzq10",
+        "name": "添加未报告备注",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "code": 200,
+            "error": "",
+            "list": [],
+            "obj": "Ok",
+            "status": true
+          },
+          "headers": {
+            "content-type": "application/json;charset=UTF-8",
+            "content-length": "58",
+            "date": "Wed, 03 Jun 2026 03:17:00 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.40s",
+          "responseSize": "58 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "params": {},
+            "body": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"333\",\r\n  \"remark\":\"222\"\r\n}",
+            "bodyType": "raw"
+          },
+          "_startTime": 1780456619920,
+          "_endTime": 1780456620321
+        },
+        "isTarget": true
+      }
+    ]
+  }
+]

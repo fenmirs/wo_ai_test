@@ -12,6 +12,17 @@
       "config-prj": ":23226/config-prj",
       "gzyq-prj": ":23202/gzyq-prj",
       "jlgl-prj": ":23216/jlgl-prj"
+    },
+    {
+      "name": "公司测试",
+      "activate": false,
+      "domain": "https://192.168.2.213:23200",
+      "api-prj": "/api-prj",
+      "config-prj": "",
+      "gzyq-prj": "",
+      "jlgl-prj": "",
+      "lcgl-prj": "/lcgl-prj",
+      "tm-prj": ""
     }
   ],
   "groups": [],
@@ -22,6 +33,21 @@
       "method": "POST",
       "api_path": "{domain}{lcgl-prj}/order/item/sop/validate",
       "group": "default"
+    },
+    {
+      "id": "api_1780456163539_vk9uyzq10",
+      "name": "添加未报告备注",
+      "method": "POST",
+      "api_path": "{domain}{api-prj}/outward/receiveLabUnfinishedRemark",
+      "group": "default"
+    },
+    {
+      "id": "api_1780475108286_eli7m8swq",
+      "name": "获取强势SOP配置",
+      "method": "GET",
+      "api_path": "{domain}{lcgl-prj}/order/findSopPower",
+      "group": "default"
     }
-  ]
+  ],
+  "requestTimeout": 5000
 }
