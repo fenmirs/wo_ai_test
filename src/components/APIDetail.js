@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, Trash2, Plus, X, AlertCircle, FileText, Save, FileDown, Code, Layout, Edit, Zap } from 'lucide-react';
+import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, Trash2, Plus, X, AlertCircle, FileText, Save, FileDown, Code, Layout, Edit, Zap, Upload } from 'lucide-react';
 import './APIDetail.css';
 import ChainManager from '../utils/ChainManager';
 import { projectManager } from '../utils/ProjectManager';
@@ -14,6 +14,7 @@ import KVBottomPanel from './KVBottomPanel';
 import RefSelector from './RefSelector';
 import { toast } from './Toast';
 import { useProgress } from './ProgressOverlay';
+import ImportDialog from './ImportDialog';
 
 
 function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, groups = [], isTemporary = false, readOnly = false, onViewDetail, onRestoreHistory, onDeleteHistory, theme = 'dark', onResultChange, onDraftChange, onExecutingChange, requestedScenarioId, requestedScenarioAction, onScenarioChange, onRequestedScenarioActionHandled, onRequestedScenarioHandled }) {
@@ -102,6 +103,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const renameInputRef = useRef(null);
   const bodyEditorRef = useRef(null);
   const [showRefPicker, setShowRefPicker] = useState(false);
+  const [importSection, setImportSection] = useState(null);
 
   const apiHistory = history.filter(h =>
     (h.apiId && h.apiId === formData.id) ||
@@ -1294,6 +1296,37 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     setFormData(prev => ({ ...prev, body: newBody, header: newHeader }));
   };
 
+  const handleImportConfirm = (importedItems, overwriteConflicts) => {
+    if (!importSection) return;
+
+    const mergeItems = (currentItems) => {
+      const newItems = [...currentItems];
+      for (const item of importedItems) {
+        const existingIdx = newItems.findIndex(i => i.key === item.key);
+        if (existingIdx >= 0) {
+          if (overwriteConflicts) {
+            newItems[existingIdx] = { ...newItems[existingIdx], default: item.value };
+          }
+        } else {
+          newItems.push({ key: item.key, default: item.value, type: 'string', description: '', enabled: true });
+        }
+      }
+      return newItems;
+    };
+
+    if (importSection === 'formData') {
+      updateFormBody({ formData: mergeItems(formData.body.formData) });
+    } else if (importSection === 'xwww') {
+      updateFormBody({ xwwwFormUrlencoded: mergeItems(formData.body.xwwwFormUrlencoded) });
+    } else {
+      const currentItems = importSection === 'param' ? formData.param : formData.header;
+      const key = importSection === 'param' ? 'param' : 'header';
+      setFormData(prev => ({ ...prev, [key]: mergeItems(currentItems) }));
+    }
+
+    setImportSection(null);
+  };
+
   const insertRefAtCursor = (refString) => {
     const editor = bodyEditorRef.current;
     if (!editor) return;
@@ -1582,7 +1615,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
         {activeTab === 'params' && (
           <div className="tab-content">
-            <div className="params-options">
+            <div className="tab-options-bar">
               <label className="encode-toggle" title={formData.encodeParams ? 'URL 参数已启用编码' : 'URL 参数未编码'}>
                 <input type="checkbox" checked={formData.encodeParams}
                   onChange={(e) => setFormData(prev => ({ ...prev, encodeParams: e.target.checked }))} />
@@ -1591,6 +1624,12 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                 </span>
                 <span className="encode-toggle-label">URL 编码</span>
               </label>
+              <div className="tab-options-spacer" />
+              {!readOnly && (
+                <button className="tab-import-btn" onClick={() => setImportSection('param')}>
+                  <Upload size={12} /> 导入
+                </button>
+              )}
             </div>
             <KVTable
               items={formData.param}
@@ -1610,6 +1649,15 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
         {activeTab === 'headers' && (
           <div className="tab-content">
+            <div className="tab-options-bar">
+              <span className="tab-options-title">请求头</span>
+              <div className="tab-options-spacer" />
+              {!readOnly && (
+                <button className="tab-import-btn" onClick={() => setImportSection('header')}>
+                  <Upload size={12} /> 导入
+                </button>
+              )}
+            </div>
             <KVTable
               items={formData.header}
               onItemsChange={(items) => setFormData(prev => ({ ...prev, header: items }))}
@@ -1675,9 +1723,17 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
             {(formData.body.type === 'form-data' || formData.body.type === 'x-www-form-urlencoded') && (
               <div className="body-form">
-                <p className="body-hint">
-                  {formData.body.type === 'form-data' ? '支持 String、Number、Boolean、File 类型' : '支持 String、Number、Boolean 类型'}
-                </p>
+                <div className="tab-options-bar">
+                  <p className="body-hint">
+                    {formData.body.type === 'form-data' ? '支持 String、Number、Boolean、File 类型' : '支持 String、Number、Boolean 类型'}
+                  </p>
+                  <div className="tab-options-spacer" />
+                  {!readOnly && (
+                    <button className="tab-import-btn" onClick={() => setImportSection(formData.body.type === 'form-data' ? 'formData' : 'xwww')}>
+                      <Upload size={12} /> 导入
+                    </button>
+                  )}
+                </div>
                 {(() => {
                   const section = formData.body.type === 'form-data' ? 'formData' : 'xwww';
                   const items = section === 'formData' ? formData.body.formData : formData.body.xwwwFormUrlencoded;
@@ -2075,6 +2131,20 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
           theme={theme}
           onInsert={(ref) => { insertRefAtCursor(ref); setShowRefPicker(false); }}
           onClose={() => setShowRefPicker(false)}
+        />
+      )}
+
+      {importSection && (
+        <ImportDialog
+          section={importSection}
+          existingItems={
+            importSection === 'param' ? formData.param :
+            importSection === 'header' ? formData.header :
+            importSection === 'formData' ? formData.body.formData :
+            formData.body.xwwwFormUrlencoded
+          }
+          onConfirm={handleImportConfirm}
+          onClose={() => setImportSection(null)}
         />
       )}
       </div>

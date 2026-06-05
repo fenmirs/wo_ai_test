@@ -14,6 +14,8 @@
 - ✅ **JSON/XML 可视化编辑** - JSON 和 XML 均支持代码模式和 UI 树模式双编辑
 - ✅ **变量引用** - 可视化选择器配置 `{{ref:apiId.fieldPath}}`
 - ✅ **断言验证** - JSONPath 表达式，支持多条断言
+- ✅ **Params URL 编码开关** - 全局控制是否对参数值做百分比编码
+- ✅ **批量导入** - Params/Headers/Body (form-data/x-www-form-urlencoded) 支持从剪贴板导入，自动格式检测 + 冲突对比
 - ✅ **Body 类型** - none / form-data / x-www-form-urlencoded / raw
 - ✅ **显式保存** - 保存按钮手动保存，编辑完成后再提交，避免频繁自动触发脏标记
 - ✅ **通知系统** - 按项目隔离的内存通知，支持文件位置打开等操作按钮
@@ -68,6 +70,7 @@ api_test_ui/
 │   │   ├── HistoryDetailDialog.js / .css # 历史详情弹窗
 │   │   ├── ChainSelector.js / .css  # 依赖链选择器
 │   │   ├── InputDialog.js / .css    # 输入对话框
+│   │   ├── ImportDialog.js / .css   # 批量导入对话框（Params/Headers/Body）
 │   │   ├── ConfirmDialog.js / .css  # 确认对话框
 │   │   ├── EmbeddedProgress.js / .css # 进度组件（进度条/问题表格/操作按钮）
 │   │   ├── ProgressOverlay.js / .css # 全局进度覆盖层
@@ -366,6 +369,17 @@ $.success == true
 - **保护规则** — `deleteGroup` 跳过 `id === 'default'` 的分组；不支持拖拽、重命名、删除；新建分组禁止命名为"默认"
 
 ## 变更记录
+
+### 2026-06-05（Params URL 编码开关 + 批量导入功能）
+- **URL 编码开关** — Params tab 添加全局 `URL 编码` toggle（默认开启），关闭后参数值原样发送不做 `encodeURIComponent`
+- **导入对话框（ImportDialog）** — 新增独立组件，支持 Params / Headers / Body (form-data / x-www-form-urlencoded) 批量导入
+  - 支持 Query String (`key=val&key2=val2`) 和 Chrome Headers (`Key: Value`) 两种格式自动检测
+  - 粘贴完整 URL 时自动截取 `?` 后的 query string
+  - 导入值自动 `decodeURIComponent` 解码（`%7B` → `{`）
+  - 预览列表展示所有解析条目，区分「新」/「冲突」标签
+  - 冲突项展示「现有值 vs 导入值」新旧对比
+  - 全选/取消全选 + 逐条勾选，灵活组合
+  - 「覆盖所有冲突项」开关控制冲突策略（勾选=覆盖，不勾=保留）
 
 ### 2026-05-29（调用链 Body 修复 + KV 复制反馈）
 - **调用链 Body 修复** — `ChainManager.findAPIById` 改为通过 `loadAPIFn` 加载完整 API 数据（含 header/param/body），修复链式请求中前置 API 无请求体发送的问题

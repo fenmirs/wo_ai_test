@@ -943,13 +943,45 @@
   flex-direction: column;
 }
 
-/* Params 编码开关 */
-.params-options {
+/* Tab 选项栏（参数编码 + 导入按钮） */
+.tab-options-bar {
   display: flex;
   align-items: center;
   padding-bottom: 8px;
   border-bottom: 1px solid var(--border-color);
   margin-bottom: 8px;
+  gap: 8px;
+}
+
+.tab-options-title {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.tab-options-spacer {
+  flex: 1;
+}
+
+.tab-import-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-secondary);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.tab-import-btn:hover {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: var(--accent-text);
 }
 
 .encode-toggle {
