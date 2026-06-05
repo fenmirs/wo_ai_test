@@ -1,7 +1,8 @@
 # WoAiTest
 
 基于 Electron + React 的 API 测试工具桌面应用，提供直观的图形界面来管理项目、配置环境和执行 API 测试。
-
+![alt text](界面展示-欢迎.png)
+![alt text](界面展示.png)
 ## 功能特性
 
 ### 核心功能
