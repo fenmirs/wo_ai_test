@@ -9,7 +9,7 @@ function EmptyState({ onImportProject, onNewProject }) {
         <div className="empty-icon">
           <FolderOpen size={64} />
         </div>
-        <h2>欢迎使用 APITestUI</h2>
+        <h2>欢迎使用 WoAiTest</h2>
         <p className="empty-description">
           请选择一个空间目录开始使用
         </p>
