@@ -1,0 +1,132 @@
+{
+  "id": "api_1780626415668_im1ddbaub",
+  "name": "PSI任务分派",
+  "method": "GET",
+  "api_path": "{domain}{lcgl-prj}/mobile/psiTask/getPsiAssignList",
+  "group": "default",
+  "scenarios": {
+    "scn_default": {
+      "id": "scn_default",
+      "name": "默认场景",
+      "description": "",
+      "createdAt": "2026-06-05T02:26:55.696Z",
+      "updatedAt": "2026-06-05T02:33:23.610Z",
+      "deleted": false,
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [
+        {
+          "key": "pageIndex",
+          "default": "1",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "pageSize",
+          "default": "10",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "receiveType",
+          "default": "0",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "searchReportNo",
+          "default": "",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "searchOrderNo",
+          "default": "",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "searchVoNo",
+          "default": "",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "searchNo",
+          "default": "",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "JID",
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjoxLCJpcF9hZGRyIjoiMTkyLjE2OC40LjQxIiwiaWF0IjoxNzgwNTYyNzQ4LCJpc3MiOiJReiJ9.4_GHX25dMepZXuoc7MmS9lcUpuUH9iq8vOjf7Xp0soA",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1780626415698_xsrcsp547",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1780626415698_xsrcsp547",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "assertions": [
+        {
+          "expression": "",
+          "enabled": true
+        }
+      ],
+      "refChain": []
+    }
+  }
+}

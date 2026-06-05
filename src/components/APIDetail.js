@@ -61,6 +61,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     group: '默认',
     api_path: '',
     method: 'GET',
+    encodeParams: true,
     header: [],
     param: [],
     body: {
@@ -434,6 +435,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       group: apiData.group || '默认',
       api_path: apiPath,
       method: apiMethod,
+      encodeParams: apiData.encodeParams !== false,
       header: firstScenario?.header || parseToArray({ ...defaultHeader, ...apiData.header }),
       param: firstScenario?.param || parseToArray(apiData.param),
       body: firstScenario?.body || parseBodyData(apiData.body, { ...defaultHeader, ...apiData.header }),
@@ -487,6 +489,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       group: cfg.group || '默认',
       api_path: apiPath,
       method: apiMethod,
+      encodeParams: cfg.encodeParams !== false,
       header: parseToArray({ ...defaultHeader, ...cfg.header }),
       param: parseToArray(cfg.param),
       body: parseBodyData(cfg.body, { ...defaultHeader, ...cfg.header }),
@@ -1180,6 +1183,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       group: formData.group,
       api_path: formData.api_path,
       method: formData.method,
+      encodeParams: formData.encodeParams,
       header: headerObj,
       param: paramObj,
       body,
@@ -1578,6 +1582,16 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
         {activeTab === 'params' && (
           <div className="tab-content">
+            <div className="params-options">
+              <label className="encode-toggle" title={formData.encodeParams ? 'URL 参数已启用编码' : 'URL 参数未编码'}>
+                <input type="checkbox" checked={formData.encodeParams}
+                  onChange={(e) => setFormData(prev => ({ ...prev, encodeParams: e.target.checked }))} />
+                <span className="encode-toggle-track">
+                  <span className="encode-toggle-thumb" />
+                </span>
+                <span className="encode-toggle-label">URL 编码</span>
+              </label>
+            </div>
             <KVTable
               items={formData.param}
               onItemsChange={(items) => setFormData(prev => ({ ...prev, param: items }))}

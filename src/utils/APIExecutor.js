@@ -334,8 +334,10 @@ class APIExecutor {
       // 解析 URL 参数
       let params = mergedAPI.param || {};
       params = this.resolveDict(params, this.apiResults);
-      // 对 URL 参数值进行百分比编码
-      params = sanitizeParams(params);
+      // 根据 encodeParams 开关决定是否对 URL 参数值进行百分比编码
+      if (mergedAPI.encodeParams !== false) {
+        params = sanitizeParams(params);
+      }
 
       // 解析 Body
       let body = mergedAPI.body;

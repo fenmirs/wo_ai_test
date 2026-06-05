@@ -1,0 +1,1304 @@
+[
+  {
+    "id": 1780626803670,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1780626415668_im1ddbaub",
+    "apiName": "PSI任务分派",
+    "apiMethod": "GET",
+    "apiPath": "{domain}{lcgl-prj}/mobile/psiTask/getPsiAssignList",
+    "timestamp": "2026/6/5 10:33:23",
+    "apiConfig": {
+      "name": "PSI任务分派",
+      "group": "default",
+      "api_path": "{domain}{lcgl-prj}/mobile/psiTask/getPsiAssignList",
+      "method": "GET",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {
+        "pageIndex": {
+          "default": "1",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        },
+        "pageSize": {
+          "default": "10",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        },
+        "receiveType": {
+          "default": "0",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        },
+        "searchReportNo": {
+          "default": "",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        },
+        "searchOrderNo": {
+          "default": "",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        },
+        "searchVoNo": {
+          "default": "",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        },
+        "searchNo": {
+          "default": "",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        },
+        "JID": {
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjoxLCJpcF9hZGRyIjoiMTkyLjE2OC40LjQxIiwiaWF0IjoxNzgwNTYyNzQ4LCJpc3MiOiJReiJ9.4_GHX25dMepZXuoc7MmS9lcUpuUH9iq8vOjf7Xp0soA",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        }
+      },
+      "body": {
+        "content": "{}",
+        "schema": {
+          "id": "node_1780626415698_xsrcsp547",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://192.168.17.128:25108/lcgl-prj/mobile/psiTask/getPsiAssignList",
+      "method": "GET",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [
+        {
+          "key": "pageIndex",
+          "default": "1",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "pageSize",
+          "default": "10",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "receiveType",
+          "default": "0",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "searchReportNo",
+          "default": "",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "searchOrderNo",
+          "default": "",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "searchVoNo",
+          "default": "",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "searchNo",
+          "default": "",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "JID",
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjoxLCJpcF9hZGRyIjoiMTkyLjE2OC40LjQxIiwiaWF0IjoxNzgwNTYyNzQ4LCJpc3MiOiJReiJ9.4_GHX25dMepZXuoc7MmS9lcUpuUH9iq8vOjf7Xp0soA",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1780626415698_xsrcsp547",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1780626415698_xsrcsp547",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "code": 0,
+        "status": "success",
+        "msg": "查询成功",
+        "data": {
+          "pages": 1,
+          "pageIndex": 1,
+          "pageSize": 10,
+          "rows": 1,
+          "list": [
+            {
+              "orderNo": "CSICLS26000004",
+              "executiveManager": "何超",
+              "executiveManagerTel": "18381306171",
+              "orderId": 2144458190816,
+              "expInspTime": null,
+              "vono": "1321-02",
+              "issueRemark": "",
+              "inspectionPlace": null,
+              "inspectionLocation": "cd",
+              "contact": "",
+              "tel": "",
+              "inspectionSchedule": "2026-05-06 00:00:00",
+              "taskId": 2144458190816
+            }
+          ]
+        }
+      },
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "422",
+        "date": "Fri, 05 Jun 2026 02:33:23 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.04s",
+      "responseSize": "410 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://192.168.17.128:25108/lcgl-prj/mobile/psiTask/getPsiAssignList",
+        "method": "GET",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "params": {
+          "pageIndex": "1",
+          "pageSize": "10",
+          "receiveType": "0",
+          "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjoxLCJpcF9hZGRyIjoiMTkyLjE2OC40LjQxIiwiaWF0IjoxNzgwNTYyNzQ4LCJpc3MiOiJReiJ9.4_GHX25dMepZXuoc7MmS9lcUpuUH9iq8vOjf7Xp0soA"
+        },
+        "body": "{}",
+        "bodyType": "raw"
+      },
+      "_startTime": 1780626803634,
+      "_endTime": 1780626803670
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.04s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "code": 0,
+      "status": "success",
+      "msg": "查询成功",
+      "data": {
+        "pages": 1,
+        "pageIndex": 1,
+        "pageSize": 10,
+        "rows": 1,
+        "list": [
+          {
+            "orderNo": "CSICLS26000004",
+            "executiveManager": "何超",
+            "executiveManagerTel": "18381306171",
+            "orderId": 2144458190816,
+            "expInspTime": null,
+            "vono": "1321-02",
+            "issueRemark": "",
+            "inspectionPlace": null,
+            "inspectionLocation": "cd",
+            "contact": "",
+            "tel": "",
+            "inspectionSchedule": "2026-05-06 00:00:00",
+            "taskId": 2144458190816
+          }
+        ]
+      }
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "422",
+      "date": "Fri, 05 Jun 2026 02:33:23 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1780626415668_im1ddbaub": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "code": 0,
+          "status": "success",
+          "msg": "查询成功",
+          "data": {
+            "pages": 1,
+            "pageIndex": 1,
+            "pageSize": 10,
+            "rows": 1,
+            "list": [
+              {
+                "orderNo": "CSICLS26000004",
+                "executiveManager": "何超",
+                "executiveManagerTel": "18381306171",
+                "orderId": 2144458190816,
+                "expInspTime": null,
+                "vono": "1321-02",
+                "issueRemark": "",
+                "inspectionPlace": null,
+                "inspectionLocation": "cd",
+                "contact": "",
+                "tel": "",
+                "inspectionSchedule": "2026-05-06 00:00:00",
+                "taskId": 2144458190816
+              }
+            ]
+          }
+        },
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "422",
+          "date": "Fri, 05 Jun 2026 02:33:23 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.04s",
+        "responseSize": "410 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://192.168.17.128:25108/lcgl-prj/mobile/psiTask/getPsiAssignList",
+          "method": "GET",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "params": {
+            "pageIndex": "1",
+            "pageSize": "10",
+            "receiveType": "0",
+            "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjoxLCJpcF9hZGRyIjoiMTkyLjE2OC40LjQxIiwiaWF0IjoxNzgwNTYyNzQ4LCJpc3MiOiJReiJ9.4_GHX25dMepZXuoc7MmS9lcUpuUH9iq8vOjf7Xp0soA"
+          },
+          "body": "{}",
+          "bodyType": "raw"
+        },
+        "_startTime": 1780626803634,
+        "_endTime": 1780626803670
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1780626415668_im1ddbaub",
+        "name": "PSI任务分派",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "code": 0,
+            "status": "success",
+            "msg": "查询成功",
+            "data": {
+              "pages": 1,
+              "pageIndex": 1,
+              "pageSize": 10,
+              "rows": 1,
+              "list": [
+                {
+                  "orderNo": "CSICLS26000004",
+                  "executiveManager": "何超",
+                  "executiveManagerTel": "18381306171",
+                  "orderId": 2144458190816,
+                  "expInspTime": null,
+                  "vono": "1321-02",
+                  "issueRemark": "",
+                  "inspectionPlace": null,
+                  "inspectionLocation": "cd",
+                  "contact": "",
+                  "tel": "",
+                  "inspectionSchedule": "2026-05-06 00:00:00",
+                  "taskId": 2144458190816
+                }
+              ]
+            }
+          },
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "422",
+            "date": "Fri, 05 Jun 2026 02:33:23 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.04s",
+          "responseSize": "410 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://192.168.17.128:25108/lcgl-prj/mobile/psiTask/getPsiAssignList",
+            "method": "GET",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "params": {
+              "pageIndex": "1",
+              "pageSize": "10",
+              "receiveType": "0",
+              "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjoxLCJpcF9hZGRyIjoiMTkyLjE2OC40LjQxIiwiaWF0IjoxNzgwNTYyNzQ4LCJpc3MiOiJReiJ9.4_GHX25dMepZXuoc7MmS9lcUpuUH9iq8vOjf7Xp0soA"
+            },
+            "body": "{}",
+            "bodyType": "raw"
+          },
+          "_startTime": 1780626803634,
+          "_endTime": 1780626803670
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1780626644214,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1780626415668_im1ddbaub",
+    "apiName": "PSI任务分派",
+    "apiMethod": "GET",
+    "apiPath": "{domain}{lcgl-prj}/mobile/psiTask/getPsiAssignList",
+    "timestamp": "2026/6/5 10:30:44",
+    "apiConfig": {
+      "name": "PSI任务分派",
+      "group": "default",
+      "api_path": "{domain}{lcgl-prj}/mobile/psiTask/getPsiAssignList",
+      "method": "GET",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {
+        "pageIndex": {
+          "default": "1",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        },
+        "pageSize": {
+          "default": "10",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        },
+        "receiveType": {
+          "default": "0",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        },
+        "searchReportNo": {
+          "default": "",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        },
+        "searchOrderNo": {
+          "default": "",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        },
+        "searchVoNo": {
+          "default": "",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        },
+        "searchNo": {
+          "default": "",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        },
+        "JID": {
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjoxLCJpcF9hZGRyIjoiMTkyLjE2OC40LjQxIiwiaWF0IjoxNzgwNTYyNzQ4LCJpc3MiOiJReiJ9.4_GHX25dMepZXuoc7MmS9lcUpuUH9iq8vOjf7Xp0soA",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        }
+      },
+      "body": {
+        "content": "{}",
+        "schema": {
+          "id": "node_1780626415698_xsrcsp547",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://192.168.17.128:25108/lcgl-prj/mobile/psiTask/getPsiAssignList",
+      "method": "GET",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [
+        {
+          "key": "pageIndex",
+          "default": "1",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "pageSize",
+          "default": "10",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "receiveType",
+          "default": "0",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "searchReportNo",
+          "default": "",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "searchOrderNo",
+          "default": "",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "searchVoNo",
+          "default": "",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "searchNo",
+          "default": "",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "JID",
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjoxLCJpcF9hZGRyIjoiMTkyLjE2OC40LjQxIiwiaWF0IjoxNzgwNTYyNzQ4LCJpc3MiOiJReiJ9.4_GHX25dMepZXuoc7MmS9lcUpuUH9iq8vOjf7Xp0soA",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1780626415698_xsrcsp547",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1780626415698_xsrcsp547",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "TIMEOUT",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "3.00s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "请求超时",
+      "errorType": "timeout",
+      "requestConfig": {
+        "url": "http://192.168.17.128:25108/lcgl-prj/mobile/psiTask/getPsiAssignList",
+        "method": "GET",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "params": {
+          "pageIndex": "1",
+          "pageSize": "10",
+          "receiveType": "0",
+          "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjoxLCJpcF9hZGRyIjoiMTkyLjE2OC40LjQxIiwiaWF0IjoxNzgwNTYyNzQ4LCJpc3MiOiJReiJ9.4_GHX25dMepZXuoc7MmS9lcUpuUH9iq8vOjf7Xp0soA"
+        },
+        "body": "{}",
+        "bodyType": "raw"
+      },
+      "_startTime": 1780626641207,
+      "_endTime": 1780626644214
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "3.00s",
+    "error": "请求超时",
+    "errorType": "timeout",
+    "assertionResult": null,
+    "responseHeaders": {},
+    "allResults": {
+      "api_1780626415668_im1ddbaub": {
+        "status_text": "TIMEOUT",
+        "httpSuccess": false,
+        "success": false,
+        "headers": {},
+        "elapsedTime": "3.00s",
+        "responseSize": "0 B",
+        "assertionResult": null,
+        "error": "请求超时",
+        "errorType": "timeout",
+        "requestConfig": {
+          "url": "http://192.168.17.128:25108/lcgl-prj/mobile/psiTask/getPsiAssignList",
+          "method": "GET",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "params": {
+            "pageIndex": "1",
+            "pageSize": "10",
+            "receiveType": "0",
+            "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjoxLCJpcF9hZGRyIjoiMTkyLjE2OC40LjQxIiwiaWF0IjoxNzgwNTYyNzQ4LCJpc3MiOiJReiJ9.4_GHX25dMepZXuoc7MmS9lcUpuUH9iq8vOjf7Xp0soA"
+          },
+          "body": "{}",
+          "bodyType": "raw"
+        },
+        "_startTime": 1780626641207,
+        "_endTime": 1780626644214
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1780626415668_im1ddbaub",
+        "name": "PSI任务分派",
+        "result": {
+          "status_text": "TIMEOUT",
+          "httpSuccess": false,
+          "success": false,
+          "headers": {},
+          "elapsedTime": "3.00s",
+          "responseSize": "0 B",
+          "assertionResult": null,
+          "error": "请求超时",
+          "errorType": "timeout",
+          "requestConfig": {
+            "url": "http://192.168.17.128:25108/lcgl-prj/mobile/psiTask/getPsiAssignList",
+            "method": "GET",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "params": {
+              "pageIndex": "1",
+              "pageSize": "10",
+              "receiveType": "0",
+              "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjoxLCJpcF9hZGRyIjoiMTkyLjE2OC40LjQxIiwiaWF0IjoxNzgwNTYyNzQ4LCJpc3MiOiJReiJ9.4_GHX25dMepZXuoc7MmS9lcUpuUH9iq8vOjf7Xp0soA"
+            },
+            "body": "{}",
+            "bodyType": "raw"
+          },
+          "_startTime": 1780626641207,
+          "_endTime": 1780626644214
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1780626616623,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1780626415668_im1ddbaub",
+    "apiName": "PSI任务分派",
+    "apiMethod": "GET",
+    "apiPath": "{domain}{lcgl-prj}/mobile/psiTask/getPsiAssignList",
+    "timestamp": "2026/6/5 10:30:16",
+    "apiConfig": {
+      "name": "PSI任务分派",
+      "group": "default",
+      "api_path": "{domain}{lcgl-prj}/mobile/psiTask/getPsiAssignList",
+      "method": "GET",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {
+        "pageIndex": {
+          "default": "1",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        },
+        "pageSize": {
+          "default": "10",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        },
+        "receiveType": {
+          "default": "0",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        },
+        "searchReportNo": {
+          "default": "",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        },
+        "searchOrderNo": {
+          "default": "",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        },
+        "searchVoNo": {
+          "default": "",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        },
+        "searchNo": {
+          "default": "",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        },
+        "JID": {
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjoxLCJpcF9hZGRyIjoiMTkyLjE2OC40LjQxIiwiaWF0IjoxNzgwNTYyNzQ4LCJpc3MiOiJReiJ9.4_GHX25dMepZXuoc7MmS9lcUpuUH9iq8vOjf7Xp0soA",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        }
+      },
+      "body": {
+        "content": "{}",
+        "schema": {
+          "id": "node_1780626415698_xsrcsp547",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://192.168.17.128:25108/lcgl-prj/mobile/psiTask/getPsiAssignList",
+      "method": "GET",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [
+        {
+          "key": "pageIndex",
+          "default": "1",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "pageSize",
+          "default": "10",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "receiveType",
+          "default": "0",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "searchReportNo",
+          "default": "",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "searchOrderNo",
+          "default": "",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "searchVoNo",
+          "default": "",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "searchNo",
+          "default": "",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "JID",
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjoxLCJpcF9hZGRyIjoiMTkyLjE2OC40LjQxIiwiaWF0IjoxNzgwNTYyNzQ4LCJpc3MiOiJReiJ9.4_GHX25dMepZXuoc7MmS9lcUpuUH9iq8vOjf7Xp0soA",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1780626415698_xsrcsp547",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1780626415698_xsrcsp547",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "code": 0,
+        "status": "success",
+        "msg": "查询成功",
+        "data": {
+          "pages": 1,
+          "pageIndex": 1,
+          "pageSize": 10,
+          "rows": 1,
+          "list": [
+            {
+              "columnNames": [
+                "orderNo",
+                "executiveManager",
+                "executiveManagerTel",
+                "orderId",
+                "expInspTime",
+                "vono",
+                "issueRemark",
+                "inspectionPlace",
+                "inspectionLocation",
+                "contact",
+                "tel",
+                "inspectionSchedule",
+                "taskId"
+              ],
+              "columnValues": [
+                "CSICLS26000004",
+                "何超",
+                "18381306171",
+                2144458190816,
+                null,
+                "1321-02",
+                "",
+                null,
+                "cd",
+                "",
+                "",
+                "2026-05-06 00:00:00",
+                2144458190816
+              ],
+              "columns": {
+                "orderNo": "CSICLS26000004",
+                "executiveManager": "何超",
+                "executiveManagerTel": "18381306171",
+                "orderId": 2144458190816,
+                "expInspTime": null,
+                "vono": "1321-02",
+                "issueRemark": "",
+                "inspectionPlace": null,
+                "inspectionLocation": "cd",
+                "contact": "",
+                "tel": "",
+                "inspectionSchedule": "2026-05-06 00:00:00",
+                "taskId": 2144458190816
+              }
+            }
+          ]
+        }
+      },
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "772",
+        "date": "Fri, 05 Jun 2026 02:30:16 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.91s",
+      "responseSize": "756 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://192.168.17.128:25108/lcgl-prj/mobile/psiTask/getPsiAssignList",
+        "method": "GET",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "params": {
+          "pageIndex": "1",
+          "pageSize": "10",
+          "receiveType": "0",
+          "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjoxLCJpcF9hZGRyIjoiMTkyLjE2OC40LjQxIiwiaWF0IjoxNzgwNTYyNzQ4LCJpc3MiOiJReiJ9.4_GHX25dMepZXuoc7MmS9lcUpuUH9iq8vOjf7Xp0soA"
+        },
+        "body": "{}",
+        "bodyType": "raw"
+      },
+      "_startTime": 1780626615711,
+      "_endTime": 1780626616623
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.91s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "code": 0,
+      "status": "success",
+      "msg": "查询成功",
+      "data": {
+        "pages": 1,
+        "pageIndex": 1,
+        "pageSize": 10,
+        "rows": 1,
+        "list": [
+          {
+            "columnNames": [
+              "orderNo",
+              "executiveManager",
+              "executiveManagerTel",
+              "orderId",
+              "expInspTime",
+              "vono",
+              "issueRemark",
+              "inspectionPlace",
+              "inspectionLocation",
+              "contact",
+              "tel",
+              "inspectionSchedule",
+              "taskId"
+            ],
+            "columnValues": [
+              "CSICLS26000004",
+              "何超",
+              "18381306171",
+              2144458190816,
+              null,
+              "1321-02",
+              "",
+              null,
+              "cd",
+              "",
+              "",
+              "2026-05-06 00:00:00",
+              2144458190816
+            ],
+            "columns": {
+              "orderNo": "CSICLS26000004",
+              "executiveManager": "何超",
+              "executiveManagerTel": "18381306171",
+              "orderId": 2144458190816,
+              "expInspTime": null,
+              "vono": "1321-02",
+              "issueRemark": "",
+              "inspectionPlace": null,
+              "inspectionLocation": "cd",
+              "contact": "",
+              "tel": "",
+              "inspectionSchedule": "2026-05-06 00:00:00",
+              "taskId": 2144458190816
+            }
+          }
+        ]
+      }
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "772",
+      "date": "Fri, 05 Jun 2026 02:30:16 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1780626415668_im1ddbaub": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "code": 0,
+          "status": "success",
+          "msg": "查询成功",
+          "data": {
+            "pages": 1,
+            "pageIndex": 1,
+            "pageSize": 10,
+            "rows": 1,
+            "list": [
+              {
+                "columnNames": [
+                  "orderNo",
+                  "executiveManager",
+                  "executiveManagerTel",
+                  "orderId",
+                  "expInspTime",
+                  "vono",
+                  "issueRemark",
+                  "inspectionPlace",
+                  "inspectionLocation",
+                  "contact",
+                  "tel",
+                  "inspectionSchedule",
+                  "taskId"
+                ],
+                "columnValues": [
+                  "CSICLS26000004",
+                  "何超",
+                  "18381306171",
+                  2144458190816,
+                  null,
+                  "1321-02",
+                  "",
+                  null,
+                  "cd",
+                  "",
+                  "",
+                  "2026-05-06 00:00:00",
+                  2144458190816
+                ],
+                "columns": {
+                  "orderNo": "CSICLS26000004",
+                  "executiveManager": "何超",
+                  "executiveManagerTel": "18381306171",
+                  "orderId": 2144458190816,
+                  "expInspTime": null,
+                  "vono": "1321-02",
+                  "issueRemark": "",
+                  "inspectionPlace": null,
+                  "inspectionLocation": "cd",
+                  "contact": "",
+                  "tel": "",
+                  "inspectionSchedule": "2026-05-06 00:00:00",
+                  "taskId": 2144458190816
+                }
+              }
+            ]
+          }
+        },
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "772",
+          "date": "Fri, 05 Jun 2026 02:30:16 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.91s",
+        "responseSize": "756 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://192.168.17.128:25108/lcgl-prj/mobile/psiTask/getPsiAssignList",
+          "method": "GET",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "params": {
+            "pageIndex": "1",
+            "pageSize": "10",
+            "receiveType": "0",
+            "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjoxLCJpcF9hZGRyIjoiMTkyLjE2OC40LjQxIiwiaWF0IjoxNzgwNTYyNzQ4LCJpc3MiOiJReiJ9.4_GHX25dMepZXuoc7MmS9lcUpuUH9iq8vOjf7Xp0soA"
+          },
+          "body": "{}",
+          "bodyType": "raw"
+        },
+        "_startTime": 1780626615711,
+        "_endTime": 1780626616623
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1780626415668_im1ddbaub",
+        "name": "PSI任务分派",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "code": 0,
+            "status": "success",
+            "msg": "查询成功",
+            "data": {
+              "pages": 1,
+              "pageIndex": 1,
+              "pageSize": 10,
+              "rows": 1,
+              "list": [
+                {
+                  "columnNames": [
+                    "orderNo",
+                    "executiveManager",
+                    "executiveManagerTel",
+                    "orderId",
+                    "expInspTime",
+                    "vono",
+                    "issueRemark",
+                    "inspectionPlace",
+                    "inspectionLocation",
+                    "contact",
+                    "tel",
+                    "inspectionSchedule",
+                    "taskId"
+                  ],
+                  "columnValues": [
+                    "CSICLS26000004",
+                    "何超",
+                    "18381306171",
+                    2144458190816,
+                    null,
+                    "1321-02",
+                    "",
+                    null,
+                    "cd",
+                    "",
+                    "",
+                    "2026-05-06 00:00:00",
+                    2144458190816
+                  ],
+                  "columns": {
+                    "orderNo": "CSICLS26000004",
+                    "executiveManager": "何超",
+                    "executiveManagerTel": "18381306171",
+                    "orderId": 2144458190816,
+                    "expInspTime": null,
+                    "vono": "1321-02",
+                    "issueRemark": "",
+                    "inspectionPlace": null,
+                    "inspectionLocation": "cd",
+                    "contact": "",
+                    "tel": "",
+                    "inspectionSchedule": "2026-05-06 00:00:00",
+                    "taskId": 2144458190816
+                  }
+                }
+              ]
+            }
+          },
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "772",
+            "date": "Fri, 05 Jun 2026 02:30:16 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.91s",
+          "responseSize": "756 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://192.168.17.128:25108/lcgl-prj/mobile/psiTask/getPsiAssignList",
+            "method": "GET",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "params": {
+              "pageIndex": "1",
+              "pageSize": "10",
+              "receiveType": "0",
+              "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjoxLCJpcF9hZGRyIjoiMTkyLjE2OC40LjQxIiwiaWF0IjoxNzgwNTYyNzQ4LCJpc3MiOiJReiJ9.4_GHX25dMepZXuoc7MmS9lcUpuUH9iq8vOjf7Xp0soA"
+            },
+            "body": "{}",
+            "bodyType": "raw"
+          },
+          "_startTime": 1780626615711,
+          "_endTime": 1780626616623
+        },
+        "isTarget": true
+      }
+    ]
+  }
+]

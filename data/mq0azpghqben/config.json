@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "projectName": "北京中理",
+  "profile": [
+    {
+      "activate": true,
+      "name": "dev",
+      "domain": "192.168.17.128",
+      "api-prj": ":25110/api-prj",
+      "lcgl-prj": ":25108/lcgl-prj",
+      "tm-prj": ":25112/tm-prj",
+      "config-prj": ":25126/config-prj",
+      "gzyq-prj": ":25102/gzyq-prj",
+      "jlgl-prj": ":25116/jlgl-prj"
+    }
+  ],
+  "groups": [],
+  "apis": [
+    {
+      "id": "api_1780626415668_im1ddbaub",
+      "name": "PSI任务分派",
+      "method": "GET",
+      "api_path": "{domain}{lcgl-prj}/mobile/psiTask/getPsiAssignList",
+      "group": "default"
+    }
+  ]
+}
