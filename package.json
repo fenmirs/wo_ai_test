@@ -43,6 +43,7 @@
     "electron-packager": "^17.1.2",
     "electron-reload": "^2.0.0-alpha.1",
     "nodemon": "^3.1.14",
+    "sharp": "^0.35.1",
     "wait-on": "^7.2.0"
   },
   "browserslist": {
@@ -57,7 +58,7 @@
       "last 1 safari version"
     ]
   },
-  "build": {
+    "build": {
     "extends": null,
     "appId": "com.apitest.ui",
     "productName": "WoAiTest",
@@ -75,13 +76,16 @@
     },
     "win": {
       "target": "portable",
-      "defaultArch": "x64"
+      "defaultArch": "x64",
+      "icon": "buildResources/icon.png"
     },
     "mac": {
-      "target": "dmg"
+      "target": "dmg",
+      "icon": "buildResources/icon.png"
     },
     "linux": {
-      "target": "AppImage"
+      "target": "AppImage",
+      "icon": "buildResources/icon.png"
     }
   }
 }

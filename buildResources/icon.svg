@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E1B4B"/>
+    </linearGradient>
+    <linearGradient id="hexGlow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#06B6D4"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="108" fill="url(#bg)"/>
+
+  <g transform="translate(256, 256)">
+    <!-- Dot grid -->
+    <g fill="#1E293B">
+      <circle cx="-210" cy="-150" r="4"/>
+      <circle cx="-168" cy="-150" r="3"/>
+      <circle cx="-126" cy="-150" r="4"/>
+      <circle cx="-84" cy="-150" r="3"/>
+      <circle cx="84" cy="-150" r="3"/>
+      <circle cx="126" cy="-150" r="4"/>
+      <circle cx="168" cy="-150" r="3"/>
+      <circle cx="210" cy="-150" r="4"/>
+      <circle cx="-210" cy="150" r="4"/>
+      <circle cx="-168" cy="150" r="3"/>
+      <circle cx="-126" cy="150" r="4"/>
+      <circle cx="-84" cy="150" r="3"/>
+      <circle cx="84" cy="150" r="3"/>
+      <circle cx="126" cy="150" r="4"/>
+      <circle cx="168" cy="150" r="3"/>
+      <circle cx="210" cy="150" r="4"/>
+    </g>
+
+    <!-- Incoming data line (inside hexagon, upper-left) -->
+    <line x1="-130" y1="-70" x2="-75" y2="-35" stroke="#06B6D4" stroke-width="8" stroke-linecap="round" opacity="0.7"/>
+    <circle cx="-130" cy="-70" r="14" fill="#06B6D4" opacity="0.7"/>
+    <circle cx="-108" cy="-58" r="8" fill="#06B6D4" opacity="0.5"/>
+
+    <!-- Outgoing data line (inside hexagon, lower-right) -->
+    <line x1="75" y1="35" x2="130" y2="70" stroke="#3B82F6" stroke-width="8" stroke-linecap="round" opacity="0.7"/>
+    <circle cx="130" cy="70" r="14" fill="#3B82F6" opacity="0.7"/>
+    <circle cx="108" cy="58" r="8" fill="#3B82F6" opacity="0.5"/>
+
+    <!-- Hexagon -->
+    <polygon points="0,-180 156,-90 156,90 0,180 -156,90 -156,-90"
+             fill="none" stroke="url(#hexGlow)" stroke-width="32" stroke-linejoin="round"/>
+
+    <!-- Circuit trace segments on hexagon edges -->
+    <line x1="-78" y1="-180" x2="78" y2="-180" stroke="#06B6D4" stroke-width="12" stroke-linecap="round" opacity="0.3"/>
+    <line x1="-78" y1="180" x2="78" y2="180" stroke="#3B82F6" stroke-width="12" stroke-linecap="round" opacity="0.3"/>
+
+    <!-- Lightning bolt -->
+    <path d="M 35,-155 L -80,-30 L 25,-30 L -30,155"
+          fill="none" stroke="white" stroke-width="88" stroke-linecap="square" stroke-linejoin="miter"/>
+
+    <!-- Lightning core glow -->
+    <path d="M 20,-105 L -40,-35 L 12,-35 L -18,105"
+          fill="none" stroke="#06B6D4" stroke-width="16" stroke-linecap="square" stroke-linejoin="miter" opacity="0.9"/>
+  </g>
+</svg>
