@@ -98,7 +98,7 @@
       "name": "推送MES检验结果",
       "description": "推送检验结果到MES",
       "createdAt": "2026-06-03T06:01:45.464Z",
-      "updatedAt": "2026-06-03T06:24:57.905Z",
+      "updatedAt": "2026-06-09T07:57:33.601Z",
       "deleted": false,
       "header": [
         {
@@ -110,7 +110,7 @@
         },
         {
           "key": "jid",
-          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjQ1MTY1NTIsMjA3Njg2MzQ1NjAwOCIsInNzb190eXBlIjowLCJ1c2VyX25hbWUiOiLns7vnu5_phY3nva7nlKjmiLciLCJhdHRyS2V5IjoiIiwidGVuYW50X3R5cGUiOiJUMyIsInR0bCI6IiIsImlzU2lnbkxvZyI6ZmFsc2UsInVzZXJfaWQiOiIxIiwibG9naW5fbmEiOiJhZG1pbiIsImlwX2FkZHIiOiIxNzIuMTcuMC4xIiwidXNlcl9hZ2VudCI6Ik1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xNDguMC4wLjAgU2FmYXJpLzUzNy4zNiIsImlhdCI6MTc4MDQ2NTcxMywiaXNzIjoiUXoifQ.ojnPsb-2Ka4DESik7xOMtQ9VoLK-VnlWMhukjqNx55A",
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjM0NTYwMDgsMjA3Njg2NDUxNjU1MiwxIiwic3NvX3R5cGUiOjAsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJ0ZW5hbnRfdHlwZSI6IlQzIiwidHRsIjoiIiwiaXNTaWduTG9nIjpmYWxzZSwidXNlcl9pZCI6IjEiLCJsb2dpbl9uYSI6ImFkbWluIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ4LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3ODA5NzEyNzksImlzcyI6IlF6In0.6a_fXh_7CW9e5NUdzVBYcmmzpjBkUJXKqN08iBCSIzM",
           "type": "string",
           "description": "",
           "enabled": true
@@ -130,7 +130,7 @@
           },
           {
             "key": "jsonDataStr",
-            "default": "{\r\n  \"ids\": \"2163805834122\"\r\n}",
+            "default": "{\r\n  \"ids\": \"2159167653265,2159167653273,2159167653281,2159167653289,2159180229273,2159180229281,2159180229289\"\r\n}",
             "type": "json",
             "description": "",
             "enabled": true

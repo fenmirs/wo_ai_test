@@ -10,12 +10,19 @@
       "name": "默认场景",
       "description": "",
       "createdAt": "2026-05-29T10:50:06.086Z",
-      "updatedAt": "2026-06-03T07:41:28.864Z",
+      "updatedAt": "2026-06-12T02:16:07.587Z",
       "deleted": false,
       "header": [
         {
           "key": "Content-Type",
           "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "jid",
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ4LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3ODA5Njc4MzEsImlzcyI6IlF6In0.E1VGWNG4qcMl9Pys6kXni6Ocr7IwcgPYPTrRQSyswNY",
           "type": "string",
           "description": "",
           "enabled": true
@@ -28,16 +35,16 @@
         "xwwwFormUrlencoded": [],
         "activeContentType": "json",
         "contentType": "json",
-        "content": "{\r\n  \"type\": \"XMSH_YS\",\r\n  \"itemIds\": \"2163922740804\"\r\n}",
+        "content": "{\r\n  \"type\": \"XMSH_YS\",\r\n  \"itemIds\": \"2168066132934,2168073470518,2168084952126\"\r\n}",
         "schema": {
-          "id": "node_1780472486979_uskwjgyvs",
+          "id": "node_1781230149932_89xdbdr9r",
           "type": "object",
           "key": null,
           "value": null,
           "description": "",
           "children": [
             {
-              "id": "node_1780472486979_1cu9qa2yf",
+              "id": "node_1781230149932_rzssql1l7",
               "type": "string",
               "key": "type",
               "value": "XMSH_YS",
@@ -45,10 +52,10 @@
               "children": []
             },
             {
-              "id": "node_1780472486979_yo7kdgf8j",
+              "id": "node_1781230149932_akzr91mpz",
               "type": "string",
               "key": "itemIds",
-              "value": "2163922740804",
+              "value": "2168066132934,2168073470518,2168084952126",
               "description": "",
               "children": []
             }
@@ -56,16 +63,16 @@
         },
         "contents": {
           "json": {
-            "content": "{\r\n  \"type\": \"XMSH_YS\",\r\n  \"itemIds\": \"2163922740804\"\r\n}",
+            "content": "{\r\n  \"type\": \"XMSH_YS\",\r\n  \"itemIds\": \"2168066132934,2168073470518,2168084952126\"\r\n}",
             "schema": {
-              "id": "node_1780472486979_uskwjgyvs",
+              "id": "node_1781230149932_89xdbdr9r",
               "type": "object",
               "key": null,
               "value": null,
               "description": "",
               "children": [
                 {
-                  "id": "node_1780472486979_1cu9qa2yf",
+                  "id": "node_1781230149932_rzssql1l7",
                   "type": "string",
                   "key": "type",
                   "value": "XMSH_YS",
@@ -73,10 +80,10 @@
                   "children": []
                 },
                 {
-                  "id": "node_1780472486979_yo7kdgf8j",
+                  "id": "node_1781230149932_akzr91mpz",
                   "type": "string",
                   "key": "itemIds",
-                  "value": "2163922740804",
+                  "value": "2168066132934,2168073470518,2168084952126",
                   "description": "",
                   "children": []
                 }

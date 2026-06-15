@@ -1,0 +1,104 @@
+{
+  "id": "api_1781232645755_n28k73hi1",
+  "name": "runGzyq",
+  "method": "POST",
+  "api_path": "{domain}{lcgl-prj}/gzyq/runGzyq",
+  "group": "default",
+  "scenarios": {
+    "scn_1781234887607_0ymn7": {
+      "id": "scn_1781234887607_0ymn7",
+      "name": "BATCH_ADD_TI_FROM_STD_TI",
+      "description": "",
+      "createdAt": "2026-06-12T03:28:07.607Z",
+      "updatedAt": "2026-06-12T06:19:31.591Z",
+      "deleted": false,
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "jid",
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-euoeeQhuWRmCIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidXNlcl9wcm4iOiIxNzg3MDIwMDc5MjEiLCJpcF9hZGRyIjoiMTkyLjE2OC40LjM0IiwiaWF0IjoxNzgxMjM0MjQzLCJpc3MiOiJReiJ9.KFYX5jrNaQ-N7V-ESvT7U9UDv606SV78tnm9oYULlv4",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "btnCode",
+            "default": "BATCH_ADD_TI_FROM_STD_TI",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\"prodPrn\":\"1946978764016\",\"stdPrn\":null,\"tiIds\":1176225905056}",
+            "type": "json",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "JID",
+            "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-euoeeQhuWRmCIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidXNlcl9wcm4iOiIxNzg3MDIwMDc5MjEiLCJpcF9hZGRyIjoiMTkyLjE2OC40LjM0IiwiaWF0IjoxNzgxMjM0MjQzLCJpc3MiOiJReiJ9.KFYX5jrNaQ-N7V-ESvT7U9UDv606SV78tnm9oYULlv4",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1781232645764_uftjbr3e3",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1781232645764_uftjbr3e3",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "assertions": [
+        {
+          "expression": "",
+          "enabled": true
+        }
+      ],
+      "refChain": []
+    }
+  }
+}

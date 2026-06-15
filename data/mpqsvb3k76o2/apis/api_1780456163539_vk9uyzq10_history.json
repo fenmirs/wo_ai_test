@@ -1,5 +1,1869 @@
 [
   {
+    "id": 1780638296702,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1780456163539_vk9uyzq10",
+    "apiName": "添加未报告备注",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/outward/receiveLabUnfinishedRemark",
+    "timestamp": "2026/6/5 13:44:56",
+    "apiConfig": {
+      "name": "添加未报告备注",
+      "group": "default",
+      "api_path": "{domain}{api-prj}/outward/receiveLabUnfinishedRemark",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": {
+        "content": "{\r\n  \"createUser\":\"cese\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"sss\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+        "schema": {
+          "id": "node_1780638294740_glzo7t9zh",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1780638294740_2chrn8xpi",
+              "type": "string",
+              "key": "createUser",
+              "value": "cese",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780638294740_1nfs61qoq",
+              "type": "string",
+              "key": "testNo",
+              "value": "2605100042",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780638294740_8sms9dsjc",
+              "type": "string",
+              "key": "type",
+              "value": "sss",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780638294740_7grt2lttp",
+              "type": "string",
+              "key": "remark",
+              "value": "来一条060501",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{\r\n  \"createUser\":\"cese\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"sss\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+        "schema": {
+          "id": "node_1780638294740_glzo7t9zh",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1780638294740_2chrn8xpi",
+              "type": "string",
+              "key": "createUser",
+              "value": "cese",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780638294740_1nfs61qoq",
+              "type": "string",
+              "key": "testNo",
+              "value": "2605100042",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780638294740_8sms9dsjc",
+              "type": "string",
+              "key": "type",
+              "value": "sss",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780638294740_7grt2lttp",
+              "type": "string",
+              "key": "remark",
+              "value": "来一条060501",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "contents": {
+          "json": {
+            "content": "{\r\n  \"createUser\":\"cese\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"sss\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+            "schema": {
+              "id": "node_1780638294740_glzo7t9zh",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1780638294740_2chrn8xpi",
+                  "type": "string",
+                  "key": "createUser",
+                  "value": "cese",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780638294740_1nfs61qoq",
+                  "type": "string",
+                  "key": "testNo",
+                  "value": "2605100042",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780638294740_8sms9dsjc",
+                  "type": "string",
+                  "key": "type",
+                  "value": "sss",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780638294740_7grt2lttp",
+                  "type": "string",
+                  "key": "remark",
+                  "value": "来一条060501",
+                  "description": "",
+                  "children": []
+                }
+              ]
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "code": 200,
+        "error": "",
+        "list": [],
+        "obj": "Ok",
+        "status": true
+      },
+      "headers": {
+        "content-type": "application/json;charset=UTF-8",
+        "content-length": "58",
+        "date": "Fri, 05 Jun 2026 05:44:57 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.05s",
+      "responseSize": "58 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "params": {},
+        "body": "{\r\n  \"createUser\":\"cese\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"sss\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+        "bodyType": "raw"
+      },
+      "_startTime": 1780638296647,
+      "_endTime": 1780638296701
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.05s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "code": 200,
+      "error": "",
+      "list": [],
+      "obj": "Ok",
+      "status": true
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "content-type": "application/json;charset=UTF-8",
+      "content-length": "58",
+      "date": "Fri, 05 Jun 2026 05:44:57 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1780456163539_vk9uyzq10": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "code": 200,
+          "error": "",
+          "list": [],
+          "obj": "Ok",
+          "status": true
+        },
+        "headers": {
+          "content-type": "application/json;charset=UTF-8",
+          "content-length": "58",
+          "date": "Fri, 05 Jun 2026 05:44:57 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.05s",
+        "responseSize": "58 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "params": {},
+          "body": "{\r\n  \"createUser\":\"cese\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"sss\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+          "bodyType": "raw"
+        },
+        "_startTime": 1780638296647,
+        "_endTime": 1780638296701
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1780456163539_vk9uyzq10",
+        "name": "添加未报告备注",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "code": 200,
+            "error": "",
+            "list": [],
+            "obj": "Ok",
+            "status": true
+          },
+          "headers": {
+            "content-type": "application/json;charset=UTF-8",
+            "content-length": "58",
+            "date": "Fri, 05 Jun 2026 05:44:57 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.05s",
+          "responseSize": "58 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "params": {},
+            "body": "{\r\n  \"createUser\":\"cese\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"sss\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+            "bodyType": "raw"
+          },
+          "_startTime": 1780638296647,
+          "_endTime": 1780638296701
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1780638244282,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1780456163539_vk9uyzq10",
+    "apiName": "添加未报告备注",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/outward/receiveLabUnfinishedRemark",
+    "timestamp": "2026/6/5 13:44:04",
+    "apiConfig": {
+      "name": "添加未报告备注",
+      "group": "default",
+      "api_path": "{domain}{api-prj}/outward/receiveLabUnfinishedRemark",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": {
+        "content": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+        "schema": {
+          "id": "node_1780638024698_zsoasg33y",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1780638024698_18wu2blc1",
+              "type": "string",
+              "key": "createUser",
+              "value": "aq",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780638024698_uy8rjyh0f",
+              "type": "string",
+              "key": "testNo",
+              "value": "2605100042",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780638024698_v5glvnb8i",
+              "type": "string",
+              "key": "type",
+              "value": "待补样",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780638024698_ajxe0bpjv",
+              "type": "string",
+              "key": "remark",
+              "value": "来一条060501",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+        "schema": {
+          "id": "node_1780638024698_zsoasg33y",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1780638024698_18wu2blc1",
+              "type": "string",
+              "key": "createUser",
+              "value": "aq",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780638024698_uy8rjyh0f",
+              "type": "string",
+              "key": "testNo",
+              "value": "2605100042",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780638024698_v5glvnb8i",
+              "type": "string",
+              "key": "type",
+              "value": "待补样",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780638024698_ajxe0bpjv",
+              "type": "string",
+              "key": "remark",
+              "value": "来一条060501",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "contents": {
+          "json": {
+            "content": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+            "schema": {
+              "id": "node_1780638024698_zsoasg33y",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1780638024698_18wu2blc1",
+                  "type": "string",
+                  "key": "createUser",
+                  "value": "aq",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780638024698_uy8rjyh0f",
+                  "type": "string",
+                  "key": "testNo",
+                  "value": "2605100042",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780638024698_v5glvnb8i",
+                  "type": "string",
+                  "key": "type",
+                  "value": "待补样",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780638024698_ajxe0bpjv",
+                  "type": "string",
+                  "key": "remark",
+                  "value": "来一条060501",
+                  "description": "",
+                  "children": []
+                }
+              ]
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "code": 500,
+        "error": "com.qzsoft.api.advice.BusinessException: 获取当前登陆用户信息失败",
+        "list": [],
+        "obj": null,
+        "status": false
+      },
+      "headers": {
+        "content-type": "application/json;charset=UTF-8",
+        "content-length": "136",
+        "date": "Fri, 05 Jun 2026 05:44:04 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.07s",
+      "responseSize": "112 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "params": {},
+        "body": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+        "bodyType": "raw"
+      },
+      "_startTime": 1780638244206,
+      "_endTime": 1780638244282
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.07s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "code": 500,
+      "error": "com.qzsoft.api.advice.BusinessException: 获取当前登陆用户信息失败",
+      "list": [],
+      "obj": null,
+      "status": false
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "content-type": "application/json;charset=UTF-8",
+      "content-length": "136",
+      "date": "Fri, 05 Jun 2026 05:44:04 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1780456163539_vk9uyzq10": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "code": 500,
+          "error": "com.qzsoft.api.advice.BusinessException: 获取当前登陆用户信息失败",
+          "list": [],
+          "obj": null,
+          "status": false
+        },
+        "headers": {
+          "content-type": "application/json;charset=UTF-8",
+          "content-length": "136",
+          "date": "Fri, 05 Jun 2026 05:44:04 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.07s",
+        "responseSize": "112 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "params": {},
+          "body": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+          "bodyType": "raw"
+        },
+        "_startTime": 1780638244206,
+        "_endTime": 1780638244282
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1780456163539_vk9uyzq10",
+        "name": "添加未报告备注",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "code": 500,
+            "error": "com.qzsoft.api.advice.BusinessException: 获取当前登陆用户信息失败",
+            "list": [],
+            "obj": null,
+            "status": false
+          },
+          "headers": {
+            "content-type": "application/json;charset=UTF-8",
+            "content-length": "136",
+            "date": "Fri, 05 Jun 2026 05:44:04 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.07s",
+          "responseSize": "112 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "params": {},
+            "body": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+            "bodyType": "raw"
+          },
+          "_startTime": 1780638244206,
+          "_endTime": 1780638244282
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1780638031303,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1780456163539_vk9uyzq10",
+    "apiName": "添加未报告备注",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/outward/receiveLabUnfinishedRemark",
+    "timestamp": "2026/6/5 13:40:31",
+    "apiConfig": {
+      "name": "添加未报告备注",
+      "group": "default",
+      "api_path": "{domain}{api-prj}/outward/receiveLabUnfinishedRemark",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": {
+        "content": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+        "schema": {
+          "id": "node_1780638024698_zsoasg33y",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1780638024698_18wu2blc1",
+              "type": "string",
+              "key": "createUser",
+              "value": "aq",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780638024698_uy8rjyh0f",
+              "type": "string",
+              "key": "testNo",
+              "value": "2605100042",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780638024698_v5glvnb8i",
+              "type": "string",
+              "key": "type",
+              "value": "待补样",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780638024698_ajxe0bpjv",
+              "type": "string",
+              "key": "remark",
+              "value": "来一条060501",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+        "schema": {
+          "id": "node_1780638024698_zsoasg33y",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1780638024698_18wu2blc1",
+              "type": "string",
+              "key": "createUser",
+              "value": "aq",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780638024698_uy8rjyh0f",
+              "type": "string",
+              "key": "testNo",
+              "value": "2605100042",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780638024698_v5glvnb8i",
+              "type": "string",
+              "key": "type",
+              "value": "待补样",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780638024698_ajxe0bpjv",
+              "type": "string",
+              "key": "remark",
+              "value": "来一条060501",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "contents": {
+          "json": {
+            "content": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+            "schema": {
+              "id": "node_1780638024698_zsoasg33y",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1780638024698_18wu2blc1",
+                  "type": "string",
+                  "key": "createUser",
+                  "value": "aq",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780638024698_uy8rjyh0f",
+                  "type": "string",
+                  "key": "testNo",
+                  "value": "2605100042",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780638024698_v5glvnb8i",
+                  "type": "string",
+                  "key": "type",
+                  "value": "待补样",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780638024698_ajxe0bpjv",
+                  "type": "string",
+                  "key": "remark",
+                  "value": "来一条060501",
+                  "description": "",
+                  "children": []
+                }
+              ]
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "TIMEOUT",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "5.01s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "请求超时",
+      "errorType": "timeout",
+      "requestConfig": {
+        "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "params": {},
+        "body": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+        "bodyType": "raw"
+      },
+      "_startTime": 1780638026289,
+      "_endTime": 1780638031303
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "5.01s",
+    "error": "请求超时",
+    "errorType": "timeout",
+    "assertionResult": null,
+    "responseHeaders": {},
+    "allResults": {
+      "api_1780456163539_vk9uyzq10": {
+        "status_text": "TIMEOUT",
+        "httpSuccess": false,
+        "success": false,
+        "headers": {},
+        "elapsedTime": "5.01s",
+        "responseSize": "0 B",
+        "assertionResult": null,
+        "error": "请求超时",
+        "errorType": "timeout",
+        "requestConfig": {
+          "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "params": {},
+          "body": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+          "bodyType": "raw"
+        },
+        "_startTime": 1780638026289,
+        "_endTime": 1780638031303
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1780456163539_vk9uyzq10",
+        "name": "添加未报告备注",
+        "result": {
+          "status_text": "TIMEOUT",
+          "httpSuccess": false,
+          "success": false,
+          "headers": {},
+          "elapsedTime": "5.01s",
+          "responseSize": "0 B",
+          "assertionResult": null,
+          "error": "请求超时",
+          "errorType": "timeout",
+          "requestConfig": {
+            "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "params": {},
+            "body": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+            "bodyType": "raw"
+          },
+          "_startTime": 1780638026289,
+          "_endTime": 1780638031303
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1780637811041,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1780456163539_vk9uyzq10",
+    "apiName": "添加未报告备注",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/outward/receiveLabUnfinishedRemark",
+    "timestamp": "2026/6/5 13:36:51",
+    "apiConfig": {
+      "name": "添加未报告备注",
+      "group": "default",
+      "api_path": "{domain}{api-prj}/outward/receiveLabUnfinishedRemark",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": {
+        "content": "{\r\n  \"createUser\":\"qrqz\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+        "schema": {
+          "id": "node_1780637804882_vt6y3lwr0",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1780637804882_i03w93k1w",
+              "type": "string",
+              "key": "createUser",
+              "value": "qrqz",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780637804882_sa7eo9f59",
+              "type": "string",
+              "key": "testNo",
+              "value": "2605100042",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780637804882_d954vd4df",
+              "type": "string",
+              "key": "type",
+              "value": "待补样",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780637804882_tei1ann1f",
+              "type": "string",
+              "key": "remark",
+              "value": "来一条060501",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{\r\n  \"createUser\":\"qrqz\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+        "schema": {
+          "id": "node_1780637804882_vt6y3lwr0",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1780637804882_i03w93k1w",
+              "type": "string",
+              "key": "createUser",
+              "value": "qrqz",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780637804882_sa7eo9f59",
+              "type": "string",
+              "key": "testNo",
+              "value": "2605100042",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780637804882_d954vd4df",
+              "type": "string",
+              "key": "type",
+              "value": "待补样",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780637804882_tei1ann1f",
+              "type": "string",
+              "key": "remark",
+              "value": "来一条060501",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "contents": {
+          "json": {
+            "content": "{\r\n  \"createUser\":\"qrqz\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+            "schema": {
+              "id": "node_1780637804882_vt6y3lwr0",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1780637804882_i03w93k1w",
+                  "type": "string",
+                  "key": "createUser",
+                  "value": "qrqz",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780637804882_sa7eo9f59",
+                  "type": "string",
+                  "key": "testNo",
+                  "value": "2605100042",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780637804882_d954vd4df",
+                  "type": "string",
+                  "key": "type",
+                  "value": "待补样",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780637804882_tei1ann1f",
+                  "type": "string",
+                  "key": "remark",
+                  "value": "来一条060501",
+                  "description": "",
+                  "children": []
+                }
+              ]
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "code": 200,
+        "error": "",
+        "list": [],
+        "obj": "Ok",
+        "status": true
+      },
+      "headers": {
+        "content-type": "application/json;charset=UTF-8",
+        "content-length": "58",
+        "date": "Fri, 05 Jun 2026 05:36:51 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "4.64s",
+      "responseSize": "58 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "params": {},
+        "body": "{\r\n  \"createUser\":\"qrqz\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+        "bodyType": "raw"
+      },
+      "_startTime": 1780637806399,
+      "_endTime": 1780637811041
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "4.64s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "code": 200,
+      "error": "",
+      "list": [],
+      "obj": "Ok",
+      "status": true
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "content-type": "application/json;charset=UTF-8",
+      "content-length": "58",
+      "date": "Fri, 05 Jun 2026 05:36:51 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1780456163539_vk9uyzq10": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "code": 200,
+          "error": "",
+          "list": [],
+          "obj": "Ok",
+          "status": true
+        },
+        "headers": {
+          "content-type": "application/json;charset=UTF-8",
+          "content-length": "58",
+          "date": "Fri, 05 Jun 2026 05:36:51 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "4.64s",
+        "responseSize": "58 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "params": {},
+          "body": "{\r\n  \"createUser\":\"qrqz\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+          "bodyType": "raw"
+        },
+        "_startTime": 1780637806399,
+        "_endTime": 1780637811041
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1780456163539_vk9uyzq10",
+        "name": "添加未报告备注",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "code": 200,
+            "error": "",
+            "list": [],
+            "obj": "Ok",
+            "status": true
+          },
+          "headers": {
+            "content-type": "application/json;charset=UTF-8",
+            "content-length": "58",
+            "date": "Fri, 05 Jun 2026 05:36:51 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "4.64s",
+          "responseSize": "58 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "params": {},
+            "body": "{\r\n  \"createUser\":\"qrqz\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+            "bodyType": "raw"
+          },
+          "_startTime": 1780637806399,
+          "_endTime": 1780637811041
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1780637720321,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1780456163539_vk9uyzq10",
+    "apiName": "添加未报告备注",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/outward/receiveLabUnfinishedRemark",
+    "timestamp": "2026/6/5 13:35:20",
+    "apiConfig": {
+      "name": "添加未报告备注",
+      "group": "default",
+      "api_path": "{domain}{api-prj}/outward/receiveLabUnfinishedRemark",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": {
+        "content": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+        "schema": {
+          "id": "node_1780637635548_y5dwfm4s1",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1780637635548_54nnvhjt6",
+              "type": "string",
+              "key": "createUser",
+              "value": "aq",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780637635548_j971xrfj9",
+              "type": "string",
+              "key": "testNo",
+              "value": "2605100042",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780637635548_ajrhw4n0z",
+              "type": "string",
+              "key": "type",
+              "value": "待补样",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780637635548_k8oal0yjb",
+              "type": "string",
+              "key": "remark",
+              "value": "来一条060501",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+        "schema": {
+          "id": "node_1780637635548_y5dwfm4s1",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1780637635548_54nnvhjt6",
+              "type": "string",
+              "key": "createUser",
+              "value": "aq",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780637635548_j971xrfj9",
+              "type": "string",
+              "key": "testNo",
+              "value": "2605100042",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780637635548_ajrhw4n0z",
+              "type": "string",
+              "key": "type",
+              "value": "待补样",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780637635548_k8oal0yjb",
+              "type": "string",
+              "key": "remark",
+              "value": "来一条060501",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "contents": {
+          "json": {
+            "content": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+            "schema": {
+              "id": "node_1780637635548_y5dwfm4s1",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1780637635548_54nnvhjt6",
+                  "type": "string",
+                  "key": "createUser",
+                  "value": "aq",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780637635548_j971xrfj9",
+                  "type": "string",
+                  "key": "testNo",
+                  "value": "2605100042",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780637635548_ajrhw4n0z",
+                  "type": "string",
+                  "key": "type",
+                  "value": "待补样",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780637635548_k8oal0yjb",
+                  "type": "string",
+                  "key": "remark",
+                  "value": "来一条060501",
+                  "description": "",
+                  "children": []
+                }
+              ]
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "TIMEOUT",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "5.01s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "请求超时",
+      "errorType": "timeout",
+      "requestConfig": {
+        "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "params": {},
+        "body": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+        "bodyType": "raw"
+      },
+      "_startTime": 1780637715306,
+      "_endTime": 1780637720321
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "5.01s",
+    "error": "请求超时",
+    "errorType": "timeout",
+    "assertionResult": null,
+    "responseHeaders": {},
+    "allResults": {
+      "api_1780456163539_vk9uyzq10": {
+        "status_text": "TIMEOUT",
+        "httpSuccess": false,
+        "success": false,
+        "headers": {},
+        "elapsedTime": "5.01s",
+        "responseSize": "0 B",
+        "assertionResult": null,
+        "error": "请求超时",
+        "errorType": "timeout",
+        "requestConfig": {
+          "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "params": {},
+          "body": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+          "bodyType": "raw"
+        },
+        "_startTime": 1780637715306,
+        "_endTime": 1780637720321
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1780456163539_vk9uyzq10",
+        "name": "添加未报告备注",
+        "result": {
+          "status_text": "TIMEOUT",
+          "httpSuccess": false,
+          "success": false,
+          "headers": {},
+          "elapsedTime": "5.01s",
+          "responseSize": "0 B",
+          "assertionResult": null,
+          "error": "请求超时",
+          "errorType": "timeout",
+          "requestConfig": {
+            "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "params": {},
+            "body": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+            "bodyType": "raw"
+          },
+          "_startTime": 1780637715306,
+          "_endTime": 1780637720321
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1780637660258,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1780456163539_vk9uyzq10",
+    "apiName": "添加未报告备注",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/outward/receiveLabUnfinishedRemark",
+    "timestamp": "2026/6/5 13:34:20",
+    "apiConfig": {
+      "name": "添加未报告备注",
+      "group": "default",
+      "api_path": "{domain}{api-prj}/outward/receiveLabUnfinishedRemark",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": {
+        "content": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+        "schema": {
+          "id": "node_1780637635548_y5dwfm4s1",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1780637635548_54nnvhjt6",
+              "type": "string",
+              "key": "createUser",
+              "value": "aq",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780637635548_j971xrfj9",
+              "type": "string",
+              "key": "testNo",
+              "value": "2605100042",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780637635548_ajrhw4n0z",
+              "type": "string",
+              "key": "type",
+              "value": "待补样",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780637635548_k8oal0yjb",
+              "type": "string",
+              "key": "remark",
+              "value": "来一条060501",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+        "schema": {
+          "id": "node_1780637635548_y5dwfm4s1",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1780637635548_54nnvhjt6",
+              "type": "string",
+              "key": "createUser",
+              "value": "aq",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780637635548_j971xrfj9",
+              "type": "string",
+              "key": "testNo",
+              "value": "2605100042",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780637635548_ajrhw4n0z",
+              "type": "string",
+              "key": "type",
+              "value": "待补样",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1780637635548_k8oal0yjb",
+              "type": "string",
+              "key": "remark",
+              "value": "来一条060501",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "contents": {
+          "json": {
+            "content": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+            "schema": {
+              "id": "node_1780637635548_y5dwfm4s1",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1780637635548_54nnvhjt6",
+                  "type": "string",
+                  "key": "createUser",
+                  "value": "aq",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780637635548_j971xrfj9",
+                  "type": "string",
+                  "key": "testNo",
+                  "value": "2605100042",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780637635548_ajrhw4n0z",
+                  "type": "string",
+                  "key": "type",
+                  "value": "待补样",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1780637635548_k8oal0yjb",
+                  "type": "string",
+                  "key": "remark",
+                  "value": "来一条060501",
+                  "description": "",
+                  "children": []
+                }
+              ]
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "code": 200,
+        "error": "",
+        "list": [],
+        "obj": "Ok",
+        "status": true
+      },
+      "headers": {
+        "content-type": "application/json;charset=UTF-8",
+        "content-length": "58",
+        "date": "Fri, 05 Jun 2026 05:34:20 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.72s",
+      "responseSize": "58 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "params": {},
+        "body": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+        "bodyType": "raw"
+      },
+      "_startTime": 1780637659534,
+      "_endTime": 1780637660257
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.72s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "code": 200,
+      "error": "",
+      "list": [],
+      "obj": "Ok",
+      "status": true
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "content-type": "application/json;charset=UTF-8",
+      "content-length": "58",
+      "date": "Fri, 05 Jun 2026 05:34:20 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1780456163539_vk9uyzq10": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "code": 200,
+          "error": "",
+          "list": [],
+          "obj": "Ok",
+          "status": true
+        },
+        "headers": {
+          "content-type": "application/json;charset=UTF-8",
+          "content-length": "58",
+          "date": "Fri, 05 Jun 2026 05:34:20 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.72s",
+        "responseSize": "58 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "params": {},
+          "body": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+          "bodyType": "raw"
+        },
+        "_startTime": 1780637659534,
+        "_endTime": 1780637660257
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1780456163539_vk9uyzq10",
+        "name": "添加未报告备注",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "code": 200,
+            "error": "",
+            "list": [],
+            "obj": "Ok",
+            "status": true
+          },
+          "headers": {
+            "content-type": "application/json;charset=UTF-8",
+            "content-length": "58",
+            "date": "Fri, 05 Jun 2026 05:34:20 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.72s",
+          "responseSize": "58 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://192.168.17.128:23210/api-prj/outward/receiveLabUnfinishedRemark",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "params": {},
+            "body": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"待补样\",\r\n  \"remark\":\"来一条060501\"\r\n}",
+            "bodyType": "raw"
+          },
+          "_startTime": 1780637659534,
+          "_endTime": 1780637660257
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
     "id": 1780468162425,
     "scenarioId": null,
     "scenarioName": null,

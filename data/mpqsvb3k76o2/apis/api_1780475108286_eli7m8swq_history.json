@@ -1,5 +1,307 @@
 [
   {
+    "id": 1780982958077,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1780475108286_eli7m8swq",
+    "apiName": "获取强势SOP配置",
+    "apiMethod": "GET",
+    "apiPath": "{domain}{lcgl-prj}/order/findSopPower",
+    "timestamp": "2026/6/9 13:29:18",
+    "apiConfig": {
+      "name": "获取强势SOP配置",
+      "group": "default",
+      "api_path": "{domain}{lcgl-prj}/order/findSopPower",
+      "method": "GET",
+      "header": {
+        "jid": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ4LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3ODA0Njc5OTcsImlzcyI6IlF6In0.ii59F_7EHI4wcNeStZ1Wf02Tf-j0pQ-sPr8nHlBeV4A"
+      },
+      "param": {
+        "wtCompany": {
+          "default": "杭州俊骑服装有限公司",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        },
+        "fkCompany": {
+          "default": "测试下的名称1（修改）",
+          "description": "",
+          "type": "string",
+          "enabled": true
+        }
+      },
+      "body": {},
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "https://192.168.2.213:23200/lcgl-prj/order/findSopPower",
+      "method": "GET",
+      "header": [
+        {
+          "key": "jid",
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ4LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3ODA0Njc5OTcsImlzcyI6IlF6In0.ii59F_7EHI4wcNeStZ1Wf02Tf-j0pQ-sPr8nHlBeV4A",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [
+        {
+          "key": "wtCompany",
+          "default": "杭州俊骑服装有限公司",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "fkCompany",
+          "default": "测试下的名称1（修改）",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "body": {
+        "type": "none",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1780475108293_mvekt0h57",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1780475108293_mvekt0h57",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "none",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "OK",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "redirectUrl": "https://192.168.2.213:23200",
+        "code": -1,
+        "resultCode": "FAIL",
+        "errorCode": "ERROR_PARAM_TOKEN",
+        "error": "登录状态已失效，请重新登录",
+        "errors": [
+          "登录状态已失效，请重新登录"
+        ]
+      },
+      "headers": {
+        "server": "nginx/1.25.5",
+        "date": "Tue, 09 Jun 2026 05:29:18 GMT",
+        "content-type": "application/json;charset=UTF-8",
+        "content-length": "210",
+        "connection": "close",
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+        "pragma": "no-cache",
+        "expires": "0",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1 ; mode=block",
+        "referrer-policy": "no-referrer",
+        "access-control-expose-headers": "Content-disposition"
+      },
+      "elapsedTime": "0.05s",
+      "responseSize": "158 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "https://192.168.2.213:23200/lcgl-prj/order/findSopPower",
+        "method": "GET",
+        "headers": {
+          "jid": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ4LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3ODA0Njc5OTcsImlzcyI6IlF6In0.ii59F_7EHI4wcNeStZ1Wf02Tf-j0pQ-sPr8nHlBeV4A"
+        },
+        "params": {
+          "wtCompany": "%E6%9D%AD%E5%B7%9E%E4%BF%8A%E9%AA%91%E6%9C%8D%E8%A3%85%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8",
+          "fkCompany": "%E6%B5%8B%E8%AF%95%E4%B8%8B%E7%9A%84%E5%90%8D%E7%A7%B01%EF%BC%88%E4%BF%AE%E6%94%B9%EF%BC%89"
+        },
+        "body": {},
+        "bodyType": "json"
+      },
+      "_startTime": 1780982958021,
+      "_endTime": 1780982958077
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.05s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "redirectUrl": "https://192.168.2.213:23200",
+      "code": -1,
+      "resultCode": "FAIL",
+      "errorCode": "ERROR_PARAM_TOKEN",
+      "error": "登录状态已失效，请重新登录",
+      "errors": [
+        "登录状态已失效，请重新登录"
+      ]
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "server": "nginx/1.25.5",
+      "date": "Tue, 09 Jun 2026 05:29:18 GMT",
+      "content-type": "application/json;charset=UTF-8",
+      "content-length": "210",
+      "connection": "close",
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+      "pragma": "no-cache",
+      "expires": "0",
+      "x-content-type-options": "nosniff",
+      "x-xss-protection": "1 ; mode=block",
+      "referrer-policy": "no-referrer",
+      "access-control-expose-headers": "Content-disposition"
+    },
+    "allResults": {
+      "api_1780475108286_eli7m8swq": {
+        "status_code": 200,
+        "status_text": "OK",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "redirectUrl": "https://192.168.2.213:23200",
+          "code": -1,
+          "resultCode": "FAIL",
+          "errorCode": "ERROR_PARAM_TOKEN",
+          "error": "登录状态已失效，请重新登录",
+          "errors": [
+            "登录状态已失效，请重新登录"
+          ]
+        },
+        "headers": {
+          "server": "nginx/1.25.5",
+          "date": "Tue, 09 Jun 2026 05:29:18 GMT",
+          "content-type": "application/json;charset=UTF-8",
+          "content-length": "210",
+          "connection": "close",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+          "pragma": "no-cache",
+          "expires": "0",
+          "x-content-type-options": "nosniff",
+          "x-xss-protection": "1 ; mode=block",
+          "referrer-policy": "no-referrer",
+          "access-control-expose-headers": "Content-disposition"
+        },
+        "elapsedTime": "0.05s",
+        "responseSize": "158 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "https://192.168.2.213:23200/lcgl-prj/order/findSopPower",
+          "method": "GET",
+          "headers": {
+            "jid": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ4LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3ODA0Njc5OTcsImlzcyI6IlF6In0.ii59F_7EHI4wcNeStZ1Wf02Tf-j0pQ-sPr8nHlBeV4A"
+          },
+          "params": {
+            "wtCompany": "%E6%9D%AD%E5%B7%9E%E4%BF%8A%E9%AA%91%E6%9C%8D%E8%A3%85%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8",
+            "fkCompany": "%E6%B5%8B%E8%AF%95%E4%B8%8B%E7%9A%84%E5%90%8D%E7%A7%B01%EF%BC%88%E4%BF%AE%E6%94%B9%EF%BC%89"
+          },
+          "body": {},
+          "bodyType": "json"
+        },
+        "_startTime": 1780982958021,
+        "_endTime": 1780982958077
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1780475108286_eli7m8swq",
+        "name": "获取强势SOP配置",
+        "result": {
+          "status_code": 200,
+          "status_text": "OK",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "redirectUrl": "https://192.168.2.213:23200",
+            "code": -1,
+            "resultCode": "FAIL",
+            "errorCode": "ERROR_PARAM_TOKEN",
+            "error": "登录状态已失效，请重新登录",
+            "errors": [
+              "登录状态已失效，请重新登录"
+            ]
+          },
+          "headers": {
+            "server": "nginx/1.25.5",
+            "date": "Tue, 09 Jun 2026 05:29:18 GMT",
+            "content-type": "application/json;charset=UTF-8",
+            "content-length": "210",
+            "connection": "close",
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+            "pragma": "no-cache",
+            "expires": "0",
+            "x-content-type-options": "nosniff",
+            "x-xss-protection": "1 ; mode=block",
+            "referrer-policy": "no-referrer",
+            "access-control-expose-headers": "Content-disposition"
+          },
+          "elapsedTime": "0.05s",
+          "responseSize": "158 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "https://192.168.2.213:23200/lcgl-prj/order/findSopPower",
+            "method": "GET",
+            "headers": {
+              "jid": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiJUMDAxIiwibWFuYWdlX3RlbmFudF9pZCI6IlQwMDEsVDAwMixUMDAzIiwiaXNTaWduTG9nIjpmYWxzZSwic3NvX3R5cGUiOjAsInVzZXJfaWQiOiIxIiwidXNlcl9uYW1lIjoi57O757uf6YWN572u55So5oi3IiwiYXR0cktleSI6IiIsImxvZ2luX25hIjoiYWRtaW4iLCJ0ZW5hbnRfdHlwZSI6IlQzIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ4LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3ODA0Njc5OTcsImlzcyI6IlF6In0.ii59F_7EHI4wcNeStZ1Wf02Tf-j0pQ-sPr8nHlBeV4A"
+            },
+            "params": {
+              "wtCompany": "%E6%9D%AD%E5%B7%9E%E4%BF%8A%E9%AA%91%E6%9C%8D%E8%A3%85%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8",
+              "fkCompany": "%E6%B5%8B%E8%AF%95%E4%B8%8B%E7%9A%84%E5%90%8D%E7%A7%B01%EF%BC%88%E4%BF%AE%E6%94%B9%EF%BC%89"
+            },
+            "body": {},
+            "bodyType": "json"
+          },
+          "_startTime": 1780982958021,
+          "_endTime": 1780982958077
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
     "id": 1780632001967,
     "scenarioId": null,
     "scenarioName": null,

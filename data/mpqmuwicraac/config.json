@@ -34,6 +34,17 @@
       "jlgl-prj": "",
       "lcgl-prj": ":30208/lcgl-prj",
       "tm-prj": ""
+    },
+    {
+      "name": "公司测试环境",
+      "activate": false,
+      "domain": "https://192.168.2.213:25700",
+      "api-prj": "/api-prj",
+      "config-prj": "",
+      "gzyq-prj": "",
+      "jlgl-prj": "",
+      "lcgl-prj": "/lcgl-prj",
+      "tm-prj": ""
     }
   ],
   "groups": [

@@ -10,7 +10,7 @@
       "name": "默认场景",
       "description": "",
       "createdAt": "2026-06-03T03:09:23.561Z",
-      "updatedAt": "2026-06-03T06:29:22.215Z",
+      "updatedAt": "2026-06-05T05:44:56.641Z",
       "deleted": false,
       "header": [
         {
@@ -28,24 +28,24 @@
         "xwwwFormUrlencoded": [],
         "activeContentType": "json",
         "contentType": "json",
-        "content": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"333\",\r\n  \"remark\":\"再来一条\"\r\n}",
+        "content": "{\r\n  \"createUser\":\"cese\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"sss\",\r\n  \"remark\":\"来一条060501\"\r\n}",
         "schema": {
-          "id": "node_1780468123488_gdl479g2e",
+          "id": "node_1780638294740_glzo7t9zh",
           "type": "object",
           "key": null,
           "value": null,
           "description": "",
           "children": [
             {
-              "id": "node_1780468123488_8wzq2u6dj",
+              "id": "node_1780638294740_2chrn8xpi",
               "type": "string",
               "key": "createUser",
-              "value": "aq",
+              "value": "cese",
               "description": "",
               "children": []
             },
             {
-              "id": "node_1780468123488_tbg0p14o7",
+              "id": "node_1780638294740_1nfs61qoq",
               "type": "string",
               "key": "testNo",
               "value": "2605100042",
@@ -53,18 +53,18 @@
               "children": []
             },
             {
-              "id": "node_1780468123488_ro7r8axry",
+              "id": "node_1780638294740_8sms9dsjc",
               "type": "string",
               "key": "type",
-              "value": "333",
+              "value": "sss",
               "description": "",
               "children": []
             },
             {
-              "id": "node_1780468123488_2ytz5tiun",
+              "id": "node_1780638294740_7grt2lttp",
               "type": "string",
               "key": "remark",
-              "value": "再来一条",
+              "value": "来一条060501",
               "description": "",
               "children": []
             }
@@ -72,24 +72,24 @@
         },
         "contents": {
           "json": {
-            "content": "{\r\n  \"createUser\":\"aq\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"333\",\r\n  \"remark\":\"再来一条\"\r\n}",
+            "content": "{\r\n  \"createUser\":\"cese\",\r\n  \"testNo\":\"2605100042\",\r\n  \"type\":\"sss\",\r\n  \"remark\":\"来一条060501\"\r\n}",
             "schema": {
-              "id": "node_1780468123488_gdl479g2e",
+              "id": "node_1780638294740_glzo7t9zh",
               "type": "object",
               "key": null,
               "value": null,
               "description": "",
               "children": [
                 {
-                  "id": "node_1780468123488_8wzq2u6dj",
+                  "id": "node_1780638294740_2chrn8xpi",
                   "type": "string",
                   "key": "createUser",
-                  "value": "aq",
+                  "value": "cese",
                   "description": "",
                   "children": []
                 },
                 {
-                  "id": "node_1780468123488_tbg0p14o7",
+                  "id": "node_1780638294740_1nfs61qoq",
                   "type": "string",
                   "key": "testNo",
                   "value": "2605100042",
@@ -97,18 +97,18 @@
                   "children": []
                 },
                 {
-                  "id": "node_1780468123488_ro7r8axry",
+                  "id": "node_1780638294740_8sms9dsjc",
                   "type": "string",
                   "key": "type",
-                  "value": "333",
+                  "value": "sss",
                   "description": "",
                   "children": []
                 },
                 {
-                  "id": "node_1780468123488_2ytz5tiun",
+                  "id": "node_1780638294740_7grt2lttp",
                   "type": "string",
                   "key": "remark",
-                  "value": "再来一条",
+                  "value": "来一条060501",
                   "description": "",
                   "children": []
                 }
