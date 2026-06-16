@@ -706,6 +706,40 @@ class ProjectManager {
     this.markDirty();
   }
 
+  // ── 模板 CRUD ──
+
+  getTemplates() {
+    const proj = this._activeProject;
+    return proj?.config?.templates || [];
+  }
+
+  addTemplate(template) {
+    const proj = this._activeProject;
+    if (!proj?.config) return null;
+    if (!proj.config.templates) proj.config.templates = [];
+    if (!template.id) template.id = generateId('tpl');
+    proj.config.templates.push(template);
+    this.markDirty();
+    return template;
+  }
+
+  updateTemplate(templateId, updates) {
+    const proj = this._activeProject;
+    if (!proj?.config?.templates) return;
+    const index = proj.config.templates.findIndex(t => t.id === templateId);
+    if (index !== -1) {
+      proj.config.templates[index] = { ...proj.config.templates[index], ...updates };
+      this.markDirty();
+    }
+  }
+
+  deleteTemplate(templateId) {
+    const proj = this._activeProject;
+    if (!proj?.config?.templates) return;
+    proj.config.templates = proj.config.templates.filter(t => t.id !== templateId);
+    this.markDirty();
+  }
+
   // ── API CRUD ──
 
   async updateAPI(apiId, newData) {

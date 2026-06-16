@@ -15,9 +15,12 @@ import RefSelector from './RefSelector';
 import { toast } from './Toast';
 import { useProgress } from './ProgressOverlay';
 import ImportDialog from './ImportDialog';
+import ApplyTemplateDialog from './ApplyTemplateDialog';
 
 
 function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, groups = [], isTemporary = false, readOnly = false, onViewDetail, onRestoreHistory, onDeleteHistory, theme = 'dark', onResultChange, onDraftChange, onExecutingChange, requestedScenarioId, requestedScenarioAction, onScenarioChange, onRequestedScenarioActionHandled, onRequestedScenarioHandled }) {
+  const rootRef = useRef(null);
+  const [panelRect, setPanelRect] = useState(null);
   const [resolvedPath, setResolvedPath] = useState('');
   const [executionResult, setExecutionResult] = useState(null);
   const [isExecuting, setIsExecuting] = useState(false);
@@ -28,6 +31,19 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const executorRef = useRef(null);
   const initializedApiIdRef = useRef(null);
   const pendingActionRef = useRef(null);
+
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+    const update = () => {
+      const rect = el.getBoundingClientRect();
+      setPanelRect({ left: rect.left, width: rect.width });
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   const createEmptyScenario = (id, name, description) => ({
     id: id || `scn_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
@@ -104,6 +120,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const bodyEditorRef = useRef(null);
   const [showRefPicker, setShowRefPicker] = useState(false);
   const [importSection, setImportSection] = useState(null);
+  const [showApplyTemplate, setShowApplyTemplate] = useState(false);
 
   const apiHistory = history.filter(h =>
     (h.apiId && h.apiId === formData.id) ||
@@ -1327,6 +1344,41 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     setImportSection(null);
   };
 
+  const handleApplyTemplate = (templateData, mergeMode) => {
+    const { header: tplHeaders, param: tplParams, body: tplBody } = templateData;
+    const applyHeaders = () => {
+      const existingKeys = new Set(formData.header.map(h => h.key));
+      const newHeaders = [...formData.header];
+      for (const h of tplHeaders) {
+        const idx = newHeaders.findIndex(x => x.key === h.key);
+        if (idx >= 0) {
+          if (mergeMode === 'overwrite') newHeaders[idx] = { ...h };
+        } else {
+          newHeaders.push({ ...h });
+        }
+      }
+      return mergeMode === 'overwrite'
+        ? [...tplHeaders]
+        : newHeaders;
+    };
+    const applyParams = () => {
+      if (mergeMode === 'overwrite') return [...tplParams];
+      const existingKeys = new Set(formData.param.map(p => p.key));
+      const merged = [...formData.param];
+      for (const p of tplParams) {
+        if (!existingKeys.has(p.key)) merged.push({ ...p });
+      }
+      return merged;
+    };
+    setFormData(prev => ({
+      ...prev,
+      header: applyHeaders(),
+      param: applyParams(),
+      body: tplBody || prev.body
+    }));
+    setShowApplyTemplate(false);
+  };
+
   const insertRefAtCursor = (refString) => {
     const editor = bodyEditorRef.current;
     if (!editor) return;
@@ -1348,7 +1400,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const methods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'];
 
   return (
-    <div className="api-detail">
+    <div className="api-detail" ref={rootRef}>
       {/* API 名称 + 场景切换 */}
       <div className="meta-bar">
         <div className="meta-field">
@@ -1433,6 +1485,10 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
               <span className="scene-action-divider">|</span>
               <button className="scene-action-btn btn-doc-icon" onClick={handleGenerateDoc} title="生成文档">
                 <FileDown size={16} />
+              </button>
+              <span className="scene-action-divider">|</span>
+              <button className="scene-action-btn" onClick={() => setShowApplyTemplate(true)} title="应用参数模板">
+                <Save size={16} />
               </button>
             </div>
           </div>
@@ -2114,7 +2170,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         )}
 
       <KVBottomPanel
-        visible={bottomPanel.visible}
+        visible={bottomPanel.visible && !(activeTab === 'body')}
         section={bottomPanel.section}
         rowIndex={bottomPanel.rowIndex}
         field={bottomPanel.field}
@@ -2123,6 +2179,8 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         onClose={handleBottomPanelClose}
         theme={theme}
         excludeApiId={formData.id}
+        bottomOffset={36}
+        panelRect={panelRect}
       />
 
       {showRefPicker && (
@@ -2145,6 +2203,14 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
           }
           onConfirm={handleImportConfirm}
           onClose={() => setImportSection(null)}
+        />
+      )}
+
+      {showApplyTemplate && (
+        <ApplyTemplateDialog
+          templates={projectManager.getTemplates()}
+          onApply={handleApplyTemplate}
+          onClose={() => setShowApplyTemplate(false)}
         />
       )}
       </div>

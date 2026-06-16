@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { toast } from './Toast';
 import CodeEditor from './CodeEditor';
 import RefSelector from './RefSelector';
@@ -11,7 +12,7 @@ const SECTION_LABELS = {
   xwww: 'x-www-form-urlencoded',
 };
 
-function KVBottomPanel({ visible, section, rowIndex, field, items, onItemsChange, onClose, theme, excludeApiId }) {
+function KVBottomPanel({ visible, section, rowIndex, field, items, onItemsChange, onClose, theme, excludeApiId, bottomOffset = 0, panelRect }) {
   const [collapsed, setCollapsed] = useState(false);
   const [panelHeight, setPanelHeight] = useState(250);
   const fileInputRef = useRef(null);
@@ -25,7 +26,7 @@ function KVBottomPanel({ visible, section, rowIndex, field, items, onItemsChange
     const startHeight = panelHeight;
     const onMove = (ev) => {
       const delta = startY - ev.clientY;
-      setPanelHeight(Math.max(100, Math.min(window.innerHeight * 0.6, startHeight + delta)));
+      setPanelHeight(Math.max(100, startHeight + delta));
     };
     const onUp = () => {
       document.removeEventListener('mousemove', onMove);
@@ -89,69 +90,78 @@ function KVBottomPanel({ visible, section, rowIndex, field, items, onItemsChange
 
   const keyEmpty = !item.key || !item.key.trim();
 
-  if (collapsed) {
-    const sectionLabel = SECTION_LABELS[section] || section;
+  const renderPanelContent = () => {
+    if (collapsed) {
+      const sectionLabel = SECTION_LABELS[section] || section;
+      return (
+        <div className="kv-panel-collapsed-bar" onClick={() => setCollapsed(false)} title="展开底部面板">
+          <span>编辑{isEditingValue ? '值' : '备注'}: {item.key || '(空key)'} ({getTypeLabel(activeType)})</span>
+          <span>↕ 展开</span>
+        </div>
+      );
+    }
+
     return (
-      <div className="kv-panel-collapsed-bar" onClick={() => setCollapsed(false)} title="展开底部面板">
-        <span>编辑{isEditingValue ? '值' : '备注'}: {item.key || '(空key)'} ({getTypeLabel(activeType)})</span>
-        <span>↕ 展开</span>
+      <div className="kv-bottom-panel" style={{ height: panelHeight }}>
+        <div className="kv-panel-header" onMouseDown={handleResizeStart}>
+          <div className="kv-panel-header-title">
+            <span>编辑{isEditingValue ? '值' : '备注'}:</span>
+            <strong>{item.key || '(空key)'}</strong>
+            <span className="kv-panel-section">({SECTION_LABELS[section] || section})</span>
+            <span className={`kv-panel-type-badge ${activeType === 'description' ? 'type-description' : ''}`}>
+              {getTypeLabel(activeType)}
+            </span>
+          </div>
+          <div className="kv-panel-header-actions">
+            <button className="kv-panel-toggle-btn" onClick={() => setCollapsed(true)} title="折叠">
+              ↕
+            </button>
+          </div>
+        </div>
+
+        <div className="kv-panel-body">
+          {keyEmpty ? (
+            <div className="kv-panel-empty">⚠ 请先填写 Key 名称</div>
+          ) : isEditingDesc && isContentType ? (
+            <div className="kv-panel-empty">🔒 Content-Type 备注不可编辑</div>
+          ) : isEditingDesc ? (
+            <div className="kv-panel-editor-wrapper">
+              <CodeEditor
+                value={item.description || ''}
+                onChange={updateDescription}
+                contentType="text"
+                theme={theme}
+              />
+            </div>
+          ) : (
+            <div className="kv-panel-editor-wrapper">
+              <ValueEditor
+                type={activeType}
+                value={item.default}
+                onChange={updateDefault}
+                theme={theme}
+                excludeApiId={excludeApiId}
+                fileInputRef={fileInputRef}
+                onMount={handleHeaderEditorMount}
+              />
+              {section === 'param' && typeof item.default === 'string' && item.default && activeType !== 'ref' && (
+                <div className="kv-encoding-info">
+                  <div className="kv-encoding-label">编码结果:</div>
+                  <div className="kv-encoding-value">{encodeURIComponent(item.default)}</div>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
     );
-  }
+  };
 
-  return (
-    <div className="kv-bottom-panel" style={{ height: panelHeight }}>
-      <div className="kv-panel-header" onMouseDown={handleResizeStart}>
-        <div className="kv-panel-header-title">
-          <span>编辑{isEditingValue ? '值' : '备注'}:</span>
-          <strong>{item.key || '(空key)'}</strong>
-          <span className="kv-panel-section">({SECTION_LABELS[section] || section})</span>
-          <span className={`kv-panel-type-badge ${activeType === 'description' ? 'type-description' : ''}`}>
-            {getTypeLabel(activeType)}
-          </span>
-        </div>
-        <div className="kv-panel-header-actions">
-          <button className="kv-panel-toggle-btn" onClick={() => setCollapsed(true)} title="折叠">
-            ↕
-          </button>
-        </div>
-      </div>
-
-      <div className="kv-panel-body">
-        {keyEmpty ? (
-          <div className="kv-panel-empty">⚠ 请先填写 Key 名称</div>
-        ) : isEditingDesc && isContentType ? (
-          <div className="kv-panel-empty">🔒 Content-Type 备注不可编辑</div>
-        ) : isEditingDesc ? (
-          <div className="kv-panel-editor-wrapper">
-            <CodeEditor
-              value={item.description || ''}
-              onChange={updateDescription}
-              contentType="text"
-              theme={theme}
-            />
-          </div>
-        ) : (
-          <div className="kv-panel-editor-wrapper">
-            <ValueEditor
-              type={activeType}
-              value={item.default}
-              onChange={updateDefault}
-              theme={theme}
-              excludeApiId={excludeApiId}
-              fileInputRef={fileInputRef}
-              onMount={handleHeaderEditorMount}
-            />
-            {section === 'param' && typeof item.default === 'string' && item.default && activeType !== 'ref' && (
-              <div className="kv-encoding-info">
-                <div className="kv-encoding-label">编码结果:</div>
-                <div className="kv-encoding-value">{encodeURIComponent(item.default)}</div>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-    </div>
+  return createPortal(
+    <div className="kv-bottom-panel-portal" style={{ bottom: bottomOffset, left: panelRect?.left ?? 0, width: panelRect?.width ?? '100%' }}>
+      {renderPanelContent()}
+    </div>,
+    document.body
   );
 }
 

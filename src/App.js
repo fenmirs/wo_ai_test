@@ -4,6 +4,8 @@ import APIMain from './components/APIMain';
 import APIDetail from './components/APIDetail';
 import BottomBar from './components/BottomBar';
 import EnvVarManager from './components/EnvVarManager';
+import TemplateManager from './components/TemplateManager';
+import CurlImportDialog from './components/CurlImportDialog';
 import ExecutionHistory from './components/ExecutionHistory';
 import EmptyState from './components/EmptyState';
 import EmbeddedProgress from './components/EmbeddedProgress';
@@ -39,6 +41,7 @@ function App() {
   const [zenMode, setZenMode] = useState(false);
   const [restoringHistoryEntry, setRestoringHistoryEntry] = useState(null);
   const [viewingHistoryEntry, setViewingHistoryEntry] = useState(null);
+  const [showCurlImport, setShowCurlImport] = useState(false);
   const [projectList, setProjectList] = useState([]);
   const [currentProjectDir, setCurrentProjectDir] = useState(null);
 
@@ -1218,19 +1221,20 @@ function App() {
             <div className="left-panel" style={{ width: leftPanelWidth }}>
                <div className="panel-section flex-1">
                  {/* [回收站] 以下 props 已移除: trashApis, trashGroups, onRestoreAPI, onPermanentDelete, onEmptyTrash, onRestoreGroup, onPermanentDeleteGroup */}
-                 <APIMain
-                    apis={projectData?.apis || []}
-                    groupsData={projectData?.groups || []}
-                    selectedAPI={selectedAPI}
-                   activeGroup={activeGroup}
-                   onSelect={handleAPISelect}
-                   onGroupSelect={handleGroupSelect}
-                   onMoveToGroup={handleMoveToGroup}
-                   onMoveGroup={handleMoveGroup}
-                   onRenameGroup={handleRenameGroup}
-                   onCopyAPI={handleCopyAPI}
-                   onCopyGroup={handleCopyGroup}
-                    onAdd={(parentId) => {
+                  <APIMain
+                     apis={projectData?.apis || []}
+                     groupsData={projectData?.groups || []}
+                     selectedAPI={selectedAPI}
+                    activeGroup={activeGroup}
+                    onSelect={handleAPISelect}
+                    onGroupSelect={handleGroupSelect}
+                    onMoveToGroup={handleMoveToGroup}
+                    onMoveGroup={handleMoveGroup}
+                    onRenameGroup={handleRenameGroup}
+                    onCopyAPI={handleCopyAPI}
+                    onCopyGroup={handleCopyGroup}
+                    onCurlImport={() => setShowCurlImport(true)}
+                     onAdd={(parentId) => {
                       const uniqueName = projectManager.ensureUniqueAPIName('未命名的API', parentId || 'default');
                       const id = `api_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
                       const newApi = {
@@ -1363,6 +1367,17 @@ function App() {
                     }
                   }}
                 />
+              ) : viewMode === 'template_manager' ? (
+                <TemplateManager
+                  onBack={() => {
+                    if (selectedAPI) {
+                      setViewMode('api_detail');
+                    } else {
+                      setViewMode('api');
+                    }
+                  }}
+                  theme={theme}
+                />
               ) : viewMode === 'api_detail' && (selectedAPI || temporaryAPI) ? (
                 <APIDetail 
                   api={temporaryAPI || selectedAPI}
@@ -1442,6 +1457,12 @@ function App() {
               setViewMode('env_var_manager');
             });
           }}
+          onEditTemplates={() => {
+            checkDraftThen(() => {
+              setSelectedAPI(null);
+              setViewMode('template_manager');
+            });
+          }}
           projectName={projectManager.getProjectName()}
           isDirty={isDirty}
           onSave={handleSaveProject}
@@ -1476,6 +1497,53 @@ function App() {
         />
       </main>
       
+      {/* cURL 导入 */}
+      {showCurlImport && (
+        <CurlImportDialog
+          onConfirm={(result) => {
+            setShowCurlImport(false);
+            if (!result || !result.url) return;
+            const uniqueName = projectManager.ensureUniqueAPIName('从 cURL 导入', activeGroup);
+            const id = `api_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+            const headers = {};
+            (result.headers || []).forEach(h => { headers[h.key] = h.default || h.value; });
+            const paramObj = {};
+            (result.params || []).forEach(p => { paramObj[p.key] = { default: p.default || '', type: 'string', description: '', enabled: true }; });
+            let body = {};
+            if (result.body) {
+              if (result.bodyType === 'raw') {
+                const bodyStr = typeof result.body === 'string' ? result.body : '';
+                const isJson = result.headers.some(h => h.key.toLowerCase() === 'content-type' && h.value.includes('json'));
+                body = { type: 'raw', content: bodyStr, contentType: isJson ? 'json' : 'text', activeContentType: isJson ? 'json' : 'text' };
+              } else if (result.bodyType === 'form-data') {
+                body = { type: 'form-data', formData: Object.entries(result.body).map(([k, v]) => ({ key: k, default: v, type: 'string', description: '', enabled: true })) };
+              } else {
+                body = { type: 'x-www-form-urlencoded', xwwwFormUrlencoded: Object.entries(result.body).map(([k, v]) => ({ key: k, default: v, type: 'string', description: '', enabled: true })) };
+              }
+            }
+            const newApi = {
+              id, name: uniqueName,
+              group: activeGroup,
+              api_path: result.url,
+              method: result.method,
+              header: headers,
+              param: paramObj,
+              body,
+              chain: [],
+              successAssert: ''
+            };
+            if (uniqueName !== '从 cURL 导入') {
+              toast.success(`当前分组下已存在同名 API，已自动重命名为 "${uniqueName}"`);
+            }
+            projectManager.addAPI(newApi);
+            setSelectedAPI(newApi);
+            setScrollToApiId(newApi.id);
+            setViewMode('api_detail');
+          }}
+          onClose={() => setShowCurlImport(false)}
+        />
+      )}
+
       {/* 输入对话框 */}
       <InputDialog
         isOpen={showInputDialog}

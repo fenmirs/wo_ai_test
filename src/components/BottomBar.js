@@ -9,6 +9,7 @@ function BottomBar({
   allProfiles,
   onProfileSelect,
   onEditVariables,
+  onEditTemplates,
   viewModeValue,
   projectName,
   projectList,
@@ -117,6 +118,14 @@ function BottomBar({
 
   return (
     <div className="bottom-bar">
+      <button
+        className={`bar-btn ${viewModeValue === 'template_manager' ? 'active' : ''}`}
+        onClick={onEditTemplates}
+        title="管理参数模板"
+      >
+        <Layers size={14} />
+      </button>
+
       <div className="bar-section" ref={projectDropdownRef}>
         <div
           className="bar-item project-name"
@@ -240,7 +249,6 @@ function BottomBar({
         >
           <Settings2 size={14} />
         </button>
-
         <div className="bar-separator"></div>
 
         {/* 超时控制 */}

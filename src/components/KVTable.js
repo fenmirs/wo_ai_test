@@ -22,8 +22,8 @@ function getFileList(val) {
   return [val];
 }
 
-function KVTable({ items, onItemsChange, section, showType, showFileType, onValueClick, onDescClick, onActiveRowChange, activeRowIndex, excludeApiId, theme, readOnly = false }) {
-  const typeOptions = showFileType ? ALL_TYPES : NON_FILE_TYPES;
+function KVTable({ items, onItemsChange, section, showType, showFileType, onValueClick, onDescClick, onActiveRowChange, activeRowIndex, excludeApiId, theme, readOnly = false, hideTypes = [] }) {
+  const typeOptions = (showFileType ? ALL_TYPES : NON_FILE_TYPES).filter(t => !hideTypes.includes(t.value));
   const lastToastRef = useRef(0);
 
   const parseRefPreview = (val) => {

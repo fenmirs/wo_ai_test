@@ -5,7 +5,7 @@
     {
       "activate": true,
       "name": "dev",
-      "domain": "192.168.17.128",
+      "domain": "localhost",
       "api-prj": ":25710/api-prj",
       "lcgl-prj": ":25708/lcgl-prj",
       "tm-prj": ":25712/tm-prj",
@@ -75,7 +75,33 @@
       "method": "POST",
       "api_path": "{domain}{lcgl-prj}/gzyq/runGzyq",
       "group": "group_mpqmv4y45epgz"
+    },
+    {
+      "id": "api_mqgb215n6mtnr",
+      "name": "接收NC检验单",
+      "method": "POST",
+      "api_path": "{domain}{api-prj}/openapi/order/mes/receive",
+      "group": "group_mpqmv4y45epgz"
     }
   ],
-  "requestTimeout": 3000
+  "requestTimeout": 3000,
+  "templates": [
+    {
+      "id": "tpl_mqgfa5wponnkj",
+      "name": "sss",
+      "sections": {
+        "header": [
+          {
+            "key": "asdasdf",
+            "default": "asdfasdfasdf",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "param": [],
+        "body": null
+      }
+    }
+  ]
 }

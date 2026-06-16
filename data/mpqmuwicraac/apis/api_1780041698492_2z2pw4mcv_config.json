@@ -10,19 +10,12 @@
       "name": "MES场景",
       "description": "获取lims的token，该场景为mes配置",
       "createdAt": "2026-05-29T08:01:38.503Z",
-      "updatedAt": "2026-06-03T06:24:53.128Z",
+      "updatedAt": "2026-06-16T09:11:54.619Z",
       "deleted": false,
       "header": [
         {
           "key": "Content-Type",
           "default": "application/json",
-          "type": "string",
-          "description": "",
-          "enabled": true
-        },
-        {
-          "key": "sss",
-          "default": "2222",
           "type": "string",
           "description": "",
           "enabled": true

@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { Search, Folder, FolderOpen, Plus, Trash2, FolderPlus, ChevronRight, ChevronDown, MoreHorizontal, Copy, Edit, X, Layers } from 'lucide-react';
+import { Search, Folder, FolderOpen, Plus, Trash2, FolderPlus, ChevronRight, ChevronDown, MoreHorizontal, Copy, Edit, X, Layers, Terminal } from 'lucide-react';
 import { projectManager } from '../utils/ProjectManager';
 import { toast } from './Toast';
 import './APIMain.css';
 
-function APIMain({ apis, groupsData, trashApis, trashGroups, selectedAPI, activeGroup, onSelect, onAdd, onEdit, onDelete, onAddGroup, onDeleteGroup, onGroupSelect, onMoveToGroup, onRenameGroup, onMoveGroup, onCopyAPI, onCopyGroup, onScenarioSelect, onAddScenario, onDeleteScenario, zenMode, zenApiId, currentScenarioId, expandScenarioApiId, onExpandScenarioHandled, scrollToApiId, onScrollToApiHandled, expandGroupId, onExpandGroupHandled, profile, onRestoreAPI, onPermanentDelete, onEmptyTrash, onRestoreGroup, onPermanentDeleteGroup }) {
+function APIMain({ apis, groupsData, trashApis, trashGroups, selectedAPI, activeGroup, onSelect, onAdd, onEdit, onDelete, onAddGroup, onDeleteGroup, onGroupSelect, onMoveToGroup, onRenameGroup, onMoveGroup, onCopyAPI, onCopyGroup, onScenarioSelect, onAddScenario, onDeleteScenario, zenMode, zenApiId, currentScenarioId, expandScenarioApiId, onExpandScenarioHandled, scrollToApiId, onScrollToApiHandled, expandGroupId, onExpandGroupHandled, profile, onCurlImport, onRestoreAPI, onPermanentDelete, onEmptyTrash, onRestoreGroup, onPermanentDeleteGroup }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [dragAPI, setDragAPI] = useState(null);
   const [dragGroup, setDragGroup] = useState(null);
@@ -1111,6 +1111,11 @@ function APIMain({ apis, groupsData, trashApis, trashGroups, selectedAPI, active
             title="支持按 API 名称、请求路径（含变量解析后）、场景名、场景描述、组名、ID 模糊搜索"
           />
         </div>
+        {onCurlImport && (
+          <button className="curl-import-btn" onClick={onCurlImport} title="从 cURL 导入">
+            <Terminal size={13} />
+          </button>
+        )}
       </div>
 
       {/* API 列表 */}
