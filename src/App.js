@@ -17,6 +17,7 @@ import { toast, ToastContainer } from './components/Toast';
 import { ProgressProvider } from './components/ProgressOverlay';
 import { projectManager } from './utils/ProjectManager';
 import { notificationManager } from './utils/NotificationManager';
+import APIDocGenerator from './utils/APIDocGenerator';
 import './App.css';
 
 function App() {
@@ -57,6 +58,9 @@ function App() {
   // 当前执行结果（供右侧 ResponsePanel 使用）
   const [currentExecutionResult, setCurrentExecutionResult] = useState(null);
   const [currentIsExecuting, setCurrentIsExecuting] = useState(false);
+
+  // 文档数据（供右侧 ResponsePanel 文档 tab 使用）
+  const [currentDocData, setCurrentDocData] = useState(null);
   
   // 面板显隐状态
   const [showLeftPanel, setShowLeftPanel] = useState(true);
@@ -686,6 +690,38 @@ function App() {
     setCurrentIsExecuting(executing);
     if (executing) {
       setCurrentExecutionResult(null);
+    }
+  }, []);
+
+  const handleDocChange = useCallback((docData) => {
+    setCurrentDocData(docData);
+    setShowRightPanel(true);
+  }, []);
+
+  const handleExportDoc = useCallback(async (markdown, fileName) => {
+    try {
+      if (window.electron) {
+        const result = await window.electron.saveFile({
+          defaultPath: fileName,
+          filters: [
+            { name: 'Markdown', extensions: ['md'] },
+            { name: 'All Files', extensions: ['*'] }
+          ]
+        });
+        if (result && result.filePath) {
+          const writeResult = await window.electron.writeFile(result.filePath, markdown);
+          if (writeResult && writeResult.success) {
+            notificationManager.addNotification('success', '文档保存成功', result.filePath, { filePath: result.filePath });
+          } else {
+            notificationManager.addNotification('error', '文档保存失败', writeResult?.error || '未知错误');
+          }
+        }
+      } else {
+        APIDocGenerator.download(markdown, fileName);
+      }
+    } catch (error) {
+      console.error('保存文档失败:', error);
+      notificationManager.addNotification('error', '保存文档失败', error.message || '未知错误');
     }
   }, []);
 
@@ -1404,6 +1440,7 @@ function App() {
                   onScenarioChange={handleScenarioChange}
                    onRequestedScenarioActionHandled={() => setRequestedScenarioAction(null)}
                    onRequestedScenarioHandled={() => setRequestedScenarioId(null)}
+                   onDocChange={handleDocChange}
                 />
               ) : (
                 <div className="empty-state">
@@ -1441,7 +1478,7 @@ function App() {
           {/* 右侧面板 - 响应/文档 */}
           {showRightPanel && (
             <div className="right-panel" style={{ width: rightPanelWidth }}>
-              <ResponsePanel executionResult={currentExecutionResult} isExecuting={currentIsExecuting} theme={theme} />
+              <ResponsePanel executionResult={currentExecutionResult} isExecuting={currentIsExecuting} theme={theme} docData={currentDocData} onExportDoc={handleExportDoc} />
             </div>
           )}
         </div>

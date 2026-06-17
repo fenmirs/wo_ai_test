@@ -85,23 +85,5 @@
     }
   ],
   "requestTimeout": 3000,
-  "templates": [
-    {
-      "id": "tpl_mqgfa5wponnkj",
-      "name": "sss",
-      "sections": {
-        "header": [
-          {
-            "key": "asdasdf",
-            "default": "asdfasdfasdf",
-            "type": "string",
-            "description": "",
-            "enabled": true
-          }
-        ],
-        "param": [],
-        "body": null
-      }
-    }
-  ]
+  "templates": []
 }

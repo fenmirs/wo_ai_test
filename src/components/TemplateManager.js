@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, Plus, Trash2, Save, Edit, ChevronDown, ChevronRight, Variable, ArrowLeft, Code, Layout } from 'lucide-react';
+import { X, Plus, Trash2, Save, Edit, ChevronDown, ChevronRight, Shapes, ArrowLeft, Code, Layout } from 'lucide-react';
 import { projectManager } from '../utils/ProjectManager';
 import { toast } from './Toast';
 import KVTable from './KVTable';
@@ -494,10 +494,10 @@ function TemplateManager({ onBack, theme }) {
   return (
     <div className="tpl-manager" ref={rootRef}>
       <div className="tpl-header-bar">
-        <button className="tpl-back-btn" onClick={onBack}>
+        {/* <button className="tpl-back-btn" onClick={onBack}>
           <ArrowLeft size={16} />
           <span>返回</span>
-        </button>
+        </button> */}
         <span className="tpl-header-title">参数模板管理</span>
       </div>
       <div className="tpl-content">
@@ -510,7 +510,7 @@ function TemplateManager({ onBack, theme }) {
 
         {templates.length === 0 ? (
           <div className="tpl-empty-state">
-            <Variable size={48} className="empty-icon" />
+            <Shapes size={48} className="empty-icon" />
             <h2>暂无参数模板</h2>
             <p>创建模板后，新建或编辑 API 时可快速应用通用参数</p>
           </div>

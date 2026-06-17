@@ -10,7 +10,7 @@
       "name": "MES场景",
       "description": "获取lims的token，该场景为mes配置",
       "createdAt": "2026-05-29T08:01:38.503Z",
-      "updatedAt": "2026-06-16T09:11:54.619Z",
+      "updatedAt": "2026-06-17T08:53:49.207Z",
       "deleted": false,
       "header": [
         {
@@ -30,14 +30,14 @@
         "contentType": "json",
         "content": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
         "schema": {
-          "id": "node_1780041793716_z61nd6g4b",
+          "id": "node_1781686405624_6pd42uzer",
           "type": "object",
           "key": null,
           "value": null,
           "description": "",
           "children": [
             {
-              "id": "node_1780041793716_w2k9am8sk",
+              "id": "node_1781686405624_s9j8b99pj",
               "type": "string",
               "key": "appId",
               "value": "MESUkSn6E7xqQ",
@@ -45,7 +45,7 @@
               "children": []
             },
             {
-              "id": "node_1780041793716_pbrm36tct",
+              "id": "node_1781686405624_lldies927",
               "type": "string",
               "key": "appSecret",
               "value": "xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk",
@@ -58,14 +58,14 @@
           "json": {
             "content": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
             "schema": {
-              "id": "node_1780041793716_z61nd6g4b",
+              "id": "node_1781686405624_6pd42uzer",
               "type": "object",
               "key": null,
               "value": null,
               "description": "",
               "children": [
                 {
-                  "id": "node_1780041793716_w2k9am8sk",
+                  "id": "node_1781686405624_s9j8b99pj",
                   "type": "string",
                   "key": "appId",
                   "value": "MESUkSn6E7xqQ",
@@ -73,7 +73,7 @@
                   "children": []
                 },
                 {
-                  "id": "node_1780041793716_pbrm36tct",
+                  "id": "node_1781686405624_lldies927",
                   "type": "string",
                   "key": "appSecret",
                   "value": "xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk",

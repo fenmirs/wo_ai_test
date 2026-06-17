@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Globe, Variable, ChevronUp, Settings2, FolderKanban, Save, XCircle, Sun, Moon, Newspaper, LogOut, Bell, CheckCheck, Trash2, PanelLeft, Columns, PanelRight, Bug, FolderOpen, Plus, Pencil, Layers, Clock } from 'lucide-react';
+import { Globe, Variable, ChevronUp, Settings2, FolderKanban, Save, XCircle, Sun, Moon, Newspaper, LogOut, Bell, CheckCheck, Trash2, PanelLeft, Columns, PanelRight, Bug, FolderOpen, Plus, Pencil, Layers, Clock,Shapes } from 'lucide-react';
 import { notificationManager } from '../utils/NotificationManager';
 import { projectManager } from '../utils/ProjectManager';
 import './BottomBar.css';
@@ -118,14 +118,6 @@ function BottomBar({
 
   return (
     <div className="bottom-bar">
-      <button
-        className={`bar-btn ${viewModeValue === 'template_manager' ? 'active' : ''}`}
-        onClick={onEditTemplates}
-        title="管理参数模板"
-      >
-        <Layers size={14} />
-      </button>
-
       <div className="bar-section" ref={projectDropdownRef}>
         <div
           className="bar-item project-name"
@@ -193,6 +185,14 @@ function BottomBar({
           </div>
         )}
       </div>
+
+      <button
+        className={`bar-btn ${viewModeValue === 'template_manager' ? 'active' : ''}`}
+        onClick={onEditTemplates}
+        title="管理参数模板"
+      >
+        <Shapes size={14} />
+      </button>
 
       <div className="bar-section" ref={profileDropdownRef}>
         <div

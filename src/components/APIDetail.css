@@ -240,12 +240,17 @@
 .scene-action-btn:hover {
   background: var(--bg-hover);
 }
-
+.btn-apply-temp {
+   color: var(--text-muted);
+}
+.btn-apply-temp:hover {
+  color: var(--text-primary);
+}
 .btn-save-icon {
-  color: #6b7280;
+  color: var(--success-color);
 }
 .btn-save-icon:hover {
-  color: #4b5563;
+  color: var(--success-hover);
 }
 .btn-send-icon {
   color: var(--accent-primary);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, Trash2, Plus, X, AlertCircle, FileText, Save, FileDown, Code, Layout, Edit, Zap, Upload } from 'lucide-react';
+import { Play, RefreshCw, Copy, CheckCircle, XCircle, Clock, Trash2, Plus, X, AlertCircle, FileText, Save, Code, Layout, Edit, Zap, Share2, Shapes, Terminal } from 'lucide-react';
 import './APIDetail.css';
 import ChainManager from '../utils/ChainManager';
 import { projectManager } from '../utils/ProjectManager';
@@ -18,11 +18,11 @@ import ImportDialog from './ImportDialog';
 import ApplyTemplateDialog from './ApplyTemplateDialog';
 
 
-function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, groups = [], isTemporary = false, readOnly = false, onViewDetail, onRestoreHistory, onDeleteHistory, theme = 'dark', onResultChange, onDraftChange, onExecutingChange, requestedScenarioId, requestedScenarioAction, onScenarioChange, onRequestedScenarioActionHandled, onRequestedScenarioHandled }) {
+function APIDetail({ api, profile, config, projectPath, onExecute, history = [], restoringHistoryEntry, onRestored, onSaveAPI, groups = [], isTemporary = false, readOnly = false, onViewDetail, onRestoreHistory, onDeleteHistory, theme = 'dark', onResultChange, onDraftChange, onExecutingChange, requestedScenarioId, requestedScenarioAction, onScenarioChange, onRequestedScenarioActionHandled, onRequestedScenarioHandled, onDocChange }) {
   const rootRef = useRef(null);
   const [panelRect, setPanelRect] = useState(null);
   const [resolvedPath, setResolvedPath] = useState('');
-  const [executionResult, setExecutionResult] = useState(null);
+  const [scenarioResults, setScenarioResults] = useState({});
   const [isExecuting, setIsExecuting] = useState(false);
   const [activeTab, setActiveTab] = useState('params');
   const [showHistoryPanel, setShowHistoryPanel] = useState(false);
@@ -122,6 +122,8 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const [importSection, setImportSection] = useState(null);
   const [showApplyTemplate, setShowApplyTemplate] = useState(false);
 
+  const executionResult = scenarioResults[currentScenarioId] || null;
+
   const apiHistory = history.filter(h =>
     (h.apiId && h.apiId === formData.id) ||
     (!h.apiId && h.apiName === formData.name)
@@ -133,10 +135,9 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         return;
       }
       initializedApiIdRef.current = api.id;
-      initializeFromApi(api, requestedScenarioId);
-      setExecutionResult(null);
+      const loadedScenarioId = initializeFromApi(api, requestedScenarioId);
 
-      // 从历史记录恢复最近一次执行结果
+      // 从历史记录恢复最近一次执行结果，按场景存储
       const matchingHistory = history
         .filter(h => (h.apiId && h.apiId === api.id) || (!h.apiId && h.apiName === api.name))
         .sort((a, b) => b.id - a.id);
@@ -166,12 +167,15 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
             }
             return cards;
           })();
-          setExecutionResult({
-            targetResult: targetApiResult,
-            allResults: restoredAllResults,
-            requestInfo: latest.requestInfo || null,
-            resultCards: restoredCards
-          });
+          setScenarioResults(prev => ({
+            ...prev,
+            [loadedScenarioId]: {
+              targetResult: targetApiResult,
+              allResults: restoredAllResults,
+              requestInfo: latest.requestInfo || null,
+              resultCards: restoredCards
+            }
+          }));
         }
       }
 
@@ -221,9 +225,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   }, [urlSegments]);
 
   useEffect(() => {
-    if (executionResult && onResultChange) {
-      onResultChange(executionResult);
-    }
+    onResultChange?.(executionResult);
   }, [executionResult]);
 
   useEffect(() => {
@@ -473,6 +475,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     }
 
     onRequestedScenarioHandled?.();
+    return activeScenarioId;
   };
 
   const restoreFromHistory = (historyEntry) => {
@@ -672,6 +675,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       return s;
     });
     setScenarioList(updatedList);
+    setScenarioResults(prev => ({ ...prev, [currentScenarioId]: executionResult }));
     setCurrentScenarioId(scenarioId);
     scenarioToForm(scenario);
     onScenarioChange?.(api?.id, scenarioId);
@@ -943,7 +947,6 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     }
 
     setIsExecuting(true);
-    setExecutionResult(null);
 
     try {
       const execAPI = prepareForExecute();
@@ -996,7 +999,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
 
       result.requestInfo = requestInfo;
       result.resultCards = cards;
-      setExecutionResult(result);
+      setScenarioResults(prev => ({ ...prev, [currentScenarioId]: result }));
 
       if (onExecute) onExecute(execAPI, result);
     } catch (error) {
@@ -1010,7 +1013,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
           card.result._refs = refPath ? findRefParamsByRefPath(refPath) : [];
         }
       });
-      setExecutionResult({ success: false, error: error.message, allResults: partialResults, resultCards: cards });
+      setScenarioResults(prev => ({ ...prev, [currentScenarioId]: { success: false, error: error.message, allResults: partialResults, resultCards: cards } }));
     } finally {
       setIsExecuting(false);
       executorRef.current = null;
@@ -1073,13 +1076,16 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     }
   };
 
-  const handleGenerateDoc = async () => {
-    const markdown = APIDocGenerator.generate(formData, resolvedPath, executionResult, config, profile);
+  const handleGenerateDoc = () => {
+    const options = APIDocGenerator.loadOptions();
+    const markdown = APIDocGenerator.generate(formData, resolvedPath, executionResult, config, profile, options);
     const fileName = `${formData.name || 'api'}_文档.md`;
+    onDocChange?.({ markdown, fileName, formData, resolvedPath, executionResult, config, profile });
+  };
 
+  const handleExportDoc = async (markdown, fileName) => {
     try {
       if (window.electron) {
-        // Electron 环境：使用文件保存对话框
         const result = await window.electron.saveFile({
           defaultPath: fileName,
           filters: [
@@ -1097,12 +1103,11 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
           }
         }
       } else {
-        // 浏览器环境：直接下载
         APIDocGenerator.download(markdown, fileName);
       }
     } catch (error) {
       console.error('保存文档失败:', error);
-      notificationManager.addNotification('error', '文档保存失败', error.message || '未知错误');
+      notificationManager.addNotification('error', '保存文档失败', error.message || '未知错误');
     }
   };
 
@@ -1475,6 +1480,10 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         {!readOnly && (
           <div className="meta-actions">
             <div className="api-line-actions">
+              <button className="scene-action-btn btn-apply-temp" onClick={() => setShowApplyTemplate(true)} title="应用参数模板">
+                <Shapes size={16} />
+              </button>
+              <span className="scene-action-divider">|</span>
               <button className="scene-action-btn btn-save-icon" onClick={handleSave} title="保存">
                 {isSaving ? <RefreshCw size={16} className="spin" /> : <Save size={16} />}
               </button>
@@ -1483,12 +1492,8 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                 {isExecuting ? <X size={16} /> : <Play size={16} />}
               </button>
               <span className="scene-action-divider">|</span>
-              <button className="scene-action-btn btn-doc-icon" onClick={handleGenerateDoc} title="生成文档">
-                <FileDown size={16} />
-              </button>
-              <span className="scene-action-divider">|</span>
-              <button className="scene-action-btn" onClick={() => setShowApplyTemplate(true)} title="应用参数模板">
-                <Save size={16} />
+              <button className="scene-action-btn btn-doc-icon" onClick={handleGenerateDoc} title="分享">
+                <Share2 size={16} />
               </button>
             </div>
           </div>
@@ -1682,8 +1687,8 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
               </label>
               <div className="tab-options-spacer" />
               {!readOnly && (
-                <button className="tab-import-btn" onClick={() => setImportSection('param')}>
-                  <Upload size={12} /> 导入
+                <button className="tab-import-btn" onClick={() => setImportSection('param')} title="粘贴-批量输入">
+                  <Terminal size={12} />
                 </button>
               )}
             </div>
@@ -1709,8 +1714,8 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
               <span className="tab-options-title">请求头</span>
               <div className="tab-options-spacer" />
               {!readOnly && (
-                <button className="tab-import-btn" onClick={() => setImportSection('header')}>
-                  <Upload size={12} /> 导入
+                <button className="tab-import-btn" onClick={() => setImportSection('header')} title="粘贴-批量输入">
+                  <Terminal size={12} />
                 </button>
               )}
             </div>
@@ -1785,8 +1790,8 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                   </p>
                   <div className="tab-options-spacer" />
                   {!readOnly && (
-                    <button className="tab-import-btn" onClick={() => setImportSection(formData.body.type === 'form-data' ? 'formData' : 'xwww')}>
-                      <Upload size={12} /> 导入
+                    <button className="tab-import-btn" onClick={() => setImportSection(formData.body.type === 'form-data' ? 'formData' : 'xwww')} title="粘贴-批量输入">
+                      <Terminal size={12} />
                     </button>
                   )}
                 </div>
@@ -2170,7 +2175,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         )}
 
       <KVBottomPanel
-        visible={bottomPanel.visible && !(activeTab === 'body')}
+        visible={bottomPanel.visible && !(activeTab === 'body' && (formData.body.type === 'raw' || formData.body.type === 'none'))}
         section={bottomPanel.section}
         rowIndex={bottomPanel.rowIndex}
         field={bottomPanel.field}

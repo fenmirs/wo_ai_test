@@ -10,7 +10,7 @@
       "name": "BATCH_ADD_TI_FROM_STD_TI",
       "description": "",
       "createdAt": "2026-06-12T03:28:07.607Z",
-      "updatedAt": "2026-06-12T06:19:31.591Z",
+      "updatedAt": "2026-06-17T05:09:46.312Z",
       "deleted": false,
       "header": [
         {
@@ -43,6 +43,101 @@
           {
             "key": "jsonDataStr",
             "default": "{\"prodPrn\":\"1946978764016\",\"stdPrn\":null,\"tiIds\":1176225905056}",
+            "type": "json",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "JID",
+            "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-euoeeQhuWRmCIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidXNlcl9wcm4iOiIxNzg3MDIwMDc5MjEiLCJpcF9hZGRyIjoiMTkyLjE2OC40LjM0IiwiaWF0IjoxNzgxMjM0MjQzLCJpc3MiOiJReiJ9.KFYX5jrNaQ-N7V-ESvT7U9UDv606SV78tnm9oYULlv4",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1781232645764_uftjbr3e3",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1781232645764_uftjbr3e3",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "assertions": [
+        {
+          "expression": "",
+          "enabled": true
+        }
+      ],
+      "refChain": []
+    },
+    "scn_1781664247214_yegr3": {
+      "id": "scn_1781664247214_yegr3",
+      "name": "REPORT_COMPILE_VALIDATE",
+      "description": "",
+      "createdAt": "2026-06-17T02:44:07.214Z",
+      "updatedAt": "2026-06-17T05:09:47.934Z",
+      "deleted": false,
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "jid",
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMSIsInVzZXJfbmFtZSI6Iuezu-e7n-euoeeQhuWRmCIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImFkbWluIiwidXNlcl9wcm4iOiIxNzg3MDIwMDc5MjEiLCJpcF9hZGRyIjoiMTkyLjE2OC40LjM0IiwiaWF0IjoxNzgxMjM0MjQzLCJpc3MiOiJReiJ9.KFYX5jrNaQ-N7V-ESvT7U9UDv606SV78tnm9oYULlv4",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "btnCode",
+            "default": "REPORT_COMPILE_VALIDATE",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\"order_ids\":\"1946978764016\"}",
             "type": "json",
             "description": "",
             "enabled": true

@@ -371,6 +371,15 @@ $.success == true
 
 ## 变更记录
 
+### 2026-06-17（API 文档增强 — 内容选择 + 图片导出 + 多语言示例 + Schema 表格）
+- **内容选择器** — 文档 tab 新增「内容选择」面板，11 项可选内容（基本信息/Headers/Query/Body/Schema/请求示例/响应示例/断言/依赖链/场景描述/错误码），偏好自动保存到 `localStorage`
+- **图片导出** — 导出类型增加「图片」，基于 `html-to-image` 将文档预览截图导出为 PNG（2x 像素比），与 Markdown 导出并列可选
+- **多语言请求示例** — 自动生成 cURL、JavaScript fetch、Python requests 三种代码示例
+- **Schema 字段表格** — JSON body 优先以表格展示字段结构（字段路径/类型/必需/描述），替代原始代码块
+- **文档内容增强** — 响应信息补充状态码、耗时、响应大小、响应 Headers；断言结果展示（通过/失败、实际值）；场景描述说明；依赖 API 附带描述
+- **执行结果绑定场景** — `executionResult` 改为按 `scenarioId` 存储（`scenarioResults` map），切换场景时自动保存/恢复，导出一个 `executionResult` 派生值保持向下兼容
+- **右侧文档 tab** — ResponsePanel 新增「响应」/「文档」tab 切换，收到文档数据时自动切到文档 tab，支持内容选项实时重新生成
+
 ### 2026-06-05（Params URL 编码开关 + 批量导入功能）
 - **URL 编码开关** — Params tab 添加全局 `URL 编码` toggle（默认开启），关闭后参数值原样发送不做 `encodeURIComponent`
 - **导入对话框（ImportDialog）** — 新增独立组件，支持 Params / Headers / Body (form-data / x-www-form-urlencoded) 批量导入
