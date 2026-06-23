@@ -82,6 +82,13 @@
       "method": "POST",
       "api_path": "{domain}{api-prj}/openapi/order/mes/receive",
       "group": "group_mpqmv4y45epgz"
+    },
+    {
+      "id": "api_1782096511932_ov7gmfqwp",
+      "name": "接收DAQ数据",
+      "method": "POST",
+      "api_path": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+      "group": "group_mpqmv4y45epgz"
     }
   ],
   "requestTimeout": 3000,

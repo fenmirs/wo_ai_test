@@ -121,6 +121,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const [showRefPicker, setShowRefPicker] = useState(false);
   const [importSection, setImportSection] = useState(null);
   const [showApplyTemplate, setShowApplyTemplate] = useState(false);
+  const [importInitialText, setImportInitialText] = useState('');
 
   const executionResult = scenarioResults[currentScenarioId] || null;
 
@@ -1403,6 +1404,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   if (!api && !formData.name) return null;
 
   const methods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'];
+  const noBodyMethods = new Set(['GET', 'HEAD', 'DELETE', 'OPTIONS']);
 
   return (
     <div className="api-detail" ref={rootRef}>
@@ -1505,7 +1507,13 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         <div className="method-select" style={{ flexShrink: 0 }}>
           <select
             value={formData.method}
-            onChange={(e) => setFormData({ ...formData, method: e.target.value })}
+            onChange={(e) => {
+              const newMethod = e.target.value;
+              if (noBodyMethods.has(newMethod) && formData.body.type !== 'none') {
+                toast.warning(`${newMethod} 不支持 body 参数，请修改请求方式或清除 body`);
+              }
+              setFormData({ ...formData, method: newMethod });
+            }}
             style={{ backgroundColor: getMethodColor(formData.method) }}
             disabled={readOnly}
           >
@@ -1687,7 +1695,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
               </label>
               <div className="tab-options-spacer" />
               {!readOnly && (
-                <button className="tab-import-btn" onClick={() => setImportSection('param')} title="粘贴-批量输入">
+                <button className="tab-import-btn" onClick={() => { setImportInitialText((formData.param || []).filter(p => p.key).map(p => `${p.key}=${p.default || ''}`).join('\n')); setImportSection('param'); }} title="粘贴-批量输入">
                   <Terminal size={12} />
                 </button>
               )}
@@ -1714,7 +1722,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
               <span className="tab-options-title">请求头</span>
               <div className="tab-options-spacer" />
               {!readOnly && (
-                <button className="tab-import-btn" onClick={() => setImportSection('header')} title="粘贴-批量输入">
+                <button className="tab-import-btn" onClick={() => { setImportInitialText((formData.header || []).filter(h => h.key).map(h => `${h.key}: ${h.default || ''}`).join('\n')); setImportSection('header'); }} title="粘贴-批量输入">
                   <Terminal size={12} />
                 </button>
               )}
@@ -1742,7 +1750,13 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                 <label key={type} className={`body-type ${formData.body.type === type ? 'active' : ''}`}>
                   <input type="radio" name="bodyType" value={type}
                     checked={formData.body.type === type}
-                    onChange={() => updateFormBody({ type })} />
+                    onChange={() => {
+                      if (type !== 'none' && noBodyMethods.has(formData.method)) {
+                        toast.warning(`${formData.method} 不支持 body 参数，请修改请求方式`);
+                        return;
+                      }
+                      updateFormBody({ type });
+                    }} />
                   <span>{type === 'none' ? 'none' : type === 'form-data' ? 'form-data' : type === 'x-www-form-urlencoded' ? 'x-www-form-urlencoded' : 'raw'}</span>
                   {type === 'raw' && formData.body.type === 'raw' && (
                     <select
@@ -1790,7 +1804,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
                   </p>
                   <div className="tab-options-spacer" />
                   {!readOnly && (
-                    <button className="tab-import-btn" onClick={() => setImportSection(formData.body.type === 'form-data' ? 'formData' : 'xwww')} title="粘贴-批量输入">
+                    <button className="tab-import-btn" onClick={() => { const section = formData.body.type === 'form-data' ? 'formData' : 'xwww'; const items = section === 'formData' ? (formData.body.formData || []) : (formData.body.xwwwFormUrlencoded || []); setImportInitialText(items.filter(i => i.key).map(i => `${i.key}=${i.default || ''}`).join('\n')); setImportSection(section); }} title="粘贴-批量输入">
                       <Terminal size={12} />
                     </button>
                   )}
@@ -2200,6 +2214,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
       {importSection && (
         <ImportDialog
           section={importSection}
+          initialText={importInitialText}
           existingItems={
             importSection === 'param' ? formData.param :
             importSection === 'header' ? formData.header :

@@ -67,8 +67,8 @@ function detectFormat(text) {
   return 'query';
 }
 
-function ImportDialog({ section, existingItems, onConfirm, onClose }) {
-  const [rawText, setRawText] = useState('');
+function ImportDialog({ section, existingItems, onConfirm, onClose, initialText }) {
+  const [rawText, setRawText] = useState(initialText || '');
   const [format, setFormat] = useState('auto');
   const [selectedKeys, setSelectedKeys] = useState(new Set());
   const [overwriteConflicts, setOverwriteConflicts] = useState(false);
@@ -91,31 +91,54 @@ function ImportDialog({ section, existingItems, onConfirm, onClose }) {
     });
   }, [rawText, format]);
 
-  const existingKeys = useMemo(() => {
-    const keys = new Set();
+  const existingMap = useMemo(() => {
+    const map = {};
     if (existingItems) {
       existingItems.forEach(item => {
-        if (item.key) keys.add(item.key);
+        if (item.key) map[item.key] = item.default ?? item.value ?? '';
       });
     }
-    return keys;
+    return map;
   }, [existingItems]);
 
-  const conflictKeys = useMemo(() => {
-    const conflicts = new Set();
+  const itemStatusMap = useMemo(() => {
+    const map = {};
     for (const item of parsedItems) {
-      if (existingKeys.has(item.key)) {
-        conflicts.add(item.key);
+      const existingVal = existingMap[item.key];
+      if (existingVal === undefined) {
+        map[item.key] = 'new';
+      } else if (existingVal === item.value) {
+        map[item.key] = 'unchanged';
+      } else {
+        map[item.key] = 'changed';
       }
     }
-    return conflicts;
-  }, [parsedItems, existingKeys]);
+    return map;
+  }, [parsedItems, existingMap]);
+
+  const changedKeys = useMemo(() => {
+    const s = new Set();
+    for (const [key, status] of Object.entries(itemStatusMap)) {
+      if (status === 'changed') s.add(key);
+    }
+    return s;
+  }, [itemStatusMap]);
+
+  const unchangedKeys = useMemo(() => {
+    const s = new Set();
+    for (const [key, status] of Object.entries(itemStatusMap)) {
+      if (status === 'unchanged') s.add(key);
+    }
+    return s;
+  }, [itemStatusMap]);
 
   const allKeys = useMemo(() => new Set(parsedItems.map(i => i.key)), [parsedItems]);
 
   useEffect(() => {
-    setSelectedKeys(new Set(allKeys));
-  }, [allKeys]);
+    const keys = new Set(allKeys);
+    for (const key of unchangedKeys) keys.delete(key);
+    setSelectedKeys(keys);
+  }, [allKeys, unchangedKeys]);
 
   const allSelected = selectedKeys.size === allKeys.size && allKeys.size > 0;
 
@@ -180,7 +203,7 @@ function ImportDialog({ section, existingItems, onConfirm, onClose }) {
               <div className="import-preview-header">
                 <span className="import-preview-info">
                   将导入 <strong>{parsedItems.length}</strong> 项
-                  {conflictKeys.size > 0 && <span className="import-conflict-count">（其中 <strong>{conflictKeys.size}</strong> 项冲突）</span>}
+                  {changedKeys.size > 0 && <span className="import-conflict-count">（其中 <strong>{changedKeys.size}</strong> 项冲突）</span>}
                 </span>
                 <button className="import-toggle-all" onClick={toggleAll}>
                   {allSelected ? '取消全选' : '全选'}
@@ -189,10 +212,12 @@ function ImportDialog({ section, existingItems, onConfirm, onClose }) {
 
               <div className="import-item-list">
                 {parsedItems.map((item, idx) => {
-                  const isConflict = conflictKeys.has(item.key);
-                  const existing = isConflict ? existingItems.find(i => i.key === item.key) : null;
+                  const status = itemStatusMap[item.key] || 'new';
+                  const isChanged = status === 'changed';
+                  const isUnchanged = status === 'unchanged';
+                  const existing = isChanged || isUnchanged ? existingItems.find(i => i.key === item.key) : null;
                   return (
-                    <label key={`${item.key}_${idx}`} className={`import-item ${isConflict ? 'import-item-conflict' : ''}`}>
+                    <label key={`${item.key}_${idx}`} className={`import-item ${isChanged ? 'import-item-conflict' : ''} ${isUnchanged ? 'import-item-unchanged' : ''}`}>
                       <input
                         type="checkbox"
                         checked={selectedKeys.has(item.key)}
@@ -200,7 +225,7 @@ function ImportDialog({ section, existingItems, onConfirm, onClose }) {
                       />
                       <span className="import-item-key">{item.key}</span>
                       <div className="import-item-value-wrap">
-                        {isConflict && existing ? (
+                        {(isChanged || isUnchanged) && existing ? (
                           <>
                             <span className="import-item-value-old" title={existing.default}>现有: {existing.default && existing.default.length > 50 ? existing.default.slice(0, 50) + '...' : existing.default || '(空)'}</span>
                             <span className="import-item-value-new" title={item.value}>导入: {item.value.length > 50 ? item.value.slice(0, 50) + '...' : item.value}</span>
@@ -211,17 +236,19 @@ function ImportDialog({ section, existingItems, onConfirm, onClose }) {
                           </span>
                         )}
                       </div>
-                      {isConflict ? (
-                        <span className="import-item-badge badge-conflict" title="已存在相同键名">冲突</span>
+                      {isChanged ? (
+                        <span className="import-item-badge badge-conflict" title="值发生变化">冲突</span>
+                      ) : isUnchanged ? (
+                        <span className="import-item-badge badge-unchanged" title="值与现有相同">无变化</span>
                       ) : (
-                        <span className="import-item-badge badge-new">新</span>
+                        <span className="import-item-badge badge-new">新增</span>
                       )}
                     </label>
                   );
                 })}
               </div>
 
-              {conflictKeys.size > 0 && (
+              {changedKeys.size > 0 && (
                 <label className="import-overwrite">
                   <input
                     type="checkbox"

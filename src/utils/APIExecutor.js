@@ -381,6 +381,7 @@ class APIExecutor {
       const contentType = header['Content-Type'] || '';
       const useJSON = contentType.toLowerCase().includes('application/json');
       const useFiles = hasFileUpload || contentType.toLowerCase().includes('multipart/form-data');
+      const useUrlEncoded = contentType.toLowerCase().includes('application/x-www-form-urlencoded');
 
       // 如果使用 files，需要移除 Content-Type
       if (useFiles) {
@@ -418,6 +419,12 @@ class APIExecutor {
         } else if (useJSON) {
           requestConfig.data = body;
           requestConfig.headers['Content-Type'] = 'application/json';
+        } else if (useUrlEncoded && typeof body === 'object') {
+          const params = new URLSearchParams();
+          for (const [key, value] of Object.entries(body)) {
+            params.append(key, typeof value === 'object' ? JSON.stringify(value) : String(value));
+          }
+          requestConfig.data = params.toString();
         } else {
           requestConfig.data = body;
         }

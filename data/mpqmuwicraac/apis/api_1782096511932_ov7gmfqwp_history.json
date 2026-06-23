@@ -1,0 +1,3983 @@
+[
+  {
+    "id": 1782099336761,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782096511932_ov7gmfqwp",
+    "apiName": "接收DAQ数据",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+    "timestamp": "2026/6/22 11:35:36",
+    "apiConfig": {
+      "name": "接收DAQ数据",
+      "group": "group_mpqmv4y45epgz",
+      "api_path": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "Token": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+        "Data": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+        "RecordFileId": "20260608-1717-0028-0386-77d1a6c86055",
+        "TemplateName": "测试模版",
+        "configNo": ""
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [
+          {
+            "key": "Token",
+            "default": "v41QuGi+5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH/s0DFhVf4ZjmEv'",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "Data",
+            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "RecordFileId",
+            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "TemplateName",
+            "default": "测试模版",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "configNo",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "file",
+            "default": "企业微信截图_177571859470.png",
+            "type": "file",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "Token",
+            "default": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "Data",
+            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "type": "json",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "RecordFileId",
+            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "TemplateName",
+            "default": "测试模版",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "configNo",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782096511936_i2edc1v8z",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782096511936_i2edc1v8z",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "TIMEOUT",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "3.01s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "请求超时",
+      "errorType": "timeout",
+      "requestConfig": {
+        "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": {
+          "Token": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+          "Data": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+          "RecordFileId": "20260608-1717-0028-0386-77d1a6c86055",
+          "TemplateName": "测试模版",
+          "configNo": ""
+        },
+        "bodyType": "json"
+      },
+      "_startTime": 1782099333753,
+      "_endTime": 1782099336761
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "3.01s",
+    "error": "请求超时",
+    "errorType": "timeout",
+    "assertionResult": null,
+    "responseHeaders": {},
+    "allResults": {
+      "api_1782096511932_ov7gmfqwp": {
+        "status_text": "TIMEOUT",
+        "httpSuccess": false,
+        "success": false,
+        "headers": {},
+        "elapsedTime": "3.01s",
+        "responseSize": "0 B",
+        "assertionResult": null,
+        "error": "请求超时",
+        "errorType": "timeout",
+        "requestConfig": {
+          "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": {
+            "Token": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+            "Data": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "RecordFileId": "20260608-1717-0028-0386-77d1a6c86055",
+            "TemplateName": "测试模版",
+            "configNo": ""
+          },
+          "bodyType": "json"
+        },
+        "_startTime": 1782099333753,
+        "_endTime": 1782099336761
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782096511932_ov7gmfqwp",
+        "name": "接收DAQ数据",
+        "result": {
+          "status_text": "TIMEOUT",
+          "httpSuccess": false,
+          "success": false,
+          "headers": {},
+          "elapsedTime": "3.01s",
+          "responseSize": "0 B",
+          "assertionResult": null,
+          "error": "请求超时",
+          "errorType": "timeout",
+          "requestConfig": {
+            "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": {
+              "Token": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+              "Data": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+              "RecordFileId": "20260608-1717-0028-0386-77d1a6c86055",
+              "TemplateName": "测试模版",
+              "configNo": ""
+            },
+            "bodyType": "json"
+          },
+          "_startTime": 1782099333753,
+          "_endTime": 1782099336761
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782099219373,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782096511932_ov7gmfqwp",
+    "apiName": "接收DAQ数据",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+    "timestamp": "2026/6/22 11:33:39",
+    "apiConfig": {
+      "name": "接收DAQ数据",
+      "group": "group_mpqmv4y45epgz",
+      "api_path": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "Token": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+        "Data": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+        "RecordFileId": "20260608-1717-0028-0386-77d1a6c86055",
+        "TemplateName": "测试模版",
+        "configNo": ""
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [
+          {
+            "key": "Token",
+            "default": "v41QuGi+5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH/s0DFhVf4ZjmEv'",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "Data",
+            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "RecordFileId",
+            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "TemplateName",
+            "default": "测试模版",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "configNo",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "file",
+            "default": "企业微信截图_177571859470.png",
+            "type": "file",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "Token",
+            "default": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "Data",
+            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "type": "json",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "RecordFileId",
+            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "TemplateName",
+            "default": "测试模版",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "configNo",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782096511936_i2edc1v8z",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782096511936_i2edc1v8z",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "TIMEOUT",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "3.00s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "请求超时",
+      "errorType": "timeout",
+      "requestConfig": {
+        "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": {
+          "Token": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+          "Data": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+          "RecordFileId": "20260608-1717-0028-0386-77d1a6c86055",
+          "TemplateName": "测试模版",
+          "configNo": ""
+        },
+        "bodyType": "json"
+      },
+      "_startTime": 1782099216370,
+      "_endTime": 1782099219373
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "3.00s",
+    "error": "请求超时",
+    "errorType": "timeout",
+    "assertionResult": null,
+    "responseHeaders": {},
+    "allResults": {
+      "api_1782096511932_ov7gmfqwp": {
+        "status_text": "TIMEOUT",
+        "httpSuccess": false,
+        "success": false,
+        "headers": {},
+        "elapsedTime": "3.00s",
+        "responseSize": "0 B",
+        "assertionResult": null,
+        "error": "请求超时",
+        "errorType": "timeout",
+        "requestConfig": {
+          "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": {
+            "Token": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+            "Data": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "RecordFileId": "20260608-1717-0028-0386-77d1a6c86055",
+            "TemplateName": "测试模版",
+            "configNo": ""
+          },
+          "bodyType": "json"
+        },
+        "_startTime": 1782099216370,
+        "_endTime": 1782099219373
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782096511932_ov7gmfqwp",
+        "name": "接收DAQ数据",
+        "result": {
+          "status_text": "TIMEOUT",
+          "httpSuccess": false,
+          "success": false,
+          "headers": {},
+          "elapsedTime": "3.00s",
+          "responseSize": "0 B",
+          "assertionResult": null,
+          "error": "请求超时",
+          "errorType": "timeout",
+          "requestConfig": {
+            "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": {
+              "Token": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+              "Data": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+              "RecordFileId": "20260608-1717-0028-0386-77d1a6c86055",
+              "TemplateName": "测试模版",
+              "configNo": ""
+            },
+            "bodyType": "json"
+          },
+          "_startTime": 1782099216370,
+          "_endTime": 1782099219373
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782099201174,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782096511932_ov7gmfqwp",
+    "apiName": "接收DAQ数据",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+    "timestamp": "2026/6/22 11:33:21",
+    "apiConfig": {
+      "name": "接收DAQ数据",
+      "group": "group_mpqmv4y45epgz",
+      "api_path": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "Token": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+        "Data": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+        "RecordFileId": "20260608-1717-0028-0386-77d1a6c86055",
+        "TemplateName": "测试模版",
+        "configNo": ""
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [
+          {
+            "key": "Token",
+            "default": "v41QuGi+5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH/s0DFhVf4ZjmEv'",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "Data",
+            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "RecordFileId",
+            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "TemplateName",
+            "default": "测试模版",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "configNo",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "file",
+            "default": "企业微信截图_177571859470.png",
+            "type": "file",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "Token",
+            "default": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "Data",
+            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "type": "json",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "RecordFileId",
+            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "TemplateName",
+            "default": "测试模版",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "configNo",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782096511936_i2edc1v8z",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782096511936_i2edc1v8z",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "code": 500,
+        "error": "",
+        "msg": "",
+        "obj": {
+          "Data": null,
+          "Success": false,
+          "code": 500,
+          "error": "",
+          "msg": "java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORlcgl_order_ti_b.name2 IN ('正己烷残留量','总有机溶剂残留量') )' at line 7",
+          "obj": null,
+          "status": null
+        },
+        "status": false
+      },
+      "headers": {
+        "content-type": "application/json;charset=UTF-8",
+        "content-length": "397",
+        "date": "Mon, 22 Jun 2026 03:33:21 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.03s",
+      "responseSize": "369 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": {
+          "Token": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+          "Data": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+          "RecordFileId": "20260608-1717-0028-0386-77d1a6c86055",
+          "TemplateName": "测试模版",
+          "configNo": ""
+        },
+        "bodyType": "json"
+      },
+      "_startTime": 1782099201141,
+      "_endTime": 1782099201174
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.03s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "code": 500,
+      "error": "",
+      "msg": "",
+      "obj": {
+        "Data": null,
+        "Success": false,
+        "code": 500,
+        "error": "",
+        "msg": "java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORlcgl_order_ti_b.name2 IN ('正己烷残留量','总有机溶剂残留量') )' at line 7",
+        "obj": null,
+        "status": null
+      },
+      "status": false
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "content-type": "application/json;charset=UTF-8",
+      "content-length": "397",
+      "date": "Mon, 22 Jun 2026 03:33:21 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782096511932_ov7gmfqwp": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "code": 500,
+          "error": "",
+          "msg": "",
+          "obj": {
+            "Data": null,
+            "Success": false,
+            "code": 500,
+            "error": "",
+            "msg": "java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORlcgl_order_ti_b.name2 IN ('正己烷残留量','总有机溶剂残留量') )' at line 7",
+            "obj": null,
+            "status": null
+          },
+          "status": false
+        },
+        "headers": {
+          "content-type": "application/json;charset=UTF-8",
+          "content-length": "397",
+          "date": "Mon, 22 Jun 2026 03:33:21 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.03s",
+        "responseSize": "369 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": {
+            "Token": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+            "Data": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "RecordFileId": "20260608-1717-0028-0386-77d1a6c86055",
+            "TemplateName": "测试模版",
+            "configNo": ""
+          },
+          "bodyType": "json"
+        },
+        "_startTime": 1782099201141,
+        "_endTime": 1782099201174
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782096511932_ov7gmfqwp",
+        "name": "接收DAQ数据",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "code": 500,
+            "error": "",
+            "msg": "",
+            "obj": {
+              "Data": null,
+              "Success": false,
+              "code": 500,
+              "error": "",
+              "msg": "java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORlcgl_order_ti_b.name2 IN ('正己烷残留量','总有机溶剂残留量') )' at line 7",
+              "obj": null,
+              "status": null
+            },
+            "status": false
+          },
+          "headers": {
+            "content-type": "application/json;charset=UTF-8",
+            "content-length": "397",
+            "date": "Mon, 22 Jun 2026 03:33:21 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.03s",
+          "responseSize": "369 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": {
+              "Token": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+              "Data": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+              "RecordFileId": "20260608-1717-0028-0386-77d1a6c86055",
+              "TemplateName": "测试模版",
+              "configNo": ""
+            },
+            "bodyType": "json"
+          },
+          "_startTime": 1782099201141,
+          "_endTime": 1782099201174
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782097421120,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782096511932_ov7gmfqwp",
+    "apiName": "接收DAQ数据",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+    "timestamp": "2026/6/22 11:03:41",
+    "apiConfig": {
+      "name": "接收DAQ数据",
+      "group": "group_mpqmv4y45epgz",
+      "api_path": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "Token": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+        "Data": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+        "RecordFileId": "20260608-1717-0028-0386-77d1a6c86055",
+        "TemplateName": "测试模版",
+        "configNo": ""
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [
+          {
+            "key": "Token",
+            "default": "v41QuGi+5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH/s0DFhVf4ZjmEv'",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "Data",
+            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "RecordFileId",
+            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "TemplateName",
+            "default": "测试模版",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "configNo",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "file",
+            "default": "企业微信截图_177571859470.png",
+            "type": "file",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "Token",
+            "default": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "Data",
+            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "type": "json",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "RecordFileId",
+            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "TemplateName",
+            "default": "测试模版",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "configNo",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782096511936_i2edc1v8z",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782096511936_i2edc1v8z",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "TIMEOUT",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "3.01s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "请求超时",
+      "errorType": "timeout",
+      "requestConfig": {
+        "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": {
+          "Token": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+          "Data": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+          "RecordFileId": "20260608-1717-0028-0386-77d1a6c86055",
+          "TemplateName": "测试模版",
+          "configNo": ""
+        },
+        "bodyType": "json"
+      },
+      "_startTime": 1782097418107,
+      "_endTime": 1782097421120
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "3.01s",
+    "error": "请求超时",
+    "errorType": "timeout",
+    "assertionResult": null,
+    "responseHeaders": {},
+    "allResults": {
+      "api_1782096511932_ov7gmfqwp": {
+        "status_text": "TIMEOUT",
+        "httpSuccess": false,
+        "success": false,
+        "headers": {},
+        "elapsedTime": "3.01s",
+        "responseSize": "0 B",
+        "assertionResult": null,
+        "error": "请求超时",
+        "errorType": "timeout",
+        "requestConfig": {
+          "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": {
+            "Token": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+            "Data": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "RecordFileId": "20260608-1717-0028-0386-77d1a6c86055",
+            "TemplateName": "测试模版",
+            "configNo": ""
+          },
+          "bodyType": "json"
+        },
+        "_startTime": 1782097418107,
+        "_endTime": 1782097421120
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782096511932_ov7gmfqwp",
+        "name": "接收DAQ数据",
+        "result": {
+          "status_text": "TIMEOUT",
+          "httpSuccess": false,
+          "success": false,
+          "headers": {},
+          "elapsedTime": "3.01s",
+          "responseSize": "0 B",
+          "assertionResult": null,
+          "error": "请求超时",
+          "errorType": "timeout",
+          "requestConfig": {
+            "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": {
+              "Token": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+              "Data": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+              "RecordFileId": "20260608-1717-0028-0386-77d1a6c86055",
+              "TemplateName": "测试模版",
+              "configNo": ""
+            },
+            "bodyType": "json"
+          },
+          "_startTime": 1782097418107,
+          "_endTime": 1782097421120
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782097405357,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782096511932_ov7gmfqwp",
+    "apiName": "接收DAQ数据",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+    "timestamp": "2026/6/22 11:03:25",
+    "apiConfig": {
+      "name": "接收DAQ数据",
+      "group": "group_mpqmv4y45epgz",
+      "api_path": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+      "method": "POST",
+      "header": {
+        "Content-Type": "multipart/form-data"
+      },
+      "param": {},
+      "body": {
+        "Token": {
+          "default": "v41QuGi+5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH/s0DFhVf4ZjmEv'",
+          "type": "string"
+        },
+        "Data": {
+          "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+          "type": "string"
+        },
+        "RecordFileId": {
+          "default": "20260608-1717-0028-0386-77d1a6c86055",
+          "type": "string"
+        },
+        "TemplateName": {
+          "default": "测试模版",
+          "type": "string"
+        },
+        "configNo": {
+          "default": "",
+          "type": "string"
+        },
+        "file": {
+          "default": "企业微信截图_177571859470.png",
+          "type": "file"
+        }
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "multipart/form-data",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "form-data",
+        "formData": [
+          {
+            "key": "Token",
+            "default": "v41QuGi+5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH/s0DFhVf4ZjmEv'",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "Data",
+            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "RecordFileId",
+            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "TemplateName",
+            "default": "测试模版",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "configNo",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "file",
+            "default": "企业微信截图_177571859470.png",
+            "type": "file",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "Token",
+            "default": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "Data",
+            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "type": "json",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "RecordFileId",
+            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "TemplateName",
+            "default": "测试模版",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "configNo",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782096511936_i2edc1v8z",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782096511936_i2edc1v8z",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "form-data",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "code": 500,
+        "error": "",
+        "msg": "",
+        "obj": {
+          "Data": null,
+          "Success": false,
+          "code": 500,
+          "error": "",
+          "msg": "Daq数据解析templateName出错，原因：null",
+          "obj": null,
+          "status": null
+        },
+        "status": false
+      },
+      "headers": {
+        "content-type": "application/json;charset=UTF-8",
+        "content-length": "188",
+        "date": "Mon, 22 Jun 2026 03:03:25 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.02s",
+      "responseSize": "168 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+        "method": "POST",
+        "headers": {},
+        "params": {},
+        "body": "[FormData]",
+        "bodyType": "form-data"
+      },
+      "_startTime": 1782097405329,
+      "_endTime": 1782097405357
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.02s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "code": 500,
+      "error": "",
+      "msg": "",
+      "obj": {
+        "Data": null,
+        "Success": false,
+        "code": 500,
+        "error": "",
+        "msg": "Daq数据解析templateName出错，原因：null",
+        "obj": null,
+        "status": null
+      },
+      "status": false
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "content-type": "application/json;charset=UTF-8",
+      "content-length": "188",
+      "date": "Mon, 22 Jun 2026 03:03:25 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782096511932_ov7gmfqwp": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "code": 500,
+          "error": "",
+          "msg": "",
+          "obj": {
+            "Data": null,
+            "Success": false,
+            "code": 500,
+            "error": "",
+            "msg": "Daq数据解析templateName出错，原因：null",
+            "obj": null,
+            "status": null
+          },
+          "status": false
+        },
+        "headers": {
+          "content-type": "application/json;charset=UTF-8",
+          "content-length": "188",
+          "date": "Mon, 22 Jun 2026 03:03:25 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.02s",
+        "responseSize": "168 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+          "method": "POST",
+          "headers": {},
+          "params": {},
+          "body": "[FormData]",
+          "bodyType": "form-data"
+        },
+        "_startTime": 1782097405329,
+        "_endTime": 1782097405357
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782096511932_ov7gmfqwp",
+        "name": "接收DAQ数据",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "code": 500,
+            "error": "",
+            "msg": "",
+            "obj": {
+              "Data": null,
+              "Success": false,
+              "code": 500,
+              "error": "",
+              "msg": "Daq数据解析templateName出错，原因：null",
+              "obj": null,
+              "status": null
+            },
+            "status": false
+          },
+          "headers": {
+            "content-type": "application/json;charset=UTF-8",
+            "content-length": "188",
+            "date": "Mon, 22 Jun 2026 03:03:25 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.02s",
+          "responseSize": "168 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+            "method": "POST",
+            "headers": {},
+            "params": {},
+            "body": "[FormData]",
+            "bodyType": "form-data"
+          },
+          "_startTime": 1782097405329,
+          "_endTime": 1782097405357
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782097352436,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782096511932_ov7gmfqwp",
+    "apiName": "接收DAQ数据",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+    "timestamp": "2026/6/22 11:02:32",
+    "apiConfig": {
+      "name": "接收DAQ数据",
+      "group": "group_mpqmv4y45epgz",
+      "api_path": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+      "method": "POST",
+      "header": {
+        "Content-Type": "multipart/form-data"
+      },
+      "param": {},
+      "body": {
+        "Token": {
+          "default": "v41QuGi+5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH/s0DFhVf4ZjmEv'",
+          "type": "string"
+        },
+        "Data": {
+          "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+          "type": "string"
+        },
+        "RecordFileId": {
+          "default": "20260608-1717-0028-0386-77d1a6c86055",
+          "type": "string"
+        },
+        "TemplateName": {
+          "default": "测试模版",
+          "type": "string"
+        },
+        "configNo": {
+          "default": "",
+          "type": "string"
+        },
+        "file": {
+          "default": "企业微信截图_177571859470.png",
+          "type": "file"
+        }
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "multipart/form-data",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "form-data",
+        "formData": [
+          {
+            "key": "Token",
+            "default": "v41QuGi+5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH/s0DFhVf4ZjmEv'",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "Data",
+            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "RecordFileId",
+            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "TemplateName",
+            "default": "测试模版",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "configNo",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "file",
+            "default": "企业微信截图_177571859470.png",
+            "type": "file",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "Token",
+            "default": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "Data",
+            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "type": "json",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "RecordFileId",
+            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "TemplateName",
+            "default": "测试模版",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "configNo",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782096511936_i2edc1v8z",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782096511936_i2edc1v8z",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "form-data",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "code": 500,
+        "error": "",
+        "msg": "",
+        "obj": {
+          "Data": null,
+          "Success": false,
+          "code": 500,
+          "error": "",
+          "msg": "读取文件流失败!",
+          "obj": null,
+          "status": null
+        },
+        "status": false
+      },
+      "headers": {
+        "content-type": "application/json;charset=UTF-8",
+        "content-length": "161",
+        "date": "Mon, 22 Jun 2026 03:02:32 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.01s",
+      "responseSize": "147 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+        "method": "POST",
+        "headers": {},
+        "params": {},
+        "body": "[FormData]",
+        "bodyType": "form-data"
+      },
+      "_startTime": 1782097352410,
+      "_endTime": 1782097352436
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.01s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "code": 500,
+      "error": "",
+      "msg": "",
+      "obj": {
+        "Data": null,
+        "Success": false,
+        "code": 500,
+        "error": "",
+        "msg": "读取文件流失败!",
+        "obj": null,
+        "status": null
+      },
+      "status": false
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "content-type": "application/json;charset=UTF-8",
+      "content-length": "161",
+      "date": "Mon, 22 Jun 2026 03:02:32 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782096511932_ov7gmfqwp": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "code": 500,
+          "error": "",
+          "msg": "",
+          "obj": {
+            "Data": null,
+            "Success": false,
+            "code": 500,
+            "error": "",
+            "msg": "读取文件流失败!",
+            "obj": null,
+            "status": null
+          },
+          "status": false
+        },
+        "headers": {
+          "content-type": "application/json;charset=UTF-8",
+          "content-length": "161",
+          "date": "Mon, 22 Jun 2026 03:02:32 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.01s",
+        "responseSize": "147 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+          "method": "POST",
+          "headers": {},
+          "params": {},
+          "body": "[FormData]",
+          "bodyType": "form-data"
+        },
+        "_startTime": 1782097352410,
+        "_endTime": 1782097352436
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782096511932_ov7gmfqwp",
+        "name": "接收DAQ数据",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "code": 500,
+            "error": "",
+            "msg": "",
+            "obj": {
+              "Data": null,
+              "Success": false,
+              "code": 500,
+              "error": "",
+              "msg": "读取文件流失败!",
+              "obj": null,
+              "status": null
+            },
+            "status": false
+          },
+          "headers": {
+            "content-type": "application/json;charset=UTF-8",
+            "content-length": "161",
+            "date": "Mon, 22 Jun 2026 03:02:32 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.01s",
+          "responseSize": "147 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+            "method": "POST",
+            "headers": {},
+            "params": {},
+            "body": "[FormData]",
+            "bodyType": "form-data"
+          },
+          "_startTime": 1782097352410,
+          "_endTime": 1782097352436
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782097311478,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782096511932_ov7gmfqwp",
+    "apiName": "接收DAQ数据",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+    "timestamp": "2026/6/22 11:01:51",
+    "apiConfig": {
+      "name": "接收DAQ数据",
+      "group": "group_mpqmv4y45epgz",
+      "api_path": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+      "method": "POST",
+      "header": {
+        "Content-Type": "multipart/form-data"
+      },
+      "param": {},
+      "body": {
+        "Token": {
+          "default": "v41QuGi+5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH/s0DFhVf4ZjmEv'",
+          "type": "string"
+        },
+        "Data": {
+          "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+          "type": "string"
+        },
+        "RecordFileId": {
+          "default": "20260608-1717-0028-0386-77d1a6c86055",
+          "type": "string"
+        },
+        "TemplateName": {
+          "default": "测试模版",
+          "type": "string"
+        },
+        "configNo": {
+          "default": "",
+          "type": "string"
+        },
+        "file": {
+          "default": "企业微信截图_177571859470.png",
+          "type": "file"
+        }
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "multipart/form-data",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "form-data",
+        "formData": [
+          {
+            "key": "Token",
+            "default": "v41QuGi+5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH/s0DFhVf4ZjmEv'",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "Data",
+            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "RecordFileId",
+            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "TemplateName",
+            "default": "测试模版",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "configNo",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "file",
+            "default": "企业微信截图_177571859470.png",
+            "type": "file",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "Token",
+            "default": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "Data",
+            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "type": "json",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "RecordFileId",
+            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "TemplateName",
+            "default": "测试模版",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "configNo",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782096511936_i2edc1v8z",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782096511936_i2edc1v8z",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "form-data",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "TIMEOUT",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "3.01s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "请求超时",
+      "errorType": "timeout",
+      "requestConfig": {
+        "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+        "method": "POST",
+        "headers": {},
+        "params": {},
+        "body": "[FormData]",
+        "bodyType": "form-data"
+      },
+      "_startTime": 1782097308466,
+      "_endTime": 1782097311478
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "3.01s",
+    "error": "请求超时",
+    "errorType": "timeout",
+    "assertionResult": null,
+    "responseHeaders": {},
+    "allResults": {
+      "api_1782096511932_ov7gmfqwp": {
+        "status_text": "TIMEOUT",
+        "httpSuccess": false,
+        "success": false,
+        "headers": {},
+        "elapsedTime": "3.01s",
+        "responseSize": "0 B",
+        "assertionResult": null,
+        "error": "请求超时",
+        "errorType": "timeout",
+        "requestConfig": {
+          "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+          "method": "POST",
+          "headers": {},
+          "params": {},
+          "body": "[FormData]",
+          "bodyType": "form-data"
+        },
+        "_startTime": 1782097308466,
+        "_endTime": 1782097311478
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782096511932_ov7gmfqwp",
+        "name": "接收DAQ数据",
+        "result": {
+          "status_text": "TIMEOUT",
+          "httpSuccess": false,
+          "success": false,
+          "headers": {},
+          "elapsedTime": "3.01s",
+          "responseSize": "0 B",
+          "assertionResult": null,
+          "error": "请求超时",
+          "errorType": "timeout",
+          "requestConfig": {
+            "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+            "method": "POST",
+            "headers": {},
+            "params": {},
+            "body": "[FormData]",
+            "bodyType": "form-data"
+          },
+          "_startTime": 1782097308466,
+          "_endTime": 1782097311478
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782097281202,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782096511932_ov7gmfqwp",
+    "apiName": "接收DAQ数据",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+    "timestamp": "2026/6/22 11:01:21",
+    "apiConfig": {
+      "name": "接收DAQ数据",
+      "group": "group_mpqmv4y45epgz",
+      "api_path": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+      "method": "POST",
+      "header": {
+        "Content-Type": "multipart/form-data"
+      },
+      "param": {},
+      "body": {
+        "Token": {
+          "default": "v41QuGi+5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH/s0DFhVf4ZjmEv'",
+          "type": "string"
+        },
+        "Data": {
+          "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+          "type": "string"
+        },
+        "RecordFileId": {
+          "default": "20260608-1717-0028-0386-77d1a6c86055",
+          "type": "string"
+        },
+        "TemplateName": {
+          "default": "测试模版",
+          "type": "string"
+        },
+        "configNo": {
+          "default": "",
+          "type": "string"
+        },
+        "file": {
+          "default": "企业微信截图_177571859470.png",
+          "type": "file"
+        }
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "multipart/form-data",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "form-data",
+        "formData": [
+          {
+            "key": "Token",
+            "default": "v41QuGi+5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH/s0DFhVf4ZjmEv'",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "Data",
+            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "RecordFileId",
+            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "TemplateName",
+            "default": "测试模版",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "configNo",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "file",
+            "default": "企业微信截图_177571859470.png",
+            "type": "file",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "Token",
+            "default": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "Data",
+            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "type": "json",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "RecordFileId",
+            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "TemplateName",
+            "default": "测试模版",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "configNo",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782096511936_i2edc1v8z",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782096511936_i2edc1v8z",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "form-data",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "TIMEOUT",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "3.01s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "请求超时",
+      "errorType": "timeout",
+      "requestConfig": {
+        "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+        "method": "POST",
+        "headers": {},
+        "params": {},
+        "body": "[FormData]",
+        "bodyType": "form-data"
+      },
+      "_startTime": 1782097278192,
+      "_endTime": 1782097281202
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "3.01s",
+    "error": "请求超时",
+    "errorType": "timeout",
+    "assertionResult": null,
+    "responseHeaders": {},
+    "allResults": {
+      "api_1782096511932_ov7gmfqwp": {
+        "status_text": "TIMEOUT",
+        "httpSuccess": false,
+        "success": false,
+        "headers": {},
+        "elapsedTime": "3.01s",
+        "responseSize": "0 B",
+        "assertionResult": null,
+        "error": "请求超时",
+        "errorType": "timeout",
+        "requestConfig": {
+          "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+          "method": "POST",
+          "headers": {},
+          "params": {},
+          "body": "[FormData]",
+          "bodyType": "form-data"
+        },
+        "_startTime": 1782097278192,
+        "_endTime": 1782097281202
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782096511932_ov7gmfqwp",
+        "name": "接收DAQ数据",
+        "result": {
+          "status_text": "TIMEOUT",
+          "httpSuccess": false,
+          "success": false,
+          "headers": {},
+          "elapsedTime": "3.01s",
+          "responseSize": "0 B",
+          "assertionResult": null,
+          "error": "请求超时",
+          "errorType": "timeout",
+          "requestConfig": {
+            "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+            "method": "POST",
+            "headers": {},
+            "params": {},
+            "body": "[FormData]",
+            "bodyType": "form-data"
+          },
+          "_startTime": 1782097278192,
+          "_endTime": 1782097281202
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782097271001,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782096511932_ov7gmfqwp",
+    "apiName": "接收DAQ数据",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+    "timestamp": "2026/6/22 11:01:11",
+    "apiConfig": {
+      "name": "接收DAQ数据",
+      "group": "group_mpqmv4y45epgz",
+      "api_path": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+      "method": "POST",
+      "header": {
+        "Content-Type": "multipart/form-data"
+      },
+      "param": {},
+      "body": {
+        "Token": {
+          "default": "v41QuGi+5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH/s0DFhVf4ZjmEv'",
+          "type": "string"
+        },
+        "Data": {
+          "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+          "type": "string"
+        },
+        "RecordFileId": {
+          "default": "20260608-1717-0028-0386-77d1a6c86055",
+          "type": "string"
+        },
+        "TemplateName": {
+          "default": "测试模版",
+          "type": "string"
+        },
+        "configNo": {
+          "default": "",
+          "type": "string"
+        },
+        "file": {
+          "default": "企业微信截图_177571859470.png",
+          "type": "file"
+        }
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "multipart/form-data",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "form-data",
+        "formData": [
+          {
+            "key": "Token",
+            "default": "v41QuGi+5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH/s0DFhVf4ZjmEv'",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "Data",
+            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "RecordFileId",
+            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "TemplateName",
+            "default": "测试模版",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "configNo",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "file",
+            "default": "企业微信截图_177571859470.png",
+            "type": "file",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "Token",
+            "default": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "Data",
+            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "type": "json",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "RecordFileId",
+            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "TemplateName",
+            "default": "测试模版",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "configNo",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782096511936_i2edc1v8z",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782096511936_i2edc1v8z",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "form-data",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "code": 500,
+        "error": "",
+        "msg": "",
+        "obj": {
+          "Data": null,
+          "Success": false,
+          "code": 500,
+          "error": "",
+          "msg": "读取文件流失败!",
+          "obj": null,
+          "status": null
+        },
+        "status": false
+      },
+      "headers": {
+        "content-type": "application/json;charset=UTF-8",
+        "content-length": "161",
+        "date": "Mon, 22 Jun 2026 03:01:11 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.01s",
+      "responseSize": "147 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+        "method": "POST",
+        "headers": {},
+        "params": {},
+        "body": "[FormData]",
+        "bodyType": "form-data"
+      },
+      "_startTime": 1782097270986,
+      "_endTime": 1782097271001
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.01s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "code": 500,
+      "error": "",
+      "msg": "",
+      "obj": {
+        "Data": null,
+        "Success": false,
+        "code": 500,
+        "error": "",
+        "msg": "读取文件流失败!",
+        "obj": null,
+        "status": null
+      },
+      "status": false
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "content-type": "application/json;charset=UTF-8",
+      "content-length": "161",
+      "date": "Mon, 22 Jun 2026 03:01:11 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782096511932_ov7gmfqwp": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "code": 500,
+          "error": "",
+          "msg": "",
+          "obj": {
+            "Data": null,
+            "Success": false,
+            "code": 500,
+            "error": "",
+            "msg": "读取文件流失败!",
+            "obj": null,
+            "status": null
+          },
+          "status": false
+        },
+        "headers": {
+          "content-type": "application/json;charset=UTF-8",
+          "content-length": "161",
+          "date": "Mon, 22 Jun 2026 03:01:11 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.01s",
+        "responseSize": "147 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+          "method": "POST",
+          "headers": {},
+          "params": {},
+          "body": "[FormData]",
+          "bodyType": "form-data"
+        },
+        "_startTime": 1782097270986,
+        "_endTime": 1782097271001
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782096511932_ov7gmfqwp",
+        "name": "接收DAQ数据",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "code": 500,
+            "error": "",
+            "msg": "",
+            "obj": {
+              "Data": null,
+              "Success": false,
+              "code": 500,
+              "error": "",
+              "msg": "读取文件流失败!",
+              "obj": null,
+              "status": null
+            },
+            "status": false
+          },
+          "headers": {
+            "content-type": "application/json;charset=UTF-8",
+            "content-length": "161",
+            "date": "Mon, 22 Jun 2026 03:01:11 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.01s",
+          "responseSize": "147 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+            "method": "POST",
+            "headers": {},
+            "params": {},
+            "body": "[FormData]",
+            "bodyType": "form-data"
+          },
+          "_startTime": 1782097270986,
+          "_endTime": 1782097271001
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782097201146,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782096511932_ov7gmfqwp",
+    "apiName": "接收DAQ数据",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+    "timestamp": "2026/6/22 11:00:01",
+    "apiConfig": {
+      "name": "接收DAQ数据",
+      "group": "group_mpqmv4y45epgz",
+      "api_path": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+      "method": "POST",
+      "header": {
+        "Content-Type": "multipart/form-data"
+      },
+      "param": {},
+      "body": {
+        "Token": {
+          "default": "v41QuGi+5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH/s0DFhVf4ZjmEv'",
+          "type": "string"
+        },
+        "Data": {
+          "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+          "type": "string"
+        },
+        "RecordFileId": {
+          "default": "20260608-1717-0028-0386-77d1a6c86055",
+          "type": "string"
+        },
+        "TemplateName": {
+          "default": "测试模版",
+          "type": "string"
+        },
+        "configNo": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "multipart/form-data",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "form-data",
+        "formData": [
+          {
+            "key": "Token",
+            "default": "v41QuGi+5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH/s0DFhVf4ZjmEv'",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "Data",
+            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "RecordFileId",
+            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "TemplateName",
+            "default": "测试模版",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "configNo",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "Token",
+            "default": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "Data",
+            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "type": "json",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "RecordFileId",
+            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "TemplateName",
+            "default": "测试模版",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "configNo",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782096511936_i2edc1v8z",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782096511936_i2edc1v8z",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "form-data",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "code": 500,
+        "error": "",
+        "msg": "",
+        "obj": {
+          "Data": null,
+          "Success": false,
+          "code": 500,
+          "error": "",
+          "msg": "读取文件流失败!",
+          "obj": null,
+          "status": null
+        },
+        "status": false
+      },
+      "headers": {
+        "content-type": "application/json;charset=UTF-8",
+        "content-length": "161",
+        "date": "Mon, 22 Jun 2026 03:00:01 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.01s",
+      "responseSize": "147 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+        "method": "POST",
+        "headers": {},
+        "params": {},
+        "body": "[FormData]",
+        "bodyType": "form-data"
+      },
+      "_startTime": 1782097201134,
+      "_endTime": 1782097201146
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.01s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "code": 500,
+      "error": "",
+      "msg": "",
+      "obj": {
+        "Data": null,
+        "Success": false,
+        "code": 500,
+        "error": "",
+        "msg": "读取文件流失败!",
+        "obj": null,
+        "status": null
+      },
+      "status": false
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "content-type": "application/json;charset=UTF-8",
+      "content-length": "161",
+      "date": "Mon, 22 Jun 2026 03:00:01 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782096511932_ov7gmfqwp": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "code": 500,
+          "error": "",
+          "msg": "",
+          "obj": {
+            "Data": null,
+            "Success": false,
+            "code": 500,
+            "error": "",
+            "msg": "读取文件流失败!",
+            "obj": null,
+            "status": null
+          },
+          "status": false
+        },
+        "headers": {
+          "content-type": "application/json;charset=UTF-8",
+          "content-length": "161",
+          "date": "Mon, 22 Jun 2026 03:00:01 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.01s",
+        "responseSize": "147 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+          "method": "POST",
+          "headers": {},
+          "params": {},
+          "body": "[FormData]",
+          "bodyType": "form-data"
+        },
+        "_startTime": 1782097201134,
+        "_endTime": 1782097201146
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782096511932_ov7gmfqwp",
+        "name": "接收DAQ数据",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "code": 500,
+            "error": "",
+            "msg": "",
+            "obj": {
+              "Data": null,
+              "Success": false,
+              "code": 500,
+              "error": "",
+              "msg": "读取文件流失败!",
+              "obj": null,
+              "status": null
+            },
+            "status": false
+          },
+          "headers": {
+            "content-type": "application/json;charset=UTF-8",
+            "content-length": "161",
+            "date": "Mon, 22 Jun 2026 03:00:01 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.01s",
+          "responseSize": "147 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+            "method": "POST",
+            "headers": {},
+            "params": {},
+            "body": "[FormData]",
+            "bodyType": "form-data"
+          },
+          "_startTime": 1782097201134,
+          "_endTime": 1782097201146
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782097199946,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782096511932_ov7gmfqwp",
+    "apiName": "接收DAQ数据",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+    "timestamp": "2026/6/22 10:59:59",
+    "apiConfig": {
+      "name": "接收DAQ数据",
+      "group": "group_mpqmv4y45epgz",
+      "api_path": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+      "method": "POST",
+      "header": {
+        "Content-Type": "multipart/form-data"
+      },
+      "param": {},
+      "body": {
+        "Token": {
+          "default": "v41QuGi+5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH/s0DFhVf4ZjmEv'",
+          "type": "string"
+        },
+        "Data": {
+          "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+          "type": "string"
+        },
+        "RecordFileId": {
+          "default": "20260608-1717-0028-0386-77d1a6c86055",
+          "type": "string"
+        },
+        "TemplateName": {
+          "default": "测试模版",
+          "type": "string"
+        },
+        "configNo": {
+          "default": "",
+          "type": "string"
+        }
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "multipart/form-data",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "form-data",
+        "formData": [
+          {
+            "key": "Token",
+            "default": "v41QuGi+5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH/s0DFhVf4ZjmEv'",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "Data",
+            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "RecordFileId",
+            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "TemplateName",
+            "default": "测试模版",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "configNo",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "Token",
+            "default": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "Data",
+            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "type": "json",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "RecordFileId",
+            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "TemplateName",
+            "default": "测试模版",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "configNo",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782096511936_i2edc1v8z",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782096511936_i2edc1v8z",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "form-data",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "code": 500,
+        "error": "",
+        "msg": "",
+        "obj": {
+          "Data": null,
+          "Success": false,
+          "code": 500,
+          "error": "",
+          "msg": "读取文件流失败!",
+          "obj": null,
+          "status": null
+        },
+        "status": false
+      },
+      "headers": {
+        "content-type": "application/json;charset=UTF-8",
+        "content-length": "161",
+        "date": "Mon, 22 Jun 2026 02:59:59 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.02s",
+      "responseSize": "147 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+        "method": "POST",
+        "headers": {},
+        "params": {},
+        "body": "[FormData]",
+        "bodyType": "form-data"
+      },
+      "_startTime": 1782097199923,
+      "_endTime": 1782097199946
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.02s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "code": 500,
+      "error": "",
+      "msg": "",
+      "obj": {
+        "Data": null,
+        "Success": false,
+        "code": 500,
+        "error": "",
+        "msg": "读取文件流失败!",
+        "obj": null,
+        "status": null
+      },
+      "status": false
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "content-type": "application/json;charset=UTF-8",
+      "content-length": "161",
+      "date": "Mon, 22 Jun 2026 02:59:59 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782096511932_ov7gmfqwp": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "code": 500,
+          "error": "",
+          "msg": "",
+          "obj": {
+            "Data": null,
+            "Success": false,
+            "code": 500,
+            "error": "",
+            "msg": "读取文件流失败!",
+            "obj": null,
+            "status": null
+          },
+          "status": false
+        },
+        "headers": {
+          "content-type": "application/json;charset=UTF-8",
+          "content-length": "161",
+          "date": "Mon, 22 Jun 2026 02:59:59 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.02s",
+        "responseSize": "147 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+          "method": "POST",
+          "headers": {},
+          "params": {},
+          "body": "[FormData]",
+          "bodyType": "form-data"
+        },
+        "_startTime": 1782097199923,
+        "_endTime": 1782097199946
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782096511932_ov7gmfqwp",
+        "name": "接收DAQ数据",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "code": 500,
+            "error": "",
+            "msg": "",
+            "obj": {
+              "Data": null,
+              "Success": false,
+              "code": 500,
+              "error": "",
+              "msg": "读取文件流失败!",
+              "obj": null,
+              "status": null
+            },
+            "status": false
+          },
+          "headers": {
+            "content-type": "application/json;charset=UTF-8",
+            "content-length": "161",
+            "date": "Mon, 22 Jun 2026 02:59:59 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.02s",
+          "responseSize": "147 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+            "method": "POST",
+            "headers": {},
+            "params": {},
+            "body": "[FormData]",
+            "bodyType": "form-data"
+          },
+          "_startTime": 1782097199923,
+          "_endTime": 1782097199946
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782096993054,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782096511932_ov7gmfqwp",
+    "apiName": "接收DAQ数据",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+    "timestamp": "2026/6/22 10:56:33",
+    "apiConfig": {
+      "name": "接收DAQ数据",
+      "group": "group_mpqmv4y45epgz",
+      "api_path": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "Token": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+        "Data": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+        "RecordFileId": "20260608-1717-0028-0386-77d1a6c86055",
+        "TemplateName": "测试模版",
+        "configNo": ""
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "Token",
+            "default": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "Data",
+            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "type": "json",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "RecordFileId",
+            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "TemplateName",
+            "default": "测试模版",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "configNo",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782096511936_i2edc1v8z",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782096511936_i2edc1v8z",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "code": 500,
+        "error": "",
+        "msg": "",
+        "obj": {
+          "Data": null,
+          "Success": false,
+          "code": 500,
+          "error": "",
+          "msg": "读取文件流失败!",
+          "obj": null,
+          "status": null
+        },
+        "status": false
+      },
+      "headers": {
+        "content-type": "application/json;charset=UTF-8",
+        "content-length": "161",
+        "date": "Mon, 22 Jun 2026 02:56:33 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.10s",
+      "responseSize": "147 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": {
+          "Token": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+          "Data": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+          "RecordFileId": "20260608-1717-0028-0386-77d1a6c86055",
+          "TemplateName": "测试模版",
+          "configNo": ""
+        },
+        "bodyType": "json"
+      },
+      "_startTime": 1782096992958,
+      "_endTime": 1782096993054
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.10s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "code": 500,
+      "error": "",
+      "msg": "",
+      "obj": {
+        "Data": null,
+        "Success": false,
+        "code": 500,
+        "error": "",
+        "msg": "读取文件流失败!",
+        "obj": null,
+        "status": null
+      },
+      "status": false
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "content-type": "application/json;charset=UTF-8",
+      "content-length": "161",
+      "date": "Mon, 22 Jun 2026 02:56:33 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782096511932_ov7gmfqwp": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "code": 500,
+          "error": "",
+          "msg": "",
+          "obj": {
+            "Data": null,
+            "Success": false,
+            "code": 500,
+            "error": "",
+            "msg": "读取文件流失败!",
+            "obj": null,
+            "status": null
+          },
+          "status": false
+        },
+        "headers": {
+          "content-type": "application/json;charset=UTF-8",
+          "content-length": "161",
+          "date": "Mon, 22 Jun 2026 02:56:33 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.10s",
+        "responseSize": "147 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": {
+            "Token": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+            "Data": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "RecordFileId": "20260608-1717-0028-0386-77d1a6c86055",
+            "TemplateName": "测试模版",
+            "configNo": ""
+          },
+          "bodyType": "json"
+        },
+        "_startTime": 1782096992958,
+        "_endTime": 1782096993054
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782096511932_ov7gmfqwp",
+        "name": "接收DAQ数据",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "code": 500,
+            "error": "",
+            "msg": "",
+            "obj": {
+              "Data": null,
+              "Success": false,
+              "code": 500,
+              "error": "",
+              "msg": "读取文件流失败!",
+              "obj": null,
+              "status": null
+            },
+            "status": false
+          },
+          "headers": {
+            "content-type": "application/json;charset=UTF-8",
+            "content-length": "161",
+            "date": "Mon, 22 Jun 2026 02:56:33 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.10s",
+          "responseSize": "147 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": {
+              "Token": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+              "Data": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+              "RecordFileId": "20260608-1717-0028-0386-77d1a6c86055",
+              "TemplateName": "测试模版",
+              "configNo": ""
+            },
+            "bodyType": "json"
+          },
+          "_startTime": 1782096992958,
+          "_endTime": 1782096993054
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782096978923,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782096511932_ov7gmfqwp",
+    "apiName": "接收DAQ数据",
+    "apiMethod": "GET",
+    "apiPath": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+    "timestamp": "2026/6/22 10:56:18",
+    "apiConfig": {
+      "name": "接收DAQ数据",
+      "group": "group_mpqmv4y45epgz",
+      "api_path": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+      "method": "GET",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "Token": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+        "Data": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+        "RecordFileId": "20260608-1717-0028-0386-77d1a6c86055",
+        "TemplateName": "测试模版",
+        "configNo": ""
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+      "method": "GET",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "Token",
+            "default": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "Data",
+            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "type": "json",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "RecordFileId",
+            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "TemplateName",
+            "default": "测试模版",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "configNo",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782096511936_i2edc1v8z",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782096511936_i2edc1v8z",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "code": 400,
+        "error": "Bad Request",
+        "msg": "Bad Request",
+        "obj": null,
+        "status": false
+      },
+      "headers": {
+        "content-type": "application/json;charset=UTF-8",
+        "content-length": "80",
+        "date": "Mon, 22 Jun 2026 02:56:18 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.21s",
+      "responseSize": "80 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+        "method": "GET",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": {
+          "Token": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+          "Data": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+          "RecordFileId": "20260608-1717-0028-0386-77d1a6c86055",
+          "TemplateName": "测试模版",
+          "configNo": ""
+        },
+        "bodyType": "json"
+      },
+      "_startTime": 1782096978705,
+      "_endTime": 1782096978923
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.21s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "code": 400,
+      "error": "Bad Request",
+      "msg": "Bad Request",
+      "obj": null,
+      "status": false
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "content-type": "application/json;charset=UTF-8",
+      "content-length": "80",
+      "date": "Mon, 22 Jun 2026 02:56:18 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782096511932_ov7gmfqwp": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "code": 400,
+          "error": "Bad Request",
+          "msg": "Bad Request",
+          "obj": null,
+          "status": false
+        },
+        "headers": {
+          "content-type": "application/json;charset=UTF-8",
+          "content-length": "80",
+          "date": "Mon, 22 Jun 2026 02:56:18 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.21s",
+        "responseSize": "80 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+          "method": "GET",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": {
+            "Token": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+            "Data": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "RecordFileId": "20260608-1717-0028-0386-77d1a6c86055",
+            "TemplateName": "测试模版",
+            "configNo": ""
+          },
+          "bodyType": "json"
+        },
+        "_startTime": 1782096978705,
+        "_endTime": 1782096978923
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782096511932_ov7gmfqwp",
+        "name": "接收DAQ数据",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "code": 400,
+            "error": "Bad Request",
+            "msg": "Bad Request",
+            "obj": null,
+            "status": false
+          },
+          "headers": {
+            "content-type": "application/json;charset=UTF-8",
+            "content-length": "80",
+            "date": "Mon, 22 Jun 2026 02:56:18 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.21s",
+          "responseSize": "80 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25710/api-prj/outward/std/daqSync/receiveDaqData",
+            "method": "GET",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": {
+              "Token": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+              "Data": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+              "RecordFileId": "20260608-1717-0028-0386-77d1a6c86055",
+              "TemplateName": "测试模版",
+              "configNo": ""
+            },
+            "bodyType": "json"
+          },
+          "_startTime": 1782096978705,
+          "_endTime": 1782096978923
+        },
+        "isTarget": true
+      }
+    ]
+  }
+]

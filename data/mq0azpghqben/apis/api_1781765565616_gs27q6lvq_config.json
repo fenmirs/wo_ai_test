@@ -1,0 +1,170 @@
+{
+  "id": "api_1781765565616_gs27q6lvq",
+  "name": "runGzyq-ywpz",
+  "method": "POST",
+  "api_path": "{domain}{ywpz-prj}/gzyq/runGzyq",
+  "group": "default",
+  "scenarios": {
+    "scn_default": {
+      "id": "scn_default",
+      "name": "默认场景",
+      "description": "",
+      "createdAt": "2026-06-18T06:52:45.630Z",
+      "updatedAt": "2026-06-23T07:52:22.991Z",
+      "deleted": false,
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1781765565633_jf2w3epof",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1781765565633_jf2w3epof",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "assertions": [
+        {
+          "expression": "",
+          "enabled": true
+        }
+      ],
+      "refChain": []
+    },
+    "scn_1782199163974_gzrpc": {
+      "id": "scn_1782199163974_gzrpc",
+      "name": "BTN_625195499160",
+      "description": "BTN_625195499160",
+      "createdAt": "2026-06-23T07:19:23.977Z",
+      "updatedAt": "2026-06-23T08:21:22.841Z",
+      "deleted": false,
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "JID",
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "btnCode",
+            "default": "BTN_625195499160",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "JID",
+            "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1781765565633_jf2w3epof",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1781765565633_jf2w3epof",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "assertions": [
+        {
+          "expression": "",
+          "enabled": true
+        }
+      ],
+      "refChain": []
+    }
+  }
+}

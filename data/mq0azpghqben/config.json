@@ -5,13 +5,14 @@
     {
       "activate": true,
       "name": "dev",
-      "domain": "192.168.17.128",
+      "domain": "localhost",
       "api-prj": ":25110/api-prj",
       "lcgl-prj": ":25108/lcgl-prj",
       "tm-prj": ":25112/tm-prj",
       "config-prj": ":25126/config-prj",
       "gzyq-prj": ":25102/gzyq-prj",
-      "jlgl-prj": ":25116/jlgl-prj"
+      "jlgl-prj": ":25116/jlgl-prj",
+      "ywpz-prj": ":25105/ywpz-prj"
     }
   ],
   "groups": [],
@@ -22,6 +23,14 @@
       "method": "GET",
       "api_path": "{domain}{lcgl-prj}/mobile/psiTask/getPsiAssignList",
       "group": "default"
+    },
+    {
+      "id": "api_1781765565616_gs27q6lvq",
+      "name": "runGzyq-ywpz",
+      "method": "POST",
+      "api_path": "{domain}{ywpz-prj}/gzyq/runGzyq",
+      "group": "default"
     }
-  ]
+  ],
+  "requestTimeout": 5000
 }

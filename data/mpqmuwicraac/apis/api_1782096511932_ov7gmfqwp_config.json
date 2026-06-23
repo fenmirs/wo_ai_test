@@ -1,0 +1,154 @@
+{
+  "id": "api_1782096511932_ov7gmfqwp",
+  "name": "接收DAQ数据",
+  "method": "POST",
+  "api_path": "{domain}{api-prj}/outward/std/daqSync/receiveDaqData",
+  "group": "group_mpqmv4y45epgz",
+  "scenarios": {
+    "scn_default": {
+      "id": "scn_default",
+      "name": "默认场景",
+      "description": "",
+      "createdAt": "2026-06-22T02:48:31.936Z",
+      "updatedAt": "2026-06-22T03:35:33.730Z",
+      "deleted": false,
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [
+          {
+            "key": "Token",
+            "default": "v41QuGi+5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH/s0DFhVf4ZjmEv'",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "Data",
+            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "RecordFileId",
+            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "TemplateName",
+            "default": "测试模版",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "configNo",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "file",
+            "default": "企业微信截图_177571859470.png",
+            "type": "file",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "Token",
+            "default": "v41QuGi%2b5wyLJ6qZQX9K438SwYjErsVklrEFMoHVxqetCRNgMH%2fs0DFhVf4ZjmEv",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "Data",
+            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "type": "json",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "RecordFileId",
+            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "TemplateName",
+            "default": "测试模版",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "configNo",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782096511936_i2edc1v8z",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782096511936_i2edc1v8z",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "assertions": [
+        {
+          "expression": "",
+          "enabled": true
+        }
+      ],
+      "refChain": []
+    }
+  }
+}

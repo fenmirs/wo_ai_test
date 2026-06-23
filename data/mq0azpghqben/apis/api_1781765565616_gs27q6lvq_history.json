@@ -1,0 +1,4176 @@
+[
+  {
+    "id": 1782202884022,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1781765565616_gs27q6lvq",
+    "apiName": "runGzyq-ywpz",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{ywpz-prj}/gzyq/runGzyq",
+    "timestamp": "2026/6/23 16:21:24",
+    "apiConfig": {
+      "name": "runGzyq-ywpz",
+      "group": "default",
+      "api_path": "{domain}{ywpz-prj}/gzyq/runGzyq",
+      "method": "POST",
+      "header": {
+        "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "btnCode": "BTN_625195499160",
+        "jsonDataStr": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+        "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "JID",
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "btnCode",
+            "default": "BTN_625195499160",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "JID",
+            "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1781765565633_jf2w3epof",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1781765565633_jf2w3epof",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "allRow": 0,
+        "beginPage": 0,
+        "code": 0,
+        "currentPage": 0,
+        "error": [
+          "there are not updated key fields"
+        ],
+        "firstPage": false,
+        "hasNextPage": null,
+        "hasPreviousPage": null,
+        "isFirstPage": null,
+        "isLastPage": null,
+        "lastPage": true,
+        "list": [],
+        "listSize": 0,
+        "obj": null,
+        "order": "",
+        "pageLength": 0,
+        "pageSize": 0,
+        "sort": "",
+        "status": false,
+        "throwable": null,
+        "totalPage": 0
+      },
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "set-cookie": [
+          "JSESSIONID=9DD274737E3C0535B27D13E95F50EE31; Path=/ywpz-prj; HttpOnly"
+        ],
+        "content-type": "application/json",
+        "content-length": "338",
+        "date": "Tue, 23 Jun 2026 08:21:24 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "1.15s",
+      "responseSize": "338 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+        "method": "POST",
+        "headers": {
+          "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782202882868,
+      "_endTime": 1782202884022
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "1.15s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "allRow": 0,
+      "beginPage": 0,
+      "code": 0,
+      "currentPage": 0,
+      "error": [
+        "there are not updated key fields"
+      ],
+      "firstPage": false,
+      "hasNextPage": null,
+      "hasPreviousPage": null,
+      "isFirstPage": null,
+      "isLastPage": null,
+      "lastPage": true,
+      "list": [],
+      "listSize": 0,
+      "obj": null,
+      "order": "",
+      "pageLength": 0,
+      "pageSize": 0,
+      "sort": "",
+      "status": false,
+      "throwable": null,
+      "totalPage": 0
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "set-cookie": [
+        "JSESSIONID=9DD274737E3C0535B27D13E95F50EE31; Path=/ywpz-prj; HttpOnly"
+      ],
+      "content-type": "application/json",
+      "content-length": "338",
+      "date": "Tue, 23 Jun 2026 08:21:24 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1781765565616_gs27q6lvq": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "allRow": 0,
+          "beginPage": 0,
+          "code": 0,
+          "currentPage": 0,
+          "error": [
+            "there are not updated key fields"
+          ],
+          "firstPage": false,
+          "hasNextPage": null,
+          "hasPreviousPage": null,
+          "isFirstPage": null,
+          "isLastPage": null,
+          "lastPage": true,
+          "list": [],
+          "listSize": 0,
+          "obj": null,
+          "order": "",
+          "pageLength": 0,
+          "pageSize": 0,
+          "sort": "",
+          "status": false,
+          "throwable": null,
+          "totalPage": 0
+        },
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "set-cookie": [
+            "JSESSIONID=9DD274737E3C0535B27D13E95F50EE31; Path=/ywpz-prj; HttpOnly"
+          ],
+          "content-type": "application/json",
+          "content-length": "338",
+          "date": "Tue, 23 Jun 2026 08:21:24 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "1.15s",
+        "responseSize": "338 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+          "method": "POST",
+          "headers": {
+            "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782202882868,
+        "_endTime": 1782202884022
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1781765565616_gs27q6lvq",
+        "name": "runGzyq-ywpz",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "allRow": 0,
+            "beginPage": 0,
+            "code": 0,
+            "currentPage": 0,
+            "error": [
+              "there are not updated key fields"
+            ],
+            "firstPage": false,
+            "hasNextPage": null,
+            "hasPreviousPage": null,
+            "isFirstPage": null,
+            "isLastPage": null,
+            "lastPage": true,
+            "list": [],
+            "listSize": 0,
+            "obj": null,
+            "order": "",
+            "pageLength": 0,
+            "pageSize": 0,
+            "sort": "",
+            "status": false,
+            "throwable": null,
+            "totalPage": 0
+          },
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "set-cookie": [
+              "JSESSIONID=9DD274737E3C0535B27D13E95F50EE31; Path=/ywpz-prj; HttpOnly"
+            ],
+            "content-type": "application/json",
+            "content-length": "338",
+            "date": "Tue, 23 Jun 2026 08:21:24 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "1.15s",
+          "responseSize": "338 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+            "method": "POST",
+            "headers": {
+              "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782202882868,
+          "_endTime": 1782202884022
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782202540375,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1781765565616_gs27q6lvq",
+    "apiName": "runGzyq-ywpz",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{ywpz-prj}/gzyq/runGzyq",
+    "timestamp": "2026/6/23 16:15:40",
+    "apiConfig": {
+      "name": "runGzyq-ywpz",
+      "group": "default",
+      "api_path": "{domain}{ywpz-prj}/gzyq/runGzyq",
+      "method": "POST",
+      "header": {
+        "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "btnCode": "BTN_625195499160",
+        "jsonDataStr": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+        "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "JID",
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "btnCode",
+            "default": "BTN_625195499160",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "JID",
+            "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1781765565633_jf2w3epof",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1781765565633_jf2w3epof",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "TIMEOUT",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "3.01s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "请求超时",
+      "errorType": "timeout",
+      "requestConfig": {
+        "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+        "method": "POST",
+        "headers": {
+          "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782202537363,
+      "_endTime": 1782202540375
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "3.01s",
+    "error": "请求超时",
+    "errorType": "timeout",
+    "assertionResult": null,
+    "responseHeaders": {},
+    "allResults": {
+      "api_1781765565616_gs27q6lvq": {
+        "status_text": "TIMEOUT",
+        "httpSuccess": false,
+        "success": false,
+        "headers": {},
+        "elapsedTime": "3.01s",
+        "responseSize": "0 B",
+        "assertionResult": null,
+        "error": "请求超时",
+        "errorType": "timeout",
+        "requestConfig": {
+          "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+          "method": "POST",
+          "headers": {
+            "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782202537363,
+        "_endTime": 1782202540375
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1781765565616_gs27q6lvq",
+        "name": "runGzyq-ywpz",
+        "result": {
+          "status_text": "TIMEOUT",
+          "httpSuccess": false,
+          "success": false,
+          "headers": {},
+          "elapsedTime": "3.01s",
+          "responseSize": "0 B",
+          "assertionResult": null,
+          "error": "请求超时",
+          "errorType": "timeout",
+          "requestConfig": {
+            "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+            "method": "POST",
+            "headers": {
+              "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782202537363,
+          "_endTime": 1782202540375
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782202122791,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1781765565616_gs27q6lvq",
+    "apiName": "runGzyq-ywpz",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{ywpz-prj}/gzyq/runGzyq",
+    "timestamp": "2026/6/23 16:08:42",
+    "apiConfig": {
+      "name": "runGzyq-ywpz",
+      "group": "default",
+      "api_path": "{domain}{ywpz-prj}/gzyq/runGzyq",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "btnCode": "BTN_625195499160",
+        "jsonDataStr": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+        "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "btnCode",
+            "default": "BTN_625195499160",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "JID",
+            "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1781765565633_jf2w3epof",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1781765565633_jf2w3epof",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "TIMEOUT",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "3.02s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "请求超时",
+      "errorType": "timeout",
+      "requestConfig": {
+        "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782202119770,
+      "_endTime": 1782202122791
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "3.02s",
+    "error": "请求超时",
+    "errorType": "timeout",
+    "assertionResult": null,
+    "responseHeaders": {},
+    "allResults": {
+      "api_1781765565616_gs27q6lvq": {
+        "status_text": "TIMEOUT",
+        "httpSuccess": false,
+        "success": false,
+        "headers": {},
+        "elapsedTime": "3.02s",
+        "responseSize": "0 B",
+        "assertionResult": null,
+        "error": "请求超时",
+        "errorType": "timeout",
+        "requestConfig": {
+          "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782202119770,
+        "_endTime": 1782202122791
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1781765565616_gs27q6lvq",
+        "name": "runGzyq-ywpz",
+        "result": {
+          "status_text": "TIMEOUT",
+          "httpSuccess": false,
+          "success": false,
+          "headers": {},
+          "elapsedTime": "3.02s",
+          "responseSize": "0 B",
+          "assertionResult": null,
+          "error": "请求超时",
+          "errorType": "timeout",
+          "requestConfig": {
+            "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782202119770,
+          "_endTime": 1782202122791
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782202101323,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1781765565616_gs27q6lvq",
+    "apiName": "runGzyq-ywpz",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{ywpz-prj}/gzyq/runGzyq",
+    "timestamp": "2026/6/23 16:08:21",
+    "apiConfig": {
+      "name": "runGzyq-ywpz",
+      "group": "default",
+      "api_path": "{domain}{ywpz-prj}/gzyq/runGzyq",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "btnCode": "BTN_625195499160",
+        "jsonDataStr": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+        "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "btnCode",
+            "default": "BTN_625195499160",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "JID",
+            "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1781765565633_jf2w3epof",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1781765565633_jf2w3epof",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "allRow": 0,
+        "beginPage": 0,
+        "code": 0,
+        "currentPage": 0,
+        "error": [
+          ""
+        ],
+        "firstPage": false,
+        "hasNextPage": null,
+        "hasPreviousPage": null,
+        "isFirstPage": null,
+        "isLastPage": null,
+        "lastPage": true,
+        "list": [],
+        "listSize": 0,
+        "obj": null,
+        "order": "",
+        "pageLength": 0,
+        "pageSize": 0,
+        "sort": "",
+        "status": false,
+        "throwable": null,
+        "totalPage": 0
+      },
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "set-cookie": [
+          "JSESSIONID=15363FE4979BF01237099A46C925D21D; Path=/ywpz-prj; HttpOnly"
+        ],
+        "content-type": "application/json",
+        "content-length": "306",
+        "date": "Tue, 23 Jun 2026 08:08:21 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.01s",
+      "responseSize": "306 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782202101299,
+      "_endTime": 1782202101323
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.01s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "allRow": 0,
+      "beginPage": 0,
+      "code": 0,
+      "currentPage": 0,
+      "error": [
+        ""
+      ],
+      "firstPage": false,
+      "hasNextPage": null,
+      "hasPreviousPage": null,
+      "isFirstPage": null,
+      "isLastPage": null,
+      "lastPage": true,
+      "list": [],
+      "listSize": 0,
+      "obj": null,
+      "order": "",
+      "pageLength": 0,
+      "pageSize": 0,
+      "sort": "",
+      "status": false,
+      "throwable": null,
+      "totalPage": 0
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "set-cookie": [
+        "JSESSIONID=15363FE4979BF01237099A46C925D21D; Path=/ywpz-prj; HttpOnly"
+      ],
+      "content-type": "application/json",
+      "content-length": "306",
+      "date": "Tue, 23 Jun 2026 08:08:21 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1781765565616_gs27q6lvq": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "allRow": 0,
+          "beginPage": 0,
+          "code": 0,
+          "currentPage": 0,
+          "error": [
+            ""
+          ],
+          "firstPage": false,
+          "hasNextPage": null,
+          "hasPreviousPage": null,
+          "isFirstPage": null,
+          "isLastPage": null,
+          "lastPage": true,
+          "list": [],
+          "listSize": 0,
+          "obj": null,
+          "order": "",
+          "pageLength": 0,
+          "pageSize": 0,
+          "sort": "",
+          "status": false,
+          "throwable": null,
+          "totalPage": 0
+        },
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "set-cookie": [
+            "JSESSIONID=15363FE4979BF01237099A46C925D21D; Path=/ywpz-prj; HttpOnly"
+          ],
+          "content-type": "application/json",
+          "content-length": "306",
+          "date": "Tue, 23 Jun 2026 08:08:21 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.01s",
+        "responseSize": "306 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782202101299,
+        "_endTime": 1782202101323
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1781765565616_gs27q6lvq",
+        "name": "runGzyq-ywpz",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "allRow": 0,
+            "beginPage": 0,
+            "code": 0,
+            "currentPage": 0,
+            "error": [
+              ""
+            ],
+            "firstPage": false,
+            "hasNextPage": null,
+            "hasPreviousPage": null,
+            "isFirstPage": null,
+            "isLastPage": null,
+            "lastPage": true,
+            "list": [],
+            "listSize": 0,
+            "obj": null,
+            "order": "",
+            "pageLength": 0,
+            "pageSize": 0,
+            "sort": "",
+            "status": false,
+            "throwable": null,
+            "totalPage": 0
+          },
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "set-cookie": [
+              "JSESSIONID=15363FE4979BF01237099A46C925D21D; Path=/ywpz-prj; HttpOnly"
+            ],
+            "content-type": "application/json",
+            "content-length": "306",
+            "date": "Tue, 23 Jun 2026 08:08:21 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.01s",
+          "responseSize": "306 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782202101299,
+          "_endTime": 1782202101323
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782202068370,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1781765565616_gs27q6lvq",
+    "apiName": "runGzyq-ywpz",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{ywpz-prj}/gzyq/runGzyq",
+    "timestamp": "2026/6/23 16:07:48",
+    "apiConfig": {
+      "name": "runGzyq-ywpz",
+      "group": "default",
+      "api_path": "{domain}{ywpz-prj}/gzyq/runGzyq",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "btnCode": "BTN_625195499160",
+        "jsonDataStr": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+        "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "btnCode",
+            "default": "BTN_625195499160",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "JID",
+            "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1781765565633_jf2w3epof",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1781765565633_jf2w3epof",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "allRow": 0,
+        "beginPage": 0,
+        "code": 0,
+        "currentPage": 0,
+        "error": [
+          ""
+        ],
+        "firstPage": false,
+        "hasNextPage": null,
+        "hasPreviousPage": null,
+        "isFirstPage": null,
+        "isLastPage": null,
+        "lastPage": true,
+        "list": [],
+        "listSize": 0,
+        "obj": null,
+        "order": "",
+        "pageLength": 0,
+        "pageSize": 0,
+        "sort": "",
+        "status": false,
+        "throwable": null,
+        "totalPage": 0
+      },
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "set-cookie": [
+          "JSESSIONID=7450B73322BC16482EB0E70B76DB36B9; Path=/ywpz-prj; HttpOnly"
+        ],
+        "content-type": "application/json",
+        "content-length": "306",
+        "date": "Tue, 23 Jun 2026 08:07:48 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.06s",
+      "responseSize": "306 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782202068305,
+      "_endTime": 1782202068370
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.06s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "allRow": 0,
+      "beginPage": 0,
+      "code": 0,
+      "currentPage": 0,
+      "error": [
+        ""
+      ],
+      "firstPage": false,
+      "hasNextPage": null,
+      "hasPreviousPage": null,
+      "isFirstPage": null,
+      "isLastPage": null,
+      "lastPage": true,
+      "list": [],
+      "listSize": 0,
+      "obj": null,
+      "order": "",
+      "pageLength": 0,
+      "pageSize": 0,
+      "sort": "",
+      "status": false,
+      "throwable": null,
+      "totalPage": 0
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "set-cookie": [
+        "JSESSIONID=7450B73322BC16482EB0E70B76DB36B9; Path=/ywpz-prj; HttpOnly"
+      ],
+      "content-type": "application/json",
+      "content-length": "306",
+      "date": "Tue, 23 Jun 2026 08:07:48 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1781765565616_gs27q6lvq": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "allRow": 0,
+          "beginPage": 0,
+          "code": 0,
+          "currentPage": 0,
+          "error": [
+            ""
+          ],
+          "firstPage": false,
+          "hasNextPage": null,
+          "hasPreviousPage": null,
+          "isFirstPage": null,
+          "isLastPage": null,
+          "lastPage": true,
+          "list": [],
+          "listSize": 0,
+          "obj": null,
+          "order": "",
+          "pageLength": 0,
+          "pageSize": 0,
+          "sort": "",
+          "status": false,
+          "throwable": null,
+          "totalPage": 0
+        },
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "set-cookie": [
+            "JSESSIONID=7450B73322BC16482EB0E70B76DB36B9; Path=/ywpz-prj; HttpOnly"
+          ],
+          "content-type": "application/json",
+          "content-length": "306",
+          "date": "Tue, 23 Jun 2026 08:07:48 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.06s",
+        "responseSize": "306 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782202068305,
+        "_endTime": 1782202068370
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1781765565616_gs27q6lvq",
+        "name": "runGzyq-ywpz",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "allRow": 0,
+            "beginPage": 0,
+            "code": 0,
+            "currentPage": 0,
+            "error": [
+              ""
+            ],
+            "firstPage": false,
+            "hasNextPage": null,
+            "hasPreviousPage": null,
+            "isFirstPage": null,
+            "isLastPage": null,
+            "lastPage": true,
+            "list": [],
+            "listSize": 0,
+            "obj": null,
+            "order": "",
+            "pageLength": 0,
+            "pageSize": 0,
+            "sort": "",
+            "status": false,
+            "throwable": null,
+            "totalPage": 0
+          },
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "set-cookie": [
+              "JSESSIONID=7450B73322BC16482EB0E70B76DB36B9; Path=/ywpz-prj; HttpOnly"
+            ],
+            "content-type": "application/json",
+            "content-length": "306",
+            "date": "Tue, 23 Jun 2026 08:07:48 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.06s",
+          "responseSize": "306 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782202068305,
+          "_endTime": 1782202068370
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782201858810,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1781765565616_gs27q6lvq",
+    "apiName": "runGzyq-ywpz",
+    "apiMethod": "GET",
+    "apiPath": "{domain}{ywpz-prj}/gzyq/runGzyq",
+    "timestamp": "2026/6/23 16:04:18",
+    "apiConfig": {
+      "name": "runGzyq-ywpz",
+      "group": "default",
+      "api_path": "{domain}{ywpz-prj}/gzyq/runGzyq",
+      "method": "GET",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "btnCode": "BTN_625195499160",
+        "jsonDataStr": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+        "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+      "method": "GET",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "btnCode",
+            "default": "BTN_625195499160",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "JID",
+            "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1781765565633_jf2w3epof",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1781765565633_jf2w3epof",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "allRow": 0,
+        "beginPage": 0,
+        "code": 0,
+        "currentPage": 0,
+        "error": [
+          "btnCode不存在，请配置。"
+        ],
+        "firstPage": false,
+        "hasNextPage": null,
+        "hasPreviousPage": null,
+        "isFirstPage": null,
+        "isLastPage": null,
+        "lastPage": true,
+        "list": [],
+        "listSize": 0,
+        "obj": null,
+        "order": "",
+        "pageLength": 0,
+        "pageSize": 0,
+        "sort": "",
+        "status": false,
+        "throwable": null,
+        "totalPage": 0
+      },
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "set-cookie": [
+          "JSESSIONID=1F01E66444D37AD7D389991F519C6115; Path=/ywpz-prj; HttpOnly"
+        ],
+        "content-type": "application/json",
+        "content-length": "337",
+        "date": "Tue, 23 Jun 2026 08:04:18 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.01s",
+      "responseSize": "321 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+        "method": "GET",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782201858775,
+      "_endTime": 1782201858810
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.01s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "allRow": 0,
+      "beginPage": 0,
+      "code": 0,
+      "currentPage": 0,
+      "error": [
+        "btnCode不存在，请配置。"
+      ],
+      "firstPage": false,
+      "hasNextPage": null,
+      "hasPreviousPage": null,
+      "isFirstPage": null,
+      "isLastPage": null,
+      "lastPage": true,
+      "list": [],
+      "listSize": 0,
+      "obj": null,
+      "order": "",
+      "pageLength": 0,
+      "pageSize": 0,
+      "sort": "",
+      "status": false,
+      "throwable": null,
+      "totalPage": 0
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "set-cookie": [
+        "JSESSIONID=1F01E66444D37AD7D389991F519C6115; Path=/ywpz-prj; HttpOnly"
+      ],
+      "content-type": "application/json",
+      "content-length": "337",
+      "date": "Tue, 23 Jun 2026 08:04:18 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1781765565616_gs27q6lvq": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "allRow": 0,
+          "beginPage": 0,
+          "code": 0,
+          "currentPage": 0,
+          "error": [
+            "btnCode不存在，请配置。"
+          ],
+          "firstPage": false,
+          "hasNextPage": null,
+          "hasPreviousPage": null,
+          "isFirstPage": null,
+          "isLastPage": null,
+          "lastPage": true,
+          "list": [],
+          "listSize": 0,
+          "obj": null,
+          "order": "",
+          "pageLength": 0,
+          "pageSize": 0,
+          "sort": "",
+          "status": false,
+          "throwable": null,
+          "totalPage": 0
+        },
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "set-cookie": [
+            "JSESSIONID=1F01E66444D37AD7D389991F519C6115; Path=/ywpz-prj; HttpOnly"
+          ],
+          "content-type": "application/json",
+          "content-length": "337",
+          "date": "Tue, 23 Jun 2026 08:04:18 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.01s",
+        "responseSize": "321 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+          "method": "GET",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782201858775,
+        "_endTime": 1782201858810
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1781765565616_gs27q6lvq",
+        "name": "runGzyq-ywpz",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "allRow": 0,
+            "beginPage": 0,
+            "code": 0,
+            "currentPage": 0,
+            "error": [
+              "btnCode不存在，请配置。"
+            ],
+            "firstPage": false,
+            "hasNextPage": null,
+            "hasPreviousPage": null,
+            "isFirstPage": null,
+            "isLastPage": null,
+            "lastPage": true,
+            "list": [],
+            "listSize": 0,
+            "obj": null,
+            "order": "",
+            "pageLength": 0,
+            "pageSize": 0,
+            "sort": "",
+            "status": false,
+            "throwable": null,
+            "totalPage": 0
+          },
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "set-cookie": [
+              "JSESSIONID=1F01E66444D37AD7D389991F519C6115; Path=/ywpz-prj; HttpOnly"
+            ],
+            "content-type": "application/json",
+            "content-length": "337",
+            "date": "Tue, 23 Jun 2026 08:04:18 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.01s",
+          "responseSize": "321 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+            "method": "GET",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782201858775,
+          "_endTime": 1782201858810
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782201146476,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1781765565616_gs27q6lvq",
+    "apiName": "runGzyq-ywpz",
+    "apiMethod": "GET",
+    "apiPath": "{domain}{ywpz-prj}/gzyq/runGzyq",
+    "timestamp": "2026/6/23 15:52:26",
+    "apiConfig": {
+      "name": "runGzyq-ywpz",
+      "group": "default",
+      "api_path": "{domain}{ywpz-prj}/gzyq/runGzyq",
+      "method": "GET",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "btnCode": "BTN_625195499160",
+        "jsonDataStr": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+        "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+      "method": "GET",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "btnCode",
+            "default": "BTN_625195499160",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "JID",
+            "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1781765565633_jf2w3epof",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1781765565633_jf2w3epof",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "allRow": 0,
+        "beginPage": 0,
+        "code": 0,
+        "currentPage": 0,
+        "error": [
+          "btnCode不存在，请配置。"
+        ],
+        "firstPage": false,
+        "hasNextPage": null,
+        "hasPreviousPage": null,
+        "isFirstPage": null,
+        "isLastPage": null,
+        "lastPage": true,
+        "list": [],
+        "listSize": 0,
+        "obj": null,
+        "order": "",
+        "pageLength": 0,
+        "pageSize": 0,
+        "sort": "",
+        "status": false,
+        "throwable": null,
+        "totalPage": 0
+      },
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "set-cookie": [
+          "JSESSIONID=BA150A6D5E9B2453E67980E6B935EDAA; Path=/ywpz-prj; HttpOnly"
+        ],
+        "content-type": "application/json",
+        "content-length": "337",
+        "date": "Tue, 23 Jun 2026 07:52:26 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.03s",
+      "responseSize": "321 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+        "method": "GET",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782201146438,
+      "_endTime": 1782201146475
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.03s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "allRow": 0,
+      "beginPage": 0,
+      "code": 0,
+      "currentPage": 0,
+      "error": [
+        "btnCode不存在，请配置。"
+      ],
+      "firstPage": false,
+      "hasNextPage": null,
+      "hasPreviousPage": null,
+      "isFirstPage": null,
+      "isLastPage": null,
+      "lastPage": true,
+      "list": [],
+      "listSize": 0,
+      "obj": null,
+      "order": "",
+      "pageLength": 0,
+      "pageSize": 0,
+      "sort": "",
+      "status": false,
+      "throwable": null,
+      "totalPage": 0
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "set-cookie": [
+        "JSESSIONID=BA150A6D5E9B2453E67980E6B935EDAA; Path=/ywpz-prj; HttpOnly"
+      ],
+      "content-type": "application/json",
+      "content-length": "337",
+      "date": "Tue, 23 Jun 2026 07:52:26 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1781765565616_gs27q6lvq": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "allRow": 0,
+          "beginPage": 0,
+          "code": 0,
+          "currentPage": 0,
+          "error": [
+            "btnCode不存在，请配置。"
+          ],
+          "firstPage": false,
+          "hasNextPage": null,
+          "hasPreviousPage": null,
+          "isFirstPage": null,
+          "isLastPage": null,
+          "lastPage": true,
+          "list": [],
+          "listSize": 0,
+          "obj": null,
+          "order": "",
+          "pageLength": 0,
+          "pageSize": 0,
+          "sort": "",
+          "status": false,
+          "throwable": null,
+          "totalPage": 0
+        },
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "set-cookie": [
+            "JSESSIONID=BA150A6D5E9B2453E67980E6B935EDAA; Path=/ywpz-prj; HttpOnly"
+          ],
+          "content-type": "application/json",
+          "content-length": "337",
+          "date": "Tue, 23 Jun 2026 07:52:26 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.03s",
+        "responseSize": "321 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+          "method": "GET",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782201146438,
+        "_endTime": 1782201146475
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1781765565616_gs27q6lvq",
+        "name": "runGzyq-ywpz",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "allRow": 0,
+            "beginPage": 0,
+            "code": 0,
+            "currentPage": 0,
+            "error": [
+              "btnCode不存在，请配置。"
+            ],
+            "firstPage": false,
+            "hasNextPage": null,
+            "hasPreviousPage": null,
+            "isFirstPage": null,
+            "isLastPage": null,
+            "lastPage": true,
+            "list": [],
+            "listSize": 0,
+            "obj": null,
+            "order": "",
+            "pageLength": 0,
+            "pageSize": 0,
+            "sort": "",
+            "status": false,
+            "throwable": null,
+            "totalPage": 0
+          },
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "set-cookie": [
+              "JSESSIONID=BA150A6D5E9B2453E67980E6B935EDAA; Path=/ywpz-prj; HttpOnly"
+            ],
+            "content-type": "application/json",
+            "content-length": "337",
+            "date": "Tue, 23 Jun 2026 07:52:26 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.03s",
+          "responseSize": "321 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+            "method": "GET",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782201146438,
+          "_endTime": 1782201146475
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782201083472,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1781765565616_gs27q6lvq",
+    "apiName": "runGzyq-ywpz",
+    "apiMethod": "GET",
+    "apiPath": "{domain}{ywpz-prj}/gzyq/runGzyq",
+    "timestamp": "2026/6/23 15:51:23",
+    "apiConfig": {
+      "name": "runGzyq-ywpz",
+      "group": "default",
+      "api_path": "{domain}{ywpz-prj}/gzyq/runGzyq",
+      "method": "GET",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "btnCode": "BTN_625195499160",
+        "jsonDataStr": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+        "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+      "method": "GET",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "btnCode",
+            "default": "BTN_625195499160",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "JID",
+            "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1781765565633_jf2w3epof",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1781765565633_jf2w3epof",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "allRow": 0,
+        "beginPage": 0,
+        "code": 0,
+        "currentPage": 0,
+        "error": [
+          "btnCode不存在，请配置。"
+        ],
+        "firstPage": false,
+        "hasNextPage": null,
+        "hasPreviousPage": null,
+        "isFirstPage": null,
+        "isLastPage": null,
+        "lastPage": true,
+        "list": [],
+        "listSize": 0,
+        "obj": null,
+        "order": "",
+        "pageLength": 0,
+        "pageSize": 0,
+        "sort": "",
+        "status": false,
+        "throwable": null,
+        "totalPage": 0
+      },
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "set-cookie": [
+          "JSESSIONID=6AA5CE4A559712E21E3FDC7592E2D6E2; Path=/ywpz-prj; HttpOnly"
+        ],
+        "content-type": "application/json",
+        "content-length": "337",
+        "date": "Tue, 23 Jun 2026 07:51:23 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.01s",
+      "responseSize": "321 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+        "method": "GET",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782201083450,
+      "_endTime": 1782201083472
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.01s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "allRow": 0,
+      "beginPage": 0,
+      "code": 0,
+      "currentPage": 0,
+      "error": [
+        "btnCode不存在，请配置。"
+      ],
+      "firstPage": false,
+      "hasNextPage": null,
+      "hasPreviousPage": null,
+      "isFirstPage": null,
+      "isLastPage": null,
+      "lastPage": true,
+      "list": [],
+      "listSize": 0,
+      "obj": null,
+      "order": "",
+      "pageLength": 0,
+      "pageSize": 0,
+      "sort": "",
+      "status": false,
+      "throwable": null,
+      "totalPage": 0
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "set-cookie": [
+        "JSESSIONID=6AA5CE4A559712E21E3FDC7592E2D6E2; Path=/ywpz-prj; HttpOnly"
+      ],
+      "content-type": "application/json",
+      "content-length": "337",
+      "date": "Tue, 23 Jun 2026 07:51:23 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1781765565616_gs27q6lvq": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "allRow": 0,
+          "beginPage": 0,
+          "code": 0,
+          "currentPage": 0,
+          "error": [
+            "btnCode不存在，请配置。"
+          ],
+          "firstPage": false,
+          "hasNextPage": null,
+          "hasPreviousPage": null,
+          "isFirstPage": null,
+          "isLastPage": null,
+          "lastPage": true,
+          "list": [],
+          "listSize": 0,
+          "obj": null,
+          "order": "",
+          "pageLength": 0,
+          "pageSize": 0,
+          "sort": "",
+          "status": false,
+          "throwable": null,
+          "totalPage": 0
+        },
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "set-cookie": [
+            "JSESSIONID=6AA5CE4A559712E21E3FDC7592E2D6E2; Path=/ywpz-prj; HttpOnly"
+          ],
+          "content-type": "application/json",
+          "content-length": "337",
+          "date": "Tue, 23 Jun 2026 07:51:23 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.01s",
+        "responseSize": "321 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+          "method": "GET",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782201083450,
+        "_endTime": 1782201083472
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1781765565616_gs27q6lvq",
+        "name": "runGzyq-ywpz",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "allRow": 0,
+            "beginPage": 0,
+            "code": 0,
+            "currentPage": 0,
+            "error": [
+              "btnCode不存在，请配置。"
+            ],
+            "firstPage": false,
+            "hasNextPage": null,
+            "hasPreviousPage": null,
+            "isFirstPage": null,
+            "isLastPage": null,
+            "lastPage": true,
+            "list": [],
+            "listSize": 0,
+            "obj": null,
+            "order": "",
+            "pageLength": 0,
+            "pageSize": 0,
+            "sort": "",
+            "status": false,
+            "throwable": null,
+            "totalPage": 0
+          },
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "set-cookie": [
+              "JSESSIONID=6AA5CE4A559712E21E3FDC7592E2D6E2; Path=/ywpz-prj; HttpOnly"
+            ],
+            "content-type": "application/json",
+            "content-length": "337",
+            "date": "Tue, 23 Jun 2026 07:51:23 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.01s",
+          "responseSize": "321 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+            "method": "GET",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782201083450,
+          "_endTime": 1782201083472
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782200740912,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1781765565616_gs27q6lvq",
+    "apiName": "runGzyq-ywpz",
+    "apiMethod": "GET",
+    "apiPath": "{domain}{ywpz-prj}/gzyq/runGzyq",
+    "timestamp": "2026/6/23 15:45:40",
+    "apiConfig": {
+      "name": "runGzyq-ywpz",
+      "group": "default",
+      "api_path": "{domain}{ywpz-prj}/gzyq/runGzyq",
+      "method": "GET",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "btnCode": "BTN_625195499160",
+        "jsonDataStr": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+        "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+      "method": "GET",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "btnCode",
+            "default": "BTN_625195499160",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "JID",
+            "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1781765565633_jf2w3epof",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1781765565633_jf2w3epof",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "TIMEOUT",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "3.01s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "请求超时",
+      "errorType": "timeout",
+      "requestConfig": {
+        "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+        "method": "GET",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": {
+          "btnCode": "BTN_625195499160",
+          "jsonDataStr": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+          "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs"
+        },
+        "bodyType": "json"
+      },
+      "_startTime": 1782200737898,
+      "_endTime": 1782200740912
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "3.01s",
+    "error": "请求超时",
+    "errorType": "timeout",
+    "assertionResult": null,
+    "responseHeaders": {},
+    "allResults": {
+      "api_1781765565616_gs27q6lvq": {
+        "status_text": "TIMEOUT",
+        "httpSuccess": false,
+        "success": false,
+        "headers": {},
+        "elapsedTime": "3.01s",
+        "responseSize": "0 B",
+        "assertionResult": null,
+        "error": "请求超时",
+        "errorType": "timeout",
+        "requestConfig": {
+          "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+          "method": "GET",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": {
+            "btnCode": "BTN_625195499160",
+            "jsonDataStr": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+            "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs"
+          },
+          "bodyType": "json"
+        },
+        "_startTime": 1782200737898,
+        "_endTime": 1782200740912
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1781765565616_gs27q6lvq",
+        "name": "runGzyq-ywpz",
+        "result": {
+          "status_text": "TIMEOUT",
+          "httpSuccess": false,
+          "success": false,
+          "headers": {},
+          "elapsedTime": "3.01s",
+          "responseSize": "0 B",
+          "assertionResult": null,
+          "error": "请求超时",
+          "errorType": "timeout",
+          "requestConfig": {
+            "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+            "method": "GET",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": {
+              "btnCode": "BTN_625195499160",
+              "jsonDataStr": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+              "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs"
+            },
+            "bodyType": "json"
+          },
+          "_startTime": 1782200737898,
+          "_endTime": 1782200740912
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782200715226,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1781765565616_gs27q6lvq",
+    "apiName": "runGzyq-ywpz",
+    "apiMethod": "GET",
+    "apiPath": "{domain}{ywpz-prj}/gzyq/runGzyq",
+    "timestamp": "2026/6/23 15:45:15",
+    "apiConfig": {
+      "name": "runGzyq-ywpz",
+      "group": "default",
+      "api_path": "{domain}{ywpz-prj}/gzyq/runGzyq",
+      "method": "GET",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "btnCode": "BTN_625195499160",
+        "jsonDataStr": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+        "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+      "method": "GET",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "btnCode",
+            "default": "BTN_625195499160",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "JID",
+            "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1781765565633_jf2w3epof",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1781765565633_jf2w3epof",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "allRow": 0,
+        "beginPage": 0,
+        "code": 0,
+        "currentPage": 0,
+        "error": [
+          "btnCode不存在，请配置。"
+        ],
+        "firstPage": false,
+        "hasNextPage": null,
+        "hasPreviousPage": null,
+        "isFirstPage": null,
+        "isLastPage": null,
+        "lastPage": true,
+        "list": [],
+        "listSize": 0,
+        "obj": null,
+        "order": "",
+        "pageLength": 0,
+        "pageSize": 0,
+        "sort": "",
+        "status": false,
+        "throwable": null,
+        "totalPage": 0
+      },
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "set-cookie": [
+          "JSESSIONID=32D70ED6B57BD1BA85B70686717B2974; Path=/ywpz-prj; HttpOnly"
+        ],
+        "content-type": "application/json",
+        "content-length": "337",
+        "date": "Tue, 23 Jun 2026 07:45:15 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "2.66s",
+      "responseSize": "321 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+        "method": "GET",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": {
+          "btnCode": "BTN_625195499160",
+          "jsonDataStr": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+          "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs"
+        },
+        "bodyType": "json"
+      },
+      "_startTime": 1782200712567,
+      "_endTime": 1782200715226
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "2.66s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "allRow": 0,
+      "beginPage": 0,
+      "code": 0,
+      "currentPage": 0,
+      "error": [
+        "btnCode不存在，请配置。"
+      ],
+      "firstPage": false,
+      "hasNextPage": null,
+      "hasPreviousPage": null,
+      "isFirstPage": null,
+      "isLastPage": null,
+      "lastPage": true,
+      "list": [],
+      "listSize": 0,
+      "obj": null,
+      "order": "",
+      "pageLength": 0,
+      "pageSize": 0,
+      "sort": "",
+      "status": false,
+      "throwable": null,
+      "totalPage": 0
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "set-cookie": [
+        "JSESSIONID=32D70ED6B57BD1BA85B70686717B2974; Path=/ywpz-prj; HttpOnly"
+      ],
+      "content-type": "application/json",
+      "content-length": "337",
+      "date": "Tue, 23 Jun 2026 07:45:15 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1781765565616_gs27q6lvq": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "allRow": 0,
+          "beginPage": 0,
+          "code": 0,
+          "currentPage": 0,
+          "error": [
+            "btnCode不存在，请配置。"
+          ],
+          "firstPage": false,
+          "hasNextPage": null,
+          "hasPreviousPage": null,
+          "isFirstPage": null,
+          "isLastPage": null,
+          "lastPage": true,
+          "list": [],
+          "listSize": 0,
+          "obj": null,
+          "order": "",
+          "pageLength": 0,
+          "pageSize": 0,
+          "sort": "",
+          "status": false,
+          "throwable": null,
+          "totalPage": 0
+        },
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "set-cookie": [
+            "JSESSIONID=32D70ED6B57BD1BA85B70686717B2974; Path=/ywpz-prj; HttpOnly"
+          ],
+          "content-type": "application/json",
+          "content-length": "337",
+          "date": "Tue, 23 Jun 2026 07:45:15 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "2.66s",
+        "responseSize": "321 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+          "method": "GET",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": {
+            "btnCode": "BTN_625195499160",
+            "jsonDataStr": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+            "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs"
+          },
+          "bodyType": "json"
+        },
+        "_startTime": 1782200712567,
+        "_endTime": 1782200715226
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1781765565616_gs27q6lvq",
+        "name": "runGzyq-ywpz",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "allRow": 0,
+            "beginPage": 0,
+            "code": 0,
+            "currentPage": 0,
+            "error": [
+              "btnCode不存在，请配置。"
+            ],
+            "firstPage": false,
+            "hasNextPage": null,
+            "hasPreviousPage": null,
+            "isFirstPage": null,
+            "isLastPage": null,
+            "lastPage": true,
+            "list": [],
+            "listSize": 0,
+            "obj": null,
+            "order": "",
+            "pageLength": 0,
+            "pageSize": 0,
+            "sort": "",
+            "status": false,
+            "throwable": null,
+            "totalPage": 0
+          },
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "set-cookie": [
+              "JSESSIONID=32D70ED6B57BD1BA85B70686717B2974; Path=/ywpz-prj; HttpOnly"
+            ],
+            "content-type": "application/json",
+            "content-length": "337",
+            "date": "Tue, 23 Jun 2026 07:45:15 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "2.66s",
+          "responseSize": "321 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+            "method": "GET",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": {
+              "btnCode": "BTN_625195499160",
+              "jsonDataStr": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+              "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs"
+            },
+            "bodyType": "json"
+          },
+          "_startTime": 1782200712567,
+          "_endTime": 1782200715226
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782200686427,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1781765565616_gs27q6lvq",
+    "apiName": "runGzyq-ywpz",
+    "apiMethod": "GET",
+    "apiPath": "{domain}{ywpz-prj}/gzyq/runGzyq",
+    "timestamp": "2026/6/23 15:44:46",
+    "apiConfig": {
+      "name": "runGzyq-ywpz",
+      "group": "default",
+      "api_path": "{domain}{ywpz-prj}/gzyq/runGzyq",
+      "method": "GET",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "btnCode": "BTN_625195499160",
+        "jsonDataStr": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+        "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+      "method": "GET",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "btnCode",
+            "default": "BTN_625195499160",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "JID",
+            "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1781765565633_jf2w3epof",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1781765565633_jf2w3epof",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "allRow": 0,
+        "beginPage": 0,
+        "code": 0,
+        "currentPage": 0,
+        "error": [
+          "btnCode不存在，请配置。"
+        ],
+        "firstPage": false,
+        "hasNextPage": null,
+        "hasPreviousPage": null,
+        "isFirstPage": null,
+        "isLastPage": null,
+        "lastPage": true,
+        "list": [],
+        "listSize": 0,
+        "obj": null,
+        "order": "",
+        "pageLength": 0,
+        "pageSize": 0,
+        "sort": "",
+        "status": false,
+        "throwable": null,
+        "totalPage": 0
+      },
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "set-cookie": [
+          "JSESSIONID=FE5BDAD8E9FC446560DC473DA95EC805; Path=/ywpz-prj; HttpOnly"
+        ],
+        "content-type": "application/json",
+        "content-length": "337",
+        "date": "Tue, 23 Jun 2026 07:44:46 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.01s",
+      "responseSize": "321 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+        "method": "GET",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": {
+          "btnCode": "BTN_625195499160",
+          "jsonDataStr": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+          "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs"
+        },
+        "bodyType": "json"
+      },
+      "_startTime": 1782200686413,
+      "_endTime": 1782200686427
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.01s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "allRow": 0,
+      "beginPage": 0,
+      "code": 0,
+      "currentPage": 0,
+      "error": [
+        "btnCode不存在，请配置。"
+      ],
+      "firstPage": false,
+      "hasNextPage": null,
+      "hasPreviousPage": null,
+      "isFirstPage": null,
+      "isLastPage": null,
+      "lastPage": true,
+      "list": [],
+      "listSize": 0,
+      "obj": null,
+      "order": "",
+      "pageLength": 0,
+      "pageSize": 0,
+      "sort": "",
+      "status": false,
+      "throwable": null,
+      "totalPage": 0
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "set-cookie": [
+        "JSESSIONID=FE5BDAD8E9FC446560DC473DA95EC805; Path=/ywpz-prj; HttpOnly"
+      ],
+      "content-type": "application/json",
+      "content-length": "337",
+      "date": "Tue, 23 Jun 2026 07:44:46 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1781765565616_gs27q6lvq": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "allRow": 0,
+          "beginPage": 0,
+          "code": 0,
+          "currentPage": 0,
+          "error": [
+            "btnCode不存在，请配置。"
+          ],
+          "firstPage": false,
+          "hasNextPage": null,
+          "hasPreviousPage": null,
+          "isFirstPage": null,
+          "isLastPage": null,
+          "lastPage": true,
+          "list": [],
+          "listSize": 0,
+          "obj": null,
+          "order": "",
+          "pageLength": 0,
+          "pageSize": 0,
+          "sort": "",
+          "status": false,
+          "throwable": null,
+          "totalPage": 0
+        },
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "set-cookie": [
+            "JSESSIONID=FE5BDAD8E9FC446560DC473DA95EC805; Path=/ywpz-prj; HttpOnly"
+          ],
+          "content-type": "application/json",
+          "content-length": "337",
+          "date": "Tue, 23 Jun 2026 07:44:46 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.01s",
+        "responseSize": "321 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+          "method": "GET",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": {
+            "btnCode": "BTN_625195499160",
+            "jsonDataStr": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+            "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs"
+          },
+          "bodyType": "json"
+        },
+        "_startTime": 1782200686413,
+        "_endTime": 1782200686427
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1781765565616_gs27q6lvq",
+        "name": "runGzyq-ywpz",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "allRow": 0,
+            "beginPage": 0,
+            "code": 0,
+            "currentPage": 0,
+            "error": [
+              "btnCode不存在，请配置。"
+            ],
+            "firstPage": false,
+            "hasNextPage": null,
+            "hasPreviousPage": null,
+            "isFirstPage": null,
+            "isLastPage": null,
+            "lastPage": true,
+            "list": [],
+            "listSize": 0,
+            "obj": null,
+            "order": "",
+            "pageLength": 0,
+            "pageSize": 0,
+            "sort": "",
+            "status": false,
+            "throwable": null,
+            "totalPage": 0
+          },
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "set-cookie": [
+              "JSESSIONID=FE5BDAD8E9FC446560DC473DA95EC805; Path=/ywpz-prj; HttpOnly"
+            ],
+            "content-type": "application/json",
+            "content-length": "337",
+            "date": "Tue, 23 Jun 2026 07:44:46 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.01s",
+          "responseSize": "321 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+            "method": "GET",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": {
+              "btnCode": "BTN_625195499160",
+              "jsonDataStr": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+              "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs"
+            },
+            "bodyType": "json"
+          },
+          "_startTime": 1782200686413,
+          "_endTime": 1782200686427
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782200501017,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1781765565616_gs27q6lvq",
+    "apiName": "runGzyq-ywpz",
+    "apiMethod": "GET",
+    "apiPath": "{domain}{ywpz-prj}/gzyq/runGzyq",
+    "timestamp": "2026/6/23 15:41:41",
+    "apiConfig": {
+      "name": "runGzyq-ywpz",
+      "group": "default",
+      "api_path": "{domain}{ywpz-prj}/gzyq/runGzyq",
+      "method": "GET",
+      "header": {
+        "Content-Type": "multipart/form-data"
+      },
+      "param": {},
+      "body": {
+        "btnCode": {
+          "default": "BTN_625195499160",
+          "type": "string"
+        },
+        "jsonDataStr": {
+          "default": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+          "type": "json"
+        },
+        "JID": {
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+          "type": "string"
+        },
+        "files": {
+          "default": "2017年飞行量油检查统计表.xlsx",
+          "type": "file"
+        }
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+      "method": "GET",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "multipart/form-data",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "form-data",
+        "formData": [
+          {
+            "key": "btnCode",
+            "default": "BTN_625195499160",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+            "type": "json",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "JID",
+            "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "files",
+            "default": "2017年飞行量油检查统计表.xlsx",
+            "type": "file",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1781765565633_jf2w3epof",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1781765565633_jf2w3epof",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "form-data",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "TIMEOUT",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "3.00s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "请求超时",
+      "errorType": "timeout",
+      "requestConfig": {
+        "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+        "method": "GET",
+        "headers": {},
+        "params": {},
+        "body": "[FormData]",
+        "bodyType": "form-data"
+      },
+      "_startTime": 1782200498009,
+      "_endTime": 1782200501017
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "3.00s",
+    "error": "请求超时",
+    "errorType": "timeout",
+    "assertionResult": null,
+    "responseHeaders": {},
+    "allResults": {
+      "api_1781765565616_gs27q6lvq": {
+        "status_text": "TIMEOUT",
+        "httpSuccess": false,
+        "success": false,
+        "headers": {},
+        "elapsedTime": "3.00s",
+        "responseSize": "0 B",
+        "assertionResult": null,
+        "error": "请求超时",
+        "errorType": "timeout",
+        "requestConfig": {
+          "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+          "method": "GET",
+          "headers": {},
+          "params": {},
+          "body": "[FormData]",
+          "bodyType": "form-data"
+        },
+        "_startTime": 1782200498009,
+        "_endTime": 1782200501017
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1781765565616_gs27q6lvq",
+        "name": "runGzyq-ywpz",
+        "result": {
+          "status_text": "TIMEOUT",
+          "httpSuccess": false,
+          "success": false,
+          "headers": {},
+          "elapsedTime": "3.00s",
+          "responseSize": "0 B",
+          "assertionResult": null,
+          "error": "请求超时",
+          "errorType": "timeout",
+          "requestConfig": {
+            "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+            "method": "GET",
+            "headers": {},
+            "params": {},
+            "body": "[FormData]",
+            "bodyType": "form-data"
+          },
+          "_startTime": 1782200498009,
+          "_endTime": 1782200501017
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782200456019,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1781765565616_gs27q6lvq",
+    "apiName": "runGzyq-ywpz",
+    "apiMethod": "GET",
+    "apiPath": "{domain}{ywpz-prj}/gzyq/runGzyq",
+    "timestamp": "2026/6/23 15:40:56",
+    "apiConfig": {
+      "name": "runGzyq-ywpz",
+      "group": "default",
+      "api_path": "{domain}{ywpz-prj}/gzyq/runGzyq",
+      "method": "GET",
+      "header": {
+        "Content-Type": "multipart/form-data"
+      },
+      "param": {},
+      "body": {
+        "btnCode": {
+          "default": "BTN_625195499160",
+          "type": "string"
+        },
+        "jsonDataStr": {
+          "default": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+          "type": "json"
+        },
+        "JID": {
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+          "type": "string"
+        },
+        "files": {
+          "default": "2017年飞行量油检查统计表.xlsx",
+          "type": "file"
+        }
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+      "method": "GET",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "multipart/form-data",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "form-data",
+        "formData": [
+          {
+            "key": "btnCode",
+            "default": "BTN_625195499160",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+            "type": "json",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "JID",
+            "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "files",
+            "default": "2017年飞行量油检查统计表.xlsx",
+            "type": "file",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1781765565633_jf2w3epof",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1781765565633_jf2w3epof",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "form-data",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "allRow": 0,
+        "beginPage": 0,
+        "code": 0,
+        "currentPage": 0,
+        "error": [
+          "btnCode不存在，请配置。"
+        ],
+        "firstPage": false,
+        "hasNextPage": null,
+        "hasPreviousPage": null,
+        "isFirstPage": null,
+        "isLastPage": null,
+        "lastPage": true,
+        "list": [],
+        "listSize": 0,
+        "obj": null,
+        "order": "",
+        "pageLength": 0,
+        "pageSize": 0,
+        "sort": "",
+        "status": false,
+        "throwable": null,
+        "totalPage": 0
+      },
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "set-cookie": [
+          "JSESSIONID=087B94A6FD34E7804BA182B745C4406A; Path=/ywpz-prj; HttpOnly"
+        ],
+        "content-type": "application/json",
+        "content-length": "337",
+        "date": "Tue, 23 Jun 2026 07:40:56 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.01s",
+      "responseSize": "321 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+        "method": "GET",
+        "headers": {},
+        "params": {},
+        "body": "[FormData]",
+        "bodyType": "form-data"
+      },
+      "_startTime": 1782200455996,
+      "_endTime": 1782200456019
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.01s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "allRow": 0,
+      "beginPage": 0,
+      "code": 0,
+      "currentPage": 0,
+      "error": [
+        "btnCode不存在，请配置。"
+      ],
+      "firstPage": false,
+      "hasNextPage": null,
+      "hasPreviousPage": null,
+      "isFirstPage": null,
+      "isLastPage": null,
+      "lastPage": true,
+      "list": [],
+      "listSize": 0,
+      "obj": null,
+      "order": "",
+      "pageLength": 0,
+      "pageSize": 0,
+      "sort": "",
+      "status": false,
+      "throwable": null,
+      "totalPage": 0
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "set-cookie": [
+        "JSESSIONID=087B94A6FD34E7804BA182B745C4406A; Path=/ywpz-prj; HttpOnly"
+      ],
+      "content-type": "application/json",
+      "content-length": "337",
+      "date": "Tue, 23 Jun 2026 07:40:56 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1781765565616_gs27q6lvq": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "allRow": 0,
+          "beginPage": 0,
+          "code": 0,
+          "currentPage": 0,
+          "error": [
+            "btnCode不存在，请配置。"
+          ],
+          "firstPage": false,
+          "hasNextPage": null,
+          "hasPreviousPage": null,
+          "isFirstPage": null,
+          "isLastPage": null,
+          "lastPage": true,
+          "list": [],
+          "listSize": 0,
+          "obj": null,
+          "order": "",
+          "pageLength": 0,
+          "pageSize": 0,
+          "sort": "",
+          "status": false,
+          "throwable": null,
+          "totalPage": 0
+        },
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "set-cookie": [
+            "JSESSIONID=087B94A6FD34E7804BA182B745C4406A; Path=/ywpz-prj; HttpOnly"
+          ],
+          "content-type": "application/json",
+          "content-length": "337",
+          "date": "Tue, 23 Jun 2026 07:40:56 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.01s",
+        "responseSize": "321 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+          "method": "GET",
+          "headers": {},
+          "params": {},
+          "body": "[FormData]",
+          "bodyType": "form-data"
+        },
+        "_startTime": 1782200455996,
+        "_endTime": 1782200456019
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1781765565616_gs27q6lvq",
+        "name": "runGzyq-ywpz",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "allRow": 0,
+            "beginPage": 0,
+            "code": 0,
+            "currentPage": 0,
+            "error": [
+              "btnCode不存在，请配置。"
+            ],
+            "firstPage": false,
+            "hasNextPage": null,
+            "hasPreviousPage": null,
+            "isFirstPage": null,
+            "isLastPage": null,
+            "lastPage": true,
+            "list": [],
+            "listSize": 0,
+            "obj": null,
+            "order": "",
+            "pageLength": 0,
+            "pageSize": 0,
+            "sort": "",
+            "status": false,
+            "throwable": null,
+            "totalPage": 0
+          },
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "set-cookie": [
+              "JSESSIONID=087B94A6FD34E7804BA182B745C4406A; Path=/ywpz-prj; HttpOnly"
+            ],
+            "content-type": "application/json",
+            "content-length": "337",
+            "date": "Tue, 23 Jun 2026 07:40:56 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.01s",
+          "responseSize": "321 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+            "method": "GET",
+            "headers": {},
+            "params": {},
+            "body": "[FormData]",
+            "bodyType": "form-data"
+          },
+          "_startTime": 1782200455996,
+          "_endTime": 1782200456019
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782199901879,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1781765565616_gs27q6lvq",
+    "apiName": "runGzyq-ywpz",
+    "apiMethod": "GET",
+    "apiPath": "{domain}{ywpz-prj}/gzyq/runGzyq",
+    "timestamp": "2026/6/23 15:31:41",
+    "apiConfig": {
+      "name": "runGzyq-ywpz",
+      "group": "default",
+      "api_path": "{domain}{ywpz-prj}/gzyq/runGzyq",
+      "method": "GET",
+      "header": {
+        "Content-Type": "multipart/form-data"
+      },
+      "param": {},
+      "body": {
+        "btnCode": {
+          "default": "BTN_625195499160",
+          "type": "string"
+        },
+        "jsonDataStr": {
+          "default": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+          "type": "json"
+        },
+        "JID": {
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+          "type": "string"
+        },
+        "files": {
+          "default": "2017年飞行量油检查统计表.xlsx",
+          "type": "file"
+        }
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+      "method": "GET",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "multipart/form-data",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "form-data",
+        "formData": [
+          {
+            "key": "btnCode",
+            "default": "BTN_625195499160",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+            "type": "json",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "JID",
+            "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "files",
+            "default": "2017年飞行量油检查统计表.xlsx",
+            "type": "file",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1781765565633_jf2w3epof",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1781765565633_jf2w3epof",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "form-data",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "allRow": 0,
+        "beginPage": 0,
+        "code": 0,
+        "currentPage": 0,
+        "error": [
+          "btnCode不存在，请配置。"
+        ],
+        "firstPage": false,
+        "hasNextPage": null,
+        "hasPreviousPage": null,
+        "isFirstPage": null,
+        "isLastPage": null,
+        "lastPage": true,
+        "list": [],
+        "listSize": 0,
+        "obj": null,
+        "order": "",
+        "pageLength": 0,
+        "pageSize": 0,
+        "sort": "",
+        "status": false,
+        "throwable": null,
+        "totalPage": 0
+      },
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "set-cookie": [
+          "JSESSIONID=EC450856AB7DC9C00A041FF34C6A4C4C; Path=/ywpz-prj; HttpOnly"
+        ],
+        "content-type": "application/json",
+        "content-length": "337",
+        "date": "Tue, 23 Jun 2026 07:31:41 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.30s",
+      "responseSize": "321 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+        "method": "GET",
+        "headers": {},
+        "params": {},
+        "body": "[FormData]",
+        "bodyType": "form-data"
+      },
+      "_startTime": 1782199901576,
+      "_endTime": 1782199901879
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.30s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "allRow": 0,
+      "beginPage": 0,
+      "code": 0,
+      "currentPage": 0,
+      "error": [
+        "btnCode不存在，请配置。"
+      ],
+      "firstPage": false,
+      "hasNextPage": null,
+      "hasPreviousPage": null,
+      "isFirstPage": null,
+      "isLastPage": null,
+      "lastPage": true,
+      "list": [],
+      "listSize": 0,
+      "obj": null,
+      "order": "",
+      "pageLength": 0,
+      "pageSize": 0,
+      "sort": "",
+      "status": false,
+      "throwable": null,
+      "totalPage": 0
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "set-cookie": [
+        "JSESSIONID=EC450856AB7DC9C00A041FF34C6A4C4C; Path=/ywpz-prj; HttpOnly"
+      ],
+      "content-type": "application/json",
+      "content-length": "337",
+      "date": "Tue, 23 Jun 2026 07:31:41 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1781765565616_gs27q6lvq": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "allRow": 0,
+          "beginPage": 0,
+          "code": 0,
+          "currentPage": 0,
+          "error": [
+            "btnCode不存在，请配置。"
+          ],
+          "firstPage": false,
+          "hasNextPage": null,
+          "hasPreviousPage": null,
+          "isFirstPage": null,
+          "isLastPage": null,
+          "lastPage": true,
+          "list": [],
+          "listSize": 0,
+          "obj": null,
+          "order": "",
+          "pageLength": 0,
+          "pageSize": 0,
+          "sort": "",
+          "status": false,
+          "throwable": null,
+          "totalPage": 0
+        },
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "set-cookie": [
+            "JSESSIONID=EC450856AB7DC9C00A041FF34C6A4C4C; Path=/ywpz-prj; HttpOnly"
+          ],
+          "content-type": "application/json",
+          "content-length": "337",
+          "date": "Tue, 23 Jun 2026 07:31:41 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.30s",
+        "responseSize": "321 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+          "method": "GET",
+          "headers": {},
+          "params": {},
+          "body": "[FormData]",
+          "bodyType": "form-data"
+        },
+        "_startTime": 1782199901576,
+        "_endTime": 1782199901879
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1781765565616_gs27q6lvq",
+        "name": "runGzyq-ywpz",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "allRow": 0,
+            "beginPage": 0,
+            "code": 0,
+            "currentPage": 0,
+            "error": [
+              "btnCode不存在，请配置。"
+            ],
+            "firstPage": false,
+            "hasNextPage": null,
+            "hasPreviousPage": null,
+            "isFirstPage": null,
+            "isLastPage": null,
+            "lastPage": true,
+            "list": [],
+            "listSize": 0,
+            "obj": null,
+            "order": "",
+            "pageLength": 0,
+            "pageSize": 0,
+            "sort": "",
+            "status": false,
+            "throwable": null,
+            "totalPage": 0
+          },
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "set-cookie": [
+              "JSESSIONID=EC450856AB7DC9C00A041FF34C6A4C4C; Path=/ywpz-prj; HttpOnly"
+            ],
+            "content-type": "application/json",
+            "content-length": "337",
+            "date": "Tue, 23 Jun 2026 07:31:41 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.30s",
+          "responseSize": "321 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+            "method": "GET",
+            "headers": {},
+            "params": {},
+            "body": "[FormData]",
+            "bodyType": "form-data"
+          },
+          "_startTime": 1782199901576,
+          "_endTime": 1782199901879
+        },
+        "isTarget": true
+      }
+    ]
+  }
+]
