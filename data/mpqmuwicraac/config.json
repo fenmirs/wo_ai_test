@@ -91,6 +91,6 @@
       "group": "group_mpqmv4y45epgz"
     }
   ],
-  "requestTimeout": 3000,
+  "requestTimeout": 30000,
   "templates": []
 }

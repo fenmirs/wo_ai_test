@@ -76,7 +76,7 @@
       "name": "BTN_625195499160",
       "description": "BTN_625195499160",
       "createdAt": "2026-06-23T07:19:23.977Z",
-      "updatedAt": "2026-06-23T08:24:17.872Z",
+      "updatedAt": "2026-06-24T02:44:30.093Z",
       "deleted": false,
       "header": [
         {
@@ -109,6 +109,101 @@
           {
             "key": "jsonDataStr",
             "default": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "JID",
+            "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1781765565633_jf2w3epof",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1781765565633_jf2w3epof",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "assertions": [
+        {
+          "expression": "",
+          "enabled": true
+        }
+      ],
+      "refChain": []
+    },
+    "scn_1782269038200_ivlvf": {
+      "id": "scn_1782269038200_ivlvf",
+      "name": "CHECK_IAF_CERTIFICATE_DATA",
+      "description": "",
+      "createdAt": "2026-06-24T02:43:58.200Z",
+      "updatedAt": "2026-06-24T02:46:22.592Z",
+      "deleted": false,
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "JID",
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "btnCode",
+            "default": "CHECK_IAF_CERTIFICATE_DATA",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\"ids\":\"2130636146248\"}",
             "type": "string",
             "description": "",
             "enabled": true

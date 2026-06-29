@@ -1,0 +1,884 @@
+[
+  {
+    "id": 1782716329718,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782703665004_a6dbvzncy",
+    "apiName": "获取token",
+    "apiMethod": "POST",
+    "apiPath": "https://airwechat.coscoshipping-logistics.com/docs/detail/5bcbffd0c052000?locale=zh-cn&target_id=3cbf8c81fb7063",
+    "timestamp": "2026/6/29 14:58:49",
+    "apiConfig": {
+      "name": "获取token",
+      "group": "group_mqynq3dwmszg8",
+      "api_path": "https://airwechat.coscoshipping-logistics.com/docs/detail/5bcbffd0c052000?locale=zh-cn&target_id=3cbf8c81fb7063",
+      "method": "POST",
+      "header": {
+        "ccf-app-id": "AUhSus9a5McQ9JC7",
+        "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": {
+        "content": "{\n  \"userName\": \"58e6b16a61684cc09ef1d6e99c90c1c5\",\n  \"passWord\": \"dd70df56-735b-4be5-8750-7a54b79cc762\"\n}",
+        "schema": {
+          "id": "node_1782715544106_si5hju7u0",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1782715544106_z24grl7pg",
+              "type": "string",
+              "key": "userName",
+              "value": "58e6b16a61684cc09ef1d6e99c90c1c5",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1782715544106_mu57nzc9p",
+              "type": "string",
+              "key": "passWord",
+              "value": "dd70df56-735b-4be5-8750-7a54b79cc762",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "https://airwechat.coscoshipping-logistics.com/docs/detail/5bcbffd0c052000?locale=zh-cn&target_id=3cbf8c81fb7063",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "ccf-app-id",
+          "default": "AUhSus9a5McQ9JC7",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "ccf-app-secret",
+          "default": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{\n  \"userName\": \"58e6b16a61684cc09ef1d6e99c90c1c5\",\n  \"passWord\": \"dd70df56-735b-4be5-8750-7a54b79cc762\"\n}",
+        "schema": {
+          "id": "node_1782715544106_si5hju7u0",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1782715544106_z24grl7pg",
+              "type": "string",
+              "key": "userName",
+              "value": "58e6b16a61684cc09ef1d6e99c90c1c5",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1782715544106_mu57nzc9p",
+              "type": "string",
+              "key": "passWord",
+              "value": "dd70df56-735b-4be5-8750-7a54b79cc762",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "contents": {
+          "json": {
+            "content": "{\n  \"userName\": \"58e6b16a61684cc09ef1d6e99c90c1c5\",\n  \"passWord\": \"dd70df56-735b-4be5-8750-7a54b79cc762\"\n}",
+            "schema": {
+              "id": "node_1782715544106_si5hju7u0",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1782715544106_z24grl7pg",
+                  "type": "string",
+                  "key": "userName",
+                  "value": "58e6b16a61684cc09ef1d6e99c90c1c5",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782715544106_mu57nzc9p",
+                  "type": "string",
+                  "key": "passWord",
+                  "value": "dd70df56-735b-4be5-8750-7a54b79cc762",
+                  "description": "",
+                  "children": []
+                }
+              ]
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "OK",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "ok": false,
+        "code": 10003,
+        "msg": "NoResourceFoundException: 404 NOT_FOUND \"No static resource docs/detail/5bcbffd0c052000.\""
+      },
+      "headers": {
+        "date": "Mon, 29 Jun 2026 06:58:51 GMT",
+        "content-type": "application/json",
+        "content-length": "125",
+        "connection": "close",
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "set-cookie": [
+          "BIGipServer8xxpkPh2aRC6a9BaMEsb3A=!nV4lhStxSUXZnkkV0CYbAMcMdl54PAi8RcVNkGs7YAYwhRipbgzKWaN1b+Xxhtth5WFY7PDAsIXzcvw=; path=/; Httponly",
+          "TS012e33c8=0194b76a02be26216ca51191ad6d637d7750b215956501b2a79572752af3a5a2ffd4915a675de719a7bf6a4202a4411d2cb18e025f; Path=/",
+          "__jsluid_s=50a18b6bde9556fe533a4aa3b8a4e065; max-age=31536000; path=/; HttpOnly; SameSite=None; secure"
+        ],
+        "x-via-jsl": "73e7e40,-",
+        "x-cache": "bypass"
+      },
+      "elapsedTime": "0.30s",
+      "responseSize": "125 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "https://airwechat.coscoshipping-logistics.com/docs/detail/5bcbffd0c052000?locale=zh-cn&target_id=3cbf8c81fb7063",
+        "method": "POST",
+        "headers": {
+          "ccf-app-id": "AUhSus9a5McQ9JC7",
+          "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+          "Content-Type": "application/json"
+        },
+        "params": {},
+        "body": "{\n  \"userName\": \"58e6b16a61684cc09ef1d6e99c90c1c5\",\n  \"passWord\": \"dd70df56-735b-4be5-8750-7a54b79cc762\"\n}",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782716329419,
+      "_endTime": 1782716329718
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.30s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "ok": false,
+      "code": 10003,
+      "msg": "NoResourceFoundException: 404 NOT_FOUND \"No static resource docs/detail/5bcbffd0c052000.\""
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "date": "Mon, 29 Jun 2026 06:58:51 GMT",
+      "content-type": "application/json",
+      "content-length": "125",
+      "connection": "close",
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "set-cookie": [
+        "BIGipServer8xxpkPh2aRC6a9BaMEsb3A=!nV4lhStxSUXZnkkV0CYbAMcMdl54PAi8RcVNkGs7YAYwhRipbgzKWaN1b+Xxhtth5WFY7PDAsIXzcvw=; path=/; Httponly",
+        "TS012e33c8=0194b76a02be26216ca51191ad6d637d7750b215956501b2a79572752af3a5a2ffd4915a675de719a7bf6a4202a4411d2cb18e025f; Path=/",
+        "__jsluid_s=50a18b6bde9556fe533a4aa3b8a4e065; max-age=31536000; path=/; HttpOnly; SameSite=None; secure"
+      ],
+      "x-via-jsl": "73e7e40,-",
+      "x-cache": "bypass"
+    },
+    "allResults": {
+      "api_1782703665004_a6dbvzncy": {
+        "status_code": 200,
+        "status_text": "OK",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "ok": false,
+          "code": 10003,
+          "msg": "NoResourceFoundException: 404 NOT_FOUND \"No static resource docs/detail/5bcbffd0c052000.\""
+        },
+        "headers": {
+          "date": "Mon, 29 Jun 2026 06:58:51 GMT",
+          "content-type": "application/json",
+          "content-length": "125",
+          "connection": "close",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "set-cookie": [
+            "BIGipServer8xxpkPh2aRC6a9BaMEsb3A=!nV4lhStxSUXZnkkV0CYbAMcMdl54PAi8RcVNkGs7YAYwhRipbgzKWaN1b+Xxhtth5WFY7PDAsIXzcvw=; path=/; Httponly",
+            "TS012e33c8=0194b76a02be26216ca51191ad6d637d7750b215956501b2a79572752af3a5a2ffd4915a675de719a7bf6a4202a4411d2cb18e025f; Path=/",
+            "__jsluid_s=50a18b6bde9556fe533a4aa3b8a4e065; max-age=31536000; path=/; HttpOnly; SameSite=None; secure"
+          ],
+          "x-via-jsl": "73e7e40,-",
+          "x-cache": "bypass"
+        },
+        "elapsedTime": "0.30s",
+        "responseSize": "125 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "https://airwechat.coscoshipping-logistics.com/docs/detail/5bcbffd0c052000?locale=zh-cn&target_id=3cbf8c81fb7063",
+          "method": "POST",
+          "headers": {
+            "ccf-app-id": "AUhSus9a5McQ9JC7",
+            "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+            "Content-Type": "application/json"
+          },
+          "params": {},
+          "body": "{\n  \"userName\": \"58e6b16a61684cc09ef1d6e99c90c1c5\",\n  \"passWord\": \"dd70df56-735b-4be5-8750-7a54b79cc762\"\n}",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782716329419,
+        "_endTime": 1782716329718
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782703665004_a6dbvzncy",
+        "name": "获取token",
+        "result": {
+          "status_code": 200,
+          "status_text": "OK",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "ok": false,
+            "code": 10003,
+            "msg": "NoResourceFoundException: 404 NOT_FOUND \"No static resource docs/detail/5bcbffd0c052000.\""
+          },
+          "headers": {
+            "date": "Mon, 29 Jun 2026 06:58:51 GMT",
+            "content-type": "application/json",
+            "content-length": "125",
+            "connection": "close",
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "set-cookie": [
+              "BIGipServer8xxpkPh2aRC6a9BaMEsb3A=!nV4lhStxSUXZnkkV0CYbAMcMdl54PAi8RcVNkGs7YAYwhRipbgzKWaN1b+Xxhtth5WFY7PDAsIXzcvw=; path=/; Httponly",
+              "TS012e33c8=0194b76a02be26216ca51191ad6d637d7750b215956501b2a79572752af3a5a2ffd4915a675de719a7bf6a4202a4411d2cb18e025f; Path=/",
+              "__jsluid_s=50a18b6bde9556fe533a4aa3b8a4e065; max-age=31536000; path=/; HttpOnly; SameSite=None; secure"
+            ],
+            "x-via-jsl": "73e7e40,-",
+            "x-cache": "bypass"
+          },
+          "elapsedTime": "0.30s",
+          "responseSize": "125 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "https://airwechat.coscoshipping-logistics.com/docs/detail/5bcbffd0c052000?locale=zh-cn&target_id=3cbf8c81fb7063",
+            "method": "POST",
+            "headers": {
+              "ccf-app-id": "AUhSus9a5McQ9JC7",
+              "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+              "Content-Type": "application/json"
+            },
+            "params": {},
+            "body": "{\n  \"userName\": \"58e6b16a61684cc09ef1d6e99c90c1c5\",\n  \"passWord\": \"dd70df56-735b-4be5-8750-7a54b79cc762\"\n}",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782716329419,
+          "_endTime": 1782716329718
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782715826612,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782703665004_a6dbvzncy",
+    "apiName": "获取token",
+    "apiMethod": "POST",
+    "apiPath": "https://docs.apipost.net/docs/detail/5bcbffd0c052000?locale=zh-cn&target_id=3cbf8c81fb7063",
+    "timestamp": "2026/6/29 14:50:26",
+    "apiConfig": {
+      "name": "获取token",
+      "group": "group_mqynq3dwmszg8",
+      "api_path": "https://docs.apipost.net/docs/detail/5bcbffd0c052000?locale=zh-cn&target_id=3cbf8c81fb7063",
+      "method": "POST",
+      "header": {
+        "ccf-app-id": "AUhSus9a5McQ9JC7",
+        "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": {
+        "content": "{\n  \"userName\": \"58e6b16a61684cc09ef1d6e99c90c1c5\",\n  \"passWord\": \"dd70df56-735b-4be5-8750-7a54b79cc762\"\n}",
+        "schema": {
+          "id": "node_1782715544106_si5hju7u0",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1782715544106_z24grl7pg",
+              "type": "string",
+              "key": "userName",
+              "value": "58e6b16a61684cc09ef1d6e99c90c1c5",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1782715544106_mu57nzc9p",
+              "type": "string",
+              "key": "passWord",
+              "value": "dd70df56-735b-4be5-8750-7a54b79cc762",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "https://docs.apipost.net/docs/detail/5bcbffd0c052000?locale=zh-cn&target_id=3cbf8c81fb7063",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "ccf-app-id",
+          "default": "AUhSus9a5McQ9JC7",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "ccf-app-secret",
+          "default": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{\n  \"userName\": \"58e6b16a61684cc09ef1d6e99c90c1c5\",\n  \"passWord\": \"dd70df56-735b-4be5-8750-7a54b79cc762\"\n}",
+        "schema": {
+          "id": "node_1782715544106_si5hju7u0",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1782715544106_z24grl7pg",
+              "type": "string",
+              "key": "userName",
+              "value": "58e6b16a61684cc09ef1d6e99c90c1c5",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1782715544106_mu57nzc9p",
+              "type": "string",
+              "key": "passWord",
+              "value": "dd70df56-735b-4be5-8750-7a54b79cc762",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "contents": {
+          "json": {
+            "content": "{\n  \"userName\": \"58e6b16a61684cc09ef1d6e99c90c1c5\",\n  \"passWord\": \"dd70df56-735b-4be5-8750-7a54b79cc762\"\n}",
+            "schema": {
+              "id": "node_1782715544106_si5hju7u0",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1782715544106_z24grl7pg",
+                  "type": "string",
+                  "key": "userName",
+                  "value": "58e6b16a61684cc09ef1d6e99c90c1c5",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782715544106_mu57nzc9p",
+                  "type": "string",
+                  "key": "passWord",
+                  "value": "dd70df56-735b-4be5-8750-7a54b79cc762",
+                  "description": "",
+                  "children": []
+                }
+              ]
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 405,
+      "status_text": "Not Allowed",
+      "httpSuccess": false,
+      "success": false,
+      "data": "<html>\r\n<head><title>405 Not Allowed</title></head>\r\n<body>\r\n<center><h1>405 Not Allowed</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n",
+      "headers": {
+        "date": "Mon, 29 Jun 2026 06:50:28 GMT",
+        "content-type": "text/html",
+        "content-length": "150",
+        "connection": "close"
+      },
+      "elapsedTime": "0.19s",
+      "responseSize": "150 B",
+      "assertionResult": null,
+      "error": "请求失败",
+      "errorType": "network",
+      "requestConfig": {
+        "url": "https://docs.apipost.net/docs/detail/5bcbffd0c052000?locale=zh-cn&target_id=3cbf8c81fb7063",
+        "method": "POST",
+        "headers": {
+          "ccf-app-id": "AUhSus9a5McQ9JC7",
+          "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+          "Content-Type": "application/json"
+        },
+        "params": {},
+        "body": "{\n  \"userName\": \"58e6b16a61684cc09ef1d6e99c90c1c5\",\n  \"passWord\": \"dd70df56-735b-4be5-8750-7a54b79cc762\"\n}",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782715826420,
+      "_endTime": 1782715826612
+    },
+    "success": false,
+    "httpSuccess": false,
+    "status_code": 405,
+    "elapsedTime": "0.19s",
+    "error": "请求失败",
+    "errorType": "network",
+    "responseData": "<html>\r\n<head><title>405 Not Allowed</title></head>\r\n<body>\r\n<center><h1>405 Not Allowed</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n",
+    "assertionResult": null,
+    "responseHeaders": {
+      "date": "Mon, 29 Jun 2026 06:50:28 GMT",
+      "content-type": "text/html",
+      "content-length": "150",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782703665004_a6dbvzncy": {
+        "status_code": 405,
+        "status_text": "Not Allowed",
+        "httpSuccess": false,
+        "success": false,
+        "data": "<html>\r\n<head><title>405 Not Allowed</title></head>\r\n<body>\r\n<center><h1>405 Not Allowed</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n",
+        "headers": {
+          "date": "Mon, 29 Jun 2026 06:50:28 GMT",
+          "content-type": "text/html",
+          "content-length": "150",
+          "connection": "close"
+        },
+        "elapsedTime": "0.19s",
+        "responseSize": "150 B",
+        "assertionResult": null,
+        "error": "请求失败",
+        "errorType": "network",
+        "requestConfig": {
+          "url": "https://docs.apipost.net/docs/detail/5bcbffd0c052000?locale=zh-cn&target_id=3cbf8c81fb7063",
+          "method": "POST",
+          "headers": {
+            "ccf-app-id": "AUhSus9a5McQ9JC7",
+            "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+            "Content-Type": "application/json"
+          },
+          "params": {},
+          "body": "{\n  \"userName\": \"58e6b16a61684cc09ef1d6e99c90c1c5\",\n  \"passWord\": \"dd70df56-735b-4be5-8750-7a54b79cc762\"\n}",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782715826420,
+        "_endTime": 1782715826612
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782703665004_a6dbvzncy",
+        "name": "获取token",
+        "result": {
+          "status_code": 405,
+          "status_text": "Not Allowed",
+          "httpSuccess": false,
+          "success": false,
+          "data": "<html>\r\n<head><title>405 Not Allowed</title></head>\r\n<body>\r\n<center><h1>405 Not Allowed</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n",
+          "headers": {
+            "date": "Mon, 29 Jun 2026 06:50:28 GMT",
+            "content-type": "text/html",
+            "content-length": "150",
+            "connection": "close"
+          },
+          "elapsedTime": "0.19s",
+          "responseSize": "150 B",
+          "assertionResult": null,
+          "error": "请求失败",
+          "errorType": "network",
+          "requestConfig": {
+            "url": "https://docs.apipost.net/docs/detail/5bcbffd0c052000?locale=zh-cn&target_id=3cbf8c81fb7063",
+            "method": "POST",
+            "headers": {
+              "ccf-app-id": "AUhSus9a5McQ9JC7",
+              "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+              "Content-Type": "application/json"
+            },
+            "params": {},
+            "body": "{\n  \"userName\": \"58e6b16a61684cc09ef1d6e99c90c1c5\",\n  \"passWord\": \"dd70df56-735b-4be5-8750-7a54b79cc762\"\n}",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782715826420,
+          "_endTime": 1782715826612
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782714879949,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782703665004_a6dbvzncy",
+    "apiName": "获取token",
+    "apiMethod": "POST",
+    "apiPath": "https://docs.apipost.net/docs/detail/5bcbffd0c052000?locale=zh-cn&target_id=3cbf8c81fb7063",
+    "timestamp": "2026/6/29 14:34:39",
+    "apiConfig": {
+      "name": "获取token",
+      "group": "group_mqynq3dwmszg8",
+      "api_path": "https://docs.apipost.net/docs/detail/5bcbffd0c052000?locale=zh-cn&target_id=3cbf8c81fb7063",
+      "method": "POST",
+      "header": {
+        "ccf-app-id": "123",
+        "ccf-app-secret": "123",
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": {
+        "content": "{\n  \"userName\": \"c731ef2f2ce5333323485d8f19172dsfd6da1e673\",\n  \"passWord\": \"ed81243f45-e6d3-4e29-a8c9-0189a9d2312383681\"\n}",
+        "schema": {
+          "id": "node_1782714876691_0ywf4o3h2",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1782714876691_nidh1i2xp",
+              "type": "string",
+              "key": "userName",
+              "value": "c731ef2f2ce5333323485d8f19172dsfd6da1e673",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1782714876691_zv89atq6o",
+              "type": "string",
+              "key": "passWord",
+              "value": "ed81243f45-e6d3-4e29-a8c9-0189a9d2312383681",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "https://docs.apipost.net/docs/detail/5bcbffd0c052000?locale=zh-cn&target_id=3cbf8c81fb7063",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "ccf-app-id",
+          "default": "123",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "ccf-app-secret",
+          "default": "123",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{\n  \"userName\": \"c731ef2f2ce5333323485d8f19172dsfd6da1e673\",\n  \"passWord\": \"ed81243f45-e6d3-4e29-a8c9-0189a9d2312383681\"\n}",
+        "schema": {
+          "id": "node_1782714876691_0ywf4o3h2",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1782714876691_nidh1i2xp",
+              "type": "string",
+              "key": "userName",
+              "value": "c731ef2f2ce5333323485d8f19172dsfd6da1e673",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1782714876691_zv89atq6o",
+              "type": "string",
+              "key": "passWord",
+              "value": "ed81243f45-e6d3-4e29-a8c9-0189a9d2312383681",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "contents": {
+          "json": {
+            "content": "{\n  \"userName\": \"c731ef2f2ce5333323485d8f19172dsfd6da1e673\",\n  \"passWord\": \"ed81243f45-e6d3-4e29-a8c9-0189a9d2312383681\"\n}",
+            "schema": {
+              "id": "node_1782714876691_0ywf4o3h2",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1782714876691_nidh1i2xp",
+                  "type": "string",
+                  "key": "userName",
+                  "value": "c731ef2f2ce5333323485d8f19172dsfd6da1e673",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782714876691_zv89atq6o",
+                  "type": "string",
+                  "key": "passWord",
+                  "value": "ed81243f45-e6d3-4e29-a8c9-0189a9d2312383681",
+                  "description": "",
+                  "children": []
+                }
+              ]
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 405,
+      "status_text": "Not Allowed",
+      "httpSuccess": false,
+      "success": false,
+      "data": "<html>\r\n<head><title>405 Not Allowed</title></head>\r\n<body>\r\n<center><h1>405 Not Allowed</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n",
+      "headers": {
+        "date": "Mon, 29 Jun 2026 06:34:41 GMT",
+        "content-type": "text/html",
+        "content-length": "150",
+        "connection": "close"
+      },
+      "elapsedTime": "0.28s",
+      "responseSize": "150 B",
+      "assertionResult": null,
+      "error": "请求失败",
+      "errorType": "network",
+      "requestConfig": {
+        "url": "https://docs.apipost.net/docs/detail/5bcbffd0c052000?locale=zh-cn&target_id=3cbf8c81fb7063",
+        "method": "POST",
+        "headers": {
+          "ccf-app-id": "123",
+          "ccf-app-secret": "123",
+          "Content-Type": "application/json"
+        },
+        "params": {},
+        "body": "{\n  \"userName\": \"c731ef2f2ce5333323485d8f19172dsfd6da1e673\",\n  \"passWord\": \"ed81243f45-e6d3-4e29-a8c9-0189a9d2312383681\"\n}",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782714879665,
+      "_endTime": 1782714879949
+    },
+    "success": false,
+    "httpSuccess": false,
+    "status_code": 405,
+    "elapsedTime": "0.28s",
+    "error": "请求失败",
+    "errorType": "network",
+    "responseData": "<html>\r\n<head><title>405 Not Allowed</title></head>\r\n<body>\r\n<center><h1>405 Not Allowed</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n",
+    "assertionResult": null,
+    "responseHeaders": {
+      "date": "Mon, 29 Jun 2026 06:34:41 GMT",
+      "content-type": "text/html",
+      "content-length": "150",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782703665004_a6dbvzncy": {
+        "status_code": 405,
+        "status_text": "Not Allowed",
+        "httpSuccess": false,
+        "success": false,
+        "data": "<html>\r\n<head><title>405 Not Allowed</title></head>\r\n<body>\r\n<center><h1>405 Not Allowed</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n",
+        "headers": {
+          "date": "Mon, 29 Jun 2026 06:34:41 GMT",
+          "content-type": "text/html",
+          "content-length": "150",
+          "connection": "close"
+        },
+        "elapsedTime": "0.28s",
+        "responseSize": "150 B",
+        "assertionResult": null,
+        "error": "请求失败",
+        "errorType": "network",
+        "requestConfig": {
+          "url": "https://docs.apipost.net/docs/detail/5bcbffd0c052000?locale=zh-cn&target_id=3cbf8c81fb7063",
+          "method": "POST",
+          "headers": {
+            "ccf-app-id": "123",
+            "ccf-app-secret": "123",
+            "Content-Type": "application/json"
+          },
+          "params": {},
+          "body": "{\n  \"userName\": \"c731ef2f2ce5333323485d8f19172dsfd6da1e673\",\n  \"passWord\": \"ed81243f45-e6d3-4e29-a8c9-0189a9d2312383681\"\n}",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782714879665,
+        "_endTime": 1782714879949
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782703665004_a6dbvzncy",
+        "name": "获取token",
+        "result": {
+          "status_code": 405,
+          "status_text": "Not Allowed",
+          "httpSuccess": false,
+          "success": false,
+          "data": "<html>\r\n<head><title>405 Not Allowed</title></head>\r\n<body>\r\n<center><h1>405 Not Allowed</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n",
+          "headers": {
+            "date": "Mon, 29 Jun 2026 06:34:41 GMT",
+            "content-type": "text/html",
+            "content-length": "150",
+            "connection": "close"
+          },
+          "elapsedTime": "0.28s",
+          "responseSize": "150 B",
+          "assertionResult": null,
+          "error": "请求失败",
+          "errorType": "network",
+          "requestConfig": {
+            "url": "https://docs.apipost.net/docs/detail/5bcbffd0c052000?locale=zh-cn&target_id=3cbf8c81fb7063",
+            "method": "POST",
+            "headers": {
+              "ccf-app-id": "123",
+              "ccf-app-secret": "123",
+              "Content-Type": "application/json"
+            },
+            "params": {},
+            "body": "{\n  \"userName\": \"c731ef2f2ce5333323485d8f19172dsfd6da1e673\",\n  \"passWord\": \"ed81243f45-e6d3-4e29-a8c9-0189a9d2312383681\"\n}",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782714879665,
+          "_endTime": 1782714879949
+        },
+        "isTarget": true
+      }
+    ]
+  }
+]

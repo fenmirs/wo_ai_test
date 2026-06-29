@@ -10,7 +10,7 @@
       "name": "默认场景",
       "description": "",
       "createdAt": "2026-06-22T02:48:31.936Z",
-      "updatedAt": "2026-06-22T03:35:33.730Z",
+      "updatedAt": "2026-06-24T08:48:47.246Z",
       "deleted": false,
       "header": [
         {
@@ -78,21 +78,21 @@
           },
           {
             "key": "Data",
-            "default": "{\"_DAQ..正己烷残留量.Measuredvalue\": \"12.0\",\"_DAQ..总有机溶剂残留量.Measuredvalue\": \"16.0\"}",
+            "default": "{\r\n  \"_DAQ.C1-0130-260508C.亭含量.Measuredvalue\": \"12.00 \",\r\n  \"_DAQ.C1-0130-260508C.水飞蓟素_宁含量.Measuredvalue\": \"#VALUE!\",\r\n  \"_DAQ.C1-0130-260508C.水飞蓟素_单宾含量.Measuredvalue\": \"#VALUE!\",\r\n  \"_DAQ.C1-0130-260508C.水飞蓟素_异宾含量.Measuredvalue\": \"#VALUE!\",\r\n  \"_DAQ.C1-0130-260508C.水飞蓟素_水飞蓟素含量.Measuredvalue\": \"#VALUE!\",\r\n  \"_DAQ.C1-0130-260508C.水飞蓟素_亭、宁之和占比.Measuredvalue\": \"#VALUE!\",\r\n  \"_DAQ.C1-0130-260508C.水飞蓟素_单宾占.Measuredvalue\": \"#VALUE!\",\r\n  \"_DAQ.C1-0130-260508C.水飞蓟素_异宾占比.Measuredvalue\": \"#VALUE!\",\r\n  \"_DAQ.C1-0130-260508C.水飞蓟素_双宾含量.Measuredvalue\": \"#VALUE!\",\r\n  \"_DAQ.C1-0130-260508C.单宾含量.Measuredvalue\": \"#VALUE!\",\r\n  \"_DAQ.C1-0130-260508C.单宾占比.Measuredvalue\": \"#VALUE!\",\r\n  \"_DAQ.C1-0130-260508C.宁含量.Measuredvalue\": \"#VALUE!\",\r\n  \"_DAQ.C1-0130-260508C.双宾含量.Measuredvalue\": \"#VALUE!\",\r\n  \"_DAQ.C1-0130-260508C.水飞蓟素含量.Measuredvalue\": \"#VALUE!\",\r\n  \"_DAQ.C1-0130-260508C.亭、宁之和占比.Measuredvalue\": \"#VALUE!\",\r\n  \"_DAQ.C1-0130-260508C.异宾含量.Measuredvalue\": \"#VALUE!\",\r\n  \"_DAQ.C1-0130-260508C.异宾占比.Measuredvalue\": \"#VALUE!\"\r\n}",
             "type": "json",
             "description": "",
             "enabled": true
           },
           {
             "key": "RecordFileId",
-            "default": "20260608-1717-0028-0386-77d1a6c86055",
+            "default": "20260623-1550-0059-0360-f1a9ebf94c84",
             "type": "string",
             "description": "",
             "enabled": true
           },
           {
             "key": "TemplateName",
-            "default": "测试模版",
+            "default": "测试二级项目",
             "type": "string",
             "description": "",
             "enabled": true

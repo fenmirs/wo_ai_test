@@ -10,7 +10,7 @@
       "name": "默认场景",
       "description": "",
       "createdAt": "2026-05-29T08:01:38.503Z",
-      "updatedAt": "2026-06-16T09:08:21.546Z",
+      "updatedAt": "2026-06-25T09:54:58.272Z",
       "deleted": false,
       "header": [
         {
@@ -33,6 +33,13 @@
           "type": "ref",
           "description": "",
           "enabled": true
+        },
+        {
+          "key": "JID",
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjM0NTYwMDgsMjA3Njg2NDUxNjU1MiwxIiwic3NvX3R5cGUiOjAsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJ0ZW5hbnRfdHlwZSI6IlQzIiwidHRsIjoiIiwiaXNTaWduTG9nIjpmYWxzZSwidXNlcl9pZCI6IjEiLCJsb2dpbl9uYSI6ImFkbWluIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ5LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3ODIzNzkyMDEsImlzcyI6IlF6In0.dScuIxUEPHlNYTsEq6lGM7bsxD6Rloarg9RCIpA6gao",
+          "type": "string",
+          "description": "",
+          "enabled": false
         }
       ],
       "param": [],
@@ -42,32 +49,32 @@
         "xwwwFormUrlencoded": [],
         "activeContentType": "json",
         "contentType": "json",
-        "content": "{\r\n    \"mesNo\": \"2026061600001\",\r\n    \"sourceCode\": \"TJD\",\r\n    \"testOrg\": \"晨光生物科技集团股份有限公司\",\r\n    \"detectionForSpotcheck\": \"内部报检\",\r\n    \"wtDate\": \"2026-05-29\",\r\n    \"bjUser\": \"甜菊糖萃取车间\",\r\n    \"sampleKind\": \"入库成品\",\r\n    \"testSection\": \"0111009\",\r\n    \"sampleSource\": \"111\",\r\n    \"sampleName\": \"甜菊糖吸附液\",\r\n    \"productionDate\": \"2026-05-29\",\r\n    \"sampleQuantity\": \"1.0\",\r\n    \"sampleQuantityUnit\": \"瓶\",\r\n    \"sampleGrade\": \"合格品\",\r\n    \"sampleState\": \"液体\",\r\n    \"sendUser\": \"豆豆豆\",\r\n    \"samplingRadix\": \"116.0\",\r\n    \"samplingUnit\": \"kg\",\r\n    \"storageCondition\": \"室温\",\r\n    \"allocateNo\": \"调配单号\",\r\n    \"cplb\": \"油溶产品\",\r\n    \"batchNumber\": \"Y2-0922-26052915B\",\r\n    \"sampleSize\": \"1.0\",\r\n    \"expiryDate\": \"2026-06-28\",\r\n    \"qualityTime\": \"1.0\",\r\n    \"sampleArriveDate\": \"2026-05-25\",\r\n    \"ypfhx\": \"符合\",\r\n    \"itemList\": [\r\n        {\r\n            \"itemName\": \"含量(5-CQA)\",\r\n            \"itemCode\": \"1245412104920\"\r\n            \r\n        }\r\n    ],\r\n    \"standardCode\": \"CGJT/BZB20501-0922\",\r\n    \"recipeNo\": \"配方编号\",\r\n    \"specification\": \"321\",\r\n    \"sampleModel\": \"123\",\r\n    \"field\": \"https://bk-attachement.oss-cn-shanghai.aliyuncs.com/水飞蓟MES调研待确定问题-1777088413997.xlsx\",\r\n    \"standardId\": \"20812289593668,2153597103867\"\r\n}",
+        "content": "{\r\n    \"mesNo\": \"2025062600002\",\r\n    \"sourceCode\": \"MES_TJD\",\r\n    \"testOrg\": \"晨光生物科技集团股份有限公司\",\r\n    \"detectionForSpotcheck\": \"内部报检\",\r\n    \"wtDate\": \"2026-05-29\",\r\n    \"bjUser\": \"甜菊糖萃取车间\",\r\n    \"sampleKind\": \"入库成品\",\r\n    \"testSection\": \"0111009\",\r\n    \"sampleSource\": \"111\",\r\n    \"sampleName\": \"甜菊糖吸附液\",\r\n    \"productionDate\": \"2026-05-29\",\r\n    \"sampleQuantity\": \"1.0\",\r\n    \"sampleQuantityUnit\": \"瓶\",\r\n    \"sampleGrade\": \"合格品\",\r\n    \"sampleState\": \"液体\",\r\n    \"sendUser\": \"豆豆豆\",\r\n    \"samplingRadix\": \"116.0\",\r\n    \"samplingUnit\": \"kg\",\r\n    \"storageCondition\": \"室温\",\r\n    \"allocateNo\": \"调配单号\",\r\n    \"cplb\": \"油溶产品\",\r\n    \"batchNumber\": \"Y05-0922-26052915B\",\r\n    \"sampleSize\": \"1.0\",\r\n    \"expiryDate\": \"2026-07-10\",\r\n    \"qualityTime\": \"1.0\",\r\n    \"sampleArriveDate\": \"2026-06-25\",\r\n    \"ypfhx\": \"符合\",\r\n    \"itemList\": [\r\n        {\r\n            \"itemName\": \"含量(5-CQA)\",\r\n            \"itemCode\": \"1245412104920\"\r\n            \r\n        }\r\n    ],\r\n    \"standardCode\": \"CGJT/BZB20501-0922\",\r\n    \"recipeNo\": \"配方编号\",\r\n    \"specification\": \"321\",\r\n    \"sampleModel\": \"123\",\r\n    \"field\": \"https://bk-attachement.oss-cn-shanghai.aliyuncs.com/水飞蓟MES调研待确定问题-1777088413997.xlsx\",\r\n    \"standardId\": \"20812289593668,2153597103867\"\r\n}",
         "schema": {
-          "id": "node_1781600899316_da1iv5b5f",
+          "id": "node_1782381296302_z8sk22wgy",
           "type": "object",
           "key": null,
           "value": null,
           "description": "",
           "children": [
             {
-              "id": "node_1781600899316_wmfyy4r8x",
+              "id": "node_1782381296302_s5qz6re6y",
               "type": "string",
               "key": "mesNo",
-              "value": "2026061600001",
+              "value": "2025062600002",
               "description": "",
               "children": []
             },
             {
-              "id": "node_1781600899316_no5p8kdxc",
+              "id": "node_1782381296302_abex7c5it",
               "type": "string",
               "key": "sourceCode",
-              "value": "TJD",
+              "value": "MES_TJD",
               "description": "",
               "children": []
             },
             {
-              "id": "node_1781600899316_utwwb3ykt",
+              "id": "node_1782381296302_rp4cko49z",
               "type": "string",
               "key": "testOrg",
               "value": "晨光生物科技集团股份有限公司",
@@ -75,7 +82,7 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_82j0bwvza",
+              "id": "node_1782381296302_nrl1v040w",
               "type": "string",
               "key": "detectionForSpotcheck",
               "value": "内部报检",
@@ -83,7 +90,7 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_1n5p20lw7",
+              "id": "node_1782381296302_utla9i0dn",
               "type": "string",
               "key": "wtDate",
               "value": "2026-05-29",
@@ -91,7 +98,7 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_zeci3upo8",
+              "id": "node_1782381296302_4ajrlddva",
               "type": "string",
               "key": "bjUser",
               "value": "甜菊糖萃取车间",
@@ -99,7 +106,7 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_8qm58qxj8",
+              "id": "node_1782381296302_x8eknglhb",
               "type": "string",
               "key": "sampleKind",
               "value": "入库成品",
@@ -107,7 +114,7 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_pmhnpyc7q",
+              "id": "node_1782381296302_gorknrjy6",
               "type": "string",
               "key": "testSection",
               "value": "0111009",
@@ -115,7 +122,7 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_859lpniu6",
+              "id": "node_1782381296302_q1ijf4m9d",
               "type": "string",
               "key": "sampleSource",
               "value": "111",
@@ -123,7 +130,7 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_qr0hbpvby",
+              "id": "node_1782381296302_znxd6w2ct",
               "type": "string",
               "key": "sampleName",
               "value": "甜菊糖吸附液",
@@ -131,7 +138,7 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_szdt78p57",
+              "id": "node_1782381296302_men61tagw",
               "type": "string",
               "key": "productionDate",
               "value": "2026-05-29",
@@ -139,7 +146,7 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_s4d3jltdo",
+              "id": "node_1782381296302_0lnmrhoae",
               "type": "string",
               "key": "sampleQuantity",
               "value": "1.0",
@@ -147,7 +154,7 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_lvjtp6pd4",
+              "id": "node_1782381296302_qka4nkogu",
               "type": "string",
               "key": "sampleQuantityUnit",
               "value": "瓶",
@@ -155,7 +162,7 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_ee5m8yka0",
+              "id": "node_1782381296302_apsx4phxo",
               "type": "string",
               "key": "sampleGrade",
               "value": "合格品",
@@ -163,7 +170,7 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_qtq02qk44",
+              "id": "node_1782381296302_dd0hg54oe",
               "type": "string",
               "key": "sampleState",
               "value": "液体",
@@ -171,7 +178,7 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_x91rsvnbe",
+              "id": "node_1782381296302_mfxz3r34e",
               "type": "string",
               "key": "sendUser",
               "value": "豆豆豆",
@@ -179,7 +186,7 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_t1d9d7q4m",
+              "id": "node_1782381296302_b5c1ydl3r",
               "type": "string",
               "key": "samplingRadix",
               "value": "116.0",
@@ -187,7 +194,7 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_qbgy2bn4p",
+              "id": "node_1782381296302_qspp1a8wn",
               "type": "string",
               "key": "samplingUnit",
               "value": "kg",
@@ -195,7 +202,7 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_a8zzmir2c",
+              "id": "node_1782381296302_ftbn3id2s",
               "type": "string",
               "key": "storageCondition",
               "value": "室温",
@@ -203,7 +210,7 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_zxpto861q",
+              "id": "node_1782381296302_ryqndxtbi",
               "type": "string",
               "key": "allocateNo",
               "value": "调配单号",
@@ -211,7 +218,7 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_8rhh279wd",
+              "id": "node_1782381296302_yu673yf7r",
               "type": "string",
               "key": "cplb",
               "value": "油溶产品",
@@ -219,15 +226,15 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_mhsfd6f3k",
+              "id": "node_1782381296302_auvq24ver",
               "type": "string",
               "key": "batchNumber",
-              "value": "Y2-0922-26052915B",
+              "value": "Y05-0922-26052915B",
               "description": "",
               "children": []
             },
             {
-              "id": "node_1781600899316_fa4vpiv11",
+              "id": "node_1782381296302_3ue47urg7",
               "type": "string",
               "key": "sampleSize",
               "value": "1.0",
@@ -235,15 +242,15 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_0pn6vky7y",
+              "id": "node_1782381296302_ul67xelzl",
               "type": "string",
               "key": "expiryDate",
-              "value": "2026-06-28",
+              "value": "2026-07-10",
               "description": "",
               "children": []
             },
             {
-              "id": "node_1781600899316_z1f05tjjn",
+              "id": "node_1782381296302_bxa2095g4",
               "type": "string",
               "key": "qualityTime",
               "value": "1.0",
@@ -251,15 +258,15 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_0s9nprgxp",
+              "id": "node_1782381296302_de3b92l91",
               "type": "string",
               "key": "sampleArriveDate",
-              "value": "2026-05-25",
+              "value": "2026-06-25",
               "description": "",
               "children": []
             },
             {
-              "id": "node_1781600899316_2039ke700",
+              "id": "node_1782381296302_vgk82ad0h",
               "type": "string",
               "key": "ypfhx",
               "value": "符合",
@@ -267,21 +274,21 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_ggx2s9p9r",
+              "id": "node_1782381296302_pq5d7yehb",
               "type": "array",
               "key": "itemList",
               "value": null,
               "description": "",
               "children": [
                 {
-                  "id": "node_1781600899316_2401zfohp",
+                  "id": "node_1782381296302_d3os4d3xt",
                   "type": "object",
                   "key": 0,
                   "value": null,
                   "description": "",
                   "children": [
                     {
-                      "id": "node_1781600899316_mfizyrgq5",
+                      "id": "node_1782381296302_kt09qmbl9",
                       "type": "string",
                       "key": "itemName",
                       "value": "含量(5-CQA)",
@@ -289,7 +296,7 @@
                       "children": []
                     },
                     {
-                      "id": "node_1781600899316_bnb2v66la",
+                      "id": "node_1782381296302_j6lkx9n8y",
                       "type": "string",
                       "key": "itemCode",
                       "value": "1245412104920",
@@ -301,7 +308,7 @@
               ]
             },
             {
-              "id": "node_1781600899316_xwf9z4xjo",
+              "id": "node_1782381296302_6mktkt2c3",
               "type": "string",
               "key": "standardCode",
               "value": "CGJT/BZB20501-0922",
@@ -309,7 +316,7 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_9oi8swg13",
+              "id": "node_1782381296302_jwsl6wli5",
               "type": "string",
               "key": "recipeNo",
               "value": "配方编号",
@@ -317,7 +324,7 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_4grlqab3f",
+              "id": "node_1782381296302_jw6jwfkon",
               "type": "string",
               "key": "specification",
               "value": "321",
@@ -325,7 +332,7 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_ss0iw20ex",
+              "id": "node_1782381296302_7nnjz2rfi",
               "type": "string",
               "key": "sampleModel",
               "value": "123",
@@ -333,7 +340,7 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_6gita7q9b",
+              "id": "node_1782381296302_hvs56qu6u",
               "type": "string",
               "key": "field",
               "value": "https://bk-attachement.oss-cn-shanghai.aliyuncs.com/水飞蓟MES调研待确定问题-1777088413997.xlsx",
@@ -341,7 +348,7 @@
               "children": []
             },
             {
-              "id": "node_1781600899316_jeq1mllye",
+              "id": "node_1782381296302_6xax3vq4p",
               "type": "string",
               "key": "standardId",
               "value": "20812289593668,2153597103867",
@@ -352,32 +359,32 @@
         },
         "contents": {
           "json": {
-            "content": "{\r\n    \"mesNo\": \"2026061600001\",\r\n    \"sourceCode\": \"TJD\",\r\n    \"testOrg\": \"晨光生物科技集团股份有限公司\",\r\n    \"detectionForSpotcheck\": \"内部报检\",\r\n    \"wtDate\": \"2026-05-29\",\r\n    \"bjUser\": \"甜菊糖萃取车间\",\r\n    \"sampleKind\": \"入库成品\",\r\n    \"testSection\": \"0111009\",\r\n    \"sampleSource\": \"111\",\r\n    \"sampleName\": \"甜菊糖吸附液\",\r\n    \"productionDate\": \"2026-05-29\",\r\n    \"sampleQuantity\": \"1.0\",\r\n    \"sampleQuantityUnit\": \"瓶\",\r\n    \"sampleGrade\": \"合格品\",\r\n    \"sampleState\": \"液体\",\r\n    \"sendUser\": \"豆豆豆\",\r\n    \"samplingRadix\": \"116.0\",\r\n    \"samplingUnit\": \"kg\",\r\n    \"storageCondition\": \"室温\",\r\n    \"allocateNo\": \"调配单号\",\r\n    \"cplb\": \"油溶产品\",\r\n    \"batchNumber\": \"Y2-0922-26052915B\",\r\n    \"sampleSize\": \"1.0\",\r\n    \"expiryDate\": \"2026-06-28\",\r\n    \"qualityTime\": \"1.0\",\r\n    \"sampleArriveDate\": \"2026-05-25\",\r\n    \"ypfhx\": \"符合\",\r\n    \"itemList\": [\r\n        {\r\n            \"itemName\": \"含量(5-CQA)\",\r\n            \"itemCode\": \"1245412104920\"\r\n            \r\n        }\r\n    ],\r\n    \"standardCode\": \"CGJT/BZB20501-0922\",\r\n    \"recipeNo\": \"配方编号\",\r\n    \"specification\": \"321\",\r\n    \"sampleModel\": \"123\",\r\n    \"field\": \"https://bk-attachement.oss-cn-shanghai.aliyuncs.com/水飞蓟MES调研待确定问题-1777088413997.xlsx\",\r\n    \"standardId\": \"20812289593668,2153597103867\"\r\n}",
+            "content": "{\r\n    \"mesNo\": \"2025062600002\",\r\n    \"sourceCode\": \"MES_TJD\",\r\n    \"testOrg\": \"晨光生物科技集团股份有限公司\",\r\n    \"detectionForSpotcheck\": \"内部报检\",\r\n    \"wtDate\": \"2026-05-29\",\r\n    \"bjUser\": \"甜菊糖萃取车间\",\r\n    \"sampleKind\": \"入库成品\",\r\n    \"testSection\": \"0111009\",\r\n    \"sampleSource\": \"111\",\r\n    \"sampleName\": \"甜菊糖吸附液\",\r\n    \"productionDate\": \"2026-05-29\",\r\n    \"sampleQuantity\": \"1.0\",\r\n    \"sampleQuantityUnit\": \"瓶\",\r\n    \"sampleGrade\": \"合格品\",\r\n    \"sampleState\": \"液体\",\r\n    \"sendUser\": \"豆豆豆\",\r\n    \"samplingRadix\": \"116.0\",\r\n    \"samplingUnit\": \"kg\",\r\n    \"storageCondition\": \"室温\",\r\n    \"allocateNo\": \"调配单号\",\r\n    \"cplb\": \"油溶产品\",\r\n    \"batchNumber\": \"Y05-0922-26052915B\",\r\n    \"sampleSize\": \"1.0\",\r\n    \"expiryDate\": \"2026-07-10\",\r\n    \"qualityTime\": \"1.0\",\r\n    \"sampleArriveDate\": \"2026-06-25\",\r\n    \"ypfhx\": \"符合\",\r\n    \"itemList\": [\r\n        {\r\n            \"itemName\": \"含量(5-CQA)\",\r\n            \"itemCode\": \"1245412104920\"\r\n            \r\n        }\r\n    ],\r\n    \"standardCode\": \"CGJT/BZB20501-0922\",\r\n    \"recipeNo\": \"配方编号\",\r\n    \"specification\": \"321\",\r\n    \"sampleModel\": \"123\",\r\n    \"field\": \"https://bk-attachement.oss-cn-shanghai.aliyuncs.com/水飞蓟MES调研待确定问题-1777088413997.xlsx\",\r\n    \"standardId\": \"20812289593668,2153597103867\"\r\n}",
             "schema": {
-              "id": "node_1781600899316_da1iv5b5f",
+              "id": "node_1782381296302_z8sk22wgy",
               "type": "object",
               "key": null,
               "value": null,
               "description": "",
               "children": [
                 {
-                  "id": "node_1781600899316_wmfyy4r8x",
+                  "id": "node_1782381296302_s5qz6re6y",
                   "type": "string",
                   "key": "mesNo",
-                  "value": "2026061600001",
+                  "value": "2025062600002",
                   "description": "",
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_no5p8kdxc",
+                  "id": "node_1782381296302_abex7c5it",
                   "type": "string",
                   "key": "sourceCode",
-                  "value": "TJD",
+                  "value": "MES_TJD",
                   "description": "",
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_utwwb3ykt",
+                  "id": "node_1782381296302_rp4cko49z",
                   "type": "string",
                   "key": "testOrg",
                   "value": "晨光生物科技集团股份有限公司",
@@ -385,7 +392,7 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_82j0bwvza",
+                  "id": "node_1782381296302_nrl1v040w",
                   "type": "string",
                   "key": "detectionForSpotcheck",
                   "value": "内部报检",
@@ -393,7 +400,7 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_1n5p20lw7",
+                  "id": "node_1782381296302_utla9i0dn",
                   "type": "string",
                   "key": "wtDate",
                   "value": "2026-05-29",
@@ -401,7 +408,7 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_zeci3upo8",
+                  "id": "node_1782381296302_4ajrlddva",
                   "type": "string",
                   "key": "bjUser",
                   "value": "甜菊糖萃取车间",
@@ -409,7 +416,7 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_8qm58qxj8",
+                  "id": "node_1782381296302_x8eknglhb",
                   "type": "string",
                   "key": "sampleKind",
                   "value": "入库成品",
@@ -417,7 +424,7 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_pmhnpyc7q",
+                  "id": "node_1782381296302_gorknrjy6",
                   "type": "string",
                   "key": "testSection",
                   "value": "0111009",
@@ -425,7 +432,7 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_859lpniu6",
+                  "id": "node_1782381296302_q1ijf4m9d",
                   "type": "string",
                   "key": "sampleSource",
                   "value": "111",
@@ -433,7 +440,7 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_qr0hbpvby",
+                  "id": "node_1782381296302_znxd6w2ct",
                   "type": "string",
                   "key": "sampleName",
                   "value": "甜菊糖吸附液",
@@ -441,7 +448,7 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_szdt78p57",
+                  "id": "node_1782381296302_men61tagw",
                   "type": "string",
                   "key": "productionDate",
                   "value": "2026-05-29",
@@ -449,7 +456,7 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_s4d3jltdo",
+                  "id": "node_1782381296302_0lnmrhoae",
                   "type": "string",
                   "key": "sampleQuantity",
                   "value": "1.0",
@@ -457,7 +464,7 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_lvjtp6pd4",
+                  "id": "node_1782381296302_qka4nkogu",
                   "type": "string",
                   "key": "sampleQuantityUnit",
                   "value": "瓶",
@@ -465,7 +472,7 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_ee5m8yka0",
+                  "id": "node_1782381296302_apsx4phxo",
                   "type": "string",
                   "key": "sampleGrade",
                   "value": "合格品",
@@ -473,7 +480,7 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_qtq02qk44",
+                  "id": "node_1782381296302_dd0hg54oe",
                   "type": "string",
                   "key": "sampleState",
                   "value": "液体",
@@ -481,7 +488,7 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_x91rsvnbe",
+                  "id": "node_1782381296302_mfxz3r34e",
                   "type": "string",
                   "key": "sendUser",
                   "value": "豆豆豆",
@@ -489,7 +496,7 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_t1d9d7q4m",
+                  "id": "node_1782381296302_b5c1ydl3r",
                   "type": "string",
                   "key": "samplingRadix",
                   "value": "116.0",
@@ -497,7 +504,7 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_qbgy2bn4p",
+                  "id": "node_1782381296302_qspp1a8wn",
                   "type": "string",
                   "key": "samplingUnit",
                   "value": "kg",
@@ -505,7 +512,7 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_a8zzmir2c",
+                  "id": "node_1782381296302_ftbn3id2s",
                   "type": "string",
                   "key": "storageCondition",
                   "value": "室温",
@@ -513,7 +520,7 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_zxpto861q",
+                  "id": "node_1782381296302_ryqndxtbi",
                   "type": "string",
                   "key": "allocateNo",
                   "value": "调配单号",
@@ -521,7 +528,7 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_8rhh279wd",
+                  "id": "node_1782381296302_yu673yf7r",
                   "type": "string",
                   "key": "cplb",
                   "value": "油溶产品",
@@ -529,15 +536,15 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_mhsfd6f3k",
+                  "id": "node_1782381296302_auvq24ver",
                   "type": "string",
                   "key": "batchNumber",
-                  "value": "Y2-0922-26052915B",
+                  "value": "Y05-0922-26052915B",
                   "description": "",
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_fa4vpiv11",
+                  "id": "node_1782381296302_3ue47urg7",
                   "type": "string",
                   "key": "sampleSize",
                   "value": "1.0",
@@ -545,15 +552,15 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_0pn6vky7y",
+                  "id": "node_1782381296302_ul67xelzl",
                   "type": "string",
                   "key": "expiryDate",
-                  "value": "2026-06-28",
+                  "value": "2026-07-10",
                   "description": "",
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_z1f05tjjn",
+                  "id": "node_1782381296302_bxa2095g4",
                   "type": "string",
                   "key": "qualityTime",
                   "value": "1.0",
@@ -561,15 +568,15 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_0s9nprgxp",
+                  "id": "node_1782381296302_de3b92l91",
                   "type": "string",
                   "key": "sampleArriveDate",
-                  "value": "2026-05-25",
+                  "value": "2026-06-25",
                   "description": "",
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_2039ke700",
+                  "id": "node_1782381296302_vgk82ad0h",
                   "type": "string",
                   "key": "ypfhx",
                   "value": "符合",
@@ -577,21 +584,21 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_ggx2s9p9r",
+                  "id": "node_1782381296302_pq5d7yehb",
                   "type": "array",
                   "key": "itemList",
                   "value": null,
                   "description": "",
                   "children": [
                     {
-                      "id": "node_1781600899316_2401zfohp",
+                      "id": "node_1782381296302_d3os4d3xt",
                       "type": "object",
                       "key": 0,
                       "value": null,
                       "description": "",
                       "children": [
                         {
-                          "id": "node_1781600899316_mfizyrgq5",
+                          "id": "node_1782381296302_kt09qmbl9",
                           "type": "string",
                           "key": "itemName",
                           "value": "含量(5-CQA)",
@@ -599,7 +606,7 @@
                           "children": []
                         },
                         {
-                          "id": "node_1781600899316_bnb2v66la",
+                          "id": "node_1782381296302_j6lkx9n8y",
                           "type": "string",
                           "key": "itemCode",
                           "value": "1245412104920",
@@ -611,7 +618,7 @@
                   ]
                 },
                 {
-                  "id": "node_1781600899316_xwf9z4xjo",
+                  "id": "node_1782381296302_6mktkt2c3",
                   "type": "string",
                   "key": "standardCode",
                   "value": "CGJT/BZB20501-0922",
@@ -619,7 +626,7 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_9oi8swg13",
+                  "id": "node_1782381296302_jwsl6wli5",
                   "type": "string",
                   "key": "recipeNo",
                   "value": "配方编号",
@@ -627,7 +634,7 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_4grlqab3f",
+                  "id": "node_1782381296302_jw6jwfkon",
                   "type": "string",
                   "key": "specification",
                   "value": "321",
@@ -635,7 +642,7 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_ss0iw20ex",
+                  "id": "node_1782381296302_7nnjz2rfi",
                   "type": "string",
                   "key": "sampleModel",
                   "value": "123",
@@ -643,7 +650,7 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_6gita7q9b",
+                  "id": "node_1782381296302_hvs56qu6u",
                   "type": "string",
                   "key": "field",
                   "value": "https://bk-attachement.oss-cn-shanghai.aliyuncs.com/水飞蓟MES调研待确定问题-1777088413997.xlsx",
@@ -651,7 +658,7 @@
                   "children": []
                 },
                 {
-                  "id": "node_1781600899316_jeq1mllye",
+                  "id": "node_1782381296302_6xax3vq4p",
                   "type": "string",
                   "key": "standardId",
                   "value": "20812289593668,2153597103867",

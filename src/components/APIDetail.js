@@ -122,6 +122,9 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const [importSection, setImportSection] = useState(null);
   const [showApplyTemplate, setShowApplyTemplate] = useState(false);
   const [importInitialText, setImportInitialText] = useState('');
+  const [editingFullUrl, setEditingFullUrl] = useState(false);
+  const [editingFullUrlValue, setEditingFullUrlValue] = useState('');
+  const fullUrlTextareaRef = useRef(null);
 
   const executionResult = scenarioResults[currentScenarioId] || null;
 
@@ -284,6 +287,15 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     }
   }, [renamingScenarioId]);
 
+  useEffect(() => {
+    if (editingFullUrl && fullUrlTextareaRef.current) {
+      const ta = fullUrlTextareaRef.current;
+      ta.style.height = 'auto';
+      ta.style.height = ta.scrollHeight + 'px';
+      ta.focus();
+    }
+  }, [editingFullUrl]);
+
   const extractApiIdFromRef = (refContent) => {
     const atIdx = refContent.indexOf('@');
     return atIdx >= 0 ? refContent.substring(0, atIdx) : refContent.split('.')[0];
@@ -344,6 +356,15 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
     }
 
     return fullUrl;
+  };
+
+  const getPreviewSegments = () => {
+    return urlSegments.map((seg, idx) => {
+      const resolved = seg.type === 'variable'
+        ? (profile?.[seg.value] !== undefined ? profile[seg.value] : `{${seg.value}}`)
+        : seg.value;
+      return { value: resolved, colorIdx: idx % 8 };
+    });
   };
 
   const parseApiPathToSegments = (apiPath) => {
@@ -1406,6 +1427,34 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
   const methods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'];
   const noBodyMethods = new Set(['GET', 'HEAD', 'DELETE', 'OPTIONS']);
 
+  const handleFullUrlEdit = () => {
+    if (readOnly) return;
+    setEditingFullUrlValue(formData.api_path || '');
+    setEditingFullUrl(true);
+  };
+  const handleFullUrlConfirm = () => {
+    const newSegments = parseApiPathToSegments(editingFullUrlValue);
+    setUrlSegments(newSegments);
+    setEditingFullUrl(false);
+  };
+  const handleFullUrlCancel = () => {
+    setEditingFullUrl(false);
+  };
+  const handleFullUrlKeyDown = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleFullUrlConfirm();
+    } else if (e.key === 'Escape') {
+      handleFullUrlCancel();
+    }
+  };
+  const handleFullUrlChange = (e) => {
+    setEditingFullUrlValue(e.target.value);
+    const ta = e.target;
+    ta.style.height = 'auto';
+    ta.style.height = ta.scrollHeight + 'px';
+  };
+
   return (
     <div className="api-detail" ref={rootRef}>
       {/* API 名称 + 场景切换 */}
@@ -1526,7 +1575,7 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
               {urlSegments.map((seg, idx) => (
                 <div
                   key={idx}
-                  className={`url-segment ${idx === 0 ? 'first' : ''} ${activeSegmentIdx === idx ? 'active' : ''} ${seg.type === 'variable' ? 'segment-variable' : ''}`}
+                  className={`url-segment ${idx === 0 ? 'first' : ''} ${activeSegmentIdx === idx ? 'active' : ''} ${seg.type === 'variable' ? 'segment-variable' : ''} segment-color-${idx % 8}`}
                 >
                   {!readOnly && activeSegmentIdx === idx ? (
                     <>
@@ -1602,18 +1651,55 @@ function APIDetail({ api, profile, config, projectPath, onExecute, history = [],
         </div>
       </div>
 
-      {/* URL 预览 */}
-      <div className="url-preview">
-        <span className="preview-label">完整路径:</span>
-        <code className="preview-path">{generateResolvedPath()}</code>
-        <button className={`btn-copy ${urlCopied ? 'copied' : ''}`} onClick={() => {
-          navigator.clipboard.writeText(generateResolvedPath());
-          setUrlCopied(true);
-          setTimeout(() => setUrlCopied(false), 1500);
-        }} title={urlCopied ? '已复制' : '复制URL'}>
-          {urlCopied ? <CheckCircle size={14} /> : <Copy size={14} />}
-        </button>
-      </div>
+      {/* URL 预览 / 完整路径编辑 */}
+      {editingFullUrl ? (
+        <div className="url-preview">
+          <textarea
+            ref={fullUrlTextareaRef}
+            className="url-preview-textarea"
+            value={editingFullUrlValue}
+            onChange={handleFullUrlChange}
+            onKeyDown={handleFullUrlKeyDown}
+            placeholder="输入完整 URL 路径"
+            spellCheck={false}
+          />
+          <div className="url-preview-actions">
+            <button className="btn-edit-confirm" onClick={handleFullUrlConfirm} title="确认">
+              <CheckCircle size={14} />
+            </button>
+            <button className="btn-edit-cancel" onClick={handleFullUrlCancel} title="取消">
+              <X size={14} />
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="url-preview">
+          <code className="preview-path">
+            {(() => {
+              const segs = getPreviewSegments();
+              return segs.length > 0
+                ? segs.map((seg, i) => (
+                    <span key={i} className={`preview-segment segment-color-${seg.colorIdx}`}>{seg.value}</span>
+                  ))
+                : generateResolvedPath();
+            })()}
+          </code>
+          <div className="url-preview-actions">
+            <button className={`btn-copy ${urlCopied ? 'copied' : ''}`} onClick={() => {
+              navigator.clipboard.writeText(generateResolvedPath());
+              setUrlCopied(true);
+              setTimeout(() => setUrlCopied(false), 1500);
+            }} title={urlCopied ? '已复制' : '复制URL'}>
+              {urlCopied ? <CheckCircle size={14} /> : <Copy size={14} />}
+            </button>
+            {!readOnly && (
+              <button className="btn-edit-url" onClick={handleFullUrlEdit} title="编辑完整 URL">
+                <Edit size={14} />
+              </button>
+            )}
+          </div>
+        </div>
+      )}
 
       <div className="desc-line">
           {(() => {

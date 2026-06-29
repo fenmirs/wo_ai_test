@@ -1,1 +1,997 @@
-[]
+[
+  {
+    "id": 1782379221384,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1780041698492_2z2pw4mcv",
+    "apiName": "获取api-token",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/openapi/security/token",
+    "timestamp": "2026/6/25 17:20:21",
+    "apiConfig": {
+      "name": "获取api-token",
+      "group": "group_mpqmv4y45epgz",
+      "api_path": "{domain}{api-prj}/openapi/security/token",
+      "method": "POST",
+      "header": {
+        "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjM0NTYwMDgsMjA3Njg2NDUxNjU1MiwxIiwic3NvX3R5cGUiOjAsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJ0ZW5hbnRfdHlwZSI6IlQzIiwidHRsIjoiIiwiaXNTaWduTG9nIjpmYWxzZSwidXNlcl9pZCI6IjEiLCJsb2dpbl9uYSI6ImFkbWluIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ5LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3ODIzNzkyMDEsImlzcyI6IlF6In0.dScuIxUEPHlNYTsEq6lGM7bsxD6Rloarg9RCIpA6gao",
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": {
+        "content": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+        "schema": {
+          "id": "node_1781686405624_6pd42uzer",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1781686405624_s9j8b99pj",
+              "type": "string",
+              "key": "appId",
+              "value": "MESUkSn6E7xqQ",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1781686405624_lldies927",
+              "type": "string",
+              "key": "appSecret",
+              "value": "xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "https://192.168.2.213:25700/api-prj/openapi/security/token",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "JID",
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjM0NTYwMDgsMjA3Njg2NDUxNjU1MiwxIiwic3NvX3R5cGUiOjAsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJ0ZW5hbnRfdHlwZSI6IlQzIiwidHRsIjoiIiwiaXNTaWduTG9nIjpmYWxzZSwidXNlcl9pZCI6IjEiLCJsb2dpbl9uYSI6ImFkbWluIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ5LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3ODIzNzkyMDEsImlzcyI6IlF6In0.dScuIxUEPHlNYTsEq6lGM7bsxD6Rloarg9RCIpA6gao",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+        "schema": {
+          "id": "node_1781686405624_6pd42uzer",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1781686405624_s9j8b99pj",
+              "type": "string",
+              "key": "appId",
+              "value": "MESUkSn6E7xqQ",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1781686405624_lldies927",
+              "type": "string",
+              "key": "appSecret",
+              "value": "xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "contents": {
+          "json": {
+            "content": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+            "schema": {
+              "id": "node_1781686405624_6pd42uzer",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1781686405624_s9j8b99pj",
+                  "type": "string",
+                  "key": "appId",
+                  "value": "MESUkSn6E7xqQ",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1781686405624_lldies927",
+                  "type": "string",
+                  "key": "appSecret",
+                  "value": "xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk",
+                  "description": "",
+                  "children": []
+                }
+              ]
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "OK",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "code": 200,
+        "error": "",
+        "msg": "成功",
+        "obj": {
+          "appId": "MESUkSn6E7xqQ",
+          "token": "OIbnXqXI5x8lPvvLNOVV9tuHjkK2qFu2VqC7jdkR5uw"
+        },
+        "status": true
+      },
+      "headers": {
+        "server": "nginx/1.25.5",
+        "date": "Thu, 25 Jun 2026 09:20:22 GMT",
+        "content-type": "application/json;charset=UTF-8",
+        "content-length": "138",
+        "connection": "close",
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+        "pragma": "no-cache",
+        "expires": "0",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1 ; mode=block",
+        "referrer-policy": "no-referrer",
+        "access-control-expose-headers": "Content-disposition"
+      },
+      "elapsedTime": "0.38s",
+      "responseSize": "134 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "https://192.168.2.213:25700/api-prj/openapi/security/token",
+        "method": "POST",
+        "headers": {
+          "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjM0NTYwMDgsMjA3Njg2NDUxNjU1MiwxIiwic3NvX3R5cGUiOjAsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJ0ZW5hbnRfdHlwZSI6IlQzIiwidHRsIjoiIiwiaXNTaWduTG9nIjpmYWxzZSwidXNlcl9pZCI6IjEiLCJsb2dpbl9uYSI6ImFkbWluIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ5LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3ODIzNzkyMDEsImlzcyI6IlF6In0.dScuIxUEPHlNYTsEq6lGM7bsxD6Rloarg9RCIpA6gao",
+          "Content-Type": "application/json"
+        },
+        "params": {},
+        "body": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782379221002,
+      "_endTime": 1782379221384
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.38s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "code": 200,
+      "error": "",
+      "msg": "成功",
+      "obj": {
+        "appId": "MESUkSn6E7xqQ",
+        "token": "OIbnXqXI5x8lPvvLNOVV9tuHjkK2qFu2VqC7jdkR5uw"
+      },
+      "status": true
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "server": "nginx/1.25.5",
+      "date": "Thu, 25 Jun 2026 09:20:22 GMT",
+      "content-type": "application/json;charset=UTF-8",
+      "content-length": "138",
+      "connection": "close",
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+      "pragma": "no-cache",
+      "expires": "0",
+      "x-content-type-options": "nosniff",
+      "x-xss-protection": "1 ; mode=block",
+      "referrer-policy": "no-referrer",
+      "access-control-expose-headers": "Content-disposition"
+    },
+    "allResults": {
+      "api_1780041698492_2z2pw4mcv": {
+        "status_code": 200,
+        "status_text": "OK",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "code": 200,
+          "error": "",
+          "msg": "成功",
+          "obj": {
+            "appId": "MESUkSn6E7xqQ",
+            "token": "OIbnXqXI5x8lPvvLNOVV9tuHjkK2qFu2VqC7jdkR5uw"
+          },
+          "status": true
+        },
+        "headers": {
+          "server": "nginx/1.25.5",
+          "date": "Thu, 25 Jun 2026 09:20:22 GMT",
+          "content-type": "application/json;charset=UTF-8",
+          "content-length": "138",
+          "connection": "close",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+          "pragma": "no-cache",
+          "expires": "0",
+          "x-content-type-options": "nosniff",
+          "x-xss-protection": "1 ; mode=block",
+          "referrer-policy": "no-referrer",
+          "access-control-expose-headers": "Content-disposition"
+        },
+        "elapsedTime": "0.38s",
+        "responseSize": "134 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "https://192.168.2.213:25700/api-prj/openapi/security/token",
+          "method": "POST",
+          "headers": {
+            "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjM0NTYwMDgsMjA3Njg2NDUxNjU1MiwxIiwic3NvX3R5cGUiOjAsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJ0ZW5hbnRfdHlwZSI6IlQzIiwidHRsIjoiIiwiaXNTaWduTG9nIjpmYWxzZSwidXNlcl9pZCI6IjEiLCJsb2dpbl9uYSI6ImFkbWluIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ5LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3ODIzNzkyMDEsImlzcyI6IlF6In0.dScuIxUEPHlNYTsEq6lGM7bsxD6Rloarg9RCIpA6gao",
+            "Content-Type": "application/json"
+          },
+          "params": {},
+          "body": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782379221002,
+        "_endTime": 1782379221384
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1780041698492_2z2pw4mcv",
+        "name": "获取api-token",
+        "result": {
+          "status_code": 200,
+          "status_text": "OK",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "code": 200,
+            "error": "",
+            "msg": "成功",
+            "obj": {
+              "appId": "MESUkSn6E7xqQ",
+              "token": "OIbnXqXI5x8lPvvLNOVV9tuHjkK2qFu2VqC7jdkR5uw"
+            },
+            "status": true
+          },
+          "headers": {
+            "server": "nginx/1.25.5",
+            "date": "Thu, 25 Jun 2026 09:20:22 GMT",
+            "content-type": "application/json;charset=UTF-8",
+            "content-length": "138",
+            "connection": "close",
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+            "pragma": "no-cache",
+            "expires": "0",
+            "x-content-type-options": "nosniff",
+            "x-xss-protection": "1 ; mode=block",
+            "referrer-policy": "no-referrer",
+            "access-control-expose-headers": "Content-disposition"
+          },
+          "elapsedTime": "0.38s",
+          "responseSize": "134 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "https://192.168.2.213:25700/api-prj/openapi/security/token",
+            "method": "POST",
+            "headers": {
+              "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjM0NTYwMDgsMjA3Njg2NDUxNjU1MiwxIiwic3NvX3R5cGUiOjAsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJ0ZW5hbnRfdHlwZSI6IlQzIiwidHRsIjoiIiwiaXNTaWduTG9nIjpmYWxzZSwidXNlcl9pZCI6IjEiLCJsb2dpbl9uYSI6ImFkbWluIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ5LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3ODIzNzkyMDEsImlzcyI6IlF6In0.dScuIxUEPHlNYTsEq6lGM7bsxD6Rloarg9RCIpA6gao",
+              "Content-Type": "application/json"
+            },
+            "params": {},
+            "body": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782379221002,
+          "_endTime": 1782379221384
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782379177514,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1780041698492_2z2pw4mcv",
+    "apiName": "获取api-token",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/openapi/security/token",
+    "timestamp": "2026/6/25 17:19:37",
+    "apiConfig": {
+      "name": "获取api-token",
+      "group": "group_mpqmv4y45epgz",
+      "api_path": "{domain}{api-prj}/openapi/security/token",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": {
+        "content": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+        "schema": {
+          "id": "node_1781686405624_6pd42uzer",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1781686405624_s9j8b99pj",
+              "type": "string",
+              "key": "appId",
+              "value": "MESUkSn6E7xqQ",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1781686405624_lldies927",
+              "type": "string",
+              "key": "appSecret",
+              "value": "xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "https://192.168.2.213:25700/api-prj/openapi/security/token",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+        "schema": {
+          "id": "node_1781686405624_6pd42uzer",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1781686405624_s9j8b99pj",
+              "type": "string",
+              "key": "appId",
+              "value": "MESUkSn6E7xqQ",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1781686405624_lldies927",
+              "type": "string",
+              "key": "appSecret",
+              "value": "xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "contents": {
+          "json": {
+            "content": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+            "schema": {
+              "id": "node_1781686405624_6pd42uzer",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1781686405624_s9j8b99pj",
+                  "type": "string",
+                  "key": "appId",
+                  "value": "MESUkSn6E7xqQ",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1781686405624_lldies927",
+                  "type": "string",
+                  "key": "appSecret",
+                  "value": "xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk",
+                  "description": "",
+                  "children": []
+                }
+              ]
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "OK",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "redirectUrl": "https://192.168.2.213:25700",
+        "code": -1,
+        "resultCode": "FAIL",
+        "errorCode": "ERROR_PARAM_TOKEN",
+        "error": "登录状态已失效，请重新登录",
+        "errors": [
+          "登录状态已失效，请重新登录"
+        ]
+      },
+      "headers": {
+        "server": "nginx/1.25.5",
+        "date": "Thu, 25 Jun 2026 09:19:38 GMT",
+        "content-type": "application/json;charset=UTF-8",
+        "content-length": "210",
+        "connection": "close",
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+        "pragma": "no-cache",
+        "expires": "0",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1 ; mode=block",
+        "referrer-policy": "no-referrer",
+        "access-control-expose-headers": "Content-disposition"
+      },
+      "elapsedTime": "0.02s",
+      "responseSize": "158 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "https://192.168.2.213:25700/api-prj/openapi/security/token",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "params": {},
+        "body": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782379177495,
+      "_endTime": 1782379177514
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.02s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "redirectUrl": "https://192.168.2.213:25700",
+      "code": -1,
+      "resultCode": "FAIL",
+      "errorCode": "ERROR_PARAM_TOKEN",
+      "error": "登录状态已失效，请重新登录",
+      "errors": [
+        "登录状态已失效，请重新登录"
+      ]
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "server": "nginx/1.25.5",
+      "date": "Thu, 25 Jun 2026 09:19:38 GMT",
+      "content-type": "application/json;charset=UTF-8",
+      "content-length": "210",
+      "connection": "close",
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+      "pragma": "no-cache",
+      "expires": "0",
+      "x-content-type-options": "nosniff",
+      "x-xss-protection": "1 ; mode=block",
+      "referrer-policy": "no-referrer",
+      "access-control-expose-headers": "Content-disposition"
+    },
+    "allResults": {
+      "api_1780041698492_2z2pw4mcv": {
+        "status_code": 200,
+        "status_text": "OK",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "redirectUrl": "https://192.168.2.213:25700",
+          "code": -1,
+          "resultCode": "FAIL",
+          "errorCode": "ERROR_PARAM_TOKEN",
+          "error": "登录状态已失效，请重新登录",
+          "errors": [
+            "登录状态已失效，请重新登录"
+          ]
+        },
+        "headers": {
+          "server": "nginx/1.25.5",
+          "date": "Thu, 25 Jun 2026 09:19:38 GMT",
+          "content-type": "application/json;charset=UTF-8",
+          "content-length": "210",
+          "connection": "close",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+          "pragma": "no-cache",
+          "expires": "0",
+          "x-content-type-options": "nosniff",
+          "x-xss-protection": "1 ; mode=block",
+          "referrer-policy": "no-referrer",
+          "access-control-expose-headers": "Content-disposition"
+        },
+        "elapsedTime": "0.02s",
+        "responseSize": "158 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "https://192.168.2.213:25700/api-prj/openapi/security/token",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "params": {},
+          "body": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782379177495,
+        "_endTime": 1782379177514
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1780041698492_2z2pw4mcv",
+        "name": "获取api-token",
+        "result": {
+          "status_code": 200,
+          "status_text": "OK",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "redirectUrl": "https://192.168.2.213:25700",
+            "code": -1,
+            "resultCode": "FAIL",
+            "errorCode": "ERROR_PARAM_TOKEN",
+            "error": "登录状态已失效，请重新登录",
+            "errors": [
+              "登录状态已失效，请重新登录"
+            ]
+          },
+          "headers": {
+            "server": "nginx/1.25.5",
+            "date": "Thu, 25 Jun 2026 09:19:38 GMT",
+            "content-type": "application/json;charset=UTF-8",
+            "content-length": "210",
+            "connection": "close",
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+            "pragma": "no-cache",
+            "expires": "0",
+            "x-content-type-options": "nosniff",
+            "x-xss-protection": "1 ; mode=block",
+            "referrer-policy": "no-referrer",
+            "access-control-expose-headers": "Content-disposition"
+          },
+          "elapsedTime": "0.02s",
+          "responseSize": "158 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "https://192.168.2.213:25700/api-prj/openapi/security/token",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "params": {},
+            "body": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782379177495,
+          "_endTime": 1782379177514
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782379071771,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1780041698492_2z2pw4mcv",
+    "apiName": "获取api-token",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{api-prj}/openapi/security/token",
+    "timestamp": "2026/6/25 17:17:51",
+    "apiConfig": {
+      "name": "获取api-token",
+      "group": "group_mpqmv4y45epgz",
+      "api_path": "{domain}{api-prj}/openapi/security/token",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": {
+        "content": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+        "schema": {
+          "id": "node_1781686405624_6pd42uzer",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1781686405624_s9j8b99pj",
+              "type": "string",
+              "key": "appId",
+              "value": "MESUkSn6E7xqQ",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1781686405624_lldies927",
+              "type": "string",
+              "key": "appSecret",
+              "value": "xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "https://192.168.2.213:25700/api-prj/openapi/security/token",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+        "schema": {
+          "id": "node_1781686405624_6pd42uzer",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1781686405624_s9j8b99pj",
+              "type": "string",
+              "key": "appId",
+              "value": "MESUkSn6E7xqQ",
+              "description": "",
+              "children": []
+            },
+            {
+              "id": "node_1781686405624_lldies927",
+              "type": "string",
+              "key": "appSecret",
+              "value": "xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk",
+              "description": "",
+              "children": []
+            }
+          ]
+        },
+        "contents": {
+          "json": {
+            "content": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+            "schema": {
+              "id": "node_1781686405624_6pd42uzer",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1781686405624_s9j8b99pj",
+                  "type": "string",
+                  "key": "appId",
+                  "value": "MESUkSn6E7xqQ",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1781686405624_lldies927",
+                  "type": "string",
+                  "key": "appSecret",
+                  "value": "xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk",
+                  "description": "",
+                  "children": []
+                }
+              ]
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "OK",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "redirectUrl": "https://192.168.2.213:25700",
+        "code": -1,
+        "resultCode": "FAIL",
+        "errorCode": "ERROR_PARAM_TOKEN",
+        "error": "登录状态已失效，请重新登录",
+        "errors": [
+          "登录状态已失效，请重新登录"
+        ]
+      },
+      "headers": {
+        "server": "nginx/1.25.5",
+        "date": "Thu, 25 Jun 2026 09:17:52 GMT",
+        "content-type": "application/json;charset=UTF-8",
+        "content-length": "210",
+        "connection": "close",
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+        "pragma": "no-cache",
+        "expires": "0",
+        "x-content-type-options": "nosniff",
+        "x-xss-protection": "1 ; mode=block",
+        "referrer-policy": "no-referrer",
+        "access-control-expose-headers": "Content-disposition"
+      },
+      "elapsedTime": "1.12s",
+      "responseSize": "158 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "https://192.168.2.213:25700/api-prj/openapi/security/token",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "params": {},
+        "body": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782379070654,
+      "_endTime": 1782379071771
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "1.12s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "redirectUrl": "https://192.168.2.213:25700",
+      "code": -1,
+      "resultCode": "FAIL",
+      "errorCode": "ERROR_PARAM_TOKEN",
+      "error": "登录状态已失效，请重新登录",
+      "errors": [
+        "登录状态已失效，请重新登录"
+      ]
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "server": "nginx/1.25.5",
+      "date": "Thu, 25 Jun 2026 09:17:52 GMT",
+      "content-type": "application/json;charset=UTF-8",
+      "content-length": "210",
+      "connection": "close",
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+      "pragma": "no-cache",
+      "expires": "0",
+      "x-content-type-options": "nosniff",
+      "x-xss-protection": "1 ; mode=block",
+      "referrer-policy": "no-referrer",
+      "access-control-expose-headers": "Content-disposition"
+    },
+    "allResults": {
+      "api_1780041698492_2z2pw4mcv": {
+        "status_code": 200,
+        "status_text": "OK",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "redirectUrl": "https://192.168.2.213:25700",
+          "code": -1,
+          "resultCode": "FAIL",
+          "errorCode": "ERROR_PARAM_TOKEN",
+          "error": "登录状态已失效，请重新登录",
+          "errors": [
+            "登录状态已失效，请重新登录"
+          ]
+        },
+        "headers": {
+          "server": "nginx/1.25.5",
+          "date": "Thu, 25 Jun 2026 09:17:52 GMT",
+          "content-type": "application/json;charset=UTF-8",
+          "content-length": "210",
+          "connection": "close",
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+          "pragma": "no-cache",
+          "expires": "0",
+          "x-content-type-options": "nosniff",
+          "x-xss-protection": "1 ; mode=block",
+          "referrer-policy": "no-referrer",
+          "access-control-expose-headers": "Content-disposition"
+        },
+        "elapsedTime": "1.12s",
+        "responseSize": "158 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "https://192.168.2.213:25700/api-prj/openapi/security/token",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "params": {},
+          "body": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782379070654,
+        "_endTime": 1782379071771
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1780041698492_2z2pw4mcv",
+        "name": "获取api-token",
+        "result": {
+          "status_code": 200,
+          "status_text": "OK",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "redirectUrl": "https://192.168.2.213:25700",
+            "code": -1,
+            "resultCode": "FAIL",
+            "errorCode": "ERROR_PARAM_TOKEN",
+            "error": "登录状态已失效，请重新登录",
+            "errors": [
+              "登录状态已失效，请重新登录"
+            ]
+          },
+          "headers": {
+            "server": "nginx/1.25.5",
+            "date": "Thu, 25 Jun 2026 09:17:52 GMT",
+            "content-type": "application/json;charset=UTF-8",
+            "content-length": "210",
+            "connection": "close",
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+            "pragma": "no-cache",
+            "expires": "0",
+            "x-content-type-options": "nosniff",
+            "x-xss-protection": "1 ; mode=block",
+            "referrer-policy": "no-referrer",
+            "access-control-expose-headers": "Content-disposition"
+          },
+          "elapsedTime": "1.12s",
+          "responseSize": "158 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "https://192.168.2.213:25700/api-prj/openapi/security/token",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "params": {},
+            "body": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782379070654,
+          "_endTime": 1782379071771
+        },
+        "isTarget": true
+      }
+    ]
+  }
+]

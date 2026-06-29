@@ -1,16 +1,16 @@
 {
-  "id": "api_1780041698492_2z2pw4mcv",
-  "name": "获取api-token",
+  "id": "api_1782703665004_a6dbvzncy",
+  "name": "获取token",
   "method": "POST",
-  "api_path": "{domain}{api-prj}/openapi/security/token",
-  "group": "group_mpqmv4y45epgz",
+  "api_path": "https://airwechat.coscoshipping-logistics.com/docs/detail/5bcbffd0c052000?locale=zh-cn&target_id=3cbf8c81fb7063",
+  "group": "group_mqynq3dwmszg8",
   "scenarios": {
     "scn_default": {
       "id": "scn_default",
-      "name": "MES场景",
-      "description": "获取lims的token，该场景为mes配置",
-      "createdAt": "2026-05-29T08:01:38.503Z",
-      "updatedAt": "2026-06-25T09:50:42.842Z",
+      "name": "默认场景",
+      "description": "",
+      "createdAt": "2026-06-29T03:27:45.032Z",
+      "updatedAt": "2026-06-29T07:08:06.681Z",
       "deleted": false,
       "header": [
         {
@@ -21,11 +21,18 @@
           "enabled": true
         },
         {
-          "key": "JID",
-          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRfaWQiOiIxIiwibWFuYWdlX3RlbmFudF9pZCI6IjIwNzY4NjM0NTYwMDgsMjA3Njg2NDUxNjU1MiwxIiwic3NvX3R5cGUiOjAsInVzZXJfbmFtZSI6Iuezu-e7n-mFjee9rueUqOaItyIsImF0dHJLZXkiOiIiLCJ0ZW5hbnRfdHlwZSI6IlQzIiwidHRsIjoiIiwiaXNTaWduTG9nIjpmYWxzZSwidXNlcl9pZCI6IjEiLCJsb2dpbl9uYSI6ImFkbWluIiwiaXBfYWRkciI6IjE5Mi4xNjguNC4zNCIsInVzZXJfYWdlbnQiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTQ5LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJpYXQiOjE3ODIzNzkyMDEsImlzcyI6IlF6In0.dScuIxUEPHlNYTsEq6lGM7bsxD6Rloarg9RCIpA6gao",
+          "key": "ccf-app-id",
+          "default": "AUhSus9a5McQ9JC7",
           "type": "string",
           "description": "",
-          "enabled": false
+          "enabled": true
+        },
+        {
+          "key": "ccf-app-secret",
+          "default": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+          "type": "string",
+          "description": "",
+          "enabled": true
         }
       ],
       "param": [],
@@ -35,27 +42,27 @@
         "xwwwFormUrlencoded": [],
         "activeContentType": "json",
         "contentType": "json",
-        "content": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+        "content": "{\n  \"userName\": \"58e6b16a61684cc09ef1d6e99c90c1c5\",\n  \"passWord\": \"dd70df56-735b-4be5-8750-7a54b79cc762\"\n}",
         "schema": {
-          "id": "node_1781686405624_6pd42uzer",
+          "id": "node_1782715544106_si5hju7u0",
           "type": "object",
           "key": null,
           "value": null,
           "description": "",
           "children": [
             {
-              "id": "node_1781686405624_s9j8b99pj",
+              "id": "node_1782715544106_z24grl7pg",
               "type": "string",
-              "key": "appId",
-              "value": "MESUkSn6E7xqQ",
+              "key": "userName",
+              "value": "58e6b16a61684cc09ef1d6e99c90c1c5",
               "description": "",
               "children": []
             },
             {
-              "id": "node_1781686405624_lldies927",
+              "id": "node_1782715544106_mu57nzc9p",
               "type": "string",
-              "key": "appSecret",
-              "value": "xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk",
+              "key": "passWord",
+              "value": "dd70df56-735b-4be5-8750-7a54b79cc762",
               "description": "",
               "children": []
             }
@@ -63,27 +70,27 @@
         },
         "contents": {
           "json": {
-            "content": "{\r\n    \"appId\":\"MESUkSn6E7xqQ\",\r\n    \"appSecret\":\"xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk\"\r\n}",
+            "content": "{\n  \"userName\": \"58e6b16a61684cc09ef1d6e99c90c1c5\",\n  \"passWord\": \"dd70df56-735b-4be5-8750-7a54b79cc762\"\n}",
             "schema": {
-              "id": "node_1781686405624_6pd42uzer",
+              "id": "node_1782715544106_si5hju7u0",
               "type": "object",
               "key": null,
               "value": null,
               "description": "",
               "children": [
                 {
-                  "id": "node_1781686405624_s9j8b99pj",
+                  "id": "node_1782715544106_z24grl7pg",
                   "type": "string",
-                  "key": "appId",
-                  "value": "MESUkSn6E7xqQ",
+                  "key": "userName",
+                  "value": "58e6b16a61684cc09ef1d6e99c90c1c5",
                   "description": "",
                   "children": []
                 },
                 {
-                  "id": "node_1781686405624_lldies927",
+                  "id": "node_1782715544106_mu57nzc9p",
                   "type": "string",
-                  "key": "appSecret",
-                  "value": "xeGmUZ8BuwA6BdwqpXHSj4bwZ8a5Ypyk",
+                  "key": "passWord",
+                  "value": "dd70df56-735b-4be5-8750-7a54b79cc762",
                   "description": "",
                   "children": []
                 }

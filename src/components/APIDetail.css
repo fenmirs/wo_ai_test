@@ -400,6 +400,10 @@
   border-radius: 3px 0 0 3px;
 }
 
+.url-segment.first.segment-variable .segment-content {
+  border-radius: 8px;
+}
+
 .segment-content {
   display: inline-flex;
   align-items: center;
@@ -422,22 +426,53 @@
   border-color: var(--accent-primary);
 }
 
-/* 变量片段样式 - 跟随主题色 */
+/* 片段交替颜色 — 8 色循环（dark 主题默认） */
+.segment-color-0,
+.segment-color-0 .segment-content { background: hsl(0, 45%, 28%); color: var(--text-primary); }
+.segment-color-1,
+.segment-color-1 .segment-content { background: hsl(45, 45%, 28%); color: var(--text-primary); }
+.segment-color-2,
+.segment-color-2 .segment-content { background: hsl(90, 45%, 28%); color: var(--text-primary); }
+.segment-color-3,
+.segment-color-3 .segment-content { background: hsl(135, 45%, 28%); color: var(--text-primary); }
+.segment-color-4,
+.segment-color-4 .segment-content { background: hsl(180, 45%, 28%); color: var(--text-primary); }
+.segment-color-5,
+.segment-color-5 .segment-content { background: hsl(225, 45%, 28%); color: var(--text-primary); }
+.segment-color-6,
+.segment-color-6 .segment-content { background: hsl(270, 45%, 28%); color: var(--text-primary); }
+.segment-color-7,
+.segment-color-7 .segment-content { background: hsl(315, 45%, 28%); color: var(--text-primary); }
+
+/* Light 主题 */
+[data-theme="light"] .segment-color-0,
+[data-theme="light"] .segment-color-0 .segment-content { background: hsl(0, 35%, 80%); }
+[data-theme="light"] .segment-color-1,
+[data-theme="light"] .segment-color-1 .segment-content { background: hsl(45, 35%, 80%); }
+[data-theme="light"] .segment-color-2,
+[data-theme="light"] .segment-color-2 .segment-content { background: hsl(90, 35%, 80%); }
+[data-theme="light"] .segment-color-3,
+[data-theme="light"] .segment-color-3 .segment-content { background: hsl(135, 35%, 80%); }
+[data-theme="light"] .segment-color-4,
+[data-theme="light"] .segment-color-4 .segment-content { background: hsl(180, 35%, 80%); }
+[data-theme="light"] .segment-color-5,
+[data-theme="light"] .segment-color-5 .segment-content { background: hsl(225, 35%, 80%); }
+[data-theme="light"] .segment-color-6,
+[data-theme="light"] .segment-color-6 .segment-content { background: hsl(270, 35%, 80%); }
+[data-theme="light"] .segment-color-7,
+[data-theme="light"] .segment-color-7 .segment-content { background: hsl(315, 35%, 80%); }
+
+/* 变量片段 - 父级容器裁剪背景溢出 */
+.url-segment.segment-variable {
+  overflow: hidden;
+  border-radius: 8px;
+}
+
 .segment-variable .segment-content {
-  background: color-mix(in srgb, var(--accent-primary) 12%, transparent);
-  border-color: color-mix(in srgb, var(--accent-primary) 35%, transparent);
-  color: var(--accent-primary);
-  font-weight: 600;
-}
-
-.segment-variable .segment-content:hover {
-  border-color: color-mix(in srgb, var(--accent-primary) 60%, transparent);
-  background: color-mix(in srgb, var(--accent-primary) 18%, transparent);
-}
-
-.url-segment.segment-variable.active .segment-content {
   border-color: var(--accent-primary);
-  background: color-mix(in srgb, var(--accent-primary) 25%, transparent);
+  border-radius: 8px;
+  font-weight: 600;
+  overflow: hidden;
 }
 
 .segment-text {
@@ -531,13 +566,22 @@
 }
 
 .url-preview {
+  position: relative;
+  padding: 4px 12px;
+  font-size: 11px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.url-preview-actions {
+  position: absolute;
+  top: 4px;
+  right: 8px;
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 2px 12px;
+  gap: 2px;
   background: var(--bg-secondary);
-  border-bottom: 1px solid var(--border-color);
-  font-size: 11px;
+  border-radius: 3px;
+  padding: 1px;
 }
 
 .preview-label {
@@ -547,16 +591,24 @@
 }
 
 .preview-path {
-  flex: 1;
-  padding: 3px 8px;
-  /* background: var(--bg-primary); */
+  display: block;
+  width: 100%;
+  padding: 2px 4px 2px 4px;
   border-radius: 3px;
   color: var(--success-color);
   font-family: monospace;
   font-size: 11px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  word-break: break-all;
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+
+.preview-segment {
+  display: inline;
+  padding: 4px 3px;
+  margin-right: 2px;
+  border-radius: 2px;
+  color: var(--text-primary);
 }
 
 .api-method-badge {
@@ -846,6 +898,75 @@
 
 .btn-copy.copied {
   color: var(--success-color, #10b981);
+}
+
+.btn-edit-url {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  border-radius: 3px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.btn-edit-url:hover {
+  background: var(--bg-hover);
+  color: var(--accent-primary);
+}
+
+.url-preview-textarea {
+  width: 100%;
+  padding: 4px 4px 4px;
+  background: var(--bg-primary);
+  border: 1px solid var(--accent-primary);
+  border-radius: 3px;
+  color: var(--text-primary);
+  font-family: monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  outline: none;
+  resize: none;
+  overflow-y: hidden;
+  min-height: 28px;
+  box-sizing: border-box;
+}
+
+.url-preview-textarea:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 1px var(--accent-primary);
+}
+
+.btn-edit-confirm,
+.btn-edit-cancel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-edit-confirm:hover {
+  color: var(--success-color);
+  border-color: var(--success-color);
+  background: color-mix(in srgb, var(--success-color) 10%, transparent);
+}
+
+.btn-edit-cancel:hover {
+  color: var(--error-color);
+  border-color: var(--error-color);
+  background: color-mix(in srgb, var(--error-color) 10%, transparent);
 }
 
 /* 调用链 */
