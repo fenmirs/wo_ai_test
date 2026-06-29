@@ -1,5 +1,409 @@
 [
   {
+    "id": 1782203062909,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1781765565616_gs27q6lvq",
+    "apiName": "runGzyq-ywpz",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{ywpz-prj}/gzyq/runGzyq",
+    "timestamp": "2026/6/23 16:24:22",
+    "apiConfig": {
+      "name": "runGzyq-ywpz",
+      "group": "default",
+      "api_path": "{domain}{ywpz-prj}/gzyq/runGzyq",
+      "method": "POST",
+      "header": {
+        "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "btnCode": "BTN_625195499160",
+        "jsonDataStr": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+        "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "JID",
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "btnCode",
+            "default": "BTN_625195499160",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "JID",
+            "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1781765565633_jf2w3epof",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1781765565633_jf2w3epof",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "TIMEOUT",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "5.01s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "请求超时",
+      "errorType": "timeout",
+      "requestConfig": {
+        "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+        "method": "POST",
+        "headers": {
+          "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782203057893,
+      "_endTime": 1782203062909
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "5.01s",
+    "error": "请求超时",
+    "errorType": "timeout",
+    "assertionResult": null,
+    "responseHeaders": {},
+    "allResults": {
+      "api_1781765565616_gs27q6lvq": {
+        "status_text": "TIMEOUT",
+        "httpSuccess": false,
+        "success": false,
+        "headers": {},
+        "elapsedTime": "5.01s",
+        "responseSize": "0 B",
+        "assertionResult": null,
+        "error": "请求超时",
+        "errorType": "timeout",
+        "requestConfig": {
+          "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+          "method": "POST",
+          "headers": {
+            "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782203057893,
+        "_endTime": 1782203062909
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1781765565616_gs27q6lvq",
+        "name": "runGzyq-ywpz",
+        "result": {
+          "status_text": "TIMEOUT",
+          "httpSuccess": false,
+          "success": false,
+          "headers": {},
+          "elapsedTime": "5.01s",
+          "responseSize": "0 B",
+          "assertionResult": null,
+          "error": "请求超时",
+          "errorType": "timeout",
+          "requestConfig": {
+            "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+            "method": "POST",
+            "headers": {
+              "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782203057893,
+          "_endTime": 1782203062909
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782203036763,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1781765565616_gs27q6lvq",
+    "apiName": "runGzyq-ywpz",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{ywpz-prj}/gzyq/runGzyq",
+    "timestamp": "2026/6/23 16:23:56",
+    "apiConfig": {
+      "name": "runGzyq-ywpz",
+      "group": "default",
+      "api_path": "{domain}{ywpz-prj}/gzyq/runGzyq",
+      "method": "POST",
+      "header": {
+        "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "btnCode": "BTN_625195499160",
+        "jsonDataStr": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+        "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "JID",
+          "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "btnCode",
+            "default": "BTN_625195499160",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "jsonDataStr",
+            "default": "{\"id\":1544617463968,\"filePrn\":\"2170022813416\"}",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          },
+          {
+            "key": "JID",
+            "default": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1781765565633_jf2w3epof",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1781765565633_jf2w3epof",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "TIMEOUT",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "5.01s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "请求超时",
+      "errorType": "timeout",
+      "requestConfig": {
+        "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+        "method": "POST",
+        "headers": {
+          "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782203031751,
+      "_endTime": 1782203036763
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "5.01s",
+    "error": "请求超时",
+    "errorType": "timeout",
+    "assertionResult": null,
+    "responseHeaders": {},
+    "allResults": {
+      "api_1781765565616_gs27q6lvq": {
+        "status_text": "TIMEOUT",
+        "httpSuccess": false,
+        "success": false,
+        "headers": {},
+        "elapsedTime": "5.01s",
+        "responseSize": "0 B",
+        "assertionResult": null,
+        "error": "请求超时",
+        "errorType": "timeout",
+        "requestConfig": {
+          "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+          "method": "POST",
+          "headers": {
+            "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782203031751,
+        "_endTime": 1782203036763
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1781765565616_gs27q6lvq",
+        "name": "runGzyq-ywpz",
+        "result": {
+          "status_text": "TIMEOUT",
+          "httpSuccess": false,
+          "success": false,
+          "headers": {},
+          "elapsedTime": "5.01s",
+          "responseSize": "0 B",
+          "assertionResult": null,
+          "error": "请求超时",
+          "errorType": "timeout",
+          "requestConfig": {
+            "url": "http://localhost:25105/ywpz-prj/gzyq/runGzyq",
+            "method": "POST",
+            "headers": {
+              "JID": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "btnCode=BTN_625195499160&jsonDataStr=%7B%22id%22%3A1544617463968%2C%22filePrn%22%3A%222170022813416%22%7D&JID=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc1NpZ25Mb2ciOmZhbHNlLCJ1c2VyX2lkIjoiMTMzMjQ3NTc3NzI2NCIsInVzZXJfbmFtZSI6IuS9lei2hSIsImF0dHJLZXkiOiIiLCJsb2dpbl9uYSI6ImhlY2hhb19xeiIsInVzZXJfcHJuIjoiMTMzMjQ3NTc3NDU2OCIsImlzQXBwIjowLCJpcF9hZGRyIjoiMTcyLjE2LjI1LjM0IiwiaWF0IjoxNzgxMjI4ODI2LCJpc3MiOiJReiJ9.wOV4HZddVC20FeXYuo0gDQYz6pWedPQvpco_f_suWHs",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782203031751,
+          "_endTime": 1782203036763
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
     "id": 1782202884022,
     "scenarioId": null,
     "scenarioName": null,
