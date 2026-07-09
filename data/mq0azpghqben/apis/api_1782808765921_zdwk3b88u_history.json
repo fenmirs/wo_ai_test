@@ -1,0 +1,2181 @@
+[
+  {
+    "id": 1782810296888,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782808765921_zdwk3b88u",
+    "apiName": "接收消息",
+    "apiMethod": "POST",
+    "apiPath": "https://airwechat.coscoshipping-logistics.com/api/b8vilmc7he1queutahfyn9hy",
+    "timestamp": "2026/6/30 17:04:56",
+    "apiConfig": {
+      "name": "接收消息",
+      "group": "group_mqynq3dwmszg8",
+      "api_path": "https://airwechat.coscoshipping-logistics.com/api/b8vilmc7he1queutahfyn9hy",
+      "method": "POST",
+      "header": {
+        "api_token": "{{ref:api_1782703665004_a6dbvzncy@scn_default.data.token}}",
+        "ccf-app-id": "AUhSus9a5McQ9JC7",
+        "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": {
+        "content": "[\r\n  {\r\n    \"business_id\": \"2114790476920\",\r\n    \"business_type\":\"tzgg\",\r\n    \"correlation_user_filed\": \"mobile\",\r\n    \"message_content\": \"订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!\",\r\n    \"message_title\": \"任务流转消息\",\r\n    \"message_type\": \"10\",\r\n    \"send_user_list\": [\r\n      \"15397610093\"\r\n    ]\r\n  }\r\n]",
+        "schema": {
+          "id": "node_1782810283885_a75n6egjx",
+          "type": "array",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1782810283886_z762lwnjj",
+              "type": "object",
+              "key": 0,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1782810283886_wvpixk9np",
+                  "type": "string",
+                  "key": "business_id",
+                  "value": "2114790476920",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_sar13vsih",
+                  "type": "string",
+                  "key": "business_type",
+                  "value": "tzgg",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_xsealsaf6",
+                  "type": "string",
+                  "key": "correlation_user_filed",
+                  "value": "mobile",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_ad0s57dnh",
+                  "type": "string",
+                  "key": "message_content",
+                  "value": "订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_8rsbwf8uu",
+                  "type": "string",
+                  "key": "message_title",
+                  "value": "任务流转消息",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_5sk2xg3jg",
+                  "type": "string",
+                  "key": "message_type",
+                  "value": "10",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_egt2yv3py",
+                  "type": "array",
+                  "key": "send_user_list",
+                  "value": null,
+                  "description": "",
+                  "children": [
+                    {
+                      "id": "node_1782810283886_y7m6u3fv7",
+                      "type": "string",
+                      "key": 0,
+                      "value": "15397610093",
+                      "description": "",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
+      "chain": [
+        "api_1782703665004_a6dbvzncy"
+      ],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "https://airwechat.coscoshipping-logistics.com/api/b8vilmc7he1queutahfyn9hy",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "api_token",
+          "default": "{{ref:api_1782703665004_a6dbvzncy@scn_default.data.token}}",
+          "type": "ref",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "ccf-app-id",
+          "default": "AUhSus9a5McQ9JC7",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "ccf-app-secret",
+          "default": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "[\r\n  {\r\n    \"business_id\": \"2114790476920\",\r\n    \"business_type\":\"tzgg\",\r\n    \"correlation_user_filed\": \"mobile\",\r\n    \"message_content\": \"订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!\",\r\n    \"message_title\": \"任务流转消息\",\r\n    \"message_type\": \"10\",\r\n    \"send_user_list\": [\r\n      \"15397610093\"\r\n    ]\r\n  }\r\n]",
+        "schema": {
+          "id": "node_1782810283885_a75n6egjx",
+          "type": "array",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1782810283886_z762lwnjj",
+              "type": "object",
+              "key": 0,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1782810283886_wvpixk9np",
+                  "type": "string",
+                  "key": "business_id",
+                  "value": "2114790476920",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_sar13vsih",
+                  "type": "string",
+                  "key": "business_type",
+                  "value": "tzgg",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_xsealsaf6",
+                  "type": "string",
+                  "key": "correlation_user_filed",
+                  "value": "mobile",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_ad0s57dnh",
+                  "type": "string",
+                  "key": "message_content",
+                  "value": "订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_8rsbwf8uu",
+                  "type": "string",
+                  "key": "message_title",
+                  "value": "任务流转消息",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_5sk2xg3jg",
+                  "type": "string",
+                  "key": "message_type",
+                  "value": "10",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_egt2yv3py",
+                  "type": "array",
+                  "key": "send_user_list",
+                  "value": null,
+                  "description": "",
+                  "children": [
+                    {
+                      "id": "node_1782810283886_y7m6u3fv7",
+                      "type": "string",
+                      "key": 0,
+                      "value": "15397610093",
+                      "description": "",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "contents": {
+          "json": {
+            "content": "[\r\n  {\r\n    \"business_id\": \"2114790476920\",\r\n    \"business_type\":\"tzgg\",\r\n    \"correlation_user_filed\": \"mobile\",\r\n    \"message_content\": \"订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!\",\r\n    \"message_title\": \"任务流转消息\",\r\n    \"message_type\": \"10\",\r\n    \"send_user_list\": [\r\n      \"15397610093\"\r\n    ]\r\n  }\r\n]",
+            "schema": {
+              "id": "node_1782810283885_a75n6egjx",
+              "type": "array",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1782810283886_z762lwnjj",
+                  "type": "object",
+                  "key": 0,
+                  "value": null,
+                  "description": "",
+                  "children": [
+                    {
+                      "id": "node_1782810283886_wvpixk9np",
+                      "type": "string",
+                      "key": "business_id",
+                      "value": "2114790476920",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782810283886_sar13vsih",
+                      "type": "string",
+                      "key": "business_type",
+                      "value": "tzgg",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782810283886_xsealsaf6",
+                      "type": "string",
+                      "key": "correlation_user_filed",
+                      "value": "mobile",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782810283886_ad0s57dnh",
+                      "type": "string",
+                      "key": "message_content",
+                      "value": "订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782810283886_8rsbwf8uu",
+                      "type": "string",
+                      "key": "message_title",
+                      "value": "任务流转消息",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782810283886_5sk2xg3jg",
+                      "type": "string",
+                      "key": "message_type",
+                      "value": "10",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782810283886_egt2yv3py",
+                      "type": "array",
+                      "key": "send_user_list",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "node_1782810283886_y7m6u3fv7",
+                          "type": "string",
+                          "key": 0,
+                          "value": "15397610093",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "OK",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "code": 200,
+        "data": [],
+        "msg": "全部添加成功",
+        "ok": true
+      },
+      "headers": {
+        "date": "Tue, 30 Jun 2026 09:04:57 GMT",
+        "content-type": "application/json;charset=UTF-8",
+        "transfer-encoding": "chunked",
+        "connection": "close",
+        "vary": "Accept-Encoding, Accept-Encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "x-ccfapi-traceid": "597569f494cb5a9c9ec69b7c52b59298",
+        "set-cookie": [
+          "BIGipServer8xxpkPh2aRC6a9BaMEsb3A=!kNvY0nwSOCT0MoMV0CYbAMcMdl54PIGEtsyPBuzqZ/WN6dYeOU5nidfv6VRI97Zh1tfoMQ2xOLeaye4=; path=/; Httponly",
+          "TS012e33c8=0194b76a024b088d70338731b02333fe5cd68cefa55a787643f3ce6f4e0c438dad0a61c45c9e6b840a94f1115cf7a6b846e51b9ec7; Path=/",
+          "__jsluid_s=37b0630aaf7b500c7b98dc2436d70b1c; max-age=31536000; path=/; HttpOnly; SameSite=None; secure"
+        ],
+        "x-via-jsl": "73e7e40,-",
+        "x-cache": "bypass"
+      },
+      "elapsedTime": "0.52s",
+      "responseSize": "47 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "https://airwechat.coscoshipping-logistics.com/api/b8vilmc7he1queutahfyn9hy",
+        "method": "POST",
+        "headers": {
+          "api_token": "UP1vzk777Cvz00sw3YyBGqj0Pyxzz/4w8sCNchIMsFHDj0LzfuQ+TSy0Yun3fXkhY9EfbfrhGne3fK4CCh3EFWhhqsDPbVmfhnHXy0LnZi2AsFgdvgCf+kKmDVR5Nrcv6F1Bk1zmzKhVTbSfSeuHXYkb12Hw5s6bAv3+Q6IrvW0=",
+          "ccf-app-id": "AUhSus9a5McQ9JC7",
+          "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+          "Content-Type": "application/json"
+        },
+        "params": {},
+        "body": "[\r\n  {\r\n    \"business_id\": \"2114790476920\",\r\n    \"business_type\":\"tzgg\",\r\n    \"correlation_user_filed\": \"mobile\",\r\n    \"message_content\": \"订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!\",\r\n    \"message_title\": \"任务流转消息\",\r\n    \"message_type\": \"10\",\r\n    \"send_user_list\": [\r\n      \"15397610093\"\r\n    ]\r\n  }\r\n]",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782810296366,
+      "_endTime": 1782810296888
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.52s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "code": 200,
+      "data": [],
+      "msg": "全部添加成功",
+      "ok": true
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "date": "Tue, 30 Jun 2026 09:04:57 GMT",
+      "content-type": "application/json;charset=UTF-8",
+      "transfer-encoding": "chunked",
+      "connection": "close",
+      "vary": "Accept-Encoding, Accept-Encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "x-ccfapi-traceid": "597569f494cb5a9c9ec69b7c52b59298",
+      "set-cookie": [
+        "BIGipServer8xxpkPh2aRC6a9BaMEsb3A=!kNvY0nwSOCT0MoMV0CYbAMcMdl54PIGEtsyPBuzqZ/WN6dYeOU5nidfv6VRI97Zh1tfoMQ2xOLeaye4=; path=/; Httponly",
+        "TS012e33c8=0194b76a024b088d70338731b02333fe5cd68cefa55a787643f3ce6f4e0c438dad0a61c45c9e6b840a94f1115cf7a6b846e51b9ec7; Path=/",
+        "__jsluid_s=37b0630aaf7b500c7b98dc2436d70b1c; max-age=31536000; path=/; HttpOnly; SameSite=None; secure"
+      ],
+      "x-via-jsl": "73e7e40,-",
+      "x-cache": "bypass"
+    },
+    "allResults": {
+      "api_1782703665004_a6dbvzncy": {
+        "status_code": 200,
+        "status_text": "OK",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "code": 200,
+          "data": {
+            "token": "UP1vzk777Cvz00sw3YyBGqj0Pyxzz/4w8sCNchIMsFHDj0LzfuQ+TSy0Yun3fXkhY9EfbfrhGne3fK4CCh3EFWhhqsDPbVmfhnHXy0LnZi2AsFgdvgCf+kKmDVR5Nrcv6F1Bk1zmzKhVTbSfSeuHXYkb12Hw5s6bAv3+Q6IrvW0="
+          },
+          "msg": "登录成功",
+          "ok": true
+        },
+        "headers": {
+          "date": "Tue, 30 Jun 2026 09:04:57 GMT",
+          "content-type": "application/json;charset=UTF-8",
+          "transfer-encoding": "chunked",
+          "connection": "close",
+          "vary": "Accept-Encoding, Accept-Encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "x-ccfapi-traceid": "a0aabb1f8607fd5bf29c71849b9ec495",
+          "set-cookie": [
+            "BIGipServer8xxpkPh2aRC6a9BaMEsb3A=!VIiga/5Fcn5MM1QV0CYbAMcMdl54PLVaj0yL+wo6Ma2qYA5+G+5eKcN8C6jM4liPIzU0aJM/4BvrYfo=; path=/; Httponly",
+            "TS012e33c8=0194b76a0223b2327b52efc79c9b26663140d601b2348a4cf073cd7fd6c5015f498bc82e1988c4b46a5e7f83b15c3f77bcf2797a6a; Path=/",
+            "__jsluid_s=6a8c47f23550b4b59cf6b8068e3eb29b; max-age=31536000; path=/; HttpOnly; SameSite=None; secure"
+          ],
+          "x-via-jsl": "73e7e40,-",
+          "x-cache": "bypass"
+        },
+        "elapsedTime": "0.20s",
+        "responseSize": "227 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "https://airwechat.coscoshipping-logistics.com/api/hj1cmnizpmq3xkljccmgsezm",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/json",
+            "ccf-app-id": "AUhSus9a5McQ9JC7",
+            "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2"
+          },
+          "params": {},
+          "body": "{\n  \"userName\": \"58e6b16a61684cc09ef1d6e99c90c1c5\",\n  \"passWord\": \"dd70df56-735b-4be5-8750-7a54b79cc762\"\n}",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782810296167,
+        "_endTime": 1782810296366
+      },
+      "api_1782808765921_zdwk3b88u": {
+        "status_code": 200,
+        "status_text": "OK",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "code": 200,
+          "data": [],
+          "msg": "全部添加成功",
+          "ok": true
+        },
+        "headers": {
+          "date": "Tue, 30 Jun 2026 09:04:57 GMT",
+          "content-type": "application/json;charset=UTF-8",
+          "transfer-encoding": "chunked",
+          "connection": "close",
+          "vary": "Accept-Encoding, Accept-Encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "x-ccfapi-traceid": "597569f494cb5a9c9ec69b7c52b59298",
+          "set-cookie": [
+            "BIGipServer8xxpkPh2aRC6a9BaMEsb3A=!kNvY0nwSOCT0MoMV0CYbAMcMdl54PIGEtsyPBuzqZ/WN6dYeOU5nidfv6VRI97Zh1tfoMQ2xOLeaye4=; path=/; Httponly",
+            "TS012e33c8=0194b76a024b088d70338731b02333fe5cd68cefa55a787643f3ce6f4e0c438dad0a61c45c9e6b840a94f1115cf7a6b846e51b9ec7; Path=/",
+            "__jsluid_s=37b0630aaf7b500c7b98dc2436d70b1c; max-age=31536000; path=/; HttpOnly; SameSite=None; secure"
+          ],
+          "x-via-jsl": "73e7e40,-",
+          "x-cache": "bypass"
+        },
+        "elapsedTime": "0.52s",
+        "responseSize": "47 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "https://airwechat.coscoshipping-logistics.com/api/b8vilmc7he1queutahfyn9hy",
+          "method": "POST",
+          "headers": {
+            "api_token": "UP1vzk777Cvz00sw3YyBGqj0Pyxzz/4w8sCNchIMsFHDj0LzfuQ+TSy0Yun3fXkhY9EfbfrhGne3fK4CCh3EFWhhqsDPbVmfhnHXy0LnZi2AsFgdvgCf+kKmDVR5Nrcv6F1Bk1zmzKhVTbSfSeuHXYkb12Hw5s6bAv3+Q6IrvW0=",
+            "ccf-app-id": "AUhSus9a5McQ9JC7",
+            "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+            "Content-Type": "application/json"
+          },
+          "params": {},
+          "body": "[\r\n  {\r\n    \"business_id\": \"2114790476920\",\r\n    \"business_type\":\"tzgg\",\r\n    \"correlation_user_filed\": \"mobile\",\r\n    \"message_content\": \"订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!\",\r\n    \"message_title\": \"任务流转消息\",\r\n    \"message_type\": \"10\",\r\n    \"send_user_list\": [\r\n      \"15397610093\"\r\n    ]\r\n  }\r\n]",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782810296366,
+        "_endTime": 1782810296888
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782703665004_a6dbvzncy",
+        "name": "获取token",
+        "result": {
+          "status_code": 200,
+          "status_text": "OK",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "code": 200,
+            "data": {
+              "token": "UP1vzk777Cvz00sw3YyBGqj0Pyxzz/4w8sCNchIMsFHDj0LzfuQ+TSy0Yun3fXkhY9EfbfrhGne3fK4CCh3EFWhhqsDPbVmfhnHXy0LnZi2AsFgdvgCf+kKmDVR5Nrcv6F1Bk1zmzKhVTbSfSeuHXYkb12Hw5s6bAv3+Q6IrvW0="
+            },
+            "msg": "登录成功",
+            "ok": true
+          },
+          "headers": {
+            "date": "Tue, 30 Jun 2026 09:04:57 GMT",
+            "content-type": "application/json;charset=UTF-8",
+            "transfer-encoding": "chunked",
+            "connection": "close",
+            "vary": "Accept-Encoding, Accept-Encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "x-ccfapi-traceid": "a0aabb1f8607fd5bf29c71849b9ec495",
+            "set-cookie": [
+              "BIGipServer8xxpkPh2aRC6a9BaMEsb3A=!VIiga/5Fcn5MM1QV0CYbAMcMdl54PLVaj0yL+wo6Ma2qYA5+G+5eKcN8C6jM4liPIzU0aJM/4BvrYfo=; path=/; Httponly",
+              "TS012e33c8=0194b76a0223b2327b52efc79c9b26663140d601b2348a4cf073cd7fd6c5015f498bc82e1988c4b46a5e7f83b15c3f77bcf2797a6a; Path=/",
+              "__jsluid_s=6a8c47f23550b4b59cf6b8068e3eb29b; max-age=31536000; path=/; HttpOnly; SameSite=None; secure"
+            ],
+            "x-via-jsl": "73e7e40,-",
+            "x-cache": "bypass"
+          },
+          "elapsedTime": "0.20s",
+          "responseSize": "227 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "https://airwechat.coscoshipping-logistics.com/api/hj1cmnizpmq3xkljccmgsezm",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/json",
+              "ccf-app-id": "AUhSus9a5McQ9JC7",
+              "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2"
+            },
+            "params": {},
+            "body": "{\n  \"userName\": \"58e6b16a61684cc09ef1d6e99c90c1c5\",\n  \"passWord\": \"dd70df56-735b-4be5-8750-7a54b79cc762\"\n}",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782810296167,
+          "_endTime": 1782810296366
+        },
+        "isTarget": false
+      },
+      {
+        "apiId": "api_1782808765921_zdwk3b88u",
+        "name": "接收消息",
+        "result": {
+          "status_code": 200,
+          "status_text": "OK",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "code": 200,
+            "data": [],
+            "msg": "全部添加成功",
+            "ok": true
+          },
+          "headers": {
+            "date": "Tue, 30 Jun 2026 09:04:57 GMT",
+            "content-type": "application/json;charset=UTF-8",
+            "transfer-encoding": "chunked",
+            "connection": "close",
+            "vary": "Accept-Encoding, Accept-Encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "x-ccfapi-traceid": "597569f494cb5a9c9ec69b7c52b59298",
+            "set-cookie": [
+              "BIGipServer8xxpkPh2aRC6a9BaMEsb3A=!kNvY0nwSOCT0MoMV0CYbAMcMdl54PIGEtsyPBuzqZ/WN6dYeOU5nidfv6VRI97Zh1tfoMQ2xOLeaye4=; path=/; Httponly",
+              "TS012e33c8=0194b76a024b088d70338731b02333fe5cd68cefa55a787643f3ce6f4e0c438dad0a61c45c9e6b840a94f1115cf7a6b846e51b9ec7; Path=/",
+              "__jsluid_s=37b0630aaf7b500c7b98dc2436d70b1c; max-age=31536000; path=/; HttpOnly; SameSite=None; secure"
+            ],
+            "x-via-jsl": "73e7e40,-",
+            "x-cache": "bypass"
+          },
+          "elapsedTime": "0.52s",
+          "responseSize": "47 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "https://airwechat.coscoshipping-logistics.com/api/b8vilmc7he1queutahfyn9hy",
+            "method": "POST",
+            "headers": {
+              "api_token": "UP1vzk777Cvz00sw3YyBGqj0Pyxzz/4w8sCNchIMsFHDj0LzfuQ+TSy0Yun3fXkhY9EfbfrhGne3fK4CCh3EFWhhqsDPbVmfhnHXy0LnZi2AsFgdvgCf+kKmDVR5Nrcv6F1Bk1zmzKhVTbSfSeuHXYkb12Hw5s6bAv3+Q6IrvW0=",
+              "ccf-app-id": "AUhSus9a5McQ9JC7",
+              "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+              "Content-Type": "application/json"
+            },
+            "params": {},
+            "body": "[\r\n  {\r\n    \"business_id\": \"2114790476920\",\r\n    \"business_type\":\"tzgg\",\r\n    \"correlation_user_filed\": \"mobile\",\r\n    \"message_content\": \"订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!\",\r\n    \"message_title\": \"任务流转消息\",\r\n    \"message_type\": \"10\",\r\n    \"send_user_list\": [\r\n      \"15397610093\"\r\n    ]\r\n  }\r\n]",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782810296366,
+          "_endTime": 1782810296888
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782810288908,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782808765921_zdwk3b88u",
+    "apiName": "接收消息",
+    "apiMethod": "POST",
+    "apiPath": "https://airwechat.coscoshipping-logistics.com/api/b8vilmc7he1queutahfyn9hy",
+    "timestamp": "2026/6/30 17:04:48",
+    "apiConfig": {
+      "name": "接收消息",
+      "group": "group_mqynq3dwmszg8",
+      "api_path": "https://airwechat.coscoshipping-logistics.com/api/b8vilmc7he1queutahfyn9hy",
+      "method": "POST",
+      "header": {
+        "api_token": "{{ref:api_1782703665004_a6dbvzncy@scn_default.data.token}}",
+        "ccf-app-id": "AUhSus9a5McQ9JC7",
+        "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": {
+        "content": "[\r\n  {\r\n    \"business_id\": \"2114790476920\",\r\n    \"business_type\":\"tzgg\",\r\n    \"correlation_user_filed\": \"mobile\",\r\n    \"message_content\": \"订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!\",\r\n    \"message_title\": \"任务流转消息\",\r\n    \"message_type\": \"10\",\r\n    \"send_user_list\": [\r\n      \"15397610093\"\r\n    ]\r\n  }\r\n]",
+        "schema": {
+          "id": "node_1782810283885_a75n6egjx",
+          "type": "array",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1782810283886_z762lwnjj",
+              "type": "object",
+              "key": 0,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1782810283886_wvpixk9np",
+                  "type": "string",
+                  "key": "business_id",
+                  "value": "2114790476920",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_sar13vsih",
+                  "type": "string",
+                  "key": "business_type",
+                  "value": "tzgg",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_xsealsaf6",
+                  "type": "string",
+                  "key": "correlation_user_filed",
+                  "value": "mobile",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_ad0s57dnh",
+                  "type": "string",
+                  "key": "message_content",
+                  "value": "订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_8rsbwf8uu",
+                  "type": "string",
+                  "key": "message_title",
+                  "value": "任务流转消息",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_5sk2xg3jg",
+                  "type": "string",
+                  "key": "message_type",
+                  "value": "10",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_egt2yv3py",
+                  "type": "array",
+                  "key": "send_user_list",
+                  "value": null,
+                  "description": "",
+                  "children": [
+                    {
+                      "id": "node_1782810283886_y7m6u3fv7",
+                      "type": "string",
+                      "key": 0,
+                      "value": "15397610093",
+                      "description": "",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
+      "chain": [
+        "api_1782703665004_a6dbvzncy"
+      ],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "https://airwechat.coscoshipping-logistics.com/api/b8vilmc7he1queutahfyn9hy",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "api_token",
+          "default": "{{ref:api_1782703665004_a6dbvzncy@scn_default.data.token}}",
+          "type": "ref",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "ccf-app-id",
+          "default": "AUhSus9a5McQ9JC7",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "ccf-app-secret",
+          "default": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "[\r\n  {\r\n    \"business_id\": \"2114790476920\",\r\n    \"business_type\":\"tzgg\",\r\n    \"correlation_user_filed\": \"mobile\",\r\n    \"message_content\": \"订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!\",\r\n    \"message_title\": \"任务流转消息\",\r\n    \"message_type\": \"10\",\r\n    \"send_user_list\": [\r\n      \"15397610093\"\r\n    ]\r\n  }\r\n]",
+        "schema": {
+          "id": "node_1782810283885_a75n6egjx",
+          "type": "array",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1782810283886_z762lwnjj",
+              "type": "object",
+              "key": 0,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1782810283886_wvpixk9np",
+                  "type": "string",
+                  "key": "business_id",
+                  "value": "2114790476920",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_sar13vsih",
+                  "type": "string",
+                  "key": "business_type",
+                  "value": "tzgg",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_xsealsaf6",
+                  "type": "string",
+                  "key": "correlation_user_filed",
+                  "value": "mobile",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_ad0s57dnh",
+                  "type": "string",
+                  "key": "message_content",
+                  "value": "订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_8rsbwf8uu",
+                  "type": "string",
+                  "key": "message_title",
+                  "value": "任务流转消息",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_5sk2xg3jg",
+                  "type": "string",
+                  "key": "message_type",
+                  "value": "10",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_egt2yv3py",
+                  "type": "array",
+                  "key": "send_user_list",
+                  "value": null,
+                  "description": "",
+                  "children": [
+                    {
+                      "id": "node_1782810283886_y7m6u3fv7",
+                      "type": "string",
+                      "key": 0,
+                      "value": "15397610093",
+                      "description": "",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "contents": {
+          "json": {
+            "content": "[\r\n  {\r\n    \"business_id\": \"2114790476920\",\r\n    \"business_type\":\"tzgg\",\r\n    \"correlation_user_filed\": \"mobile\",\r\n    \"message_content\": \"订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!\",\r\n    \"message_title\": \"任务流转消息\",\r\n    \"message_type\": \"10\",\r\n    \"send_user_list\": [\r\n      \"15397610093\"\r\n    ]\r\n  }\r\n]",
+            "schema": {
+              "id": "node_1782810283885_a75n6egjx",
+              "type": "array",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1782810283886_z762lwnjj",
+                  "type": "object",
+                  "key": 0,
+                  "value": null,
+                  "description": "",
+                  "children": [
+                    {
+                      "id": "node_1782810283886_wvpixk9np",
+                      "type": "string",
+                      "key": "business_id",
+                      "value": "2114790476920",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782810283886_sar13vsih",
+                      "type": "string",
+                      "key": "business_type",
+                      "value": "tzgg",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782810283886_xsealsaf6",
+                      "type": "string",
+                      "key": "correlation_user_filed",
+                      "value": "mobile",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782810283886_ad0s57dnh",
+                      "type": "string",
+                      "key": "message_content",
+                      "value": "订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782810283886_8rsbwf8uu",
+                      "type": "string",
+                      "key": "message_title",
+                      "value": "任务流转消息",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782810283886_5sk2xg3jg",
+                      "type": "string",
+                      "key": "message_type",
+                      "value": "10",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782810283886_egt2yv3py",
+                      "type": "array",
+                      "key": "send_user_list",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "node_1782810283886_y7m6u3fv7",
+                          "type": "string",
+                          "key": 0,
+                          "value": "15397610093",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "allResults": {},
+    "resultCards": [
+      {
+        "apiId": "api_1782703665004_a6dbvzncy",
+        "name": "获取token",
+        "result": {
+          "success": false,
+          "error": "前置依赖API未执行成功，中断本请求",
+          "errorType": "chain_break",
+          "refParams": [
+            {
+              "section": "Header",
+              "key": "api_token",
+              "ref": "api_1782703665004_a6dbvzncy@scn_default.data.token"
+            }
+          ]
+        },
+        "isTarget": false
+      },
+      {
+        "apiId": "api_1782808765921_zdwk3b88u",
+        "name": "接收消息",
+        "result": {
+          "success": false,
+          "error": "前置依赖API未执行成功，中断本请求",
+          "errorType": "chain_break"
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782810256385,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782808765921_zdwk3b88u",
+    "apiName": "接收消息",
+    "apiMethod": "POST",
+    "apiPath": "https://airwechat.coscoshipping-logistics.com/api/b8vilmc7he1queutahfyn9hy",
+    "timestamp": "2026/6/30 17:04:16",
+    "apiConfig": {
+      "name": "接收消息",
+      "group": "group_mqynq3dwmszg8",
+      "api_path": "https://airwechat.coscoshipping-logistics.com/api/b8vilmc7he1queutahfyn9hy",
+      "method": "POST",
+      "header": {
+        "api_token": "{{ref:api_1782703665004_a6dbvzncy@scn_default.data.token}}",
+        "ccf-app-id": "AUhSus9a5McQ9JC7",
+        "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": {
+        "content": "[\r\n  {\r\n    \"business_id\": \"2114790476920\",\r\n    \"correlation_user_filed\": \"mobile\",\r\n    \"message_content\": \"订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!\",\r\n    \"message_title\": \"任务流转消息\",\r\n    \"message_type\": \"10\",\r\n    \"send_user_list\": [\r\n      \"15397610093\"\r\n    ]\r\n  }\r\n]",
+        "schema": {
+          "id": "node_1782809362754_fb2id0mei",
+          "type": "array",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1782809362754_082fzzjml",
+              "type": "object",
+              "key": 0,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1782809362754_zpzbgx9pk",
+                  "type": "string",
+                  "key": "business_id",
+                  "value": "2114790476920",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782809362754_k2f32h5yu",
+                  "type": "string",
+                  "key": "correlation_user_filed",
+                  "value": "mobile",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782809362754_opuy3vjx7",
+                  "type": "string",
+                  "key": "message_content",
+                  "value": "订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782809362754_6x4ys8zzy",
+                  "type": "string",
+                  "key": "message_title",
+                  "value": "任务流转消息",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782809362754_hkbcg6r90",
+                  "type": "string",
+                  "key": "message_type",
+                  "value": "10",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782809362754_9by4vkttu",
+                  "type": "array",
+                  "key": "send_user_list",
+                  "value": null,
+                  "description": "",
+                  "children": [
+                    {
+                      "id": "node_1782809362754_ma5m9cuhc",
+                      "type": "string",
+                      "key": 0,
+                      "value": "15397610093",
+                      "description": "",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
+      "chain": [
+        "api_1782703665004_a6dbvzncy"
+      ],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "https://airwechat.coscoshipping-logistics.com/api/b8vilmc7he1queutahfyn9hy",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "api_token",
+          "default": "{{ref:api_1782703665004_a6dbvzncy@scn_default.data.token}}",
+          "type": "ref",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "ccf-app-id",
+          "default": "AUhSus9a5McQ9JC7",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "ccf-app-secret",
+          "default": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "[\r\n  {\r\n    \"business_id\": \"2114790476920\",\r\n    \"correlation_user_filed\": \"mobile\",\r\n    \"message_content\": \"订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!\",\r\n    \"message_title\": \"任务流转消息\",\r\n    \"message_type\": \"10\",\r\n    \"send_user_list\": [\r\n      \"15397610093\"\r\n    ]\r\n  }\r\n]",
+        "schema": {
+          "id": "node_1782809362754_fb2id0mei",
+          "type": "array",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1782809362754_082fzzjml",
+              "type": "object",
+              "key": 0,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1782809362754_zpzbgx9pk",
+                  "type": "string",
+                  "key": "business_id",
+                  "value": "2114790476920",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782809362754_k2f32h5yu",
+                  "type": "string",
+                  "key": "correlation_user_filed",
+                  "value": "mobile",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782809362754_opuy3vjx7",
+                  "type": "string",
+                  "key": "message_content",
+                  "value": "订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782809362754_6x4ys8zzy",
+                  "type": "string",
+                  "key": "message_title",
+                  "value": "任务流转消息",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782809362754_hkbcg6r90",
+                  "type": "string",
+                  "key": "message_type",
+                  "value": "10",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782809362754_9by4vkttu",
+                  "type": "array",
+                  "key": "send_user_list",
+                  "value": null,
+                  "description": "",
+                  "children": [
+                    {
+                      "id": "node_1782809362754_ma5m9cuhc",
+                      "type": "string",
+                      "key": 0,
+                      "value": "15397610093",
+                      "description": "",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "contents": {
+          "json": {
+            "content": "[\r\n  {\r\n    \"business_id\": \"2114790476920\",\r\n    \"correlation_user_filed\": \"mobile\",\r\n    \"message_content\": \"订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!\",\r\n    \"message_title\": \"任务流转消息\",\r\n    \"message_type\": \"10\",\r\n    \"send_user_list\": [\r\n      \"15397610093\"\r\n    ]\r\n  }\r\n]",
+            "schema": {
+              "id": "node_1782809362754_fb2id0mei",
+              "type": "array",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1782809362754_082fzzjml",
+                  "type": "object",
+                  "key": 0,
+                  "value": null,
+                  "description": "",
+                  "children": [
+                    {
+                      "id": "node_1782809362754_zpzbgx9pk",
+                      "type": "string",
+                      "key": "business_id",
+                      "value": "2114790476920",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782809362754_k2f32h5yu",
+                      "type": "string",
+                      "key": "correlation_user_filed",
+                      "value": "mobile",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782809362754_opuy3vjx7",
+                      "type": "string",
+                      "key": "message_content",
+                      "value": "订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782809362754_6x4ys8zzy",
+                      "type": "string",
+                      "key": "message_title",
+                      "value": "任务流转消息",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782809362754_hkbcg6r90",
+                      "type": "string",
+                      "key": "message_type",
+                      "value": "10",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782809362754_9by4vkttu",
+                      "type": "array",
+                      "key": "send_user_list",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "node_1782809362754_ma5m9cuhc",
+                          "type": "string",
+                          "key": 0,
+                          "value": "15397610093",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "OK",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "code": 500,
+        "data": [],
+        "msg": "消息列表参数错误，请检查！",
+        "ok": false
+      },
+      "headers": {
+        "date": "Tue, 30 Jun 2026 09:04:17 GMT",
+        "content-type": "application/json;charset=UTF-8",
+        "transfer-encoding": "chunked",
+        "connection": "close",
+        "vary": "Accept-Encoding, Accept-Encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "x-ccfapi-traceid": "8ed0fc81e839ef83b92386193acd2042",
+        "set-cookie": [
+          "BIGipServer8xxpkPh2aRC6a9BaMEsb3A=!bdLRebrfoEl2cA4V0CYbAMcMdl54PAWt2NnXOPOahVuFYGNEQJXN83rh6FvNgFGbQZ4eOr87bhj8dgc=; path=/; Httponly",
+          "TS012e33c8=0194b76a0243535d473d0f977fca221cab24729e0d00b521fcb3d2e53a40da8f4abf1d7892c4bb23b9e29d6e0f6166900978b13bc4; Path=/",
+          "__jsluid_s=d0d482f4412756c1c0264d679c678b01; max-age=31536000; path=/; HttpOnly; SameSite=None; secure"
+        ],
+        "x-via-jsl": "73e7e40,-",
+        "x-cache": "bypass"
+      },
+      "elapsedTime": "0.22s",
+      "responseSize": "55 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "https://airwechat.coscoshipping-logistics.com/api/b8vilmc7he1queutahfyn9hy",
+        "method": "POST",
+        "headers": {
+          "api_token": "UP1vzk777Cvz00sw3YyBGqj0Pyxzz/4w8sCNchIMsFHDj0LzfuQ+TSy0Yun3fXkhY9EfbfrhGne3fK4CCh3EFeq1DvJLFxalRshUAv/+oboyCrPb5FWxFVwInXw8NZHdJYSLfRmjKhiICB7ZVkbVQtIX4a+tFwLpGWOE6FMR+30=",
+          "ccf-app-id": "AUhSus9a5McQ9JC7",
+          "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+          "Content-Type": "application/json"
+        },
+        "params": {},
+        "body": "[\r\n  {\r\n    \"business_id\": \"2114790476920\",\r\n    \"correlation_user_filed\": \"mobile\",\r\n    \"message_content\": \"订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!\",\r\n    \"message_title\": \"任务流转消息\",\r\n    \"message_type\": \"10\",\r\n    \"send_user_list\": [\r\n      \"15397610093\"\r\n    ]\r\n  }\r\n]",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782810256163,
+      "_endTime": 1782810256385
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.22s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "code": 500,
+      "data": [],
+      "msg": "消息列表参数错误，请检查！",
+      "ok": false
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "date": "Tue, 30 Jun 2026 09:04:17 GMT",
+      "content-type": "application/json;charset=UTF-8",
+      "transfer-encoding": "chunked",
+      "connection": "close",
+      "vary": "Accept-Encoding, Accept-Encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "x-ccfapi-traceid": "8ed0fc81e839ef83b92386193acd2042",
+      "set-cookie": [
+        "BIGipServer8xxpkPh2aRC6a9BaMEsb3A=!bdLRebrfoEl2cA4V0CYbAMcMdl54PAWt2NnXOPOahVuFYGNEQJXN83rh6FvNgFGbQZ4eOr87bhj8dgc=; path=/; Httponly",
+        "TS012e33c8=0194b76a0243535d473d0f977fca221cab24729e0d00b521fcb3d2e53a40da8f4abf1d7892c4bb23b9e29d6e0f6166900978b13bc4; Path=/",
+        "__jsluid_s=d0d482f4412756c1c0264d679c678b01; max-age=31536000; path=/; HttpOnly; SameSite=None; secure"
+      ],
+      "x-via-jsl": "73e7e40,-",
+      "x-cache": "bypass"
+    },
+    "allResults": {
+      "api_1782703665004_a6dbvzncy": {
+        "status_code": 200,
+        "status_text": "OK",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "code": 200,
+          "data": {
+            "token": "UP1vzk777Cvz00sw3YyBGqj0Pyxzz/4w8sCNchIMsFHDj0LzfuQ+TSy0Yun3fXkhY9EfbfrhGne3fK4CCh3EFeq1DvJLFxalRshUAv/+oboyCrPb5FWxFVwInXw8NZHdJYSLfRmjKhiICB7ZVkbVQtIX4a+tFwLpGWOE6FMR+30="
+          },
+          "msg": "登录成功",
+          "ok": true
+        },
+        "headers": {
+          "date": "Tue, 30 Jun 2026 09:04:16 GMT",
+          "content-type": "application/json;charset=UTF-8",
+          "transfer-encoding": "chunked",
+          "connection": "close",
+          "vary": "Accept-Encoding, Accept-Encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "x-ccfapi-traceid": "eb8bdb6750571b9a75cf3fa688612839",
+          "x-via-jsl": "73e7e40,-",
+          "set-cookie": [
+            "__jsluid_s=cad4e9e10d30ff720f752cb541bf9611; max-age=31536000; path=/; HttpOnly; SameSite=None; secure"
+          ],
+          "x-cache": "bypass"
+        },
+        "elapsedTime": "0.16s",
+        "responseSize": "227 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "https://airwechat.coscoshipping-logistics.com/api/hj1cmnizpmq3xkljccmgsezm",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/json",
+            "ccf-app-id": "AUhSus9a5McQ9JC7",
+            "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2"
+          },
+          "params": {},
+          "body": "{\n  \"userName\": \"58e6b16a61684cc09ef1d6e99c90c1c5\",\n  \"passWord\": \"dd70df56-735b-4be5-8750-7a54b79cc762\"\n}",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782810256004,
+        "_endTime": 1782810256162
+      },
+      "api_1782808765921_zdwk3b88u": {
+        "status_code": 200,
+        "status_text": "OK",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "code": 500,
+          "data": [],
+          "msg": "消息列表参数错误，请检查！",
+          "ok": false
+        },
+        "headers": {
+          "date": "Tue, 30 Jun 2026 09:04:17 GMT",
+          "content-type": "application/json;charset=UTF-8",
+          "transfer-encoding": "chunked",
+          "connection": "close",
+          "vary": "Accept-Encoding, Accept-Encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "x-ccfapi-traceid": "8ed0fc81e839ef83b92386193acd2042",
+          "set-cookie": [
+            "BIGipServer8xxpkPh2aRC6a9BaMEsb3A=!bdLRebrfoEl2cA4V0CYbAMcMdl54PAWt2NnXOPOahVuFYGNEQJXN83rh6FvNgFGbQZ4eOr87bhj8dgc=; path=/; Httponly",
+            "TS012e33c8=0194b76a0243535d473d0f977fca221cab24729e0d00b521fcb3d2e53a40da8f4abf1d7892c4bb23b9e29d6e0f6166900978b13bc4; Path=/",
+            "__jsluid_s=d0d482f4412756c1c0264d679c678b01; max-age=31536000; path=/; HttpOnly; SameSite=None; secure"
+          ],
+          "x-via-jsl": "73e7e40,-",
+          "x-cache": "bypass"
+        },
+        "elapsedTime": "0.22s",
+        "responseSize": "55 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "https://airwechat.coscoshipping-logistics.com/api/b8vilmc7he1queutahfyn9hy",
+          "method": "POST",
+          "headers": {
+            "api_token": "UP1vzk777Cvz00sw3YyBGqj0Pyxzz/4w8sCNchIMsFHDj0LzfuQ+TSy0Yun3fXkhY9EfbfrhGne3fK4CCh3EFeq1DvJLFxalRshUAv/+oboyCrPb5FWxFVwInXw8NZHdJYSLfRmjKhiICB7ZVkbVQtIX4a+tFwLpGWOE6FMR+30=",
+            "ccf-app-id": "AUhSus9a5McQ9JC7",
+            "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+            "Content-Type": "application/json"
+          },
+          "params": {},
+          "body": "[\r\n  {\r\n    \"business_id\": \"2114790476920\",\r\n    \"correlation_user_filed\": \"mobile\",\r\n    \"message_content\": \"订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!\",\r\n    \"message_title\": \"任务流转消息\",\r\n    \"message_type\": \"10\",\r\n    \"send_user_list\": [\r\n      \"15397610093\"\r\n    ]\r\n  }\r\n]",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782810256163,
+        "_endTime": 1782810256385
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782703665004_a6dbvzncy",
+        "name": "获取token",
+        "result": {
+          "status_code": 200,
+          "status_text": "OK",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "code": 200,
+            "data": {
+              "token": "UP1vzk777Cvz00sw3YyBGqj0Pyxzz/4w8sCNchIMsFHDj0LzfuQ+TSy0Yun3fXkhY9EfbfrhGne3fK4CCh3EFeq1DvJLFxalRshUAv/+oboyCrPb5FWxFVwInXw8NZHdJYSLfRmjKhiICB7ZVkbVQtIX4a+tFwLpGWOE6FMR+30="
+            },
+            "msg": "登录成功",
+            "ok": true
+          },
+          "headers": {
+            "date": "Tue, 30 Jun 2026 09:04:16 GMT",
+            "content-type": "application/json;charset=UTF-8",
+            "transfer-encoding": "chunked",
+            "connection": "close",
+            "vary": "Accept-Encoding, Accept-Encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "x-ccfapi-traceid": "eb8bdb6750571b9a75cf3fa688612839",
+            "x-via-jsl": "73e7e40,-",
+            "set-cookie": [
+              "__jsluid_s=cad4e9e10d30ff720f752cb541bf9611; max-age=31536000; path=/; HttpOnly; SameSite=None; secure"
+            ],
+            "x-cache": "bypass"
+          },
+          "elapsedTime": "0.16s",
+          "responseSize": "227 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "https://airwechat.coscoshipping-logistics.com/api/hj1cmnizpmq3xkljccmgsezm",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/json",
+              "ccf-app-id": "AUhSus9a5McQ9JC7",
+              "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2"
+            },
+            "params": {},
+            "body": "{\n  \"userName\": \"58e6b16a61684cc09ef1d6e99c90c1c5\",\n  \"passWord\": \"dd70df56-735b-4be5-8750-7a54b79cc762\"\n}",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782810256004,
+          "_endTime": 1782810256162
+        },
+        "isTarget": false
+      },
+      {
+        "apiId": "api_1782808765921_zdwk3b88u",
+        "name": "接收消息",
+        "result": {
+          "status_code": 200,
+          "status_text": "OK",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "code": 500,
+            "data": [],
+            "msg": "消息列表参数错误，请检查！",
+            "ok": false
+          },
+          "headers": {
+            "date": "Tue, 30 Jun 2026 09:04:17 GMT",
+            "content-type": "application/json;charset=UTF-8",
+            "transfer-encoding": "chunked",
+            "connection": "close",
+            "vary": "Accept-Encoding, Accept-Encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "x-ccfapi-traceid": "8ed0fc81e839ef83b92386193acd2042",
+            "set-cookie": [
+              "BIGipServer8xxpkPh2aRC6a9BaMEsb3A=!bdLRebrfoEl2cA4V0CYbAMcMdl54PAWt2NnXOPOahVuFYGNEQJXN83rh6FvNgFGbQZ4eOr87bhj8dgc=; path=/; Httponly",
+              "TS012e33c8=0194b76a0243535d473d0f977fca221cab24729e0d00b521fcb3d2e53a40da8f4abf1d7892c4bb23b9e29d6e0f6166900978b13bc4; Path=/",
+              "__jsluid_s=d0d482f4412756c1c0264d679c678b01; max-age=31536000; path=/; HttpOnly; SameSite=None; secure"
+            ],
+            "x-via-jsl": "73e7e40,-",
+            "x-cache": "bypass"
+          },
+          "elapsedTime": "0.22s",
+          "responseSize": "55 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "https://airwechat.coscoshipping-logistics.com/api/b8vilmc7he1queutahfyn9hy",
+            "method": "POST",
+            "headers": {
+              "api_token": "UP1vzk777Cvz00sw3YyBGqj0Pyxzz/4w8sCNchIMsFHDj0LzfuQ+TSy0Yun3fXkhY9EfbfrhGne3fK4CCh3EFeq1DvJLFxalRshUAv/+oboyCrPb5FWxFVwInXw8NZHdJYSLfRmjKhiICB7ZVkbVQtIX4a+tFwLpGWOE6FMR+30=",
+              "ccf-app-id": "AUhSus9a5McQ9JC7",
+              "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+              "Content-Type": "application/json"
+            },
+            "params": {},
+            "body": "[\r\n  {\r\n    \"business_id\": \"2114790476920\",\r\n    \"correlation_user_filed\": \"mobile\",\r\n    \"message_content\": \"订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!\",\r\n    \"message_title\": \"任务流转消息\",\r\n    \"message_type\": \"10\",\r\n    \"send_user_list\": [\r\n      \"15397610093\"\r\n    ]\r\n  }\r\n]",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782810256163,
+          "_endTime": 1782810256385
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782809499995,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782808765921_zdwk3b88u",
+    "apiName": "接收消息",
+    "apiMethod": "POST",
+    "apiPath": "https://airwechat.coscoshipping-logistics.com/api/b8vilmc7he1queutahfyn9hy",
+    "timestamp": "2026/6/30 16:51:39",
+    "apiConfig": {
+      "name": "接收消息",
+      "group": "group_mqynq3dwmszg8",
+      "api_path": "https://airwechat.coscoshipping-logistics.com/api/b8vilmc7he1queutahfyn9hy",
+      "method": "POST",
+      "header": {
+        "api_token": "{{ref:api_1782703665004_a6dbvzncy@scn_default.data.token}}",
+        "ccf-app-id": "AUhSus9a5McQ9JC7",
+        "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+        "Content-Type": "application/json"
+      },
+      "param": {},
+      "body": {
+        "content": "[\r\n  {\r\n    \"business_id\": \"2114790476920\",\r\n    \"correlation_user_filed\": \"mobile\",\r\n    \"message_content\": \"订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!\",\r\n    \"message_title\": \"任务流转消息\",\r\n    \"message_type\": \"10\",\r\n    \"send_user_list\": [\r\n      \"15397610093\"\r\n    ]\r\n  }\r\n]",
+        "schema": {
+          "id": "node_1782809362754_fb2id0mei",
+          "type": "array",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1782809362754_082fzzjml",
+              "type": "object",
+              "key": 0,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1782809362754_zpzbgx9pk",
+                  "type": "string",
+                  "key": "business_id",
+                  "value": "2114790476920",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782809362754_k2f32h5yu",
+                  "type": "string",
+                  "key": "correlation_user_filed",
+                  "value": "mobile",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782809362754_opuy3vjx7",
+                  "type": "string",
+                  "key": "message_content",
+                  "value": "订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782809362754_6x4ys8zzy",
+                  "type": "string",
+                  "key": "message_title",
+                  "value": "任务流转消息",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782809362754_hkbcg6r90",
+                  "type": "string",
+                  "key": "message_type",
+                  "value": "10",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782809362754_9by4vkttu",
+                  "type": "array",
+                  "key": "send_user_list",
+                  "value": null,
+                  "description": "",
+                  "children": [
+                    {
+                      "id": "node_1782809362754_ma5m9cuhc",
+                      "type": "string",
+                      "key": 0,
+                      "value": "15397610093",
+                      "description": "",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "type": "raw",
+        "contentType": "json"
+      },
+      "chain": [
+        "api_1782703665004_a6dbvzncy"
+      ],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "https://airwechat.coscoshipping-logistics.com/api/b8vilmc7he1queutahfyn9hy",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "api_token",
+          "default": "{{ref:api_1782703665004_a6dbvzncy@scn_default.data.token}}",
+          "type": "ref",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "ccf-app-id",
+          "default": "AUhSus9a5McQ9JC7",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "ccf-app-secret",
+          "default": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "[\r\n  {\r\n    \"business_id\": \"2114790476920\",\r\n    \"correlation_user_filed\": \"mobile\",\r\n    \"message_content\": \"订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!\",\r\n    \"message_title\": \"任务流转消息\",\r\n    \"message_type\": \"10\",\r\n    \"send_user_list\": [\r\n      \"15397610093\"\r\n    ]\r\n  }\r\n]",
+        "schema": {
+          "id": "node_1782809362754_fb2id0mei",
+          "type": "array",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1782809362754_082fzzjml",
+              "type": "object",
+              "key": 0,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1782809362754_zpzbgx9pk",
+                  "type": "string",
+                  "key": "business_id",
+                  "value": "2114790476920",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782809362754_k2f32h5yu",
+                  "type": "string",
+                  "key": "correlation_user_filed",
+                  "value": "mobile",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782809362754_opuy3vjx7",
+                  "type": "string",
+                  "key": "message_content",
+                  "value": "订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782809362754_6x4ys8zzy",
+                  "type": "string",
+                  "key": "message_title",
+                  "value": "任务流转消息",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782809362754_hkbcg6r90",
+                  "type": "string",
+                  "key": "message_type",
+                  "value": "10",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782809362754_9by4vkttu",
+                  "type": "array",
+                  "key": "send_user_list",
+                  "value": null,
+                  "description": "",
+                  "children": [
+                    {
+                      "id": "node_1782809362754_ma5m9cuhc",
+                      "type": "string",
+                      "key": 0,
+                      "value": "15397610093",
+                      "description": "",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "contents": {
+          "json": {
+            "content": "[\r\n  {\r\n    \"business_id\": \"2114790476920\",\r\n    \"correlation_user_filed\": \"mobile\",\r\n    \"message_content\": \"订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!\",\r\n    \"message_title\": \"任务流转消息\",\r\n    \"message_type\": \"10\",\r\n    \"send_user_list\": [\r\n      \"15397610093\"\r\n    ]\r\n  }\r\n]",
+            "schema": {
+              "id": "node_1782809362754_fb2id0mei",
+              "type": "array",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1782809362754_082fzzjml",
+                  "type": "object",
+                  "key": 0,
+                  "value": null,
+                  "description": "",
+                  "children": [
+                    {
+                      "id": "node_1782809362754_zpzbgx9pk",
+                      "type": "string",
+                      "key": "business_id",
+                      "value": "2114790476920",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782809362754_k2f32h5yu",
+                      "type": "string",
+                      "key": "correlation_user_filed",
+                      "value": "mobile",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782809362754_opuy3vjx7",
+                      "type": "string",
+                      "key": "message_content",
+                      "value": "订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782809362754_6x4ys8zzy",
+                      "type": "string",
+                      "key": "message_title",
+                      "value": "任务流转消息",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782809362754_hkbcg6r90",
+                      "type": "string",
+                      "key": "message_type",
+                      "value": "10",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782809362754_9by4vkttu",
+                      "type": "array",
+                      "key": "send_user_list",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "node_1782809362754_ma5m9cuhc",
+                          "type": "string",
+                          "key": 0,
+                          "value": "15397610093",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "raw",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "OK",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "code": 500,
+        "data": [],
+        "msg": "消息列表参数错误，请检查！",
+        "ok": false
+      },
+      "headers": {
+        "date": "Tue, 30 Jun 2026 08:51:40 GMT",
+        "content-type": "application/json;charset=UTF-8",
+        "transfer-encoding": "chunked",
+        "connection": "close",
+        "vary": "Accept-Encoding, Accept-Encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "x-ccfapi-traceid": "034f616d35bea63648f4d1785d3427a0",
+        "x-via-jsl": "2798fb5,-",
+        "set-cookie": [
+          "__jsluid_s=f2222138e53f561eeb8d16dcb330d087; max-age=31536000; path=/; HttpOnly; SameSite=None; secure"
+        ],
+        "x-cache": "bypass"
+      },
+      "elapsedTime": "0.18s",
+      "responseSize": "55 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "https://airwechat.coscoshipping-logistics.com/api/b8vilmc7he1queutahfyn9hy",
+        "method": "POST",
+        "headers": {
+          "api_token": "UP1vzk777Cvz00sw3YyBGqj0Pyxzz/4w8sCNchIMsFHDj0LzfuQ+TSy0Yun3fXkhY9EfbfrhGne3fK4CCh3EFRab12LGYclTcdJto57p8Xtgrb1jiyD5romCJ0dy/RphARJDCC0oYT+P07XWW9ZozvYMj9KF31gOyyrWlXxsaa8=",
+          "ccf-app-id": "AUhSus9a5McQ9JC7",
+          "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+          "Content-Type": "application/json"
+        },
+        "params": {},
+        "body": "[\r\n  {\r\n    \"business_id\": \"2114790476920\",\r\n    \"correlation_user_filed\": \"mobile\",\r\n    \"message_content\": \"订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!\",\r\n    \"message_title\": \"任务流转消息\",\r\n    \"message_type\": \"10\",\r\n    \"send_user_list\": [\r\n      \"15397610093\"\r\n    ]\r\n  }\r\n]",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782809499813,
+      "_endTime": 1782809499995
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.18s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "code": 500,
+      "data": [],
+      "msg": "消息列表参数错误，请检查！",
+      "ok": false
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "date": "Tue, 30 Jun 2026 08:51:40 GMT",
+      "content-type": "application/json;charset=UTF-8",
+      "transfer-encoding": "chunked",
+      "connection": "close",
+      "vary": "Accept-Encoding, Accept-Encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "x-ccfapi-traceid": "034f616d35bea63648f4d1785d3427a0",
+      "x-via-jsl": "2798fb5,-",
+      "set-cookie": [
+        "__jsluid_s=f2222138e53f561eeb8d16dcb330d087; max-age=31536000; path=/; HttpOnly; SameSite=None; secure"
+      ],
+      "x-cache": "bypass"
+    },
+    "allResults": {
+      "api_1782703665004_a6dbvzncy": {
+        "status_code": 200,
+        "status_text": "OK",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "code": 200,
+          "data": {
+            "token": "UP1vzk777Cvz00sw3YyBGqj0Pyxzz/4w8sCNchIMsFHDj0LzfuQ+TSy0Yun3fXkhY9EfbfrhGne3fK4CCh3EFRab12LGYclTcdJto57p8Xtgrb1jiyD5romCJ0dy/RphARJDCC0oYT+P07XWW9ZozvYMj9KF31gOyyrWlXxsaa8="
+          },
+          "msg": "登录成功",
+          "ok": true
+        },
+        "headers": {
+          "date": "Tue, 30 Jun 2026 08:51:40 GMT",
+          "content-type": "application/json;charset=UTF-8",
+          "transfer-encoding": "chunked",
+          "connection": "close",
+          "vary": "Accept-Encoding, Accept-Encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "x-ccfapi-traceid": "bb3ded9e08ac0f10cc6d144a42530334",
+          "set-cookie": [
+            "BIGipServer8xxpkPh2aRC6a9BaMEsb3A=!kKHkP9meZEVvdikV0CYbAMcMdl54PF+MicG1Bta2fSmA7XxCJoHIpXW0vNWl+HfE8i8SgTkk6ePtcvg=; path=/; Httponly",
+            "TS012e33c8=0194b76a02f7cbd24c76853876d5ee8555f13f89d2cc3bda8e9b7b5b07393451122aa686804920b0c63df30b2b7a02fe9673242647; Path=/",
+            "__jsluid_s=5996f6243efbf717d7034d1801fd357a; max-age=31536000; path=/; HttpOnly; SameSite=None; secure"
+          ],
+          "x-via-jsl": "2798fb5,-",
+          "x-cache": "bypass"
+        },
+        "elapsedTime": "0.42s",
+        "responseSize": "227 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "https://airwechat.coscoshipping-logistics.com/api/hj1cmnizpmq3xkljccmgsezm",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/json",
+            "ccf-app-id": "AUhSus9a5McQ9JC7",
+            "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2"
+          },
+          "params": {},
+          "body": "{\n  \"userName\": \"58e6b16a61684cc09ef1d6e99c90c1c5\",\n  \"passWord\": \"dd70df56-735b-4be5-8750-7a54b79cc762\"\n}",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782809499387,
+        "_endTime": 1782809499812
+      },
+      "api_1782808765921_zdwk3b88u": {
+        "status_code": 200,
+        "status_text": "OK",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "code": 500,
+          "data": [],
+          "msg": "消息列表参数错误，请检查！",
+          "ok": false
+        },
+        "headers": {
+          "date": "Tue, 30 Jun 2026 08:51:40 GMT",
+          "content-type": "application/json;charset=UTF-8",
+          "transfer-encoding": "chunked",
+          "connection": "close",
+          "vary": "Accept-Encoding, Accept-Encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "x-ccfapi-traceid": "034f616d35bea63648f4d1785d3427a0",
+          "x-via-jsl": "2798fb5,-",
+          "set-cookie": [
+            "__jsluid_s=f2222138e53f561eeb8d16dcb330d087; max-age=31536000; path=/; HttpOnly; SameSite=None; secure"
+          ],
+          "x-cache": "bypass"
+        },
+        "elapsedTime": "0.18s",
+        "responseSize": "55 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "https://airwechat.coscoshipping-logistics.com/api/b8vilmc7he1queutahfyn9hy",
+          "method": "POST",
+          "headers": {
+            "api_token": "UP1vzk777Cvz00sw3YyBGqj0Pyxzz/4w8sCNchIMsFHDj0LzfuQ+TSy0Yun3fXkhY9EfbfrhGne3fK4CCh3EFRab12LGYclTcdJto57p8Xtgrb1jiyD5romCJ0dy/RphARJDCC0oYT+P07XWW9ZozvYMj9KF31gOyyrWlXxsaa8=",
+            "ccf-app-id": "AUhSus9a5McQ9JC7",
+            "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+            "Content-Type": "application/json"
+          },
+          "params": {},
+          "body": "[\r\n  {\r\n    \"business_id\": \"2114790476920\",\r\n    \"correlation_user_filed\": \"mobile\",\r\n    \"message_content\": \"订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!\",\r\n    \"message_title\": \"任务流转消息\",\r\n    \"message_type\": \"10\",\r\n    \"send_user_list\": [\r\n      \"15397610093\"\r\n    ]\r\n  }\r\n]",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782809499813,
+        "_endTime": 1782809499995
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782703665004_a6dbvzncy",
+        "name": "获取token",
+        "result": {
+          "status_code": 200,
+          "status_text": "OK",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "code": 200,
+            "data": {
+              "token": "UP1vzk777Cvz00sw3YyBGqj0Pyxzz/4w8sCNchIMsFHDj0LzfuQ+TSy0Yun3fXkhY9EfbfrhGne3fK4CCh3EFRab12LGYclTcdJto57p8Xtgrb1jiyD5romCJ0dy/RphARJDCC0oYT+P07XWW9ZozvYMj9KF31gOyyrWlXxsaa8="
+            },
+            "msg": "登录成功",
+            "ok": true
+          },
+          "headers": {
+            "date": "Tue, 30 Jun 2026 08:51:40 GMT",
+            "content-type": "application/json;charset=UTF-8",
+            "transfer-encoding": "chunked",
+            "connection": "close",
+            "vary": "Accept-Encoding, Accept-Encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "x-ccfapi-traceid": "bb3ded9e08ac0f10cc6d144a42530334",
+            "set-cookie": [
+              "BIGipServer8xxpkPh2aRC6a9BaMEsb3A=!kKHkP9meZEVvdikV0CYbAMcMdl54PF+MicG1Bta2fSmA7XxCJoHIpXW0vNWl+HfE8i8SgTkk6ePtcvg=; path=/; Httponly",
+              "TS012e33c8=0194b76a02f7cbd24c76853876d5ee8555f13f89d2cc3bda8e9b7b5b07393451122aa686804920b0c63df30b2b7a02fe9673242647; Path=/",
+              "__jsluid_s=5996f6243efbf717d7034d1801fd357a; max-age=31536000; path=/; HttpOnly; SameSite=None; secure"
+            ],
+            "x-via-jsl": "2798fb5,-",
+            "x-cache": "bypass"
+          },
+          "elapsedTime": "0.42s",
+          "responseSize": "227 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "https://airwechat.coscoshipping-logistics.com/api/hj1cmnizpmq3xkljccmgsezm",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/json",
+              "ccf-app-id": "AUhSus9a5McQ9JC7",
+              "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2"
+            },
+            "params": {},
+            "body": "{\n  \"userName\": \"58e6b16a61684cc09ef1d6e99c90c1c5\",\n  \"passWord\": \"dd70df56-735b-4be5-8750-7a54b79cc762\"\n}",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782809499387,
+          "_endTime": 1782809499812
+        },
+        "isTarget": false
+      },
+      {
+        "apiId": "api_1782808765921_zdwk3b88u",
+        "name": "接收消息",
+        "result": {
+          "status_code": 200,
+          "status_text": "OK",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "code": 500,
+            "data": [],
+            "msg": "消息列表参数错误，请检查！",
+            "ok": false
+          },
+          "headers": {
+            "date": "Tue, 30 Jun 2026 08:51:40 GMT",
+            "content-type": "application/json;charset=UTF-8",
+            "transfer-encoding": "chunked",
+            "connection": "close",
+            "vary": "Accept-Encoding, Accept-Encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "x-ccfapi-traceid": "034f616d35bea63648f4d1785d3427a0",
+            "x-via-jsl": "2798fb5,-",
+            "set-cookie": [
+              "__jsluid_s=f2222138e53f561eeb8d16dcb330d087; max-age=31536000; path=/; HttpOnly; SameSite=None; secure"
+            ],
+            "x-cache": "bypass"
+          },
+          "elapsedTime": "0.18s",
+          "responseSize": "55 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "https://airwechat.coscoshipping-logistics.com/api/b8vilmc7he1queutahfyn9hy",
+            "method": "POST",
+            "headers": {
+              "api_token": "UP1vzk777Cvz00sw3YyBGqj0Pyxzz/4w8sCNchIMsFHDj0LzfuQ+TSy0Yun3fXkhY9EfbfrhGne3fK4CCh3EFRab12LGYclTcdJto57p8Xtgrb1jiyD5romCJ0dy/RphARJDCC0oYT+P07XWW9ZozvYMj9KF31gOyyrWlXxsaa8=",
+              "ccf-app-id": "AUhSus9a5McQ9JC7",
+              "ccf-app-secret": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+              "Content-Type": "application/json"
+            },
+            "params": {},
+            "body": "[\r\n  {\r\n    \"business_id\": \"2114790476920\",\r\n    \"correlation_user_filed\": \"mobile\",\r\n    \"message_content\": \"订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!\",\r\n    \"message_title\": \"任务流转消息\",\r\n    \"message_type\": \"10\",\r\n    \"send_user_list\": [\r\n      \"15397610093\"\r\n    ]\r\n  }\r\n]",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782809499813,
+          "_endTime": 1782809499995
+        },
+        "isTarget": true
+      }
+    ]
+  }
+]

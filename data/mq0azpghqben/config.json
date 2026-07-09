@@ -48,8 +48,29 @@
       "id": "api_1782703665004_a6dbvzncy",
       "name": "获取token",
       "method": "POST",
-      "api_path": "https://airwechat.coscoshipping-logistics.com/docs/detail/5bcbffd0c052000?locale=zh-cn&target_id=3cbf8c81fb7063",
+      "api_path": "https://airwechat.coscoshipping-logistics.com/api/hj1cmnizpmq3xkljccmgsezm",
       "group": "group_mqynq3dwmszg8"
+    },
+    {
+      "id": "api_1782790252913_9f8eb9307",
+      "name": "手动触发消息推送",
+      "method": "POST",
+      "api_path": "{domain}{tm-prj}/portal/manual-sync",
+      "group": "default"
+    },
+    {
+      "id": "api_1782808765921_zdwk3b88u",
+      "name": "接收消息",
+      "method": "POST",
+      "api_path": "https://airwechat.coscoshipping-logistics.com/api/b8vilmc7he1queutahfyn9hy",
+      "group": "group_mqynq3dwmszg8"
+    },
+    {
+      "id": "api_mr0g8lqgkv5ch",
+      "name": "手动触发消息删除",
+      "method": "POST",
+      "api_path": "{domain}{tm-prj}/portal/delete-message",
+      "group": "default"
     }
   ],
   "requestTimeout": 5000

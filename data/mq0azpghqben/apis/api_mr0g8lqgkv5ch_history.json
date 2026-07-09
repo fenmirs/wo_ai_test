@@ -1,0 +1,719 @@
+[
+  {
+    "id": 1782812266037,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_mr0g8lqgkv5ch",
+    "apiName": "手动触发消息删除",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{tm-prj}/portal/delete-message",
+    "timestamp": "2026/6/30 17:37:46",
+    "apiConfig": {
+      "name": "手动触发消息删除",
+      "group": "default",
+      "api_path": "{domain}{tm-prj}/portal/delete-message",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "ids": "2158377386408"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25112/tm-prj/portal/delete-message",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "ids",
+            "default": "2158377386408",
+            "type": "string",
+            "description": "tm_inner_done_b表的id串，多个逗号隔开，传空会自动同步未同步的数据（调用一次最多同步100条）到tm_portal_sync_log_b表，并自动发送全部tm_portal_sync_log_b表失败的消息",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782790252930_1p0lx66wi",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782790252930_1p0lx66wi",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": "{\"code\":\"suc\",\"message\":\"删除已提交\"}",
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "52",
+        "date": "Tue, 30 Jun 2026 09:37:46 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "2.23s",
+      "responseSize": "32 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25112/tm-prj/portal/delete-message",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "ids=2158377386408",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782812263811,
+      "_endTime": 1782812266037
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "2.23s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": "{\"code\":\"suc\",\"message\":\"删除已提交\"}",
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "52",
+      "date": "Tue, 30 Jun 2026 09:37:46 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_mr0g8lqgkv5ch": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": "{\"code\":\"suc\",\"message\":\"删除已提交\"}",
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "52",
+          "date": "Tue, 30 Jun 2026 09:37:46 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "2.23s",
+        "responseSize": "32 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25112/tm-prj/portal/delete-message",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "ids=2158377386408",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782812263811,
+        "_endTime": 1782812266037
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_mr0g8lqgkv5ch",
+        "name": "手动触发消息删除",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": "{\"code\":\"suc\",\"message\":\"删除已提交\"}",
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "52",
+            "date": "Tue, 30 Jun 2026 09:37:46 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "2.23s",
+          "responseSize": "32 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25112/tm-prj/portal/delete-message",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "ids=2158377386408",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782812263811,
+          "_endTime": 1782812266037
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782812068898,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_mr0g8lqgkv5ch",
+    "apiName": "手动触发消息删除",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{tm-prj}/portal/delete-message",
+    "timestamp": "2026/6/30 17:34:28",
+    "apiConfig": {
+      "name": "手动触发消息删除",
+      "group": "default",
+      "api_path": "{domain}{tm-prj}/portal/delete-message",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "id": "2158377386408"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25112/tm-prj/portal/delete-message",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "id",
+            "default": "2158377386408",
+            "type": "string",
+            "description": "tm_portal_sync_log_b表的id串，多个逗号隔开，传空会自动同步tm_inner_done_b表未同步的数据（调用一次最多同步100条），并自动发送全部tm_portal_sync_log_b表失败的消息",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782790252930_1p0lx66wi",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782790252930_1p0lx66wi",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": "{\"code\":\"suc\",\"message\":\"删除成功\"}",
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "49",
+        "date": "Tue, 30 Jun 2026 09:34:28 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "2.82s",
+      "responseSize": "31 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25112/tm-prj/portal/delete-message",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "id=2158377386408",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782812066079,
+      "_endTime": 1782812068898
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "2.82s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": "{\"code\":\"suc\",\"message\":\"删除成功\"}",
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "49",
+      "date": "Tue, 30 Jun 2026 09:34:28 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_mr0g8lqgkv5ch": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": "{\"code\":\"suc\",\"message\":\"删除成功\"}",
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "49",
+          "date": "Tue, 30 Jun 2026 09:34:28 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "2.82s",
+        "responseSize": "31 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25112/tm-prj/portal/delete-message",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "id=2158377386408",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782812066079,
+        "_endTime": 1782812068898
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_mr0g8lqgkv5ch",
+        "name": "手动触发消息删除",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": "{\"code\":\"suc\",\"message\":\"删除成功\"}",
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "49",
+            "date": "Tue, 30 Jun 2026 09:34:28 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "2.82s",
+          "responseSize": "31 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25112/tm-prj/portal/delete-message",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "id=2158377386408",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782812066079,
+          "_endTime": 1782812068898
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782812053865,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_mr0g8lqgkv5ch",
+    "apiName": "手动触发消息删除",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{tm-prj}/portal/delete-message",
+    "timestamp": "2026/6/30 17:34:13",
+    "apiConfig": {
+      "name": "手动触发消息删除",
+      "group": "default",
+      "api_path": "{domain}{tm-prj}/portal/delete-message",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "ids": "2158377386408"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25112/tm-prj/portal/delete-message",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "ids",
+            "default": "2158377386408",
+            "type": "string",
+            "description": "tm_portal_sync_log_b表的id串，多个逗号隔开，传空会自动同步tm_inner_done_b表未同步的数据（调用一次最多同步100条），并自动发送全部tm_portal_sync_log_b表失败的消息",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782790252930_1p0lx66wi",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782790252930_1p0lx66wi",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": {
+        "allRow": 0,
+        "beginPage": 0,
+        "code": 0,
+        "currentPage": 0,
+        "error": [
+          "Required Long parameter 'id' is not present"
+        ],
+        "firstPage": false,
+        "hasNextPage": null,
+        "hasPreviousPage": null,
+        "isFirstPage": null,
+        "isLastPage": null,
+        "lastPage": true,
+        "list": [],
+        "listSize": 0,
+        "obj": null,
+        "order": "",
+        "pageLength": 0,
+        "pageSize": 0,
+        "sort": "",
+        "status": false,
+        "throwable": null,
+        "totalPage": 0
+      },
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "349",
+        "date": "Tue, 30 Jun 2026 09:34:13 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.16s",
+      "responseSize": "349 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25112/tm-prj/portal/delete-message",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "ids=2158377386408",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782812053701,
+      "_endTime": 1782812053865
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.16s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": {
+      "allRow": 0,
+      "beginPage": 0,
+      "code": 0,
+      "currentPage": 0,
+      "error": [
+        "Required Long parameter 'id' is not present"
+      ],
+      "firstPage": false,
+      "hasNextPage": null,
+      "hasPreviousPage": null,
+      "isFirstPage": null,
+      "isLastPage": null,
+      "lastPage": true,
+      "list": [],
+      "listSize": 0,
+      "obj": null,
+      "order": "",
+      "pageLength": 0,
+      "pageSize": 0,
+      "sort": "",
+      "status": false,
+      "throwable": null,
+      "totalPage": 0
+    },
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "349",
+      "date": "Tue, 30 Jun 2026 09:34:13 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_mr0g8lqgkv5ch": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": {
+          "allRow": 0,
+          "beginPage": 0,
+          "code": 0,
+          "currentPage": 0,
+          "error": [
+            "Required Long parameter 'id' is not present"
+          ],
+          "firstPage": false,
+          "hasNextPage": null,
+          "hasPreviousPage": null,
+          "isFirstPage": null,
+          "isLastPage": null,
+          "lastPage": true,
+          "list": [],
+          "listSize": 0,
+          "obj": null,
+          "order": "",
+          "pageLength": 0,
+          "pageSize": 0,
+          "sort": "",
+          "status": false,
+          "throwable": null,
+          "totalPage": 0
+        },
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "349",
+          "date": "Tue, 30 Jun 2026 09:34:13 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.16s",
+        "responseSize": "349 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25112/tm-prj/portal/delete-message",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "ids=2158377386408",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782812053701,
+        "_endTime": 1782812053865
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_mr0g8lqgkv5ch",
+        "name": "手动触发消息删除",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": {
+            "allRow": 0,
+            "beginPage": 0,
+            "code": 0,
+            "currentPage": 0,
+            "error": [
+              "Required Long parameter 'id' is not present"
+            ],
+            "firstPage": false,
+            "hasNextPage": null,
+            "hasPreviousPage": null,
+            "isFirstPage": null,
+            "isLastPage": null,
+            "lastPage": true,
+            "list": [],
+            "listSize": 0,
+            "obj": null,
+            "order": "",
+            "pageLength": 0,
+            "pageSize": 0,
+            "sort": "",
+            "status": false,
+            "throwable": null,
+            "totalPage": 0
+          },
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "349",
+            "date": "Tue, 30 Jun 2026 09:34:13 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.16s",
+          "responseSize": "349 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25112/tm-prj/portal/delete-message",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "ids=2158377386408",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782812053701,
+          "_endTime": 1782812053865
+        },
+        "isTarget": true
+      }
+    ]
+  }
+]

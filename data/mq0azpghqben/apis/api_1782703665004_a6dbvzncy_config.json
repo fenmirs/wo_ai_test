@@ -2,7 +2,7 @@
   "id": "api_1782703665004_a6dbvzncy",
   "name": "获取token",
   "method": "POST",
-  "api_path": "https://airwechat.coscoshipping-logistics.com/docs/detail/5bcbffd0c052000?locale=zh-cn&target_id=3cbf8c81fb7063",
+  "api_path": "https://airwechat.coscoshipping-logistics.com/api/hj1cmnizpmq3xkljccmgsezm",
   "group": "group_mqynq3dwmszg8",
   "scenarios": {
     "scn_default": {
@@ -10,7 +10,7 @@
       "name": "默认场景",
       "description": "",
       "createdAt": "2026-06-29T03:27:45.032Z",
-      "updatedAt": "2026-06-29T07:08:06.681Z",
+      "updatedAt": "2026-06-30T09:03:37.748Z",
       "deleted": false,
       "header": [
         {
@@ -44,14 +44,14 @@
         "contentType": "json",
         "content": "{\n  \"userName\": \"58e6b16a61684cc09ef1d6e99c90c1c5\",\n  \"passWord\": \"dd70df56-735b-4be5-8750-7a54b79cc762\"\n}",
         "schema": {
-          "id": "node_1782715544106_si5hju7u0",
+          "id": "node_1782789392152_2yni6ad1v",
           "type": "object",
           "key": null,
           "value": null,
           "description": "",
           "children": [
             {
-              "id": "node_1782715544106_z24grl7pg",
+              "id": "node_1782789392152_6g1ms3d0g",
               "type": "string",
               "key": "userName",
               "value": "58e6b16a61684cc09ef1d6e99c90c1c5",
@@ -59,7 +59,7 @@
               "children": []
             },
             {
-              "id": "node_1782715544106_mu57nzc9p",
+              "id": "node_1782789392152_ma72bmxj8",
               "type": "string",
               "key": "passWord",
               "value": "dd70df56-735b-4be5-8750-7a54b79cc762",
@@ -72,14 +72,14 @@
           "json": {
             "content": "{\n  \"userName\": \"58e6b16a61684cc09ef1d6e99c90c1c5\",\n  \"passWord\": \"dd70df56-735b-4be5-8750-7a54b79cc762\"\n}",
             "schema": {
-              "id": "node_1782715544106_si5hju7u0",
+              "id": "node_1782789392152_2yni6ad1v",
               "type": "object",
               "key": null,
               "value": null,
               "description": "",
               "children": [
                 {
-                  "id": "node_1782715544106_z24grl7pg",
+                  "id": "node_1782789392152_6g1ms3d0g",
                   "type": "string",
                   "key": "userName",
                   "value": "58e6b16a61684cc09ef1d6e99c90c1c5",
@@ -87,7 +87,7 @@
                   "children": []
                 },
                 {
-                  "id": "node_1782715544106_mu57nzc9p",
+                  "id": "node_1782789392152_ma72bmxj8",
                   "type": "string",
                   "key": "passWord",
                   "value": "dd70df56-735b-4be5-8750-7a54b79cc762",

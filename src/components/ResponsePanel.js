@@ -160,6 +160,14 @@ const OPTIONS_LIST = [
   { key: 'includeErrorCodes', label: '常见错误码' },
 ];
 
+function getPipeStatus(card) {
+  const r = card?.result;
+  if (!r) return 'error';
+  if (r.success) return 'success';
+  if (r.errorType && r.errorType !== 'server_error') return 'error';
+  return 'warning';
+}
+
 function ResponsePanel({ executionResult, isExecuting, theme, docData, onExportDoc }) {
   const [panelTab, setPanelTab] = useState('response');
   const [selectedCardIdx, setSelectedCardIdx] = useState(0);
@@ -297,7 +305,7 @@ function ResponsePanel({ executionResult, isExecuting, theme, docData, onExportD
                 <div className="pipe-top">
                   {cards.length > 1 && idx > 0 && <div className="pipe-conn"><div className="pipe-line" /></div>}
                   <div className="pipe-node-wrap">
-                    <div className={`pipe-node ${card.isTarget ? 'pipe-star' : 'pipe-dot'} ${card.result?.success ? 'success' : 'error'}`}>
+                    <div className={`pipe-node ${card.isTarget ? 'pipe-star' : 'pipe-dot'} ${getPipeStatus(card)}`}>
                       {card.isTarget ? '★' : idx + 1}
                     </div>
                     <div className="pipe-time">{card.result?.elapsedTime || ''}</div>

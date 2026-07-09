@@ -1,0 +1,83 @@
+{
+  "id": "api_mr0g8lqgkv5ch",
+  "name": "手动触发消息删除",
+  "method": "POST",
+  "api_path": "{domain}{tm-prj}/portal/delete-message",
+  "group": "default",
+  "scenarios": {
+    "scn_default": {
+      "id": "scn_default",
+      "name": "默认场景",
+      "description": "",
+      "createdAt": "2026-06-30T03:30:52.930Z",
+      "updatedAt": "2026-06-30T09:54:20.642Z",
+      "deleted": false,
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "ids",
+            "default": "2158377386408",
+            "type": "string",
+            "description": "tm_inner_done_b表的id串，多个逗号隔开，传空会自动同步未同步的数据（调用一次最多同步100条）到tm_portal_sync_log_b表，并自动发送全部tm_portal_sync_log_b表失败的消息",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782790252930_1p0lx66wi",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782790252930_1p0lx66wi",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "assertions": [
+        {
+          "expression": "",
+          "enabled": true
+        }
+      ],
+      "refChain": []
+    }
+  }
+}

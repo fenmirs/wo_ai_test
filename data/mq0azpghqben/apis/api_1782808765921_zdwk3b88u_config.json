@@ -1,0 +1,246 @@
+{
+  "id": "api_1782808765921_zdwk3b88u",
+  "name": "接收消息",
+  "method": "POST",
+  "api_path": "https://airwechat.coscoshipping-logistics.com/api/b8vilmc7he1queutahfyn9hy",
+  "group": "group_mqynq3dwmszg8",
+  "scenarios": {
+    "scn_default": {
+      "id": "scn_default",
+      "name": "默认场景",
+      "description": "",
+      "createdAt": "2026-06-30T08:39:25.937Z",
+      "updatedAt": "2026-06-30T09:07:26.964Z",
+      "deleted": false,
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/json",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "api_token",
+          "default": "{{ref:api_1782703665004_a6dbvzncy@scn_default.data.token}}",
+          "type": "ref",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "ccf-app-id",
+          "default": "AUhSus9a5McQ9JC7",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        },
+        {
+          "key": "ccf-app-secret",
+          "default": "b4421d31e0cb804663e45986c1e8ade5c5ce18d2",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "raw",
+        "formData": [],
+        "xwwwFormUrlencoded": [],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "[\r\n  {\r\n    \"business_id\": \"2114790476920\",\r\n    \"business_type\":\"tzgg\",\r\n    \"correlation_user_filed\": \"mobile\",\r\n    \"message_content\": \"订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!\",\r\n    \"message_title\": \"任务流转消息\",\r\n    \"message_type\": \"10\",\r\n    \"send_user_list\": [\r\n      \"15397610093\"\r\n    ]\r\n  }\r\n]",
+        "schema": {
+          "id": "node_1782810283885_a75n6egjx",
+          "type": "array",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": [
+            {
+              "id": "node_1782810283886_z762lwnjj",
+              "type": "object",
+              "key": 0,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1782810283886_wvpixk9np",
+                  "type": "string",
+                  "key": "business_id",
+                  "value": "2114790476920",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_sar13vsih",
+                  "type": "string",
+                  "key": "business_type",
+                  "value": "tzgg",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_xsealsaf6",
+                  "type": "string",
+                  "key": "correlation_user_filed",
+                  "value": "mobile",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_ad0s57dnh",
+                  "type": "string",
+                  "key": "message_content",
+                  "value": "订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_8rsbwf8uu",
+                  "type": "string",
+                  "key": "message_title",
+                  "value": "任务流转消息",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_5sk2xg3jg",
+                  "type": "string",
+                  "key": "message_type",
+                  "value": "10",
+                  "description": "",
+                  "children": []
+                },
+                {
+                  "id": "node_1782810283886_egt2yv3py",
+                  "type": "array",
+                  "key": "send_user_list",
+                  "value": null,
+                  "description": "",
+                  "children": [
+                    {
+                      "id": "node_1782810283886_y7m6u3fv7",
+                      "type": "string",
+                      "key": 0,
+                      "value": "15397610093",
+                      "description": "",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "contents": {
+          "json": {
+            "content": "[\r\n  {\r\n    \"business_id\": \"2114790476920\",\r\n    \"business_type\":\"tzgg\",\r\n    \"correlation_user_filed\": \"mobile\",\r\n    \"message_content\": \"订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!\",\r\n    \"message_title\": \"任务流转消息\",\r\n    \"message_type\": \"10\",\r\n    \"send_user_list\": [\r\n      \"15397610093\"\r\n    ]\r\n  }\r\n]",
+            "schema": {
+              "id": "node_1782810283885_a75n6egjx",
+              "type": "array",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": [
+                {
+                  "id": "node_1782810283886_z762lwnjj",
+                  "type": "object",
+                  "key": 0,
+                  "value": null,
+                  "description": "",
+                  "children": [
+                    {
+                      "id": "node_1782810283886_wvpixk9np",
+                      "type": "string",
+                      "key": "business_id",
+                      "value": "2114790476920",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782810283886_sar13vsih",
+                      "type": "string",
+                      "key": "business_type",
+                      "value": "tzgg",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782810283886_xsealsaf6",
+                      "type": "string",
+                      "key": "correlation_user_filed",
+                      "value": "mobile",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782810283886_ad0s57dnh",
+                      "type": "string",
+                      "key": "message_content",
+                      "value": "订单【CSICBC26000013】下样品【GZC2600005】已【正常流转】至项目检测,请及时处理!",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782810283886_8rsbwf8uu",
+                      "type": "string",
+                      "key": "message_title",
+                      "value": "任务流转消息",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782810283886_5sk2xg3jg",
+                      "type": "string",
+                      "key": "message_type",
+                      "value": "10",
+                      "description": "",
+                      "children": []
+                    },
+                    {
+                      "id": "node_1782810283886_egt2yv3py",
+                      "type": "array",
+                      "key": "send_user_list",
+                      "value": null,
+                      "description": "",
+                      "children": [
+                        {
+                          "id": "node_1782810283886_y7m6u3fv7",
+                          "type": "string",
+                          "key": 0,
+                          "value": "15397610093",
+                          "description": "",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "assertions": [
+        {
+          "expression": "",
+          "enabled": true
+        }
+      ],
+      "refChain": []
+    }
+  }
+}

@@ -1,0 +1,4460 @@
+[
+  {
+    "id": 1782899720452,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782790252913_9f8eb9307",
+    "apiName": "手动触发消息推送",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{tm-prj}/portal/manual-sync",
+    "timestamp": "2026/7/1 17:55:20",
+    "apiConfig": {
+      "name": "手动触发消息推送",
+      "group": "default",
+      "api_path": "{domain}{tm-prj}/portal/manual-sync",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {},
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "ids",
+            "default": "2158377386408",
+            "type": "string",
+            "description": "tm_inner_done_b表的id串，多个逗号隔开，传空会自动同步未同步的数据（调用一次最多同步100条）到tm_portal_sync_log_b表，并自动发送全部tm_portal_sync_log_b表失败的消息",
+            "enabled": false
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782790252930_1p0lx66wi",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782790252930_1p0lx66wi",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "71",
+        "date": "Wed, 01 Jul 2026 09:55:20 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.28s",
+      "responseSize": "39 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": {},
+        "bodyType": "json"
+      },
+      "_startTime": 1782899720169,
+      "_endTime": 1782899720452
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.28s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "71",
+      "date": "Wed, 01 Jul 2026 09:55:20 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782790252913_9f8eb9307": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "71",
+          "date": "Wed, 01 Jul 2026 09:55:20 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.28s",
+        "responseSize": "39 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": {},
+          "bodyType": "json"
+        },
+        "_startTime": 1782899720169,
+        "_endTime": 1782899720452
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782790252913_9f8eb9307",
+        "name": "手动触发消息推送",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "71",
+            "date": "Wed, 01 Jul 2026 09:55:20 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.28s",
+          "responseSize": "39 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": {},
+            "bodyType": "json"
+          },
+          "_startTime": 1782899720169,
+          "_endTime": 1782899720452
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782811943862,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782790252913_9f8eb9307",
+    "apiName": "手动触发消息推送",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{tm-prj}/portal/manual-sync",
+    "timestamp": "2026/6/30 17:32:23",
+    "apiConfig": {
+      "name": "手动触发消息推送",
+      "group": "default",
+      "api_path": "{domain}{tm-prj}/portal/manual-sync",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "ids": "2158377386408"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "ids",
+            "default": "2158377386408",
+            "type": "string",
+            "description": "tm_portal_sync_log_b表的id串，多个逗号隔开，传空会自动同步tm_inner_done_b表未同步的数据（调用一次最多同步100条），并自动发送全部tm_portal_sync_log_b表失败的消息",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782790252930_1p0lx66wi",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782790252930_1p0lx66wi",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "55",
+        "date": "Tue, 30 Jun 2026 09:32:23 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "2.15s",
+      "responseSize": "33 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "ids=2158377386408",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782811941711,
+      "_endTime": 1782811943862
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "2.15s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "55",
+      "date": "Tue, 30 Jun 2026 09:32:23 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782790252913_9f8eb9307": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "55",
+          "date": "Tue, 30 Jun 2026 09:32:23 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "2.15s",
+        "responseSize": "33 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "ids=2158377386408",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782811941711,
+        "_endTime": 1782811943862
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782790252913_9f8eb9307",
+        "name": "手动触发消息推送",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "55",
+            "date": "Tue, 30 Jun 2026 09:32:23 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "2.15s",
+          "responseSize": "33 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "ids=2158377386408",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782811941711,
+          "_endTime": 1782811943862
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782811918006,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782790252913_9f8eb9307",
+    "apiName": "手动触发消息推送",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{tm-prj}/portal/manual-sync",
+    "timestamp": "2026/6/30 17:31:58",
+    "apiConfig": {
+      "name": "手动触发消息推送",
+      "group": "default",
+      "api_path": "{domain}{tm-prj}/portal/manual-sync",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "ids": "179"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "ids",
+            "default": "179",
+            "type": "string",
+            "description": "tm_portal_sync_log_b表的id串，多个逗号隔开，传空会自动同步tm_inner_done_b表未同步的数据（调用一次最多同步100条），并自动发送全部tm_portal_sync_log_b表失败的消息",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782790252930_1p0lx66wi",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782790252930_1p0lx66wi",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "55",
+        "date": "Tue, 30 Jun 2026 09:31:58 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.01s",
+      "responseSize": "33 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "ids=179",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782811917990,
+      "_endTime": 1782811918006
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.01s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "55",
+      "date": "Tue, 30 Jun 2026 09:31:58 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782790252913_9f8eb9307": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "55",
+          "date": "Tue, 30 Jun 2026 09:31:58 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.01s",
+        "responseSize": "33 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "ids=179",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782811917990,
+        "_endTime": 1782811918006
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782790252913_9f8eb9307",
+        "name": "手动触发消息推送",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "55",
+            "date": "Tue, 30 Jun 2026 09:31:58 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.01s",
+          "responseSize": "33 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "ids=179",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782811917990,
+          "_endTime": 1782811918006
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782811887719,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782790252913_9f8eb9307",
+    "apiName": "手动触发消息推送",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{tm-prj}/portal/manual-sync",
+    "timestamp": "2026/6/30 17:31:27",
+    "apiConfig": {
+      "name": "手动触发消息推送",
+      "group": "default",
+      "api_path": "{domain}{tm-prj}/portal/manual-sync",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "ids": "179"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "ids",
+            "default": "179",
+            "type": "string",
+            "description": "tm_portal_sync_log_b表的id串，多个逗号隔开，传空会自动同步tm_inner_done_b表未同步的数据（调用一次最多同步100条），并自动发送全部tm_portal_sync_log_b表失败的消息",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782790252930_1p0lx66wi",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782790252930_1p0lx66wi",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "55",
+        "date": "Tue, 30 Jun 2026 09:31:27 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.01s",
+      "responseSize": "33 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "ids=179",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782811887709,
+      "_endTime": 1782811887719
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.01s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "55",
+      "date": "Tue, 30 Jun 2026 09:31:27 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782790252913_9f8eb9307": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "55",
+          "date": "Tue, 30 Jun 2026 09:31:27 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.01s",
+        "responseSize": "33 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "ids=179",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782811887709,
+        "_endTime": 1782811887719
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782790252913_9f8eb9307",
+        "name": "手动触发消息推送",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "55",
+            "date": "Tue, 30 Jun 2026 09:31:27 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.01s",
+          "responseSize": "33 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "ids=179",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782811887709,
+          "_endTime": 1782811887719
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782811743106,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782790252913_9f8eb9307",
+    "apiName": "手动触发消息推送",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{tm-prj}/portal/manual-sync",
+    "timestamp": "2026/6/30 17:29:03",
+    "apiConfig": {
+      "name": "手动触发消息推送",
+      "group": "default",
+      "api_path": "{domain}{tm-prj}/portal/manual-sync",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "ids": "70"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "ids",
+            "default": "70",
+            "type": "string",
+            "description": "tm_portal_sync_log_b表的id串，多个逗号隔开，传空会自动同步tm_inner_done_b表未同步的数据（调用一次最多同步100条），并自动发送全部tm_portal_sync_log_b表失败的消息",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782790252930_1p0lx66wi",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782790252930_1p0lx66wi",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "55",
+        "date": "Tue, 30 Jun 2026 09:29:03 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.01s",
+      "responseSize": "33 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "ids=70",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782811743091,
+      "_endTime": 1782811743106
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.01s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "55",
+      "date": "Tue, 30 Jun 2026 09:29:03 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782790252913_9f8eb9307": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "55",
+          "date": "Tue, 30 Jun 2026 09:29:03 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.01s",
+        "responseSize": "33 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "ids=70",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782811743091,
+        "_endTime": 1782811743106
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782790252913_9f8eb9307",
+        "name": "手动触发消息推送",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "55",
+            "date": "Tue, 30 Jun 2026 09:29:03 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.01s",
+          "responseSize": "33 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "ids=70",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782811743091,
+          "_endTime": 1782811743106
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782811638829,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782790252913_9f8eb9307",
+    "apiName": "手动触发消息推送",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{tm-prj}/portal/manual-sync",
+    "timestamp": "2026/6/30 17:27:18",
+    "apiConfig": {
+      "name": "手动触发消息推送",
+      "group": "default",
+      "api_path": "{domain}{tm-prj}/portal/manual-sync",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "ids": "71"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "ids",
+            "default": "71",
+            "type": "string",
+            "description": "tm_portal_sync_log_b表的id串，多个逗号隔开，传空会自动同步tm_inner_done_b表未同步的数据（调用一次最多同步100条），并自动发送全部tm_portal_sync_log_b表失败的消息",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782790252930_1p0lx66wi",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782790252930_1p0lx66wi",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "55",
+        "date": "Tue, 30 Jun 2026 09:27:18 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.15s",
+      "responseSize": "33 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "ids=71",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782811638676,
+      "_endTime": 1782811638829
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.15s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "55",
+      "date": "Tue, 30 Jun 2026 09:27:18 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782790252913_9f8eb9307": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "55",
+          "date": "Tue, 30 Jun 2026 09:27:18 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.15s",
+        "responseSize": "33 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "ids=71",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782811638676,
+        "_endTime": 1782811638829
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782790252913_9f8eb9307",
+        "name": "手动触发消息推送",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "55",
+            "date": "Tue, 30 Jun 2026 09:27:18 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.15s",
+          "responseSize": "33 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "ids=71",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782811638676,
+          "_endTime": 1782811638829
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782810457045,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782790252913_9f8eb9307",
+    "apiName": "手动触发消息推送",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{tm-prj}/portal/manual-sync",
+    "timestamp": "2026/6/30 17:07:37",
+    "apiConfig": {
+      "name": "手动触发消息推送",
+      "group": "default",
+      "api_path": "{domain}{tm-prj}/portal/manual-sync",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {
+        "ids": "71"
+      },
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "ids",
+            "default": "71",
+            "type": "string",
+            "description": "",
+            "enabled": true
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782790252930_1p0lx66wi",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782790252930_1p0lx66wi",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "55",
+        "date": "Tue, 30 Jun 2026 09:07:37 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "4.95s",
+      "responseSize": "33 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "ids=71",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782810452089,
+      "_endTime": 1782810457044
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "4.95s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "55",
+      "date": "Tue, 30 Jun 2026 09:07:37 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782790252913_9f8eb9307": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "55",
+          "date": "Tue, 30 Jun 2026 09:07:37 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "4.95s",
+        "responseSize": "33 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "ids=71",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782810452089,
+        "_endTime": 1782810457044
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782790252913_9f8eb9307",
+        "name": "手动触发消息推送",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "55",
+            "date": "Tue, 30 Jun 2026 09:07:37 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "4.95s",
+          "responseSize": "33 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "ids=71",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782810452089,
+          "_endTime": 1782810457044
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782808278150,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782790252913_9f8eb9307",
+    "apiName": "手动触发消息推送",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{tm-prj}/portal/manual-sync",
+    "timestamp": "2026/6/30 16:31:18",
+    "apiConfig": {
+      "name": "手动触发消息推送",
+      "group": "group_mqynq3dwmszg8",
+      "api_path": "{domain}{tm-prj}/portal/manual-sync",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {},
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "ids",
+            "default": "71",
+            "type": "string",
+            "description": "",
+            "enabled": false
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782790252930_1p0lx66wi",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782790252930_1p0lx66wi",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "71",
+        "date": "Tue, 30 Jun 2026 08:31:18 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.28s",
+      "responseSize": "39 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782808277845,
+      "_endTime": 1782808278150
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.28s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "71",
+      "date": "Tue, 30 Jun 2026 08:31:18 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782790252913_9f8eb9307": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "71",
+          "date": "Tue, 30 Jun 2026 08:31:18 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.28s",
+        "responseSize": "39 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782808277845,
+        "_endTime": 1782808278150
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782790252913_9f8eb9307",
+        "name": "手动触发消息推送",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "71",
+            "date": "Tue, 30 Jun 2026 08:31:18 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.28s",
+          "responseSize": "39 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782808277845,
+          "_endTime": 1782808278150
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782802769320,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782790252913_9f8eb9307",
+    "apiName": "手动触发消息推送",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{tm-prj}/portal/manual-sync",
+    "timestamp": "2026/6/30 14:59:29",
+    "apiConfig": {
+      "name": "手动触发消息推送",
+      "group": "group_mqynq3dwmszg8",
+      "api_path": "{domain}{tm-prj}/portal/manual-sync",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {},
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "ids",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": false
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782790252930_1p0lx66wi",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782790252930_1p0lx66wi",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "71",
+        "date": "Tue, 30 Jun 2026 06:59:29 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.01s",
+      "responseSize": "39 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782802769294,
+      "_endTime": 1782802769320
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.01s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "71",
+      "date": "Tue, 30 Jun 2026 06:59:29 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782790252913_9f8eb9307": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "71",
+          "date": "Tue, 30 Jun 2026 06:59:29 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.01s",
+        "responseSize": "39 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782802769294,
+        "_endTime": 1782802769320
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782790252913_9f8eb9307",
+        "name": "手动触发消息推送",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "71",
+            "date": "Tue, 30 Jun 2026 06:59:29 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.01s",
+          "responseSize": "39 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782802769294,
+          "_endTime": 1782802769320
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782802559972,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782790252913_9f8eb9307",
+    "apiName": "手动触发消息推送",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{tm-prj}/portal/manual-sync",
+    "timestamp": "2026/6/30 14:55:59",
+    "apiConfig": {
+      "name": "手动触发消息推送",
+      "group": "group_mqynq3dwmszg8",
+      "api_path": "{domain}{tm-prj}/portal/manual-sync",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {},
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "ids",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": false
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782790252930_1p0lx66wi",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782790252930_1p0lx66wi",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "71",
+        "date": "Tue, 30 Jun 2026 06:55:59 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.19s",
+      "responseSize": "39 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782802559777,
+      "_endTime": 1782802559972
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.19s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "71",
+      "date": "Tue, 30 Jun 2026 06:55:59 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782790252913_9f8eb9307": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "71",
+          "date": "Tue, 30 Jun 2026 06:55:59 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.19s",
+        "responseSize": "39 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782802559777,
+        "_endTime": 1782802559972
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782790252913_9f8eb9307",
+        "name": "手动触发消息推送",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "71",
+            "date": "Tue, 30 Jun 2026 06:55:59 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.19s",
+          "responseSize": "39 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782802559777,
+          "_endTime": 1782802559972
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782801552878,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782790252913_9f8eb9307",
+    "apiName": "手动触发消息推送",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{tm-prj}/portal/manual-sync",
+    "timestamp": "2026/6/30 14:39:12",
+    "apiConfig": {
+      "name": "手动触发消息推送",
+      "group": "group_mqynq3dwmszg8",
+      "api_path": "{domain}{tm-prj}/portal/manual-sync",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {},
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "ids",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": false
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782790252930_1p0lx66wi",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782790252930_1p0lx66wi",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "71",
+        "date": "Tue, 30 Jun 2026 06:39:12 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.01s",
+      "responseSize": "39 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782801552861,
+      "_endTime": 1782801552878
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.01s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "71",
+      "date": "Tue, 30 Jun 2026 06:39:12 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782790252913_9f8eb9307": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "71",
+          "date": "Tue, 30 Jun 2026 06:39:12 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.01s",
+        "responseSize": "39 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782801552861,
+        "_endTime": 1782801552878
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782790252913_9f8eb9307",
+        "name": "手动触发消息推送",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "71",
+            "date": "Tue, 30 Jun 2026 06:39:12 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.01s",
+          "responseSize": "39 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782801552861,
+          "_endTime": 1782801552878
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782801392124,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782790252913_9f8eb9307",
+    "apiName": "手动触发消息推送",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{tm-prj}/portal/manual-sync",
+    "timestamp": "2026/6/30 14:36:32",
+    "apiConfig": {
+      "name": "手动触发消息推送",
+      "group": "group_mqynq3dwmszg8",
+      "api_path": "{domain}{tm-prj}/portal/manual-sync",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {},
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "ids",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": false
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782790252930_1p0lx66wi",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782790252930_1p0lx66wi",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "71",
+        "date": "Tue, 30 Jun 2026 06:36:32 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.01s",
+      "responseSize": "39 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782801392106,
+      "_endTime": 1782801392124
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.01s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "71",
+      "date": "Tue, 30 Jun 2026 06:36:32 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782790252913_9f8eb9307": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "71",
+          "date": "Tue, 30 Jun 2026 06:36:32 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.01s",
+        "responseSize": "39 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782801392106,
+        "_endTime": 1782801392124
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782790252913_9f8eb9307",
+        "name": "手动触发消息推送",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "71",
+            "date": "Tue, 30 Jun 2026 06:36:32 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.01s",
+          "responseSize": "39 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782801392106,
+          "_endTime": 1782801392124
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782801317897,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782790252913_9f8eb9307",
+    "apiName": "手动触发消息推送",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{tm-prj}/portal/manual-sync",
+    "timestamp": "2026/6/30 14:35:17",
+    "apiConfig": {
+      "name": "手动触发消息推送",
+      "group": "group_mqynq3dwmszg8",
+      "api_path": "{domain}{tm-prj}/portal/manual-sync",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {},
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "ids",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": false
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782790252930_1p0lx66wi",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782790252930_1p0lx66wi",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "71",
+        "date": "Tue, 30 Jun 2026 06:35:17 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.01s",
+      "responseSize": "39 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782801317866,
+      "_endTime": 1782801317894
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.01s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "71",
+      "date": "Tue, 30 Jun 2026 06:35:17 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782790252913_9f8eb9307": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "71",
+          "date": "Tue, 30 Jun 2026 06:35:17 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.01s",
+        "responseSize": "39 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782801317866,
+        "_endTime": 1782801317894
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782790252913_9f8eb9307",
+        "name": "手动触发消息推送",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "71",
+            "date": "Tue, 30 Jun 2026 06:35:17 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.01s",
+          "responseSize": "39 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782801317866,
+          "_endTime": 1782801317894
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782801266677,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782790252913_9f8eb9307",
+    "apiName": "手动触发消息推送",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{tm-prj}/portal/manual-sync",
+    "timestamp": "2026/6/30 14:34:26",
+    "apiConfig": {
+      "name": "手动触发消息推送",
+      "group": "group_mqynq3dwmszg8",
+      "api_path": "{domain}{tm-prj}/portal/manual-sync",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {},
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "ids",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": false
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782790252930_1p0lx66wi",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782790252930_1p0lx66wi",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "71",
+        "date": "Tue, 30 Jun 2026 06:34:26 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.22s",
+      "responseSize": "39 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782801266430,
+      "_endTime": 1782801266677
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.22s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "71",
+      "date": "Tue, 30 Jun 2026 06:34:26 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782790252913_9f8eb9307": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "71",
+          "date": "Tue, 30 Jun 2026 06:34:26 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.22s",
+        "responseSize": "39 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782801266430,
+        "_endTime": 1782801266677
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782790252913_9f8eb9307",
+        "name": "手动触发消息推送",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "71",
+            "date": "Tue, 30 Jun 2026 06:34:26 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.22s",
+          "responseSize": "39 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782801266430,
+          "_endTime": 1782801266677
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782800281610,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782790252913_9f8eb9307",
+    "apiName": "手动触发消息推送",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{tm-prj}/portal/manual-sync",
+    "timestamp": "2026/6/30 14:18:01",
+    "apiConfig": {
+      "name": "手动触发消息推送",
+      "group": "group_mqynq3dwmszg8",
+      "api_path": "{domain}{tm-prj}/portal/manual-sync",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {},
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "ids",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": false
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782790252930_1p0lx66wi",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782790252930_1p0lx66wi",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "71",
+        "date": "Tue, 30 Jun 2026 06:18:01 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.16s",
+      "responseSize": "39 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782800281447,
+      "_endTime": 1782800281610
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.16s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "71",
+      "date": "Tue, 30 Jun 2026 06:18:01 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782790252913_9f8eb9307": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "71",
+          "date": "Tue, 30 Jun 2026 06:18:01 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.16s",
+        "responseSize": "39 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782800281447,
+        "_endTime": 1782800281610
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782790252913_9f8eb9307",
+        "name": "手动触发消息推送",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "71",
+            "date": "Tue, 30 Jun 2026 06:18:01 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.16s",
+          "responseSize": "39 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782800281447,
+          "_endTime": 1782800281610
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782799888140,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782790252913_9f8eb9307",
+    "apiName": "手动触发消息推送",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{tm-prj}/portal/manual-sync",
+    "timestamp": "2026/6/30 14:11:28",
+    "apiConfig": {
+      "name": "手动触发消息推送",
+      "group": "group_mqynq3dwmszg8",
+      "api_path": "{domain}{tm-prj}/portal/manual-sync",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {},
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "ids",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": false
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782790252930_1p0lx66wi",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782790252930_1p0lx66wi",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "71",
+        "date": "Tue, 30 Jun 2026 06:11:28 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.32s",
+      "responseSize": "39 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782799887819,
+      "_endTime": 1782799888140
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.32s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "71",
+      "date": "Tue, 30 Jun 2026 06:11:28 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782790252913_9f8eb9307": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "71",
+          "date": "Tue, 30 Jun 2026 06:11:28 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.32s",
+        "responseSize": "39 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782799887819,
+        "_endTime": 1782799888140
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782790252913_9f8eb9307",
+        "name": "手动触发消息推送",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "71",
+            "date": "Tue, 30 Jun 2026 06:11:28 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.32s",
+          "responseSize": "39 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782799887819,
+          "_endTime": 1782799888140
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782797170307,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782790252913_9f8eb9307",
+    "apiName": "手动触发消息推送",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{tm-prj}/portal/manual-sync",
+    "timestamp": "2026/6/30 13:26:10",
+    "apiConfig": {
+      "name": "手动触发消息推送",
+      "group": "group_mqynq3dwmszg8",
+      "api_path": "{domain}{tm-prj}/portal/manual-sync",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {},
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "ids",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": false
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782790252930_1p0lx66wi",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782790252930_1p0lx66wi",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "71",
+        "date": "Tue, 30 Jun 2026 05:26:10 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.42s",
+      "responseSize": "39 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782797169704,
+      "_endTime": 1782797170307
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.42s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "71",
+      "date": "Tue, 30 Jun 2026 05:26:10 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782790252913_9f8eb9307": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "71",
+          "date": "Tue, 30 Jun 2026 05:26:10 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.42s",
+        "responseSize": "39 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782797169704,
+        "_endTime": 1782797170307
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782790252913_9f8eb9307",
+        "name": "手动触发消息推送",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "71",
+            "date": "Tue, 30 Jun 2026 05:26:10 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.42s",
+          "responseSize": "39 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782797169704,
+          "_endTime": 1782797170307
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782797110516,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782790252913_9f8eb9307",
+    "apiName": "手动触发消息推送",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{tm-prj}/portal/manual-sync",
+    "timestamp": "2026/6/30 13:25:10",
+    "apiConfig": {
+      "name": "手动触发消息推送",
+      "group": "group_mqynq3dwmszg8",
+      "api_path": "{domain}{tm-prj}/portal/manual-sync",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {},
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "ids",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": false
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782790252930_1p0lx66wi",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782790252930_1p0lx66wi",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "71",
+        "date": "Tue, 30 Jun 2026 05:25:10 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.24s",
+      "responseSize": "39 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782797110223,
+      "_endTime": 1782797110515
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.24s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "71",
+      "date": "Tue, 30 Jun 2026 05:25:10 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782790252913_9f8eb9307": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "71",
+          "date": "Tue, 30 Jun 2026 05:25:10 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.24s",
+        "responseSize": "39 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782797110223,
+        "_endTime": 1782797110515
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782790252913_9f8eb9307",
+        "name": "手动触发消息推送",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": "{\"code\":\"suc\",\"message\":\"全量扫描+重试已异步提交\"}",
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "71",
+            "date": "Tue, 30 Jun 2026 05:25:10 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.24s",
+          "responseSize": "39 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782797110223,
+          "_endTime": 1782797110515
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782791087859,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782790252913_9f8eb9307",
+    "apiName": "手动触发消息推送",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{tm-prj}/portal/manual-sync",
+    "timestamp": "2026/6/30 11:44:47",
+    "apiConfig": {
+      "name": "手动触发消息推送",
+      "group": "group_mqynq3dwmszg8",
+      "api_path": "{domain}{tm-prj}/portal/manual-sync",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {},
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "ids",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": false
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782790252930_1p0lx66wi",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782790252930_1p0lx66wi",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "TIMEOUT",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "5.01s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "请求超时",
+      "errorType": "timeout",
+      "requestConfig": {
+        "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782791082850,
+      "_endTime": 1782791087859
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "5.01s",
+    "error": "请求超时",
+    "errorType": "timeout",
+    "assertionResult": null,
+    "responseHeaders": {},
+    "allResults": {
+      "api_1782790252913_9f8eb9307": {
+        "status_text": "TIMEOUT",
+        "httpSuccess": false,
+        "success": false,
+        "headers": {},
+        "elapsedTime": "5.01s",
+        "responseSize": "0 B",
+        "assertionResult": null,
+        "error": "请求超时",
+        "errorType": "timeout",
+        "requestConfig": {
+          "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782791082850,
+        "_endTime": 1782791087859
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782790252913_9f8eb9307",
+        "name": "手动触发消息推送",
+        "result": {
+          "status_text": "TIMEOUT",
+          "httpSuccess": false,
+          "success": false,
+          "headers": {},
+          "elapsedTime": "5.01s",
+          "responseSize": "0 B",
+          "assertionResult": null,
+          "error": "请求超时",
+          "errorType": "timeout",
+          "requestConfig": {
+            "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782791082850,
+          "_endTime": 1782791087859
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782790846080,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782790252913_9f8eb9307",
+    "apiName": "手动触发消息推送",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{tm-prj}/portal/manual-sync",
+    "timestamp": "2026/6/30 11:40:46",
+    "apiConfig": {
+      "name": "手动触发消息推送",
+      "group": "group_mqynq3dwmszg8",
+      "api_path": "{domain}{tm-prj}/portal/manual-sync",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {},
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "ids",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": false
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782790252930_1p0lx66wi",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782790252930_1p0lx66wi",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_text": "TIMEOUT",
+      "httpSuccess": false,
+      "success": false,
+      "headers": {},
+      "elapsedTime": "5.02s",
+      "responseSize": "0 B",
+      "assertionResult": null,
+      "error": "请求超时",
+      "errorType": "timeout",
+      "requestConfig": {
+        "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782790841039,
+      "_endTime": 1782790846080
+    },
+    "success": false,
+    "httpSuccess": false,
+    "elapsedTime": "5.02s",
+    "error": "请求超时",
+    "errorType": "timeout",
+    "assertionResult": null,
+    "responseHeaders": {},
+    "allResults": {
+      "api_1782790252913_9f8eb9307": {
+        "status_text": "TIMEOUT",
+        "httpSuccess": false,
+        "success": false,
+        "headers": {},
+        "elapsedTime": "5.02s",
+        "responseSize": "0 B",
+        "assertionResult": null,
+        "error": "请求超时",
+        "errorType": "timeout",
+        "requestConfig": {
+          "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782790841039,
+        "_endTime": 1782790846080
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782790252913_9f8eb9307",
+        "name": "手动触发消息推送",
+        "result": {
+          "status_text": "TIMEOUT",
+          "httpSuccess": false,
+          "success": false,
+          "headers": {},
+          "elapsedTime": "5.02s",
+          "responseSize": "0 B",
+          "assertionResult": null,
+          "error": "请求超时",
+          "errorType": "timeout",
+          "requestConfig": {
+            "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782790841039,
+          "_endTime": 1782790846080
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782790807297,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782790252913_9f8eb9307",
+    "apiName": "手动触发消息推送",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{tm-prj}/portal/manual-sync",
+    "timestamp": "2026/6/30 11:40:07",
+    "apiConfig": {
+      "name": "手动触发消息推送",
+      "group": "group_mqynq3dwmszg8",
+      "api_path": "{domain}{tm-prj}/portal/manual-sync",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {},
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "ids",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": false
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782790252930_1p0lx66wi",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782790252930_1p0lx66wi",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "55",
+        "date": "Tue, 30 Jun 2026 03:40:07 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.15s",
+      "responseSize": "33 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782790807143,
+      "_endTime": 1782790807297
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.15s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "55",
+      "date": "Tue, 30 Jun 2026 03:40:07 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782790252913_9f8eb9307": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "55",
+          "date": "Tue, 30 Jun 2026 03:40:07 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.15s",
+        "responseSize": "33 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782790807143,
+        "_endTime": 1782790807297
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782790252913_9f8eb9307",
+        "name": "手动触发消息推送",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "55",
+            "date": "Tue, 30 Jun 2026 03:40:07 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.15s",
+          "responseSize": "33 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782790807143,
+          "_endTime": 1782790807297
+        },
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": 1782790332115,
+    "scenarioId": null,
+    "scenarioName": null,
+    "apiId": "api_1782790252913_9f8eb9307",
+    "apiName": "手动触发消息推送",
+    "apiMethod": "POST",
+    "apiPath": "{domain}{tm-prj}/portal/manual-sync",
+    "timestamp": "2026/6/30 11:32:12",
+    "apiConfig": {
+      "name": "手动触发消息推送",
+      "group": "group_mqynq3dwmszg8",
+      "api_path": "{domain}{tm-prj}/portal/manual-sync",
+      "method": "POST",
+      "header": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "param": {},
+      "body": {},
+      "chain": [],
+      "successAssert": ""
+    },
+    "requestInfo": {
+      "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "default": "application/x-www-form-urlencoded",
+          "type": "string",
+          "description": "",
+          "enabled": true
+        }
+      ],
+      "param": [],
+      "body": {
+        "type": "x-www-form-urlencoded",
+        "formData": [],
+        "xwwwFormUrlencoded": [
+          {
+            "key": "ids",
+            "default": "",
+            "type": "string",
+            "description": "",
+            "enabled": false
+          }
+        ],
+        "activeContentType": "json",
+        "contentType": "json",
+        "content": "{}",
+        "schema": {
+          "id": "node_1782790252930_1p0lx66wi",
+          "type": "object",
+          "key": null,
+          "value": null,
+          "description": "",
+          "children": []
+        },
+        "contents": {
+          "json": {
+            "content": "{}",
+            "schema": {
+              "id": "node_1782790252930_1p0lx66wi",
+              "type": "object",
+              "key": null,
+              "value": null,
+              "description": "",
+              "children": []
+            }
+          },
+          "xml": {
+            "content": "",
+            "schema": null
+          },
+          "text": {
+            "content": "",
+            "schema": null
+          },
+          "html": {
+            "content": "",
+            "schema": null
+          }
+        }
+      },
+      "bodyType": "x-www-form-urlencoded",
+      "rawContentType": "json"
+    },
+    "targetResult": {
+      "status_code": 200,
+      "status_text": "",
+      "httpSuccess": true,
+      "success": true,
+      "data": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+      "headers": {
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "content-type": "application/json",
+        "content-length": "55",
+        "date": "Tue, 30 Jun 2026 03:32:12 GMT",
+        "connection": "close"
+      },
+      "elapsedTime": "0.16s",
+      "responseSize": "33 B",
+      "assertionResult": null,
+      "error": "",
+      "errorType": "unknown",
+      "requestConfig": {
+        "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "params": {},
+        "body": "",
+        "bodyType": "raw"
+      },
+      "_startTime": 1782790331947,
+      "_endTime": 1782790332115
+    },
+    "success": true,
+    "httpSuccess": true,
+    "status_code": 200,
+    "elapsedTime": "0.16s",
+    "error": "",
+    "errorType": "unknown",
+    "responseData": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+    "assertionResult": null,
+    "responseHeaders": {
+      "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+      "content-type": "application/json",
+      "content-length": "55",
+      "date": "Tue, 30 Jun 2026 03:32:12 GMT",
+      "connection": "close"
+    },
+    "allResults": {
+      "api_1782790252913_9f8eb9307": {
+        "status_code": 200,
+        "status_text": "",
+        "httpSuccess": true,
+        "success": true,
+        "data": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+        "headers": {
+          "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+          "content-type": "application/json",
+          "content-length": "55",
+          "date": "Tue, 30 Jun 2026 03:32:12 GMT",
+          "connection": "close"
+        },
+        "elapsedTime": "0.16s",
+        "responseSize": "33 B",
+        "assertionResult": null,
+        "error": "",
+        "errorType": "unknown",
+        "requestConfig": {
+          "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          "params": {},
+          "body": "",
+          "bodyType": "raw"
+        },
+        "_startTime": 1782790331947,
+        "_endTime": 1782790332115
+      }
+    },
+    "resultCards": [
+      {
+        "apiId": "api_1782790252913_9f8eb9307",
+        "name": "手动触发消息推送",
+        "result": {
+          "status_code": 200,
+          "status_text": "",
+          "httpSuccess": true,
+          "success": true,
+          "data": "{\"code\":\"suc\",\"message\":\"手动同步完成\"}",
+          "headers": {
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "content-type": "application/json",
+            "content-length": "55",
+            "date": "Tue, 30 Jun 2026 03:32:12 GMT",
+            "connection": "close"
+          },
+          "elapsedTime": "0.16s",
+          "responseSize": "33 B",
+          "assertionResult": null,
+          "error": "",
+          "errorType": "unknown",
+          "requestConfig": {
+            "url": "http://localhost:25112/tm-prj/portal/manual-sync",
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            "params": {},
+            "body": "",
+            "bodyType": "raw"
+          },
+          "_startTime": 1782790331947,
+          "_endTime": 1782790332115
+        },
+        "isTarget": true
+      }
+    ]
+  }
+]

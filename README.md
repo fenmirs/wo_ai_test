@@ -155,6 +155,9 @@ npm start
 
 ```bash
 # windows打包：管理员身份进入powershell运行
+Remove-Item -Recurse -Force build
+Remove-Item -Recurse -Force node_modules\.cache
+npm run build
 npm run electron-build
 ```
 #### 由于github某些包下载缓慢或无法下载，现提供解决办法

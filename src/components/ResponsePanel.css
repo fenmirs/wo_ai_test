@@ -219,11 +219,13 @@
 }
 
 .pipe-dot.success { background: var(--success-color); }
+.pipe-dot.warning { background: var(--warning-color); }
 .pipe-dot.error   { background: var(--error-color); }
 
 /* 星形节点继承同尺寸 */
 .pipe-star { font-size: 11px; }
 .pipe-star.success { background: var(--success-color); }
+.pipe-star.warning { background: var(--warning-color); }
 .pipe-star.error   { background: var(--error-color); }
 
 /* 下排：耗时 —— 始终占据固定高度，避免各行节点上下错位 */
